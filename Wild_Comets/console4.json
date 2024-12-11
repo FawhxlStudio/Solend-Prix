@@ -1,0 +1,9 @@
+dia[$ "4"] = {}
+dia[$ "4"][$ "0"] = {}
+dia[$ "4"][$ "0"][$ "trg"] = TRIGGER.START
+dia[$ "4"][$ "0"][$ "done"] = F
+dia[$ "4"][$ "0"][$ "lim"] = 2
+dia[$ "4"][$ "0"][$ "action"] = ACTION.LEAVE
+dia[$ "4"][$ "0"][$ "0"] = "Alright, I'm going to go to my hangar..."
+dia[$ "4"][$ "0"][$ "1"] = "See you up there!"
+dia[$ "4"][$ "0"][$ "2"] = "[Spitfire runs off into the Spaceport waving an arm goodbye]"
