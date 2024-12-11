@@ -1,0 +1,11 @@
+/// @description Init
+override = F
+to_scni = N
+del = GSPD*1
+deli = 0
+delpct = 0
+done = F
+to_anim = N
+from_anim = N
+zmt = 1+(1/3)
+zXYpct = N

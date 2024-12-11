@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"vaVox1",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":256,
+  "compression":0,
+  "conversionMode":0,
+  "duration":5.601083,
+  "name":"vaVox1",
+  "parent":{
+    "name":"Vox",
+    "path":"folders/Sounds/Vox.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":48000,
+  "soundFile":"vaVox1.wav",
+  "type":1,
+  "volume":1.0,
+}

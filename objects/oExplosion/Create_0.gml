@@ -1,0 +1,21 @@
+/// @description Init
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+almn = (GSPD/2)
+almx = (GSPD*2)
+al = random_range(almn,almx)
+scl = random_range(1-(2/3),1+(2/3))
+ai = (1/scl)
+image_xscale = (WW/sprite_width)*scl
+image_yscale = image_xscale
+w = WW
+h = WH
+xpct = random_range(0,1)
+ypct = random_range(0,1/4)
+xx = w*xpct
+yy = h*ypct
+panx = 0
+pany = 0
+drft = T
+drftx = 0
+drfty = 0
+initd = F

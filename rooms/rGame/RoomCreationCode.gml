@@ -1,0 +1,1 @@
+D.game_state = GAME.PLAY
