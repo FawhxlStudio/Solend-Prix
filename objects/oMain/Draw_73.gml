@@ -186,7 +186,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																									if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
 																										
 																										TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
-																										TRAN.zXYpct = [lerp(_xy4[0],_xy4[2],.5)/D.mwref,lerp(_xy4[1],_xy4[3],.5)/D.mhref]
+																										TRAN.zXYpct = [MXPCT,MYPCT]
 																										
 																									}
 																									

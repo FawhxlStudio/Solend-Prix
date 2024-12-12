@@ -11,8 +11,10 @@ muted = F
 envInvert = T
 
 // Dbg Strings, 1 Auto Clear; 2 Manual Clear
+dbgStr = T
 dbgStr1 = ""
 dbgStr2 = ""
+dbgStrScrl = 0
 CON = U
 CONi = 0
 CONpre = "dia"

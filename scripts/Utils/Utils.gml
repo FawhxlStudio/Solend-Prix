@@ -18,13 +18,6 @@ function flipr() {
 	
 }
 
-function draw_set_hvalign(hva) {
-	
-	draw_set_halign(hva[0])
-	draw_set_valign(hva[1])
-	
-}
-
 function actor_find(_uid) {
 	
 	for(var i = 0; i < ds_list_size(D.actorL); i++) {
@@ -144,5 +137,63 @@ function mouse_in_window() {
 	
 	// Return T/F if we are in window...
 	return (dmx >= wx and dmx <= wx+WW and dmy >= wy and dmy <= wy+WH)
+	
+}
+
+// This has a very specific use case (i.e. nodes.json)
+// Cleans iterate-able struct of structs to fill in empty entries
+function struct_trim_and_backfill(inst) {
+	
+	if(is_struct(inst)) {
+		
+		// Init Loop; Length of Struct
+		var len = variable_instance_names_count(inst)
+		var last = F // To set to true if nothing to fill with
+		for(var ix = 0; ix < len; ix++) {
+			
+			// Sanitize Empty Structs
+			if(is_struct(inst[$ ix]) and variable_instance_names_count(inst[$ ix]) <= 0)
+				inst[$ ix] = N;
+			
+			// This Spot is Empty? Fill it with next if able...
+			if(inst[$ ix] == N and ix < len-1 and !last) {
+				
+				for(var iy = ix+1; iy < len; iy++) {
+					
+					// Sanitize Empty Structs
+					if(is_struct(inst[$ iy]) and variable_instance_names_count(inst[$ iy]) <= 0)
+						inst[$ iy] = N;
+					
+					// Is Sanitized; Is Done or Continue | Is Struct; Backfill it and Break...
+					if(inst[$ iy] == N) {
+						
+						// Is Last; Done and Break | Not Last; Try Next
+						if(iy == len-1) {
+							
+							// We will now go back to ix loop and delete all the sanitized entries...
+							last = T
+							break
+							
+						} else continue; // More to check; Keep going...
+						
+					} else if(is_struct(inst[$ iy])) {
+						
+						// Do Backfill...
+						inst[$ ix] = variable_clone(inst[$ iy])
+						inst[$ iy] = N // Then Sanitize Old Index
+						break
+						
+					} else inst[$ iy] = N; // Sanitize by default
+					
+				}
+				
+			}
+			
+			// No more to backfill... Remove sanitized entries...
+			if(last) variable_struct_remove(inst,string(ix));
+			
+		}
+		
+	}
 	
 }

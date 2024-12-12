@@ -291,7 +291,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																				if(variable_instance_exists(ES[$ string(i)],K.SCN+K.TO)) {
 																					
 																					if(_str != "") _str += "\n"
-																					_str += "to_scene: \""+ES[$ string(i)][$ K.SCN+K.TO]+"\""
+																					if(!is_string_real(ES[$ string(i)][$ K.SCN+K.TO])) _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO]);
+																					else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
 																					
 																				}
 																				
@@ -373,7 +374,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																					if(ES[$ string(i)][$ K.DL] != N) {
 																						
 																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Delay: " + string(ES[$ string(i)][$ K.DL])
+																						_str2 += "Delay: "+string(ES[$ string(i)][$ K.DL])
 																						
 																					}
 																					
@@ -393,7 +394,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																					if(ES[$ string(i)][$ K.ANM] != N) {
 																						
 																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Anim: " + string(ES[$ string(i)][$ K.ANM])
+																						_str2 += "Anim: \""+string(ES[$ string(i)][$ K.ANM])+"\""
 																						
 																					}
 																					
@@ -405,7 +406,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																					if(ES[$ string(i)][$ K.SPR] != N) {
 																						
 																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Sprite: " + string(ES[$ string(i)][$ K.SPR])
+																						_str2 += "Sprite: \""+string(ES[$ string(i)][$ K.SPR])+"\""
 																						
 																					}
 																					
@@ -417,7 +418,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																					if(ES[$ string(i)][$ K.SND] != N) {
 																						
 																						if(_str2 != "") _str2 += ", "
-																						_str2 += "SFX: " + string(ES[$ string(i)][$ K.SND])
+																						_str2 += "SFX: \""+string(ES[$ string(i)][$ K.SND])+"\""
 																						
 																					}
 																					
@@ -429,29 +430,36 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																			if(_str2 != "") _str += "\n"+_str2
 																			_str2 = "" // Reset
 																			
-																			// Entity
-																			if(variable_instance_exists(ES[$ string(i)],K.ENT)) {
+																			#region Assets 2
 																				
-																				if(ES[$ string(i)][$ K.ENT] != N) {
+																				// Entity
+																				if(variable_instance_exists(ES[$ string(i)],K.ENT)) {
 																					
-																					if(_str2 != "") _str2 += ", "
-																					_str2 += "Entity: " + string(ES[$ string(i)][$ K.ENT])
-																					
-																				}
-																				
-																			}
-																			
-																			// Click
-																			if(variable_instance_exists(ES[$ string(i)],K.CLK)) {
-																				
-																				if(ES[$ string(i)][$ K.CLK] != N) {
-																					
-																					if(_str2 != "") _str2 += ", "
-																					_str2 += "Click: " + string(ES[$ string(i)][$ K.CLK])
+																					if(ES[$ string(i)][$ K.ENT] != N) {
+																						
+																						if(_str2 != "") _str2 += ", "
+																						if(!is_string_real(ES[$ string(i)][$ K.ENT])) _str2 += "Entity: \""+string(ES[$ string(i)][$ K.ENT])+"\"";
+																						else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
+																						// If real, points to an actor, otherwise string could be anything else...
+																						
+																					}
 																					
 																				}
 																				
-																			}
+																				// Click
+																				if(variable_instance_exists(ES[$ string(i)],K.CLK)) {
+																					
+																					if(ES[$ string(i)][$ K.CLK] != N) {
+																						
+																						if(_str2 != "") _str2 += ", ";
+																						if(!is_string_real(ES[$ string(i)][$ K.CLK])) _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK]);
+																						else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+Vn[real(ES[$ string(i)][$ K.CLK])]+")";
+																						
+																					}
+																					
+																				}
+																				
+																			#endregion
 																			
 																			// Add to _str
 																			if(_str2 != "") _str += "\n"+_str2
@@ -569,7 +577,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																if(variable_instance_exists(ES[$ string(i)],K.SCN+K.TO)) {
 																	
 																	if(_str != "") _str += "\n"
-																	_str += "to_scene: \""+ES[$ string(i)][$ K.SCN+K.TO]+"\""
+																	if(!is_string_real(ES[$ string(i)][$ K.SCN+K.TO])) _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO]);
+																	else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
 																	
 																}
 																
@@ -707,29 +716,36 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 															if(_str2 != "") _str += "\n"+_str2
 															_str2 = "" // Reset
 															
-															// Entity
-															if(variable_instance_exists(ES[$ string(i)],K.ENT)) {
+															#region Assets 2
 																
-																if(ES[$ string(i)][$ K.ENT] != N) {
+																// Entity
+																if(variable_instance_exists(ES[$ string(i)],K.ENT)) {
 																	
-																	if(_str2 != "") _str2 += ", "
-																	_str2 += "Entity: " + string(ES[$ string(i)][$ K.ENT])
+																	if(ES[$ string(i)][$ K.ENT] != N) {
+																		
+																		if(_str2 != "") _str2 += ", "
+																		if(!is_string_real(ES[$ string(i)][$ K.ENT])) _str2 += "Entity: \""+string(ES[$ string(i)][$ K.ENT])+"\"";
+																		else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
+																		// If real, points to an actor, otherwise string could be anything else...
+																		
+																	}
 																	
 																}
 																
-															}
-															
-															// Click
-															if(variable_instance_exists(ES[$ string(i)],K.CLK)) {
-																				
-																if(ES[$ string(i)][$ K.CLK] != N) {
-																					
-																	if(_str2 != "") _str2 += ", "
-																	_str2 += "Click: " + string(ES[$ string(i)][$ K.CLK])
-																					
+																// Click
+																if(variable_instance_exists(ES[$ string(i)],K.CLK)) {
+																	
+																	if(ES[$ string(i)][$ K.CLK] != N) {
+																		
+																		if(_str2 != "") _str2 += ", ";
+																		if(!is_string_real(ES[$ string(i)][$ K.CLK])) _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK]);
+																		else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+Vn[real(ES[$ string(i)][$ K.CLK])]+")";
+																		
+																	}
+																	
 																}
-																				
-															}
+																
+															#endregion
 															
 															// Add to _str
 															if(_str2 != "") _str += "\n"+_str2
@@ -966,7 +982,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 								
 								#region Confirm Input
 									
-									if(ESedit == EDIT.TEXT) { // String/Text Edit
+									if(ESedit == EDIT.TEXT) { // String/Text Edit STR
 										
 										#region Message
 											
@@ -978,7 +994,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.TO_SCENE) { // To_Room Edit
+									} else if(ESedit == EDIT.TO_SCENE) { // To_Room Edit SCENE
 										
 										#region To Room
 											
@@ -990,7 +1006,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.TIMER) { // Timer Edit
+									} else if(ESedit == EDIT.TIMER) { // Timer Edit #
 										
 										#region Timer
 											
@@ -1002,7 +1018,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.DELAY) { // Delay Edit
+									} else if(ESedit == EDIT.DELAY) { // Delay Edit #
 										
 										#region Delay
 											
@@ -1014,7 +1030,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.ANIMATION) { // Animation Edit
+									} else if(ESedit == EDIT.ANIMATION) { // Animation Edit STR
 										
 										#region Animation
 											
@@ -1026,7 +1042,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.SPRITE) { // Sprite Edit
+									} else if(ESedit == EDIT.SPRITE) { // Sprite Edit STR
 										
 										#region Sprite
 											
@@ -1038,7 +1054,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.SOUND) { // Sound Edit
+									} else if(ESedit == EDIT.SOUND) { // Sound Edit STR
 										
 										#region Sound
 											
@@ -1050,7 +1066,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.ENTITY) { // Entity Edit
+									} else if(ESedit == EDIT.ENTITY) { // Entity Edit HYBRID
 										
 										#region Entity
 											
@@ -1062,7 +1078,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(ESedit == EDIT.CLICK) { // Entity Edit
+									} else if(ESedit == EDIT.CLICK) { // Entity Edit V
 										
 										#region Click
 											
@@ -1083,14 +1099,32 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											if(ESedit == EDIT.TIMER) {
 												
 												if(is_string_real(ES[$ string(ESsel)][$ K.TMR]))
-													ES[$ string(ESsel)][$ K.TMR] = real(ES[$ string(ESsel)][$ K.TMR])
-												else variable_struct_remove(ES[$ string(ESsel)],K.TMR)
+													ES[$ string(ESsel)][$ K.TMR] = real(ES[$ string(ESsel)][$ K.TMR]);
+												else variable_struct_remove(ES[$ string(ESsel)],K.TMR);
 												
 											} else if(ESedit == EDIT.DELAY) {
 												
 												if(is_string_real(ES[$ string(ESsel)][$ K.DL]))
-													ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.DL])
-												else variable_struct_remove(ES[$ string(ESsel)],K.DL)
+													ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.DL]);
+												else variable_struct_remove(ES[$ string(ESsel)],K.DL);
+												
+											} else if(ESedit == EDIT.CLICK) {
+												
+												if(is_string_real(ES[$ string(ESsel)][$ K.CLK]))
+													ES[$ string(ESsel)][$ K.CLK] = real(ES[$ string(ESsel)][$ K.CLK]);
+												else variable_struct_remove(ES[$ string(ESsel)],K.CLK);
+												
+											} else if(ESedit == EDIT.ENTITY) {
+												
+												if(is_string_real(ES[$ string(ESsel)][$ K.ENT])) // is Actor Value?
+													ES[$ string(ESsel)][$ K.ENT] = real(ES[$ string(ESsel)][$ K.ENT]);
+												// HYBRID Can also be a STR for a name to something else... So we don't remove if not real(ACTOR)...
+												
+											} else if(ESedit == EDIT.TO_SCENE) {
+												
+												if(is_string_real(ES[$ string(ESsel)][$ K.SCN+K.TO]))
+													ES[$ string(ESsel)][$ K.SCN+K.TO] = real(ES[$ string(ESsel)][$ K.SCN+K.TO]);
+												else variable_struct_remove(ES[$ string(ESsel)],K.SCN+K.TO);
 												
 											}
 											
@@ -1112,6 +1146,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						
 						if(keyboard_check(vk_control) and keyboard_check_pressed(vk_enter)) {
 							
+							struct_trim_and_backfill(ES)
 							var _f = file_text_open_write(game_save_id+"nodes.json")
 							file_text_write_string(_f,json_stringify(ES,T))
 							file_text_close(_f)

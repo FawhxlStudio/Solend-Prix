@@ -1,4 +1,3 @@
-
 #region Global Variables
 	
 	// Init
@@ -10,9 +9,13 @@
 	focusL = N
 	focusR = N
 	focusM = N
+	fd = 4 // Frame Delay
+	
 	// Actor List
 	actorL = ds_list_create()
-	fd = 4 // Frame Delay
+	
+	// Init Draw Olds; HVO,FO,AO,CO
+	draw_reset()
 	
 	// Images
 	// Sky

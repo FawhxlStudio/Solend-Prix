@@ -16,45 +16,95 @@ if(active and edit and !console) {
 	
 	#region Base Debug Info
 		
-		dbgStr1 += "Game State: "
-		switch(D.game_state) {
+		// Toggle Debug String
+		if(keyboard_check_pressed(vk_insert)) {
 			
-			case GAME.INIT: dbgStr1 += "INIT"; break;
-			case GAME.MENU: dbgStr1 += "MENU"; break;
-			case GAME.PLAY: dbgStr1 += "PLAY"; break;
-			default: dbgStr1 += "Error"; break;
+			dbgStrScrl = 0
+			dbgStr = !dbgStr;
 			
 		}
-		dbgStr1 += "\nMouse Win PCT X/Y: "+string(MXPCT)+"/"+string(MYPCT)
-		if(is(S)) {
+		
+		if(dbgStr) {
 			
-			if(variable_instance_exists(S,string(D.scni)))
-				if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.SPR)) {
-					
-					// Add Scene Stuff
-					dbgStr1 += "\nScene: "+sprite_get_name(S[$ string(D.scni)][$ K.BG0+K.SPR])
-						+"\nScene I: "+string(D.scni)
-						+"\nScene State: "
+			// Debug String Scroll
+			if(mouse_wheel_up()) {
+				
+				if(keyboard_check(vk_shift)) dbgStrScrl -= 12;
+				else dbgStrScrl -= 6;
+				
+			} else if(mouse_wheel_down()) {
+				
+				if(keyboard_check(vk_shift)) dbgStrScrl += 12;
+				else dbgStrScrl += 6;
+				
+			}
+			
+			dbgStr1 += "Game State: "
+			switch(D.game_state) {
+				
+				case GAME.INIT: dbgStr1 += "INIT"; break;
+				case GAME.MENU: dbgStr1 += "MENU"; break;
+				case GAME.PLAY: dbgStr1 += "PLAY"; break;
+				default: dbgStr1 += "Error"; break;
+				
+			}
+			dbgStr1 += "\nMouse Win PCT X/Y: "+string(MXPCT)+"/"+string(MYPCT)
+			if(is(S)) {
+				
+				if(variable_instance_exists(S,string(D.scni)))
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.SPR)) {
 						
-					switch(D.scene_state) {
-						
-						case GAME.INIT: dbgStr1 += "INIT"; break;
-						case GAME.MENU: dbgStr1 += "MENU"; break;
-						case GAME.PLAY: dbgStr1 += "PLAY"; break;
-						default: dbgStr1 += "Error"; break;
+						// Add Scene Stuff
+						dbgStr1 += "\nScene: "+sprite_get_name(S[$ string(D.scni)][$ K.BG0+K.SPR])
+							+"\nScene I: "+string(D.scni)
+							+"\nScene State: "
+							
+						switch(D.scene_state) {
+							
+							case GAME.INIT: dbgStr1 += "INIT"; break;
+							case GAME.MENU: dbgStr1 += "MENU"; break;
+							case GAME.PLAY: dbgStr1 += "PLAY"; break;
+							default: dbgStr1 += "Error"; break;
+							
+						}
 						
 					}
-					
-				}
+				
+			}
+			dbgStr1 += "\nMouse BG X/Y pct: "+string(D.bgmxpct)+"/"+string(D.bgmypct)
+			if(P.suited) dbgStr1 += "\nSuited"
+			if(is(ES)) dbgStr2 = "\n"+json_stringify(ES[$ string(ESsel)],T)
+			
+			// Olds
+			draw_olds_pull()
+			
+			// Init
+			text_prep(string_trim(dbgStr1+dbgStr2))
+			draw_set_font(fDebug)
+			
+			// Draw Debug Strings
+			draw_set_alpha(bgc_[0])
+			if(MXPCT > 1/3) {
+				
+				// Left Side
+				draw_set_hvalign([fa_left,fa_top])
+				draw_rectangle_color(0,0,strw_,strh_+dbgStrScrl,bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
+				draw_text_color(0,dbgStrScrl,str_,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0])
+				
+			} else {
+				
+				// Move to Right to get out of way...
+				draw_set_hvalign([fa_right,fa_top])
+				draw_rectangle_color(WW,0,WW-strw_,strh_+dbgStrScrl,bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
+				draw_text_color(WW,dbgStrScrl,str_,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0])
+				
+			}
+			
+			// Reset
+			draw_olds_push()
+			dbgStr1 = ""
 			
 		}
-		dbgStr1 += "\nMouse BG X/Y pct: "+string(D.bgmxpct)+"/"+string(D.bgmypct)
-		if(P.suited) dbgStr1 += "\nSuited"
-		if(is(ES)) dbgStr2 = "\n"+json_stringify(ES[$ string(ESsel)],T)
-		draw_set_valign(fa_top)
-		draw_set_halign(fa_left)
-		draw_text(0,0,dbgStr1+dbgStr2)
-		dbgStr1 = ""
 		
 	#endregion
 	

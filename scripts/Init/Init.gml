@@ -188,12 +188,25 @@ function _init() {
 			
 		}
 		
+		globalvar ACTORn
 		enum ACTOR {
 			
 			FIRST,
 			SYLAS,
 			SPITFIRE,
 			LAST
+			
+		}
+		ACTORn = [
+			"FIRST",
+			"SYLAS",
+			"SPITFIRE",
+			"LAST"
+		]
+		if(array_length(ACTORn)-1 < ACTOR.LAST) {
+			
+			show_debug_message("Critical: Actor Names Missing!")
+			game_end(1)
 			
 		}
 		
@@ -215,6 +228,7 @@ function _init() {
 			
 		}
 		
+		globalvar Vn
 		enum V {
 			
 			FIRST,
@@ -241,6 +255,34 @@ function _init() {
 			LAST
 			
 		}
+		Vn = [
+			"FIRST",
+			"STATIC",
+			"DONE",
+			"DONE_AND_CONTINUE",
+			"DONE_TO_ANIM",
+			"DONE_AND_JOIN",
+			"CONTINUE",
+			"SUIT",
+			"NARRATOR_ALL",
+			"NARRATOR_NONE",
+			"LEFT",
+			"MIDDLE",
+			"RIGHT",
+			"ACTOR_MET",
+			"ANIM",
+			"LINK_A",
+			"LINK_B",
+			"LINK_C",
+			"LINK_D",
+			"LINK_E",
+			"MB_LP",
+			"LAST"
+		]
+		if(array_length(Vn)-1 < V.LAST) {
+			show_debug_message("Critical: Value Names Missing!")
+			game_end(1)
+		}
 		
 		enum BUTTON {
 			
@@ -251,6 +293,7 @@ function _init() {
 			
 		}
 		
+		globalvar SCENEn
 		enum SCENE {
 			
 			FIRST,
@@ -261,6 +304,22 @@ function _init() {
 			SPACEPORT,
 			PRAEY_COCKPIT,
 			LAST
+			
+		}
+		SCENEn = [
+			"FIRST",
+			"APARTMENT",
+			"STREET",
+			"CLUB",
+			"PLAZA",
+			"SPACEPORT",
+			"PRAEY_COCKPIT",
+			"LAST"
+		]
+		if(array_length(SCENEn)-1 < SCENE.LAST) {
+			
+			show_debug_message("Critical: Scene Names Missing!")
+			game_end(1)
 			
 		}
 		
@@ -342,6 +401,21 @@ function _init() {
 		}
 		
 	#endregion Enums
+	
+	#region Global Vars
+		
+		#region Text Globals
+			
+			globalvar str_
+			globalvar strw_
+			globalvar strh_
+			globalvar bgc_
+			globalvar fgc_
+			text_prep("") // init Values...
+			
+		#endregion
+		
+	#endregion
 	
 	#region Debug
 		
