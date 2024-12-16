@@ -175,6 +175,7 @@ function _init() {
 			SOUND,
 			ENTITY,
 			CLICK,
+			SURFACE,
 			LAST
 			
 		}
@@ -370,6 +371,7 @@ function _init() {
 			FG0:"foreground0",
 			SP0:"special0", 
 			TMR:"timer",
+			SRF:"surface",
 			// Hybrid
 			REL:"relation_",
 			// Hybrid Child

@@ -24,6 +24,10 @@ if(active and edit and !console) {
 			
 		}
 		
+		// Toggle Edit Help
+		if(keyboard_check_pressed(vk_end))
+			editHelp = !editHelp
+		
 		if(dbgStr) {
 			
 			// Debug String Scroll
@@ -36,6 +40,26 @@ if(active and edit and !console) {
 				
 				if(keyboard_check(vk_shift)) dbgStrScrl += 12;
 				else dbgStrScrl += 6;
+				
+			}
+			
+			// Add Edit Help...
+			if(editHelp) {
+				
+				dbgStr1 += "M - Message/String\n"
+					+"R - To Scene\n"
+					+"F - Find Toggle\n"
+					+"L - Highlight\n"
+					+"H - Hover\n"
+					+"X - Destroy\n"
+					+"T - Timer\n"
+					+"D - Delay\n"
+					+"A - Anim\n"
+					+"S - Sprite\n"
+					+"O - Sound\n"
+					+"E - Entity\n"
+					+"C - Click\n"
+					+"U - Surface\n"
 				
 			}
 			
@@ -75,11 +99,57 @@ if(active and edit and !console) {
 			if(P.suited) dbgStr1 += "\nSuited"
 			if(is(ES)) dbgStr2 = "\n"+json_stringify(ES[$ string(ESsel)],T)
 			
+			#region Dialogue?
+				
+				// In Dialogue?
+				if(!ds_list_empty(D.dialogue)) {
+					
+					try {
+						
+						// Dialogue Globals...
+						if(D.focus) dbgStr2 = "\nFocus: "+string(D.focus)+"("+D.focus.dia[$ K.NM]+")";
+						if(D.focusL) dbgStr2 += "\nFocus L: "+string(D.focusL)+"("+D.focusL.dia[$ K.NM]+")";
+						if(D.focusR) dbgStr2 += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.NM]+")";
+						if(D.focusM) dbgStr2 += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.NM]+")";
+						if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
+						dbgStr2 += "\nIter: "+string(D.focus.dia[$ K.I])
+						dbgStr2 += "\nLevel: "+string(ds_list_size(D.diaNestL))
+						
+						// Nested?
+						if(!ds_list_empty(D.diaNestL)) {
+							
+							var _e = ds_list_top(D.diaNestL)
+							var sks = diaNar_get_sets(_e)
+							var rks = diaNar_get_lines(_e)
+							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);
+							array_sort(rks,T)
+							for(var i = 0; i < array_length(sks); i++) dbgStr2 += "\n[$ "+string(sks[i])+"]: "+string(_e[$ sks[i]]);
+							for(var i = 0; i < array_length(rks); i++) dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+							
+						} else {
+							
+							var _e = diaNar_get_par()
+							var sks = diaNar_get_sets(_e)
+							var rks = diaNar_get_lines(_e)
+							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);
+							array_sort(rks,T)
+							for(var i = 0; i < array_length(sks); i++) dbgStr2 += "\n[$ "+string(sks[i])+"]: "+string(_e[$ sks[i]]);
+							for(var i = 0; i < array_length(rks); i++) dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+							
+						}
+						
+					} catch(_ex) {}
+					
+				}
+				
+			#endregion
+			
 			// Olds
 			draw_olds_pull()
 			
 			// Init
-			text_prep(string_trim(dbgStr1+dbgStr2))
+			if(is_string(dbgStr2)) text_prep(string_trim(dbgStr1+dbgStr2));
+			else text_prep(string_trim(dbgStr1));
 			draw_set_font(fDebug)
 			
 			// Draw Debug Strings
@@ -105,6 +175,15 @@ if(active and edit and !console) {
 			dbgStr1 = ""
 			
 		}
+		
+	#endregion
+	
+	#region Edit Outline
+		
+		// Just to remind we're in edit mode
+		draw_set_alpha(1/3)
+		draw_rectangle_color(20,20,WW-20,WH-20,c.r,c.r,c.r,c.r,T)
+		draw_reset()
 		
 	#endregion
 	

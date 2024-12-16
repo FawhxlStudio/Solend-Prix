@@ -40,10 +40,28 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						}
 						
 					#endregion
+						
+					#region XY Marker... (Idk why xy is mouse is drifted... FIXED but still used...)
+						
+						if(ds_list_empty(D.dialogue)) {
+							
+							var _dw2 = (D.bgImg.sprite_width-WW)/2
+							var _dh2 = (D.bgImg.sprite_height-WH)/2
+							
+							// Init (First coordinate)
+							var _xy4 = [MXPCT*D.bgImg.sprite_width+D.bgImg.dltx-_dw2,
+								MYPCT*D.bgImg.sprite_height+D.bgImg.dlty-_dh2]
+							
+							draw_set_alpha(1)
+							draw_circle_color(_xy4[0],_xy4[1],5,c.wht,c.blk,F)
+							
+						}
+						
+					#endregion
 					
 					#region Rectangle Entry (Left Click 2x for opposite corners to set)
 						
-						if(MBLP) {
+						if(MBLP and ds_list_empty(D.dialogue)) {
 							
 							#region Init Rectangle Entry (If New)
 								
@@ -89,24 +107,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						}
 						
 					#endregion
-						
-					#region XY Marker... (Idk why xy is mouse is drifted... TOFIX)
-						
-						var _dw2 = (D.bgImg.sprite_width-WW)/2
-						var _dh2 = (D.bgImg.sprite_height-WH)/2
-						
-						// Init (First coordinate)
-						var _xy4 = [MXPCT*D.bgImg.sprite_width+D.bgImg.dltx-_dw2,
-							MYPCT*D.bgImg.sprite_height+D.bgImg.dlty-_dh2]
-						
-						draw_set_alpha(1)
-						draw_circle_color(_xy4[0],_xy4[1],5,c.wht,c.blk,F)
-						
-					#endregion
 					
 					#region Circle Entry (Right Click + Drag to set w/ size) (Like a Node)
 						
-						if(MBR) {
+						if(MBR and ds_list_empty(D.dialogue)) {
 							
 							if(MBRP) {
 								
@@ -279,74 +283,92 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																			
 																			#region Basics
 																				
-																				// String Draw
-																				if(variable_instance_exists(ES[$ string(i)],K.STR)) {
+																				#region String Draw
 																					
-																					if(_str != "") _str += "\n"
-																					_str += "str: \""+ES[$ string(i)][$ K.STR]+"\""
+																					if(variable_instance_exists(ES[$ string(i)],K.STR)) {
+																						
+																						if(_str != "") _str += "\n"
+																						_str += "str: \""+ES[$ string(i)][$ K.STR]+"\""
+																						
+																					}
 																					
-																				}
+																				#endregion
 																				
-																				// To_Room
-																				if(variable_instance_exists(ES[$ string(i)],K.SCN+K.TO)) {
+																				#region To_Room
 																					
-																					if(_str != "") _str += "\n"
-																					if(!is_string_real(ES[$ string(i)][$ K.SCN+K.TO])) _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO]);
-																					else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
+																					if(variable_instance_exists(ES[$ string(i)],K.SCN+K.TO)) {
+																						
+																						if(_str != "") _str += "\n"
+																						if(!is_string_real(ES[$ string(i)][$ K.SCN+K.TO])) _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO]);
+																						else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
+																						
+																					}
 																					
-																				}
+																				#endregion
 																				
 																			#endregion
 																			
 																			#region Toggles
 																				
-																				// Find?
-																				if(variable_instance_exists(ES[$ string(i)],K.FND)) {
+																				#region Find?
 																					
-																					if(ES[$ string(i)][$ K.FND]) {
+																					if(variable_instance_exists(ES[$ string(i)],K.FND)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Must Find"
+																						if(ES[$ string(i)][$ K.FND]) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Must Find"
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Hilight?
-																				if(variable_instance_exists(ES[$ string(i)],K.HLT)) {
+																				#region Hilight?
 																					
-																					if(ES[$ string(i)][$ K.HLT]) {
+																					if(variable_instance_exists(ES[$ string(i)],K.HLT)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Highlights"
+																						if(ES[$ string(i)][$ K.HLT]) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Highlights"
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Hover?
-																				if(variable_instance_exists(ES[$ string(i)],K.HVR)) {
+																				#region Hover?
 																					
-																					if(ES[$ string(i)][$ K.HVR]) {
+																					if(variable_instance_exists(ES[$ string(i)],K.HVR)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Hover"
+																						if(ES[$ string(i)][$ K.HVR]) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Hover"
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Destroy?
-																				if(variable_instance_exists(ES[$ string(i)],K.DTR)) {
+																				#region Destroy?
 																					
-																					if(ES[$ string(i)][$ K.DTR]) {
+																					if(variable_instance_exists(ES[$ string(i)],K.DTR)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Destroy"
+																						if(ES[$ string(i)][$ K.DTR]) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Destroy"
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
 																			#endregion
 																			
@@ -356,29 +378,35 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																			
 																			#region Timer/Delay
 																				
-																				// Timer
-																				if(variable_instance_exists(ES[$ string(i)],K.TMR)) {
+																				#region Timer
 																					
-																					if(ES[$ string(i)][$ K.TMR] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.TMR)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Timer: "+string(ES[$ string(i)][$ K.TMR])
+																						if(ES[$ string(i)][$ K.TMR] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Timer: "+string(ES[$ string(i)][$ K.TMR])
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Delay
-																				if(variable_instance_exists(ES[$ string(i)],K.DL)) {
+																				#region Delay
 																					
-																					if(ES[$ string(i)][$ K.DL] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.DL)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Delay: "+string(ES[$ string(i)][$ K.DL])
+																						if(ES[$ string(i)][$ K.DL] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Delay: "+string(ES[$ string(i)][$ K.DL])
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
 																			#endregion
 																			
@@ -388,41 +416,50 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																			
 																			#region Assets
 																			
-																				// Animation (A sprite w/ frames)
-																				if(variable_instance_exists(ES[$ string(i)],K.ANM)) {
+																				#region Animation (A sprite w/ frames)
 																					
-																					if(ES[$ string(i)][$ K.ANM] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.ANM)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Anim: \""+string(ES[$ string(i)][$ K.ANM])+"\""
+																						if(ES[$ string(i)][$ K.ANM] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Anim: \""+string(ES[$ string(i)][$ K.ANM])+"\""
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Sprite
-																				if(variable_instance_exists(ES[$ string(i)],K.SPR)) {
+																				#region Sprite
 																					
-																					if(ES[$ string(i)][$ K.SPR] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.SPR)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "Sprite: \""+string(ES[$ string(i)][$ K.SPR])+"\""
+																						if(ES[$ string(i)][$ K.SPR] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Sprite: \""+string(ES[$ string(i)][$ K.SPR])+"\""
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Sound
-																				if(variable_instance_exists(ES[$ string(i)],K.SND)) {
+																				#region Sound
 																					
-																					if(ES[$ string(i)][$ K.SND] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.SND)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						_str2 += "SFX: \""+string(ES[$ string(i)][$ K.SND])+"\""
+																						if(ES[$ string(i)][$ K.SND] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "SFX: \""+string(ES[$ string(i)][$ K.SND])+"\""
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
 																			#endregion
 																			
@@ -432,32 +469,55 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																			
 																			#region Assets 2
 																				
-																				// Entity
-																				if(variable_instance_exists(ES[$ string(i)],K.ENT)) {
+																				#region Entity
 																					
-																					if(ES[$ string(i)][$ K.ENT] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.ENT)) {
 																						
-																						if(_str2 != "") _str2 += ", "
-																						if(!is_string_real(ES[$ string(i)][$ K.ENT])) _str2 += "Entity: \""+string(ES[$ string(i)][$ K.ENT])+"\"";
-																						else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
-																						// If real, points to an actor, otherwise string could be anything else...
+																						if(ES[$ string(i)][$ K.ENT] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							if(!is_string_real(ES[$ string(i)][$ K.ENT])) _str2 += "Entity: \""+string(ES[$ string(i)][$ K.ENT])+"\"";
+																							else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
+																							// If real, points to an actor, otherwise string could be anything else...
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
 																				
-																				// Click
-																				if(variable_instance_exists(ES[$ string(i)],K.CLK)) {
+																				#region Click
 																					
-																					if(ES[$ string(i)][$ K.CLK] != N) {
+																					if(variable_instance_exists(ES[$ string(i)],K.CLK)) {
 																						
-																						if(_str2 != "") _str2 += ", ";
-																						if(!is_string_real(ES[$ string(i)][$ K.CLK])) _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK]);
-																						else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+Vn[real(ES[$ string(i)][$ K.CLK])]+")";
+																						if(ES[$ string(i)][$ K.CLK] != N) {
+																							
+																							if(_str2 != "") _str2 += ", ";
+																							if(!is_string_real(ES[$ string(i)][$ K.CLK])) _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK]);
+																							else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+Vn[real(ES[$ string(i)][$ K.CLK])]+")";
+																							
+																						}
 																						
 																					}
 																					
-																				}
+																				#endregion
+																				
+																				#region Surface
+																					
+																					if(variable_instance_exists(ES[$ string(i)],K.SRF)) {
+																						
+																						if(ES[$ string(i)][$ K.SRF] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							if(!is_string_real(ES[$ string(i)][$ K.SRF])) _str2 += "Surface: \""+string(ES[$ string(i)][$ K.SRF])+"\"";
+																							else _str2 += "Surface: "+string(ES[$ string(i)][$ K.SRF]);
+																							// If real, just show number...
+																							
+																						}
+																						
+																					}
+																					
+																				#endregion
 																				
 																			#endregion
 																			
@@ -974,6 +1034,22 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
+									} else if(keyboard_check_pressed(ord("U"))) {
+										
+										#region Surface
+											
+											ESedit = EDIT.SURFACE
+											if(variable_instance_exists(ES[$ string(ESsel)],K.SRF))
+												keyboard_string = ES[$ string(ESsel)][$ K.SRF]
+											else {
+												
+												keyboard_string = ""
+												ES[$ string(ESsel)][$ K.SRF] = ""
+												
+											}
+											
+										#endregion
+										
 									}
 									
 								#endregion
@@ -1090,41 +1166,83 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
+									} else if(ESedit == EDIT.SURFACE) { // Entity Edit HYBRID
+										
+										#region Surface
+											
+											if(keyboard_check_pressed(vk_backspace)
+												and ES[$ string(ESsel)][$ K.SRF] == "") {
+												variable_struct_remove(ES[$ string(ESsel)],K.SRF)
+												ESedit = N
+											} else ES[$ string(ESsel)][$ K.SRF] = keyboard_string
+											
+										#endregion
+										
 									}
 									
-									#region Finish Edit
+									#region Finish Edit (String -> Real etc. Conversions)
 										
 										if(keyboard_check_pressed(vk_enter)) {
 											
 											if(ESedit == EDIT.TIMER) {
 												
-												if(is_string_real(ES[$ string(ESsel)][$ K.TMR]))
-													ES[$ string(ESsel)][$ K.TMR] = real(ES[$ string(ESsel)][$ K.TMR]);
-												else variable_struct_remove(ES[$ string(ESsel)],K.TMR);
+												#region Timer
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.TMR]))
+														ES[$ string(ESsel)][$ K.TMR] = real(ES[$ string(ESsel)][$ K.TMR]);
+													else variable_struct_remove(ES[$ string(ESsel)],K.TMR);
+													
+												#endregion
 												
 											} else if(ESedit == EDIT.DELAY) {
 												
-												if(is_string_real(ES[$ string(ESsel)][$ K.DL]))
-													ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.DL]);
-												else variable_struct_remove(ES[$ string(ESsel)],K.DL);
+												#region Delay
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.DL]))
+														ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.DL]);
+													else variable_struct_remove(ES[$ string(ESsel)],K.DL);
+													
+												#endregion
 												
 											} else if(ESedit == EDIT.CLICK) {
 												
-												if(is_string_real(ES[$ string(ESsel)][$ K.CLK]))
-													ES[$ string(ESsel)][$ K.CLK] = real(ES[$ string(ESsel)][$ K.CLK]);
-												else variable_struct_remove(ES[$ string(ESsel)],K.CLK);
+												#region Click
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.CLK]))
+														ES[$ string(ESsel)][$ K.CLK] = real(ES[$ string(ESsel)][$ K.CLK]);
+													else variable_struct_remove(ES[$ string(ESsel)],K.CLK);
+													
+												#endregion
 												
 											} else if(ESedit == EDIT.ENTITY) {
 												
-												if(is_string_real(ES[$ string(ESsel)][$ K.ENT])) // is Actor Value?
-													ES[$ string(ESsel)][$ K.ENT] = real(ES[$ string(ESsel)][$ K.ENT]);
-												// HYBRID Can also be a STR for a name to something else... So we don't remove if not real(ACTOR)...
+												#region Entity
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.ENT])) // is Actor Value?
+														ES[$ string(ESsel)][$ K.ENT] = real(ES[$ string(ESsel)][$ K.ENT]);
+													// HYBRID Can also be a STR for a name to something else... So we don't remove if not real(ACTOR)...
+													
+												#endregion
 												
 											} else if(ESedit == EDIT.TO_SCENE) {
 												
-												if(is_string_real(ES[$ string(ESsel)][$ K.SCN+K.TO]))
-													ES[$ string(ESsel)][$ K.SCN+K.TO] = real(ES[$ string(ESsel)][$ K.SCN+K.TO]);
-												else variable_struct_remove(ES[$ string(ESsel)],K.SCN+K.TO);
+												#region To Scene
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.SCN+K.TO]))
+														ES[$ string(ESsel)][$ K.SCN+K.TO] = real(ES[$ string(ESsel)][$ K.SCN+K.TO]);
+													else variable_struct_remove(ES[$ string(ESsel)],K.SCN+K.TO);
+													
+												#endregion
+												
+											} else if(ESedit == EDIT.SURFACE) {
+												
+												#region Surface
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.SRF])) // is Actor Value?
+														ES[$ string(ESsel)][$ K.SRF] = real(ES[$ string(ESsel)][$ K.SRF]);
+													// HYBRID Can also be a STR for a name to something else... So we don't remove if not real(ACTOR)...
+													
+												#endregion
 												
 											}
 											

@@ -3,6 +3,7 @@
 // Basic/Meta
 active = T
 edit = F
+editHelp = T
 console = F
 introSkip = T
 resetControl = T

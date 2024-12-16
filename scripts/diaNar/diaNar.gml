@@ -291,6 +291,13 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 							// proc is whether or not we may (proc)eed with the loop...
 							var proc = T
 							var rtn = N // What we Return
+							var _active = F
+							if(!ds_list_empty(D.dialogue)) {
+								
+								if(!ds_list_empty(D.diaNestL)) _active = ds_list_top(D.diaNestL) == diaInst
+								else _active = diaNar_get_par() == diaInst
+								
+							}
 							// If proc is T and rtn is something, that is a successful   , run return
 							// If proc is T and rtn is nothing  , that is a continue     , run what we had if anything
 							// If proc if F and rtn is something, that is a skip         , not ready to run return
@@ -572,15 +579,18 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 										
 									#endregion
 									
-									/*
 									#region Actor Positions
 										
 										#region Left
 											
 											case _actrL: {
 												
-												var _actr = actor_find(diaInst[$ _k])
-												if(_actr != N) D.focusL = actr;
+												if(_active) {
+													
+													var _actr = actor_find(diaInst[$ _k])
+													if(_actr != N) D.focusL = actr;
+													
+												}
 												break
 												
 											}
@@ -591,8 +601,12 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											
 											case _actrM: {
 												
-												var _actr = actor_find(diaInst[$ _k])
-												if(_actr != N) D.focusM = actr;
+												if(_active) {
+													
+													var _actr = actor_find(diaInst[$ _k])
+													if(_actr != N) D.focusM = actr;
+													
+												}
 												break
 												
 											}
@@ -603,8 +617,12 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											
 											case _actrR: {
 												
-												var _actr = actor_find(diaInst[$ _k])
-												if(_actr != N) D.focusR = actr;
+												if(_active) {
+													
+													var _actr = actor_find(diaInst[$ _k])
+													if(_actr != N) D.focusR = actr;
+													
+												}
 												break
 												
 											}
@@ -612,7 +630,6 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 										#endregion
 										
 									#endregion
-									*/
 									
 								}
 								
@@ -675,7 +692,7 @@ function diaNar_get_lines(diaInst) {
 		for(var i = 0; i < array_length(ks); i++) {
 			
 			var k = ks[i]
-			if(is_int64(k)) rtn[array_length(rtn)] = k;
+			if(is_string_real(k)) rtn[array_length(rtn)] = k;
 			
 		}
 		
@@ -695,7 +712,7 @@ function diaNar_get_sets(diaInst) {
 		for(var i = 0; i < array_length(ks); i++) {
 			
 			var k = ks[i]
-			if(!is_int64(k)) rtn[array_length(rtn)] = k;
+			if(!is_string_real(k)) rtn[array_length(rtn)] = k;
 			
 		}
 		
