@@ -433,29 +433,29 @@ function db_act() {
     
     #region Actor List Reset
         
-        for(var i = 0; i < ds_list_size(actorL); i++) {
+        for(var i = 0; i < ds_list_size(actorLst); i++) {
             
-            var e = actorL[|i]
+            var e = actorLst[|i]
             if(e != P) instance_destroy(e);
             else ds_list_clear(P.party);
             
         }
         
         // Clear Actor List...
-        ds_list_clear(actorL)
+        ds_list_clear(actorLst)
         
     #endregion
     
 	#region Sylas (You)/Player
 		
-		ds_list_add(actorL,P)
+		ds_list_add(actorLst,P)
 		
 	#endregion
 	
 	#region Spitfire
 		
-		ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorL[|ds_list_size(actorL)-1]
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
 		_char.dia[$ K.NM] = "Spitfire"
 		_char.dia[$ K.SX]  = SEX.FEMALE
 		_char.body = sprSpitfireBod

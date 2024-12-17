@@ -1,4 +1,4 @@
-	// Script assets have changed for v2.3.0 see
+// Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 #region Button Related...
@@ -190,12 +190,14 @@
 		// Since this is setting where it is called from...
 		function text_prep(str) {
 			
+			try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+			
 			// the usual init; non-ext
 			str_  = str
 			strw_ = string_width(str)
 			strh_ = string_height(str)
 			bgc_  = [1/3,c.dgry,c.dgry,c.blk,c.blk] // Background Default
-			fgc_  = [1,c.wht,c.wht,c.lgry,c.lgry] // Foreground/Text Default
+			fgc_  = [1,c.ng,c.ng,c.lg,c.lg] // Foreground/Text Default
 			
 		}
 		

@@ -102,7 +102,7 @@ if(active and edit and !console) {
 			#region Dialogue?
 				
 				// In Dialogue?
-				if(!ds_list_empty(D.dialogue)) {
+				if(!ds_list_empty(D.diaParLst)) {
 					
 					try {
 						
@@ -113,12 +113,12 @@ if(active and edit and !console) {
 						if(D.focusM) dbgStr2 += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.NM]+")";
 						if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
 						dbgStr2 += "\nIter: "+string(D.focus.dia[$ K.I])
-						dbgStr2 += "\nLevel: "+string(ds_list_size(D.diaNestL))
+						dbgStr2 += "\nLevel: "+string(ds_list_size(D.diaNestLst))
 						
 						// Nested?
-						if(!ds_list_empty(D.diaNestL)) {
+						if(!ds_list_empty(D.diaNestLst)) {
 							
-							var _e = ds_list_top(D.diaNestL)
+							var _e = ds_list_top(D.diaNestLst)
 							var sks = diaNar_get_sets(_e)
 							var rks = diaNar_get_lines(_e)
 							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);

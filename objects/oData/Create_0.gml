@@ -2,7 +2,7 @@
 	
 	// Init
 	game_state = GAME.INIT
-	dialogue = ds_list_create()
+	diaParLst = ds_list_create()
 	diai = 0
 	animPlay = N
 	focus = N
@@ -12,7 +12,7 @@
 	fd = 4 // Frame Delay
 	
 	// Actor List
-	actorL = ds_list_create()
+	actorLst = ds_list_create()
 	
 	// Init Draw Olds; HVO,FO,AO,CO
 	draw_reset()
@@ -102,7 +102,7 @@
 	diaDeli2 = 0
 	diaDelPct2 = 0
 	diaSpeaker = N
-	diaNestL = ds_list_create()
+	diaNestLst = ds_list_create()
 	diaTranDel = GSPD*(2/3)
 	diaTranDeli = 0
 	diaTranPct = 0

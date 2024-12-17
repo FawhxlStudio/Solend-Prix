@@ -16,19 +16,19 @@ function diaNar_close() {
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	#region Close Out Current...
 		
-		if(!ds_list_empty(D.diaNestL)) {
+		if(!ds_list_empty(D.diaNestLst)) {
 			
 			// Finish the current nest...
-			var _t = ds_list_top(D.diaNestL)
+			var _t = ds_list_top(D.diaNestLst)
 			_t[$ K.DN] = T
-			ds_list_del_top(D.diaNestL)
+			ds_list_del_top(D.diaNestLst)
 			
-		} else if(!ds_list_empty(D.dialogue)) {
+		} else if(!ds_list_empty(D.diaParLst)) {
 			
 			// Finish parent...
 			var _t = diaNar_get_par()
 			_t[$ K.DN] = T
-			ds_list_delete(D.dialogue,0)
+			ds_list_delete(D.diaParLst,0)
 			D.focus.dia[$ K.I] = 0
 			diaNar_focus_reset()
 			return T
@@ -37,12 +37,12 @@ function diaNar_close() {
 		
 	#endregion
 	
-	if(!ds_list_empty(D.diaNestL)) {
+	if(!ds_list_empty(D.diaNestLst)) {
 		
 		#region Back to Previous Nest Level... (Nest to Nest)
 			
 			// Returning to previous nest...
-			var _t = ds_list_top(D.diaNestL)
+			var _t = ds_list_top(D.diaNestLst)
 			var rcnt = diaNar_get_line_count(_t)
 			
 			if(_t[$ K.IO] < rcnt) {
@@ -62,7 +62,7 @@ function diaNar_close() {
 		
 		return T
 		
-	} else if(!ds_list_empty(D.dialogue)) {
+	} else if(!ds_list_empty(D.diaParLst)) {
 		
 		#region Back to Parent Dialogue... (Nest to Parent)
 			
@@ -101,7 +101,7 @@ function diaNar_close() {
 function diaNar_open_nest(actr,diaInst,lvl) {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
-	#region Start a Nest dialogue here...
+	#region Start a Nest diaParLst here...
 		
 		// Init; We assume diaInst[$ D.focus.dia[$ K.I]] is a struct
 		if(!is_struct(diaInst[$ D.focus.dia[$ K.I]])) return F; // If it isn't a struct, how? Return false.
@@ -114,14 +114,14 @@ function diaNar_open_nest(actr,diaInst,lvl) {
 				
 				#region Pass; Check and Add to Nested Dialogue List to run...
 					
-					if(!ds_list_has(D.diaNestL,rtn[1])) {
+					if(!ds_list_has(D.diaNestLst,rtn[1])) {
 						
 						// Store Parent/Pre-Nest Iterator if already nested...
-						if(!ds_list_empty(D.diaNestL)) diaInst[$ K.IO] = D.focus.dia[$ K.I]; // Prev Nest
+						if(!ds_list_empty(D.diaNestLst)) diaInst[$ K.IO] = D.focus.dia[$ K.I]; // Prev Nest
 						else D.focus.dia[$ K.IO] = D.focus.dia[$ K.I]; // Parent
 						
 						// Add nested to nest list...
-						ds_list_add(D.diaNestL,rtn[1]); // New Nest
+						ds_list_add(D.diaNestLst,rtn[1]); // New Nest
 						D.focus.dia[$ K.I] = 0 // Reset Iter for New Nest...
 						
 						return T
@@ -250,8 +250,8 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 								if(rtn[0]) {
 									
 									// If is Proceed and is valid Dialogue, add it.
-									if(is_struct(rtn[1]) and !ds_list_has(D.dialogue,[uid,rtn[1]]))
-										ds_list_add(D.dialogue,[uid,rtn[1]]);
+									if(is_struct(rtn[1]) and !ds_list_has(D.diaParLst,[uid,rtn[1]]))
+										ds_list_add(D.diaParLst,[uid,rtn[1]]);
 									
 								}
 								
@@ -292,9 +292,9 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 							var proc = T
 							var rtn = N // What we Return
 							var _active = F
-							if(!ds_list_empty(D.dialogue)) {
+							if(!ds_list_empty(D.diaParLst)) {
 								
-								if(!ds_list_empty(D.diaNestL)) _active = ds_list_top(D.diaNestL) == diaInst
+								if(!ds_list_empty(D.diaNestLst)) _active = ds_list_top(D.diaNestLst) == diaInst
 								else _active = diaNar_get_par() == diaInst
 								
 							}
@@ -588,7 +588,10 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												if(_active) {
 													
 													var _actr = actor_find(diaInst[$ _k])
-													if(_actr != N) D.focusL = actr;
+													if(_actr and _actr != D.focusL
+														and _actr != D.focusR
+														and _actr != D.focusM)
+														D.focusL = _actr;
 													
 												}
 												break
@@ -604,7 +607,10 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												if(_active) {
 													
 													var _actr = actor_find(diaInst[$ _k])
-													if(_actr != N) D.focusM = actr;
+													if(_actr and _actr != D.focusL
+														and _actr != D.focusR
+														and _actr != D.focusM)
+														D.focusM = _actr;
 													
 												}
 												break
@@ -620,7 +626,10 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												if(_active) {
 													
 													var _actr = actor_find(diaInst[$ _k])
-													if(_actr != N) D.focusR = actr;
+													if(_actr and _actr != D.focusL
+														and _actr != D.focusR
+														and _actr != D.focusM)
+														D.focusR = _actr;
 													
 												}
 												break
@@ -628,6 +637,70 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											}
 											
 										#endregion
+										
+									#endregion
+									
+									#region Branch
+										
+										case K.BR: {
+											
+											var pass = F
+											if(variable_instance_exists(diaInst,K.BR)) {
+												
+												if(is_array_ext(diaInst[$ K.BR],2,N)) {
+													
+													var _k = diaInst[$ K.BR][0]
+													var _e = diaInst[$ K.BR][1]
+													switch(_k) {
+														
+														#region Branch Type[0,_k]... (i.e. V.SUIT[0,_k] = is <char>[1,_e] suited?)
+														
+														case V.SUIT: {
+															
+															if(ds_list_has(D.actorLst,_e)) {
+																
+																rtn = diaInst[$ _e.suited]
+																pass = T
+																
+															}
+															
+															break
+															
+														}
+														
+														#endregion
+														
+													}
+													
+												}
+												
+											}
+											
+											if(pass) proc = T; // Return proc to true since we got the T/F for the branch...
+											else {
+												
+												proc = F
+												rtn = N
+												
+											}
+											
+											
+											break
+											
+										}
+										
+									#endregion
+									
+									#region Option
+										
+										case K.OPT: {
+											
+											// Set Options somehow to draw in diaNar_draw()
+											proc = F
+											rtn = N
+											break
+											
+										}
 										
 									#endregion
 									
@@ -678,7 +751,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 function diaNar_get_par() {
 	
 	// Return Struct or None
-	if(!ds_list_empty(D.dialogue)) return D.dialogue[|0][1];
+	if(!ds_list_empty(D.diaParLst)) return D.diaParLst[|0][1];
 	else return N;
 	
 }
@@ -733,7 +806,9 @@ function diaNar_get_line_count(struct) {
 
 function diaNar_draw(actr,diaInst,diaLyr){
 	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	//try { /* GMLive Call */ 
+	if (live_call()) return live_result;// } catch(_ex) { /* GMLive not available? */ }
+	
 	// Init
 	var _spr = sprNA
 	if(actr.suited) _spr = actr.body;
@@ -771,14 +846,14 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					if(D.diaSpeaker == actr) {
 						
 						// Is Speaking...
-						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.headpol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
-						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.1,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.bodypol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.5,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.headpol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.5,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.bodypol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
 						
 					} else {
 						
 						// isn't Speaking...
-						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*actr.headpol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
-						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.1,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*actr.bodypol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.5,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*actr.headpol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.5,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*actr.bodypol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
 						
 					}
 					
@@ -791,14 +866,14 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					if(D.diaSpeaker == actr) {
 						
 						// Is Speaking...
-						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.headpol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
-						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.1,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.bodypol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.9,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*-actr.headpol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.9,WH*.9,((_scl*.9)+((_scl*.1)*D.diaTranPct))*-actr.bodypol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
 						
 					} else {
 						
 						// isn't Speaking...
-						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*actr.headpol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
-						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.1,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*actr.bodypol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+						if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.9,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*-actr.headpol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+						else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.9,WH*.9,(_scl-((_scl*.1)*D.diaTranPct))*-actr.bodypol,_scl-((_scl*.1)*D.diaTranPct),0,color_darken(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
 						
 					}
 					
@@ -904,7 +979,9 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					#region Init
 						
 						var _scl = WW/1600
-						_xy = [_xy[2],h,WW*.8,WH*.5]
+						if(D.focusR == D.diaSpeaker) _xy = [_xy[0],h,WW*.9,WH*.5];
+						else _xy = [_xy[2],h,WW*.9,WH*.5];
+						var _str = diaInst[$ string(D.focus.dia[$ K.I])]
 						var _str = diaInst[$ string(D.focus.dia[$ K.I])]
 						var _c = actr.col
 						draw_set_font(actr.font)
@@ -915,22 +992,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						var _strh = string_height_ext(_str,_strsep,_strwmx)*_scl
 						draw_set_valign(fa_bottom)
 						draw_set_halign(fa_left)
-						
-					#endregion
-					
-					#region Text Box
-						
-						if(diaLyr == ds_list_size(D.diaNestL)) {
+						if(D.diaSpeaker == D.focusR) {
 							
-							draw_set_alpha(.9)
-							_xy[2] = clamp(_xy[0]+_strw,_xy[0]+1,_xy[2])+(_pad*2)
-							_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
-							draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.dgry,c.dgry,F)
-							draw_set_alpha(1)
-							draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],_c[1],_c[2],c.blk,c.blk,T)
+							_strw*=-1
+							draw_set_halign(fa_right);
 							
 						}
-						
 					#endregion
 					
 					#region Line Effect & Narrative Draw Logix
@@ -950,7 +1017,22 @@ function diaNar_draw(actr,diaInst,diaLyr){
 										// Get Content
 										var _e = diaInst[$ D.focus.dia[$ K.I]]
 										
-										if(!is_real(_e) and is_string(_e) and D.diaTranPct >= 1) {
+										if(!is_string_real(_e) and D.diaTranPct >= 1) {
+											
+											#region Text Box
+												
+												if(diaLyr == ds_list_size(D.diaNestLst)) {
+													
+													draw_set_alpha(.9)
+													_xy[2] = clamp(_xy[0]+_strw,_xy[0]+1,_xy[2])+(_pad*2)
+													_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
+													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.blk,c.blk,F)
+													draw_set_alpha(1)
+													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],_c[1],_c[2],c.blk,c.blk,T)
+													
+												}
+												
+											#endregion
 											
 											#region Is String
 												
@@ -961,7 +1043,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 												
 											#endregion
 											
-										} else if(is_real(_e) and !is_string(_e) and D.diaTranPct >= 1) {
+										} else if(is_string_real(_e) and D.diaTranPct >= 1) {
 											
 											#region Is (V)alue
 												
@@ -974,7 +1056,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 															
 															case V.LEFT: {
 																
-																if(D.focusL != N) D.diaSpeaker = D.focusL;
+																if(D.focusL) D.diaSpeaker = D.focusL;
 																// Reset TranDel (Speaker Transition Delay)
 																D.diaTranDeli = 0
 																D.diaTranPct = 0
@@ -988,7 +1070,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 															
 															case V.MIDDLE: {
 																
-																if(D.focusM != N) D.diaSpeaker = D.focusM;
+																if(D.focusM) D.diaSpeaker = D.focusM;
 																// Reset TranDel (Speaker Transition Delay)
 																D.diaTranDeli = 0
 																D.diaTranPct = 0
@@ -1002,7 +1084,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 															
 															case V.RIGHT: {
 																
-																if(D.focusR != N) D.diaSpeaker = D.focusR;
+																if(D.focusR) D.diaSpeaker = D.focusR;
 																// Reset TranDel (Speaker Transition Delay)
 																D.diaTranDeli = 0
 																D.diaTranPct = 0
@@ -1037,6 +1119,21 @@ function diaNar_draw(actr,diaInst,diaLyr){
 											D.focus.dia[$ K.I] = rcnt
 											
 										} else if(rtn) {
+											
+											#region Text Box
+												
+												if(diaLyr == ds_list_size(D.diaNestLst)) {
+													
+													draw_set_alpha(.9)
+													_xy[2] = clamp(_xy[0]+_strw,_xy[0]+1,_xy[2])+(_pad*2)
+													_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
+													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.dgry,c.dgry,F)
+													draw_set_alpha(1)
+													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],_c[1],_c[2],c.blk,c.blk,T)
+													
+												}
+												
+											#endregion
 											
 											// THIS SHOULD NOT HAPPEN
 											// Draw Lines... If the line was a struct it would of got redirected anyway...

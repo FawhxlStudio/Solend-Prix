@@ -19,13 +19,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #region Dialogue Logic
 	
-	if(!ds_list_empty(D.dialogue) and !D.diaOverride
+	if(!ds_list_empty(D.diaParLst) and !D.diaOverride
 		and D.fd <= 0 and !TRAN.override) {
 		
 		#region Init Parent Dialogue if we haven't (Based on Focuses being noone or not)
 			
 			// Get Dialogue Array [ 0:actor_uid , 1:dia_instance ]..
-			var e = D.dialogue[|0]
+			var e = D.diaParLst[|0]
 			
 			// Set Control Override
 			D.ctrlOverride = T
@@ -68,14 +68,14 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							} else {
 								
 								if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-								ds_list_delete(D.dialogue,0); // Cancel
+								ds_list_delete(D.diaParLst,0); // Cancel
 								
 							}
 							
 						} else {
 							
 							if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-							ds_list_delete(D.dialogue,0); // Cancel
+							ds_list_delete(D.diaParLst,0); // Cancel
 							
 						}
 						
@@ -83,7 +83,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					} else {
 						
 						if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-						ds_list_delete(D.dialogue,0); // Cancel
+						ds_list_delete(D.diaParLst,0); // Cancel
 						
 					}
 					
@@ -91,7 +91,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				} else {
 					
 					if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-					ds_list_delete(D.dialogue,0); // Cancel
+					ds_list_delete(D.diaParLst,0); // Cancel
 					
 				}
 				
@@ -110,7 +110,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Draw & Iterate Transitions...
 			
-			if(e == D.dialogue[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestL)) {
+			if(e == D.diaParLst[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestLst)) {
 				
 				#region Un-Nested Dialogue (There is no Nested Dialogue (yet))
 					
@@ -131,15 +131,15 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 				#endregion
 				
-			} else if(e == D.dialogue[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestL)) {
+			} else if(e == D.diaParLst[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestLst)) {
 				
-				#region Nested Dialogue (We are currently in a nested dialogue instance)
+				#region Nested Dialogue (We are currently in a nested diaParLst instance)
 					
 					#region Do Nested Dialogue Draw Calls & Recursion...
 						
-						if(D.focusL) diaNar_draw(D.focusL,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL))
-						if(D.focusR) diaNar_draw(D.focusR,ds_list_top(D.diaNestL),ds_list_size(D.diaNestR))
-						if(D.focusM) diaNar_draw(D.focusM,ds_list_top(D.diaNestL),ds_list_size(D.diaNestM))
+						if(D.focusL) diaNar_draw(D.focusL,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusR) diaNar_draw(D.focusR,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusM) diaNar_draw(D.focusM,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
 						
 					#endregion
 					
@@ -158,7 +158,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	} else {
 		
-		#region No more dialogue?
+		#region No more diaParLst?
 			
 			diaNar_focus_reset() // Focus Sanity...
 			// De-Iterate
@@ -180,20 +180,20 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	#endregion
 	
-	#region Parent Dialogue Checks; This is where dialogue is initiated!
+	#region Parent Dialogue Checks; This is where diaParLst is initiated!
 		
-		for(var i = 0; i < ds_list_size(D.actorL); i++) {
+		for(var i = 0; i < ds_list_size(D.actorLst); i++) {
 			
-			var act = D.actorL[|i]
+			var act = D.actorLst[|i]
 			diaNar_iterate_level(NS,act.uid,0)
 			
 		}
 		
 	#endregion
 	
-	#region Scene Darken (If no dialogue)
+	#region Scene Darken (If no diaParLst)
 		
-		if(ds_list_empty(D.dialogue)) {
+		if(ds_list_empty(D.diaParLst)) {
 			
 			var ao = draw_get_alpha()
 			draw_set_alpha((2/3)*(D.diaDelPct))

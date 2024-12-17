@@ -2,7 +2,7 @@
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 #region Control Override
 	
-	if(!ds_list_empty(dialogue) or animPlay != N or focusL != N) ctrlOverride = T;
+	if(!ds_list_empty(diaParLst) or animPlay != N or focus != N) ctrlOverride = T;
 	else ctrlOverride = F;
 	
 #endregion
