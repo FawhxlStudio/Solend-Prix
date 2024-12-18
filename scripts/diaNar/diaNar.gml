@@ -962,7 +962,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 					shader_set(shTranGradientBlk)
 					var _xy = [w-(_w/4),WH*.88-STRH,w+(_w*1.25),h]
-					draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.nr,c.nr,F)
+					draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.nr,c.nr,F) // Red cause shader works that way for gradient... lol
 					shader_reset()
 					
 				#endregion
