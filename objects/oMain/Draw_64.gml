@@ -7,7 +7,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		D.game_state = GAME.PLAY
 		D.scene_state = GAME.INIT
-		D.scni = SCENE.APARTMENT
+		D.scni = SCENE.CLUB
 		audio_stop_all()
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
@@ -24,15 +24,19 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Init Parent Dialogue if we haven't (Based on Focuses being noone or not)
 			
-			// Get Dialogue Array [ 0:actor_uid , 1:dia_instance ]..
-			var e = D.diaParLst[|0]
-			
-			// Set Control Override
-			D.ctrlOverride = T
-			
-			// Swoosh SFX @ Start; Is given a couple frames to ensure played if needed...
-			if(!audio_is_playing(sfxSwoosh) and D.diaDeli <= 3 and !audio_is_playing(sfxZip))
-				audio_play_sound(sfxSwoosh,0,F,random_range(.9,1),0,random_range(.9,1.1));
+			#region Init
+				
+				// Get Dialogue Array [ 0:actor_uid , 1:dia_instance ]..
+				var e = D.diaParLst[|0]
+				
+				// Set Control Override
+				D.ctrlOverride = T
+				
+				// Swoosh SFX @ Start; Is given a couple frames to ensure played if needed...
+				if(!audio_is_playing(sfxSwoosh) and D.diaDeli <= 3 and !audio_is_playing(sfxZip))
+					audio_play_sound(sfxSwoosh,0,F,random_range(.9,1),0,random_range(.9,1.1));
+				
+			#endregion
 			
 			#region Primary Focus setup and checks...
 				

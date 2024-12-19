@@ -8,93 +8,102 @@ function diaNar_focus_reset() {
 	D.diaSpeaker = N
 	D.diaTranDeli = 0
 	D.diaTranPct = 0
+	D.diaHold = F
+	D.diaSoftDone = F
 	
 }
 
-function diaNar_close() {
+function diaNar_close(isDone) {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
 	#region Close Out Current...
+		
+		D.diaSoftDone = !isDone
 		
 		if(!ds_list_empty(D.diaNestLst)) {
 			
 			// Finish the current nest...
 			var _t = ds_list_top(D.diaNestLst)
-			_t[$ K.DN] = T
+			_t[$ K.DN] = isDone
 			ds_list_del_top(D.diaNestLst)
 			
 		} else if(!ds_list_empty(D.diaParLst)) {
 			
 			// Finish parent...
 			var _t = diaNar_get_par()
-			_t[$ K.DN] = T
+			_t[$ K.DN] = isDone
 			ds_list_delete(D.diaParLst,0)
 			D.focus.dia[$ K.I] = 0
 			diaNar_focus_reset()
-			return T
+			return isDone
 			
-		} else return F; // No Dialogue to close...
+		} else return N; // No Dialogue to close...
 		
 	#endregion
 	
-	if(!ds_list_empty(D.diaNestLst)) {
+	#region Return to Previous...
 		
-		#region Back to Previous Nest Level... (Nest to Nest)
+		if(!ds_list_empty(D.diaNestLst)) {
 			
-			// Returning to previous nest...
-			var _t = ds_list_top(D.diaNestLst)
-			var rcnt = diaNar_get_line_count(_t)
+			#region Back to Previous Nest Level... (Nest to Nest)
+				
+				// Returning to previous nest...
+				var _t = ds_list_top(D.diaNestLst)
+				var rcnt = diaNar_get_line_count(_t)
+				
+				if(_t[$ K.IO] < rcnt) {
+					
+					// Continue Past...
+					D.focus.dia[$ K.I] = _t[$ K.IO]+1
+					
+				} else if(_t[$ K.IO] >= rcnt) {
+					
+					// Or previous nest is also done....
+					D.focus.dia[$ K.I] = _t[$ K.IO] // Still set to old so we don't repeat...
+					_t[$ K.DN] = T
+					
+				}
+				
+			#endregion
 			
-			if(_t[$ K.IO] < rcnt) {
-				
-				// Continue Past...
-				D.focus.dia[$ K.I] = _t[$ K.IO]+1
-				
-			} else if(_t[$ K.IO] >= rcnt) {
-				
-				// Or previous nest is also done....
-				D.focus.dia[$ K.I] = _t[$ K.IO] // Still set to old so we don't repeat...
-				_t[$ K.DN] = T
-				
-			}
+			return isDone
 			
-		#endregion
+		} else if(!ds_list_empty(D.diaParLst)) {
+			
+			#region Back to Parent Dialogue... (Nest to Parent)
+				
+				// Returning to Parent/Not Nested Anymore...
+				// Notes: D.focus.dia is where we store the iterator and the parent dialogue's old iterator
+				// While nested structs have their own old iterator, the parent dialogue does not and stores it instead
+				// the same way the global iterator is stored, at the D.focus.dia root level rather than the diaNar instance level...
+				// WIP here to make this less confusing for others...
+				var _t = diaNar_get_par() 
+				var rcnt = diaNar_get_line_count(_t)
+				
+				if(D.focus.dia[$ K.IO] < rcnt) {
+					
+					// Continue Past...
+					D.focus.dia[$ K.I] = D.focus.dia[$ K.IO]+1 // Iterate Old Iterator to Resume after the nest...
+					
+				} else if(D.focus.dia[$ K.IO] >= rcnt){
+					
+					// Or Parent Dialogue is done....
+					D.focus.dia[$ K.I] = D.focus.dia[$ K.IO] // Still set to old so we don't repeat...
+					_t[$ K.DN] = T // And remember, this done is normally where we'd find our old iterator for nested structs, but this is different for parent dialogue, WIP
+					
+				}
+				
+			#endregion
+			
+			return isDone
+			
+		}
 		
-		return T
-		
-	} else if(!ds_list_empty(D.diaParLst)) {
-		
-		#region Back to Parent Dialogue... (Nest to Parent)
-			
-			// Returning to Parent/Not Nested Anymore...
-			// Notes: D.focus.dia is where we store the iterator and the parent dialogue's old iterator
-			// While nested structs have their own old iterator, the parent dialogue does not and stores it instead
-			// the same way the global iterator is stored, at the D.focus.dia root level rather than the diaNar instance level...
-			// WIP here to make this less confusing for others...
-			var _t = diaNar_get_par() 
-			var rcnt = diaNar_get_line_count(_t)
-			
-			if(D.focus.dia[$ K.IO] < rcnt) {
-				
-				// Continue Past...
-				D.focus.dia[$ K.I] = D.focus.dia[$ K.IO]+1 // Iterate Old Iterator to Resume after the nest...
-				
-			} else if(D.focus.dia[$ K.IO] >= rcnt){
-				
-				// Or Parent Dialogue is done....
-				D.focus.dia[$ K.I] = D.focus.dia[$ K.IO] // Still set to old so we don't repeat...
-				_t[$ K.DN] = T // And remember, this done is normally where we'd find our old iterator for nested structs, but this is different for parent dialogue, WIP
-				
-			}
-			
-		#endregion
-		
-		return T
-		
-	}
+	#endregion
 	
-	// We might return false if there was no dialogue to close out of at all
-	return F
+	// Return Noone if Nothing Happened...
+	return N
 	
 }
 
@@ -695,9 +704,64 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 										
 										case K.OPT: {
 											
-											// Set Options somehow to draw in diaNar_draw()
-											proc = F
-											rtn = N
+											// Set Options somehow to draw in diaNar_draw()?
+											// Just Draw Here...
+											var _e = diaInst[$ _k]
+											if(is_array(_e)) {
+												
+												for(var i2 = 0; i2 < array_length(_e); i2++) {
+													
+													// Option already selected? Rtn is set...
+													if(rtn != N) break;
+													
+													var _e2 = _e[i2]
+													if(is_string(_e2)) {
+														
+														#region String Option (Normal; i2 -> diaInst key)
+															
+															var _xy = []
+															_xy[0] = WW*.33
+															_xy[2] = WW*.67
+															_xy[3] = (WH*.3)+((i2+1)*200)
+															_xy[1] = _xy[3]-200
+															var rtn2 = draw_button_fxl(_xy,bgc_,fgc_,_e2,BUTTON.DIA_GOTO,T)
+															if(rtn2 == N) D.diaHold = T;
+															else D.diaHold = F;
+															if(rtn2 == BUTTON.DIA_GOTO) rtn = diaInst[$ i2]; // Means this was picked
+															continue
+															
+														#endregion
+														
+													} else {
+														
+														#region Value Option
+															
+															switch(_e2) {
+																
+																case BUTTON.DIA_LEAVE: {
+																	
+																	var _xy = []
+																	_xy[0] = WW*.33
+																	_xy[2] = WW*.67
+																	_xy[3] = (WH*.3)+((i2+1)*200)
+																	_xy[1] = _xy[3]-200
+																	var rtn2 = draw_button_fxl(_xy,bgc_,fgc_,"Leave",BUTTON.DIA_LEAVE,T)
+																	if(rtn2 == N) D.diaHold = T;
+																	else D.diaHold = F;
+																	if(rtn2 == BUTTON.DIA_LEAVE) diaNar_close(F);
+																	continue
+																	
+																}
+																
+															}
+															
+														#endregion
+														
+													}
+													
+												}
+												
+											}
 											break
 											
 										}
@@ -708,7 +772,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 								
 								#region Finalize Nested...
 									
-									if(lvl >= 4) {
+									if(lvl >= 4 and !rtn) {
 										
 										// Made it through all checks with no fails?
 										if(i == array_length(sks)-1 and proc)
@@ -921,11 +985,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						#region Player
 							
 							nm = "You"
-							if(variable_instance_exists(actr.dia,K.KNW)) {
-								
+							if(variable_instance_exists(actr.dia,K.KNW))
 								if(actr.dia[$ K.KNW]) nm = actr.dia[$ K.NM]+" (You)";
-								
-							}
 							
 						#endregion
 						
@@ -938,7 +999,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 								// Set Name...
 								if(actr.dia[$ K.KNW]) nm = actr.dia[$ K.NM];
 								
-								// set Sex Font...
+								// Set Sex Font...
 								if(variable_instance_exists(actr.dia,K.SX)) {
 									
 									if(actr.dia[$ K.SX] == SEX.FEMALE) draw_set_font(fFemB);
@@ -954,21 +1015,31 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 				#endregion
 				
-				// Init 2
-				var _w = string_width(nm)
-				draw_set_hvalign([fa_left,fa_middle])
+				#region Init 2
+					
+					var fRht = (D.focusR == D.diaSpeaker)
+					var _w = string_width(nm)
+					draw_set_hvalign([fa_left,fa_middle])
+					
+				#endregion
 				
 				#region Name Box
 					
 					shader_set(shTranGradientBlk)
-					var _xy = [w-(_w/4),WH*.88-STRH,w+(_w*1.25),h]
+					var _xy = [w-(_w/4),(WH*.88)-STRH,w+(_w*1.25),h];
+					if(fRht) _xy = [w,(WH*.88)-STRH,w+(_w*1.5),h];
 					draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.nr,c.nr,F) // Red cause shader works that way for gradient... lol
 					shader_reset()
+					if(DBG.edit) draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.nr,c.nr,c.nr,c.nr,T);
 					
 				#endregion
 				
-				// Draw Name
-				draw_text_color(w,(WH*.89)-(STRH/2),nm,_c[0],_c[1],_c[2],_c[3],1)
+				#region Draw Name
+					
+					if(fRht) draw_text_color(w,(WH*.89)-(STRH/2),nm,_c[0],_c[1],_c[2],_c[3],1);
+					else draw_text_color(w,(WH*.89)-(STRH/2),nm,_c[0],_c[1],_c[2],_c[3],1);
+					
+				#endregion
 				
 			#endregion
 			
@@ -995,9 +1066,10 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						if(D.diaSpeaker == D.focusR) {
 							
 							_strw*=-1
-							draw_set_halign(fa_right);
+							draw_set_halign(fa_right)
 							
 						}
+						
 					#endregion
 					
 					#region Line Effect & Narrative Draw Logix
@@ -1014,103 +1086,148 @@ function diaNar_draw(actr,diaInst,diaLyr){
 									
 									if(rtn[0]) {
 										
-										// Get Content
-										var _e = diaInst[$ D.focus.dia[$ K.I]]
-										
-										if(!is_string_real(_e) and D.diaTranPct >= 1) {
+										#region Auxiliary(Indirect) Operations or Primary(Direct) Operations
 											
-											#region Text Box
+											if(rtn[1] and rtn[1] != diaInst) {
 												
-												if(diaLyr == ds_list_size(D.diaNestLst)) {
+												#region Indirect Operations...
 													
-													draw_set_alpha(.9)
-													_xy[2] = clamp(_xy[0]+_strw,_xy[0]+1,_xy[2])+(_pad*2)
-													_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
-													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.blk,c.blk,F)
-													draw_set_alpha(1)
-													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],_c[1],_c[2],c.blk,c.blk,T)
-													
-												}
-												
-											#endregion
-											
-											#region Is String
-												
-												// Draw Lines... If the line was a struct it would of got redirected anyway...
-												draw_text_ext_transformed_color(_xy[0]+_pad,_xy[1]+_pad,_e,_strsep,_strwmx,_scl,_scl,0,_c[0],_c[1],_c[2],_c[3],1)
-												if(keyboard_check_pressed(vk_enter) and D.focus.dia[$ K.I] < rcnt) D.focus.dia[$ K.I] += 1
-												else if(keyboard_check_pressed(vk_enter) and D.focus.dia[$ K.I] >= rcnt) diaInst[$ K.DN] = T
-												
-											#endregion
-											
-										} else if(is_string_real(_e) and D.diaTranPct >= 1) {
-											
-											#region Is (V)alue
-												
-												// Do Value Actions
-												switch(_e) {
-													
-													#region Set Dialogue Speaker
+													#region New Nest
 														
-														#region Actor Left...
-															
-															case V.LEFT: {
-																
-																if(D.focusL) D.diaSpeaker = D.focusL;
-																// Reset TranDel (Speaker Transition Delay)
-																D.diaTranDeli = 0
-																D.diaTranPct = 0
-																break
-																
-															}
-															
-														#endregion
-														
-														#region Actor Middle...
-															
-															case V.MIDDLE: {
-																
-																if(D.focusM) D.diaSpeaker = D.focusM;
-																// Reset TranDel (Speaker Transition Delay)
-																D.diaTranDeli = 0
-																D.diaTranPct = 0
-																break
-																
-															}
-															
-														#endregion
-														
-														#region Actor Right...
-															
-															case V.RIGHT: {
-																
-																if(D.focusR) D.diaSpeaker = D.focusR;
-																// Reset TranDel (Speaker Transition Delay)
-																D.diaTranDeli = 0
-																D.diaTranPct = 0
-																break
-																
-															}
-															
-														#endregion
+														if(is_struct(rtn[1]))
+															diaNar_open_nest(actr,rtn[1],diaLyr); // Open Nest Attempt; Will move on if unable...
 														
 													#endregion
 													
-												}
+												#endregion
 												
-												// Iterate past value...
-												if(D.focus.dia[$ K.I] < rcnt) D.focus.dia[$ K.I] += 1
-												else if(D.focus.dia[$ K.I] >= rcnt) diaInst[$ K.DN] = T
+											} else {
 												
-											#endregion
+												#region Direct Operations...
+													
+													// Get Content
+													var _e = diaInst[$ D.focus.dia[$ K.I]]
+													
+													if(!is_string_real(_e) and D.diaTranPct >= 1) {
+														
+														#region Is Dialogue
+															
+															#region Text Box
+																
+																if(diaLyr == ds_list_size(D.diaNestLst)) {
+																	
+																	draw_set_alpha(.9)
+																	if(fRht) {
+																		
+																		_xy[2] = clamp(_xy[0]-_strw,_xy[0]+1,_xy[2])+(_pad*2)
+																		_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
+																		
+																	} else {
+																		
+																		_xy[2] = clamp(_xy[0]+_strw,_xy[0]+1,_xy[2])+(_pad*2)
+																		_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
+																		
+																	}
+																	draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.blk,c.blk,F)
+																	draw_set_alpha(1)
+																	draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],_c[1],_c[2],c.blk,c.blk,T)
+																	
+																}
+																
+															#endregion
+															
+															#region Draw Text
+																
+																// Draw Lines... If the line was a struct it would of got redirected anyway...
+																draw_text_ext_transformed_color(_xy[0]+_pad,_xy[1]+_pad,_e,_strsep,_strwmx,_scl,_scl,0,_c[0],_c[1],_c[2],_c[3],1)
+																if(keyboard_check_pressed(vk_enter) and D.focus.dia[$ K.I] < rcnt) D.focus.dia[$ K.I] += 1
+																else if(keyboard_check_pressed(vk_enter) and D.focus.dia[$ K.I] >= rcnt) diaInst[$ K.DN] = T
+																
+															#endregion
+															
+														#endregion
+														
+													} else if(is_string_real(_e) and D.diaTranPct >= 1) {
+														
+														#region Is (V)alue
+															
+															#region Do Value Actions
+																
+																switch(_e) {
+																	
+																	#region Set Dialogue Speaker
+																		
+																		#region Actor Left...
+																			
+																			case V.LEFT: {
+																				
+																				if(D.focusL) D.diaSpeaker = D.focusL;
+																				// Reset TranDel (Speaker Transition Delay)
+																				D.diaTranDeli = 0
+																				D.diaTranPct = 0
+																				break
+																				
+																			}
+																			
+																		#endregion
+																		
+																		#region Actor Middle...
+																			
+																			case V.MIDDLE: {
+																				
+																				if(D.focusM) D.diaSpeaker = D.focusM;
+																				// Reset TranDel (Speaker Transition Delay)
+																				D.diaTranDeli = 0
+																				D.diaTranPct = 0
+																				break
+																				
+																			}
+																			
+																		#endregion
+																		
+																		#region Actor Right...
+																			
+																			case V.RIGHT: {
+																				
+																				if(D.focusR) D.diaSpeaker = D.focusR;
+																				// Reset TranDel (Speaker Transition Delay)
+																				D.diaTranDeli = 0
+																				D.diaTranPct = 0
+																				break
+																				
+																			}
+																			
+																		#endregion
+																		
+																	#endregion
+																	
+																}
+																
+															#endregion
+															
+															#region Iterate past value...
+																
+																if(D.focus.dia[$ K.I] < rcnt) D.focus.dia[$ K.I] += 1
+																else if(D.focus.dia[$ K.I] >= rcnt) diaInst[$ K.DN] = T
+																
+															#endregion
+															
+														#endregion
+														
+													}
+													
+												#endregion
+												
+											}
 											
-										}
+										#endregion
+										
 										
 									}
 									
 								} else {
 									
-									#region Return Was Noone...
+									#region Return Was Noone... Anyting Else?
 										
 										if(rtn == N) {
 											
@@ -1118,43 +1235,27 @@ function diaNar_draw(actr,diaInst,diaLyr){
 											diaInst[$ K.DN] = T; // This is Done?
 											D.focus.dia[$ K.I] = rcnt
 											
-										} else if(rtn) {
-											
-											#region Text Box
-												
-												if(diaLyr == ds_list_size(D.diaNestLst)) {
-													
-													draw_set_alpha(.9)
-													_xy[2] = clamp(_xy[0]+_strw,_xy[0]+1,_xy[2])+(_pad*2)
-													_xy[3] = clamp(_xy[1]-_strh,_xy[3],_xy[1])-(_pad*2)
-													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],c.blk,c.blk,c.dgry,c.dgry,F)
-													draw_set_alpha(1)
-													draw_rectangle_color(_xy[0],_xy[1],_xy[2],_xy[3],_c[1],_c[2],c.blk,c.blk,T)
-													
-												}
-												
-											#endregion
-											
-											// THIS SHOULD NOT HAPPEN
-											// Draw Lines... If the line was a struct it would of got redirected anyway...
-											draw_text_ext_transformed_color(_xy[0]+_pad,_xy[1]+_pad,diaInst[$ D.focus.dia[$ K.I]],_strsep,_strwmx,_scl,_scl,0,_c[0],_c[1],_c[2],_c[3],1)
-											if(keyboard_check_pressed(vk_enter) and D.focus.dia[$ K.I] < rcnt) D.focus.dia[$ K.I] += 1
-											else if(keyboard_check_pressed(vk_enter) and D.focus.dia[$ K.I] >= rcnt) diaInst[$ K.DN] = T
-											
 										}
 										
 									#endregion
 									
 								}
 								
-								// Update Old...
-								if(diaLyr == 0) D.focus.dia[$ K.IO] = D.focus.dia[$ K.I]; // Level 0; Parent
-								else diaInst[$ K.IO] = D.focus.dia[$ K.I]; // Level 1+; Nest
+								#region Update Old...
+									
+									if(diaLyr == 0) D.focus.dia[$ K.IO] = D.focus.dia[$ K.I]; // Level 0; Parent
+									else diaInst[$ K.IO] = D.focus.dia[$ K.I]; // Level 1+; Nest
+									
+								#endregion
 								
 							#endregion
 							
-						} else if(is_struct(diaInst[$ D.focus.dia[$ K.I]]))
-							diaNar_open_nest(actr,diaInst,diaLyr); // Open Nest Attempt; Will move on if unable...
+						} else if(is_struct(diaInst[$ D.focus.dia[$ K.I]])) {
+							
+							if(!D.diaHold) diaNar_open_nest(actr,diaInst,diaLyr); // Open Nest Attempt; Will move on if unable...
+							else diaNar_iterate_level(diaInst,actr.uid,4);
+							
+						}
 						
 					#endregion
 					
@@ -1164,11 +1265,11 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							
 							#region Trigger Actions
 								
-								if(variable_instance_exists(diaInst,"action")) {
+								if(variable_instance_exists(diaInst,K.ATN)) {
 									
-									switch(diaInst[$ "action"]) {
+									switch(diaInst[$ K.ATN]) {
 										
-										case ACTION.LEAVE: {
+										case BUTTON.DIA_LEAVE: {
 											
 											if(in_party(actr)) leave_party(actr);
 											break
@@ -1182,7 +1283,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							#endregion
 							
 							// Do the Close
-							diaNar_close()
+							diaNar_close(!D.diaSoftDone)
 							
 						}
 						

@@ -45,7 +45,7 @@
 					
 					// Reset Alpha and Do Action
 					draw_set_alpha(ao)
-					button_action(actn)
+					return button_action(actn)
 					
 				}
 				
@@ -66,6 +66,7 @@
 		
 		// Reset Alpha
 		draw_set_alpha(ao)
+		return N
 		
 	}
 	
@@ -73,33 +74,48 @@
 		
 		switch(actn) {
 			
-			case BUTTON.PLAY: {
+			#region Meta
 				
-				if(D.game_state == GAME.MENU) {
+				case BUTTON.PLAY: {
 					
-					D.game_state = GAME.PLAY
-					D.scene_state = GAME.INIT
-					D.scni = SCENE.APARTMENT
-					audio_stop_all()
-					sfx_gunshot(1)
-					M.introInst = instance_create_layer(0,0,"GUI",oIntro)
-					room_goto(rGame)
+					if(D.game_state == GAME.MENU) {
+						
+						D.game_state = GAME.PLAY
+						D.scene_state = GAME.INIT
+						D.scni = SCENE.APARTMENT
+						audio_stop_all()
+						sfx_gunshot(1)
+						M.introInst = instance_create_layer(0,0,"GUI",oIntro)
+						room_goto(rGame)
+						
+					}
+					
+					break
 					
 				}
 				
-				break
+				case BUTTON.EXIT: {
+					
+					game_end()
+					
+				}
 				
-			}
+			#endregion
 			
-			case BUTTON.EXIT: {
+			#region Dialogue
 				
-				game_end()
+				case BUTTON.DIA_GOTO: return BUTTON.DIA_GOTO;
 				
-			}
+				case BUTTON.DIA_LEAVE: return BUTTON.DIA_LEAVE;
+				
+			#endregion
 			
-			default: break
+			default: break;
 			
 		}
+		
+		// Default Return Nothing...
+		return N
 		
 	}
 	

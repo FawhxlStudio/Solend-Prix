@@ -222,7 +222,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				
 				if(keyboard_check_pressed(vk_f1) and !console and edit) {
 					
-					diaNar_close()
+					diaNar_close(F)
 					
 					// Exit Edit Mode
 					edit = F

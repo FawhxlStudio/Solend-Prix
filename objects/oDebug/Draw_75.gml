@@ -118,23 +118,35 @@ if(active and edit and !console) {
 						// Nested?
 						if(!ds_list_empty(D.diaNestLst)) {
 							
+							// Nested
 							var _e = ds_list_top(D.diaNestLst)
 							var sks = diaNar_get_sets(_e)
 							var rks = diaNar_get_lines(_e)
 							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);
 							array_sort(rks,T)
 							for(var i = 0; i < array_length(sks); i++) dbgStr2 += "\n[$ "+string(sks[i])+"]: "+string(_e[$ sks[i]]);
-							for(var i = 0; i < array_length(rks); i++) dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+							for(var i = 0; i < array_length(rks); i++) {
+								
+								if(is_struct(_e[$ rks[i]])) dbgStr2 += "\n[$ "+string(rks[i])+"]: [JSON Below]\n"+json_stringify(_e[$ rks[i]],T);
+								else dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+								
+							}
 							
 						} else {
 							
+							// Parent
 							var _e = diaNar_get_par()
 							var sks = diaNar_get_sets(_e)
 							var rks = diaNar_get_lines(_e)
 							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);
 							array_sort(rks,T)
 							for(var i = 0; i < array_length(sks); i++) dbgStr2 += "\n[$ "+string(sks[i])+"]: "+string(_e[$ sks[i]]);
-							for(var i = 0; i < array_length(rks); i++) dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+							for(var i = 0; i < array_length(rks); i++) {
+								
+								if(is_struct(_e[$ rks[i]])) dbgStr2 += "\n[$ "+string(rks[i])+"]: [JSON Below]\n"+json_stringify(_e[$ rks[i]],T);
+								else dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+								
+							}
 							
 						}
 						

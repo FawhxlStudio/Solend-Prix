@@ -211,14 +211,6 @@ function _init() {
 			
 		}
 		
-		enum ACTION {
-			
-			FIRST,
-			LEAVE,
-			LAST
-			
-		}
-		
 		enum CONSOLE {
 			
 			FIRST,
@@ -290,6 +282,8 @@ function _init() {
 			FIRST,
 			PLAY,
 			EXIT,
+			DIA_LEAVE,
+			DIA_GOTO,
 			LAST
 			
 		}
@@ -337,6 +331,7 @@ function _init() {
 			NM:"name",
 			SX:"sex",
 			ACT:"actor",
+			ATN:"action",
 			KNW:"know",
 			BR:"branch",
 			OPT:"option",
@@ -372,6 +367,8 @@ function _init() {
 			SP0:"special0", 
 			TMR:"timer",
 			SRF:"surface",
+			RPT:"repeat",
+			BYP:"bypass",
 			// Hybrid
 			REL:"relation_",
 			// Hybrid Child
