@@ -112,7 +112,7 @@ if(active and edit and !console) {
 						if(D.focusR) dbgStr2 += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.NM]+")";
 						if(D.focusM) dbgStr2 += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.NM]+")";
 						if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
-						dbgStr2 += "\nIter: "+string(D.focus.dia[$ K.I])
+						dbgStr2 += "\nIter: "+string(diaNarI())
 						dbgStr2 += "\nLevel: "+string(ds_list_size(D.diaNestLst))
 						
 						// Nested?

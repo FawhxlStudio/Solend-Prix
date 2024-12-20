@@ -63,8 +63,6 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										}
 										
-										if(!D.diaSpeaker) D.diaSpeaker = act;
-										
 									}
 									
 								#endregion
