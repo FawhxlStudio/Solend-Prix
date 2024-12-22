@@ -15,6 +15,8 @@ scni = N
 uid = ACTOR.SPITFIRE
 relation = 0
 mouseIn = F
+spkr = F
+spkro = F
 
 #region Dialogue
 	

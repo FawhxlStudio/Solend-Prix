@@ -13,6 +13,8 @@ font = fNeu
 col = [c.nb,c.nb,c.lb,c.lb]
 party = ds_list_create()
 uid = ACTOR.SYLAS
+spkr = F
+spkro = F
 
 #region Dialogue
 	

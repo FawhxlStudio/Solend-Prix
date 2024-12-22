@@ -5,6 +5,9 @@ if(in_party(id)) {
 	
 	#region Dialogue
 		
+		if(D.diaSpeaker == id) spkr = T;
+		else spkr = F;
+		
 		/*
 		
 		if(variable_instance_exists(dia,string(D.scni)) and D.focusL == N) {

@@ -54,6 +54,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 									if(!D.focus) {
 										
 										D.focus = act;
+										D.diad = GSPD
 										
 										if(D.focusL != act and D.focusR != act and D.focusM != act) {
 											
@@ -179,6 +180,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		// Percents
 		D.diaDelPct = D.diaDeli/D.diaDel
 		D.diaDelPct2 = D.diaDeli2/D.diaDel
+		
+		// Deiterate diad(elay)
+		if(D.diad > 0) D.diad = clamp(D.diad-1,0,D.diad);
 		
 	#endregion
 	

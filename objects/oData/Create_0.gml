@@ -106,8 +106,10 @@
 	diaTranDel = GSPD*(2/3)
 	diaTranDeli = 0
 	diaTranPct = 0
-	diaHold = F
+	diaHold = T
 	diaSoftDone = F
+	diad = 0
+	diaDoNest = F
 	
 #endregion
 

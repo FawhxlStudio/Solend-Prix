@@ -3,6 +3,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #region Dialogue
 	
+	if(D.diaSpeaker == id) spkr = T
+	
 	/*
 	
 	if(variable_instance_exists(dia,string(D.scni)) and D.focusL == N and !TRAN.override) {

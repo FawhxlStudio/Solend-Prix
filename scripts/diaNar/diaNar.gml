@@ -8,8 +8,9 @@ function diaNar_focus_reset() {
 	D.diaSpeaker = N
 	D.diaTranDeli = 0
 	D.diaTranPct = 0
-	D.diaHold = F
+	D.diaHold = T
 	D.diaSoftDone = F
+	D.diaDoNest = F
 	
 }
 
@@ -301,6 +302,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 							var proc = T
 							var rtn = N // What we Return
 							var _active = F
+							var doNest = F
 							if(!ds_list_empty(D.diaParLst)) {
 								
 								if(!ds_list_empty(D.diaNestLst)) _active = ds_list_top(D.diaNestLst) == diaInst
@@ -487,7 +489,12 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											#endregion
 											
 											// Successful
-											if(kDone) break;
+											if(kDone) {
+												
+												D.diaHold = F
+												break
+												
+											}
 											// If we get here, we did not get what we were looking for
 											proc = F
 											break
@@ -545,7 +552,12 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											#endregion
 										
 											// Successful
-											if(kDone) break;
+											if(kDone) {
+												
+												D.diaHold = F
+												break
+												
+											}
 											// If we get here, we did not get what we were looking for
 											proc = F
 											break
@@ -569,6 +581,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 															
 															// Is it Done?
 															proc = NS[$ diaInst[$ _k]][$ K.DN]
+															if(proc) D.diaHold = F;
 															break
 															
 														}
@@ -654,6 +667,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 										case K.BR: {
 											
 											var pass = F
+											
 											if(variable_instance_exists(diaInst,K.BR)) {
 												
 												if(is_array_ext(diaInst[$ K.BR],2,N)) {
@@ -663,20 +677,20 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 													switch(_k) {
 														
 														#region Branch Type[0,_k]... (i.e. V.SUIT[0,_k] = is <char>[1,_e] suited?)
-														
-														case V.SUIT: {
 															
-															if(ds_list_has(D.actorLst,_e)) {
+															case V.SUIT: {
 																
-																rtn = diaInst[$ _e.suited]
-																pass = T
+																if(ds_list_has(D.actorLst,_e)) { //TP2
+																	
+																	rtn = diaInst[$ _e.suited]
+																	pass = T
+																	
+																}
+																
+																break
 																
 															}
 															
-															break
-															
-														}
-														
 														#endregion
 														
 													}
@@ -685,14 +699,20 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												
 											}
 											
-											if(pass) proc = T; // Return proc to true since we got the T/F for the branch...
-											else {
+											if(pass) {
+												
+												proc = T; // Return proc to true since we got the T/F for the branch...
+												D.diaDoNest = T
+												D.diaHold = F
+												
+											} else {
 												
 												proc = F
 												rtn = N
+												D.diaDoNest = F
+												D.diaHold = T
 												
 											}
-											
 											
 											break
 											
@@ -710,7 +730,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											if(is_array(_e)) {
 												
 												// Actor Focus should be Player...
-												diaNar_focus_switch(P)
+												if(D.diaSpeaker != P and !diaNar_get_par()[$ K.DN]) diaNar_focus_switch(P);
 												
 												for(var i2 = 0; i2 < array_length(_e); i2++) {
 													
@@ -730,7 +750,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 																_xy[3] = (WH*.3)+((i2+1)*200)
 																_xy[1] = _xy[3]-200
 																var rtn2 = draw_button_fxl(_xy,bgc_,fgc_,_e2,BUTTON.DIA_GOTO,T)
-																if(rtn2 == N) D.diaHold = T;
+																if(rtn2 != BUTTON.DIA_GOTO) D.diaHold = T;
 																else D.diaHold = F;
 																if(rtn2 == BUTTON.DIA_GOTO) rtn = diaInst[$ i2]; // Means this was picked
 																continue
@@ -763,6 +783,8 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 															#endregion
 															
 														}
+														
+														if(!D.diaHold) D.diaDoNest = T;
 														
 													}
 													
@@ -885,8 +907,12 @@ function diaNar_focus_switch(actr) {
 	
 	if(D.diaSpeaker != actr) {
 		
-		if(diaNar_in_focus(actr)) D.diaSpeaker = actr;
-		else return F; // Actor not found in focus...
+		if(diaNar_in_focus(actr)) {
+			
+			D.diaSpeaker = actr
+			actr.spkro = actr.spkr
+			
+		} else return F; // Actor not found in focus...
 		
 		// Reset TranDel (Speaker Transition Delay)
 		D.diaTranDeli = 0
@@ -911,8 +937,7 @@ function diaNarI() {
 
 function diaNar_draw(actr,diaInst,diaLyr){
 	
-	//try { /* GMLive Call */ 
-	if (live_call()) return live_result;// } catch(_ex) { /* GMLive not available? */ }
+	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	
 	// Init
 	var _spr = sprNA
@@ -997,6 +1022,77 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				}
 				
 			#endregion
+			
+		}
+		
+	#endregion
+	
+	#region Speaker Init (If not set, should be a new parent dialogue...)
+		
+		if(D.diaSpeaker == N and diaNarI() == 0 and diaLyr == 0) {
+			
+			// Maybe some redundant sanity checks here...
+			if(is_struct(diaInst)) {
+				
+				switch(diaInst[$ diaNarI()]) {
+					
+					#region Set Dialogue Speaker
+						
+						#region Actor Left...
+							
+							case V.LEFT: {
+								
+								// Returns T/F on success...
+								if(D.focusL) diaNar_focus_switch(D.focusL);
+								break
+								
+							}
+							
+						#endregion
+						
+						#region Actor Middle...
+							
+							case V.MIDDLE: {
+								
+								// Returns T/F on success...
+								if(D.focusM) diaNar_focus_switch(D.focusM);
+								break
+								
+							}
+							
+						#endregion
+						
+						#region Actor Right...
+							
+							case V.RIGHT: {
+								
+								// Returns T/F on success...
+								if(D.focusR) diaNar_focus_switch(D.focusR);
+								break
+								
+							}
+							
+						#endregion
+						
+					#endregion
+					
+				}
+				
+				#region Iterate past value... If speaker was set
+					
+					if(D.diaSpeaker != N) {
+						
+						var rcnt = diaNar_get_line_count(diaInst)
+						if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1;
+						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T;
+						D.diaTranDeli = D.diaTranDel
+						D.diaTranPct = 1
+						
+					} else if(D.diad <= 0) diaNar_focus_switch(D.focus); // Otherwise set speaker to primary focus (this is the default)
+					
+				#endregion
+				
+			}
 			
 		}
 		
@@ -1087,75 +1183,6 @@ function diaNar_draw(actr,diaInst,diaLyr){
 			
 			#region Is the Speaker? (Draw the actual Dialogue)
 				
-				#region Speaker Init (If not set, should be a new parent dialogue...)
-					
-					if(D.diaSpeaker == N and diaNarI() == 0 and diaLyr == 0) {
-						
-						// Maybe some redundant sanity checks here...
-						if(is_struct(diaInst)) {
-							
-							switch(diaInst[$ diaNarI()]) {
-								
-								#region Set Dialogue Speaker
-									
-									#region Actor Left...
-										
-										case V.LEFT: {
-											
-											// Returns T/F on success...
-											if(D.focusL) diaNar_focus_switch(D.focusL);
-											break
-											
-										}
-										
-									#endregion
-									
-									#region Actor Middle...
-										
-										case V.MIDDLE: {
-											
-											// Returns T/F on success...
-											if(D.focusM) diaNar_focus_switch(D.focusM);
-											break
-											
-										}
-										
-									#endregion
-									
-									#region Actor Right...
-										
-										case V.RIGHT: {
-											
-											// Returns T/F on success...
-											if(D.focusR) diaNar_focus_switch(D.focusR);
-											break
-											
-										}
-										
-									#endregion
-									
-								#endregion
-								
-							}
-							
-							#region Iterate past value... If speaker was set
-								
-								if(D.diaSpeaker != N) {
-									
-									var rcnt = diaNar_get_line_count(diaInst)
-									if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1;
-									else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T;
-									
-								} else diaNar_focus_switch(D.focus); // Otherwise set speaker to primary focus (this is the default)
-								
-							#endregion
-							
-						}
-						
-					}
-					
-				#endregion
-				
 				if(actr == D.diaSpeaker) {
 					
 					#region Init
@@ -1185,13 +1212,13 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 					#region Line Effect & Narrative Draw Logix
 						
+						// Iterate Dialogue Level...
+						var rtn = diaNar_iterate_level(diaInst,actr.uid,4)
+						
 						var rcnt = diaNar_get_line_count(diaInst)
 						if(rcnt != N and !is_struct(diaInst[$ diaNarI()])) {
 							
 							#region Continue Dialogue...
-								
-								// Get Dialogue Level...
-								var rtn = diaNar_iterate_level(diaInst,actr.uid,4)
 								
 								if(is_array(rtn)) {
 									
@@ -1205,7 +1232,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 													
 													#region New Nest
 														
-														if(is_struct(rtn[1]))
+														if(is_struct(rtn[1]) and D.diaDoNest) //TP1
 															diaNar_open_nest(actr,rtn[1],diaLyr); // Open Nest Attempt; Will move on if unable...
 														
 													#endregion
@@ -1357,8 +1384,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							
 						} else if(is_struct(diaInst[$ diaNarI()])) {
 							
-							if(!D.diaHold) diaNar_open_nest(actr,diaInst,diaLyr); // Open Nest Attempt; Will move on if unable...
-							else diaNar_iterate_level(diaInst,actr.uid,4);
+							if(!D.diaHold or D.diaDoNest) {
+								
+								diaNar_open_nest(actr,diaInst,diaLyr) // Open Nest Attempt; Will move on if unable...
+								D.diaDoNest = F
+								
+							} else diaNar_iterate_level(diaInst[$ diaNarI()],actr.uid,4); //TP3
 							
 						}
 						
@@ -1390,7 +1421,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							// Do the Close; If we plan on reopening this dialogue later
 							// Normally when we're done with a dialogue we just use diaNar_close(T)
 							// Otherwise when we use diaNar_close(F) it will trigger this to reset the done value for each level we close out of...
-							diaNar_close(!D.diaSoftDone)
+							D.diaSoftDone = diaNar_close(!D.diaSoftDone)
+							if(ds_list_empty(D.diaParLst) or D.diaSoftDone = N) D.diaSoftDone = F;
 							
 						}
 						
