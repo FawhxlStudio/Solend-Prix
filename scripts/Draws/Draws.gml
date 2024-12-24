@@ -5,11 +5,14 @@
 	
 	function draw_button_fxl(xy,bgc,fgc,str,actn,enabled){
 		
-		// If not enabled, halve alpha
+		// If not enabled, Darken
 		if(!enabled) {
 			
-			bgc[0] = bgc[0]/2
-			fgc[0] = fgc[0]/2
+			fgc[0] = fgc[0]*.8
+			fgc[1] = c.dgry
+			fgc[2] = c.dgry
+			fgc[3] = c.gry
+			fgc[4] = c.gry
 			
 		}
 		
@@ -76,7 +79,7 @@
 			
 			#region Meta
 				
-				case BUTTON.PLAY: {
+				case ACTION.PLAY: {
 					
 					if(D.game_state == GAME.MENU) {
 						
@@ -94,7 +97,7 @@
 					
 				}
 				
-				case BUTTON.EXIT: {
+				case ACTION.EXIT: {
 					
 					game_end()
 					
@@ -104,9 +107,9 @@
 			
 			#region Dialogue
 				
-				case BUTTON.DIA_GOTO: return BUTTON.DIA_GOTO;
+				case ACTION.DIA_GOTO: return ACTION.DIA_GOTO;
 				
-				case BUTTON.DIA_LEAVE: return BUTTON.DIA_LEAVE;
+				case ACTION.DIA_LEAVE: return ACTION.DIA_LEAVE;
 				
 			#endregion
 			

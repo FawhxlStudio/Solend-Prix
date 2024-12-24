@@ -106,10 +106,9 @@
 	diaTranDel = GSPD*(2/3)
 	diaTranDeli = 0
 	diaTranPct = 0
-	diaHold = T
-	diaSoftDone = F
+	diaSoftClose = F
 	diad = 0
-	diaDoNest = F
+	diaNestDir = T // T == Into Nest, F == Out of Nest
 	
 #endregion
 

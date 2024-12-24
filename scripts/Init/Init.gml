@@ -277,7 +277,7 @@ function _init() {
 			game_end(1)
 		}
 		
-		enum BUTTON {
+		enum ACTION {
 			
 			FIRST,
 			PLAY,

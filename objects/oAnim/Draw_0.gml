@@ -30,7 +30,7 @@ if(D.game_state == GAME.PLAY
 		
 		draw_self()
 		
-		var rcnt = diaNar_get_line_count(NS[$ animStr])
+		var rcnt = diaNar_get_real_keys_count(NS[$ animStr])
 		
 		if(rcnt != N) {
 			

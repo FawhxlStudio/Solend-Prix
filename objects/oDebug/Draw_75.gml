@@ -1,4 +1,4 @@
-/// @description Debug
+/// @description Debug View
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
 if(active and edit and !console) {
@@ -112,23 +112,110 @@ if(active and edit and !console) {
 						if(D.focusR) dbgStr2 += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.NM]+")";
 						if(D.focusM) dbgStr2 += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.NM]+")";
 						if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
+						dbgStr2 += "\nPar Dia List Count: "+string(ds_list_size(D.diaParLst))
+						dbgStr2 += "\nNest Dia List Count: "+string(ds_list_size(D.diaNestLst))
 						dbgStr2 += "\nIter: "+string(diaNarI())
 						dbgStr2 += "\nLevel: "+string(ds_list_size(D.diaNestLst))
+						dbgStr2 += "\nSoft Close: "+string(D.diaSoftClose)
+						
+						if(D.diaSpeaker) {
+							
+							#region Current Return
+								
+								// Init
+								var rtn = N
+								var inst = N
+								
+								// Get Current Dialogue and Return...
+								if(!ds_list_empty(D.diaNestLst)) {
+									
+									inst = ds_list_top(D.diaNestLst)
+									rtn = diaNar_iterate_level(inst,D.diaSpeaker.uid,4)
+									
+								} else {
+									
+									inst = diaNar_get_par()
+									rtn = diaNar_iterate_level(inst,D.diaSpeaker.uid,4)
+									
+								}
+								
+								// Show Results of Return from Iteration.....
+								if(is_array(rtn)) {
+									
+									if(is_struct(rtn[1])) {
+										
+										if(rtn[1] == inst) dbgStr2 += "\nReturn: ["+string(rtn[0])+", Current Dialogue]";
+										else dbgStr2 += "\nReturn: ["+string(rtn[0])+", Nested Dialogue]";
+										
+									} else dbgStr2 += "\nReturn: "+string(rtn);
+									
+								} else dbgStr2 += "\nReturn: "+string(rtn);
+								
+							#endregion
+							
+							#region Nest Return
+								
+								// Init
+								var rtn = N
+								var inst = N
+								
+								// Get Nested Dialogue and Return...
+								if(!ds_list_empty(D.diaNestLst)) inst = ds_list_top(D.diaNestLst)[$ diaNarI()];
+								else inst = diaNar_get_par()[$ diaNarI()];
+								
+								if(is_struct(inst)) {
+									
+									rtn = diaNar_iterate_level(inst,D.diaSpeaker.uid,4)
+									
+									// Show Results of Return from Iteration.....
+									if(is_array(rtn)) {
+										
+										if(is_struct(rtn[1])) {
+											
+											if(rtn[1] == inst) dbgStr2 += "\nNest Return: ["+string(rtn[0])+", Nested Dialogue]";
+											else dbgStr2 += "\nNest Return: ["+string(rtn[0])+", Nested+ Dialogue]";
+											
+										} else dbgStr2 += "\nNest Return: "+string(rtn);
+										
+									} else dbgStr2 += "\nNest Return: "+string(rtn);
+									
+								}
+								
+							#endregion
+							
+							
+						}
 						
 						// Nested?
 						if(!ds_list_empty(D.diaNestLst)) {
 							
 							// Nested
 							var _e = ds_list_top(D.diaNestLst)
-							var sks = diaNar_get_sets(_e)
-							var rks = diaNar_get_lines(_e)
+							var sks = diaNar_get_string_keys(_e)
+							var rks = diaNar_get_real_keys(_e)
 							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);
 							array_sort(rks,T)
 							for(var i = 0; i < array_length(sks); i++) dbgStr2 += "\n[$ "+string(sks[i])+"]: "+string(_e[$ sks[i]]);
 							for(var i = 0; i < array_length(rks); i++) {
 								
-								if(is_struct(_e[$ rks[i]])) dbgStr2 += "\n[$ "+string(rks[i])+"]: [JSON Below]\n"+json_stringify(_e[$ rks[i]],T);
-								else dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+								if(is_struct(_e[$ rks[i]])) {
+									
+									dbgStr2 += "\n[$ "+string(rks[i])+"]: [Nested Dialogue Preview Start]"
+									var _e2 = _e[$ rks[i]]
+									var sks2 = diaNar_get_string_keys(_e2)
+									var rks2 = diaNar_get_real_keys(_e2)
+									for(var i2 = 0; i2 < array_length(rks2); i2++) rks2[i2] = real(rks2[i2]);
+									array_sort(rks2,T)
+									for(var i2 = 0; i2 < array_length(sks2); i2++) dbgStr2 += "\n--[$ "+string(sks2[i2])+"]: "+string(_e2[$ sks2[i2]]);
+									for(var i2 = 0; i2 < array_length(rks2); i2++) {
+										
+										if(is_struct(_e2[$ rks2[i2]])) dbgStr2 += "\n--[$ "+string(rks2[i2])+"]: [Nested Dialogue]+"
+										else dbgStr2 += "\n--[$ "+string(rks2[i2])+"]: "+string(_e2[$ rks2[i2]]);
+										
+									}
+									dbgStr2 += "\n[$ "+string(rks[i])+"]: [Nested Dialogue Preview End]"
+									
+								} else dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
 								
 							}
 							
@@ -136,15 +223,31 @@ if(active and edit and !console) {
 							
 							// Parent
 							var _e = diaNar_get_par()
-							var sks = diaNar_get_sets(_e)
-							var rks = diaNar_get_lines(_e)
+							var sks = diaNar_get_string_keys(_e)
+							var rks = diaNar_get_real_keys(_e)
 							for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);
 							array_sort(rks,T)
 							for(var i = 0; i < array_length(sks); i++) dbgStr2 += "\n[$ "+string(sks[i])+"]: "+string(_e[$ sks[i]]);
 							for(var i = 0; i < array_length(rks); i++) {
 								
-								if(is_struct(_e[$ rks[i]])) dbgStr2 += "\n[$ "+string(rks[i])+"]: [JSON Below]\n"+json_stringify(_e[$ rks[i]],T);
-								else dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
+								if(is_struct(_e[$ rks[i]])) {
+									
+									dbgStr2 += "\n[$ "+string(rks[i])+"]: [Nested Dialogue Preview Start]"
+									var _e2 = _e[$ rks[i]]
+									var sks2 = diaNar_get_string_keys(_e2)
+									var rks2 = diaNar_get_real_keys(_e2)
+									for(var i2 = 0; i2 < array_length(rks2); i2++) rks2[i2] = real(rks2[i2]);
+									array_sort(rks2,T)
+									for(var i2 = 0; i2 < array_length(sks2); i2++) dbgStr2 += "\n--[$ "+string(sks2[i2])+"]: "+string(_e2[$ sks2[i2]]);
+									for(var i2 = 0; i2 < array_length(rks2); i2++) {
+										
+										if(is_struct(_e2[$ rks2[i2]])) dbgStr2 += "\n--[$ "+string(rks2[i2])+"]: [Nested Dialogue]+"
+										else dbgStr2 += "\n--[$ "+string(rks2[i2])+"]: "+string(_e2[$ rks2[i2]]);
+										
+									}
+									dbgStr2 += "\n[$ "+string(rks[i])+"]: [Nested Dialogue Preview End]"
+									
+								} else dbgStr2 += "\n[$ "+string(rks[i])+"]: "+string(_e[$ rks[i]]);
 								
 							}
 							

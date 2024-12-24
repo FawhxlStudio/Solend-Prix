@@ -5,11 +5,12 @@ active = T
 edit = F
 editHelp = T
 console = F
-introSkip = F
+introSkip = T
 resetControl = T
 unstuck = T
 muted = F
 envInvert = T
+diaDebug = T
 
 // Dbg Strings, 1 Auto Clear; 2 Manual Clear
 dbgStr = T

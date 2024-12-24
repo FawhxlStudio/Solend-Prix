@@ -184,7 +184,7 @@ if(room == rMenu and D.game_state == GAME.MENU) {
 			draw_set_font(fHUD)
 			
 			// Draw Play
-			draw_button_fxl(_pxy,_pbgc,_pfgc,"Play",BUTTON.PLAY,T)
+			draw_button_fxl(_pxy,_pbgc,_pfgc,"Play",ACTION.PLAY,T)
 			
 			// Init Play
 			var _exy = [WW*.4,WH*.8,WW*.6,WH*.9]
@@ -192,7 +192,7 @@ if(room == rMenu and D.game_state == GAME.MENU) {
 			var _efgc = [1-(titDel3/(GSPD*8)),c.r,c.r,c.nr,c.nr]
 			
 			// Draw Exit
-			draw_button_fxl(_exy,_ebgc,_efgc,"Exit",BUTTON.EXIT,T)
+			draw_button_fxl(_exy,_ebgc,_efgc,"Exit",ACTION.EXIT,T)
 			
 		}
 		

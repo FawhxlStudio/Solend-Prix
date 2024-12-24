@@ -8,9 +8,7 @@ function diaNar_focus_reset() {
 	D.diaSpeaker = N
 	D.diaTranDeli = 0
 	D.diaTranPct = 0
-	D.diaHold = T
-	D.diaSoftDone = F
-	D.diaDoNest = F
+	D.diaSoftClose = F
 	
 }
 
@@ -20,7 +18,7 @@ function diaNar_close(isDone) {
 	
 	#region Close Out Current...
 		
-		D.diaSoftDone = !isDone
+		if(!isDone) D.diaSoftClose = T;
 		
 		if(!ds_list_empty(D.diaNestLst)) {
 			
@@ -28,6 +26,7 @@ function diaNar_close(isDone) {
 			var _t = ds_list_top(D.diaNestLst)
 			_t[$ K.DN] = isDone
 			ds_list_del_top(D.diaNestLst)
+			D.diaNestDir = F
 			
 		} else if(!ds_list_empty(D.diaParLst)) {
 			
@@ -37,6 +36,7 @@ function diaNar_close(isDone) {
 			ds_list_delete(D.diaParLst,0)
 			D.focus.dia[$ K.I] = 0
 			diaNar_focus_reset()
+			D.diaNestDir = T // Since this is finishing the parent, we reset this...
 			return isDone
 			
 		} else return N; // No Dialogue to close...
@@ -51,7 +51,7 @@ function diaNar_close(isDone) {
 				
 				// Returning to previous nest...
 				var _t = ds_list_top(D.diaNestLst)
-				var rcnt = diaNar_get_line_count(_t)
+				var rcnt = diaNar_get_real_keys_count(_t)
 				
 				if(_t[$ K.IO] < rcnt) {
 					
@@ -80,7 +80,7 @@ function diaNar_close(isDone) {
 				// the same way the global iterator is stored, at the D.focus.dia root level rather than the diaNar instance level...
 				// WIP here to make this less confusing for others...
 				var _t = diaNar_get_par() 
-				var rcnt = diaNar_get_line_count(_t)
+				var rcnt = diaNar_get_real_keys_count(_t)
 				
 				if(D.focus.dia[$ K.IO] < rcnt) {
 					
@@ -108,43 +108,65 @@ function diaNar_close(isDone) {
 	
 }
 
-function diaNar_open_nest(actr,diaInst,lvl) {
+function diaNar_open_nest(actr,diaInst,diaLyr) {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	#region Start a Nest diaParLst here...
 		
 		// Init; We assume diaInst[$ diaNarI()] is a struct
-		if(!is_struct(diaInst[$ diaNarI()])) return F; // If it isn't a struct, how? Return false.
-		var rcnt = diaNar_get_line_count(diaInst)
-		var rtn = diaNar_iterate_level(diaInst[$ diaNarI()],actr.uid,4)
+		var _dia = diaInst[$ diaNarI()]
+		if(!is_struct(_dia)) return F; // If it isn't a struct, how? Return false.
+		var rcnt = diaNar_get_real_keys_count(diaInst)
+		var _rtn = diaNar_iterate_level(_dia,actr.uid,4)
 		
-		if(is_array(rtn)) {
+		if(is_array(_rtn)) {
 			
-			if(rtn[0] and is_struct(rtn[1])) {
+			if(_rtn[0] and is_struct(_rtn[1])) {
 				
-				#region Pass; Check and Add to Nested Dialogue List to run...
+				if(diaNar_is_fork(_dia) and _rtn[1] != _dia) {
 					
-					if(!ds_list_has(D.diaNestLst,rtn[1])) {
+					#region Pass(Fork); Check and Add to Nested Dialogue List to run...
 						
-						// Store Parent/Pre-Nest Iterator if already nested...
-						if(!ds_list_empty(D.diaNestLst)) diaInst[$ K.IO] = diaNarI(); // Prev Nest
-						else D.focus.dia[$ K.IO] = diaNarI(); // Parent
+						if(!ds_list_has(D.diaNestLst,_rtn[1])) {
+							
+							// Add nested to nest list...
+							ds_list_add(D.diaNestLst,_rtn[1]) // New Nest
+							D.focus.dia[$ K.I] = 0 // Reset Iter for New Nest...
+							D.diaNestDir = T
+							return T
+							
+						}
 						
-						// Add nested to nest list...
-						ds_list_add(D.diaNestLst,rtn[1]); // New Nest
-						D.focus.dia[$ K.I] = 0 // Reset Iter for New Nest...
-						
-						return T
-						
-					}
+					#endregion
 					
-				#endregion
+				} else if(_rtn[1] == _dia) {
+					
+					#region Pass; Check and Add to Nested Dialogue List to run...
+						
+						if(!ds_list_has(D.diaNestLst,_rtn[1])) {
+							
+							// Store Parent/Pre-Nest Iterator if already nested...
+							if(!ds_list_empty(D.diaNestLst)) diaInst[$ K.IO] = diaNarI(); // Prev Nest
+							else D.focus.dia[$ K.IO] = diaNarI(); // Parent
+							
+							// Add nested to nest list...
+							ds_list_add(D.diaNestLst,_rtn[1]); // New Nest
+							D.focus.dia[$ K.I] = 0 // Reset Iter for New Nest...
+							D.diaNestDir = T
+							
+							return T
+							
+						}
+						
+					#endregion
+					
+				}
 				
-			} else if(!rtn[0]) {
+			} else if(!_rtn[0]) {
 				
 				#region Fail, Skip/Continue
 					
-					if(lvl == 0) {
+					if(diaLyr == 0) {
 						
 						// WIP
 						// From Parent Dialogue...
@@ -171,7 +193,7 @@ function diaNar_open_nest(actr,diaInst,lvl) {
 			
 			#region Already Done or Total Fail, Iterate Past...
 				
-				if(lvl == 0) {
+				if(diaLyr == 0) {
 					
 					// WIP
 					// Parent Dialogue (diaInst might be the same as D.focus.dia but for sanity sake...
@@ -200,68 +222,97 @@ function diaNar_open_nest(actr,diaInst,lvl) {
 	
 }
 
-function diaNar_iterate_level(diaInst,uid,lvl) {
+function diaNar_is_fork(diaInst) {
+	
+	// It's a fork if every line is a struct...
+	var rks = diaNar_get_real_keys(diaInst)
+	var rtn = T
+	for(var i = 0; i < array_length(rks); i++) {
+		
+		if(!rtn) break;
+		else if(!is_struct(diaInst[$ rks[i]])) rtn = F;
+		
+	}
+	
+	return rtn
+	
+}
+
+function diaNar_is_nest_open(diaInst) {
+	
+	return ds_list_has(D.diaNestLst,diaInst)
+	
+}
+
+function diaNar_get_top() {
+	
+	if(!ds_list_empty(D.diaNestLst)) return ds_list_top(D.diaNestLst);
+	else return diaNar_get_par();
+	
+}
+
+function diaNar_iterate_level(diaInst,uid,diaLyr) {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	if(is_struct(diaInst)) {
 		
 		if(uid != N) {
 			
-			switch(lvl) {
+			switch(diaLyr) {
 				
-				#region Scene Level (Go to next level if exists...)
+				#region 0 Scene Level (Go to next level if exists...)
 					
 					case 0: {
 						
 						// Goto Actor Level... If Exists...
 						if(variable_instance_exists(diaInst,string(D.scni)))
-							return diaNar_iterate_level(diaInst[$ D.scni],uid,lvl+1);
+							return diaNar_iterate_level(diaInst[$ D.scni],uid,diaLyr+1);
 						break
 						
 					}
 					
 				#endregion
 				
-				#region Actor Level (Go to next level if exists...)
+				#region 1 Actor Level (Go to next level if exists...)
 					
 					case 1: {
 						
 						// Goto Instance Level... If Exists...
 						if(variable_instance_exists(diaInst,string(uid)))
-							return diaNar_iterate_level(diaInst[$ uid],uid,lvl+1);
+							return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1);
 						break
 						
 					}
 					
 				#endregion
 				
-				#region Instance Level (Recursive)
+				#region 2 Instance Level (Recursive)
 					
 					case 2: {
 						
 						// Init - Get Parts
-						var sks = variable_instance_get_sorted_strKeys(diaInst,T)
-						var rks = variable_instance_get_sorted_numKeys(diaInst,T)
+						var _sks = variable_instance_get_sorted_strKeys(diaInst,T)
+						var _rks = variable_instance_get_sorted_numKeys(diaInst,T)
 						
 						// Instance Should only be lines... Unless changed later to include sets...
 						// Remember, Instance lines are structs of dialogue/narratives...
-						for(var i = 0; i < array_length(rks); i++) {
+						for(var i = 0; i < array_length(_rks); i++) {
 							
 							// Search Instance...
-							var e = diaInst[$ rks[i]]
-							var rtn = diaNar_iterate_level(e,uid,lvl+1)
+							var e = diaInst[$ _rks[i]]
+							var _rtn = diaNar_iterate_level(e,uid,diaLyr+1)
 							
 							// Skip Nulls...
-							if(rtn == N) continue;
+							if(_rtn == N) continue;
 							
 							// Queue Dialogue
-							if(is_array(rtn)) {
+							if(is_array(_rtn)) {
 								
-								if(rtn[0]) {
+								if(_rtn[0]) {
 									
 									// If is Proceed and is valid Dialogue, add it.
-									if(is_struct(rtn[1]) and !ds_list_has(D.diaParLst,[uid,rtn[1]]))
-										ds_list_add(D.diaParLst,[uid,rtn[1]]);
+									if(is_struct(_rtn[1]) and !ds_list_has(D.diaParLst,[uid,_rtn[1]]))
+										ds_list_add(D.diaParLst,[uid,_rtn[1]]);
 									
 								}
 								
@@ -275,20 +326,25 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 					
 				#endregion
 				
-				#region Dialogue/Narrative Level (Recursive)
+				#region 3 & 4+ Dialogue/Narrative Level (Recursive)
 					
-					case 4:
-					case 3: {
+					// 3 == Parent Dialogue
+					// 4+ == Nested Dialogue
+					default: {
 						
 						#region Init/Done Check
 							
+							// Erroneous Entry, Break out...
+							if(!is_real(diaLyr)) break;
+							else if(diaLyr < 3) break;
+							
 							// Init - Get Parts
 							var actr = actor_find(uid)
-							var sks = variable_instance_get_sorted_strKeys(diaInst,T)
-							var rks = variable_instance_get_sorted_numKeys(diaInst,T)
+							var _sks = variable_instance_get_sorted_strKeys(diaInst,T)
+							var _rks = variable_instance_get_sorted_numKeys(diaInst,T)
 							
 							// Done Already - Return Noone
-							if(array_contains(sks,K.DN)) {
+							if(array_contains(_sks,K.DN)) {
 								
 								if(diaInst[$ K.DN]) return N;
 								
@@ -296,132 +352,145 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 							
 						#endregion
 						
-						#region Process Dialogue/Narrative Sets... (sks; Triggers, Links, Actors, Ect...)
-												
-							// proc is whether or not we may (proc)eed with the loop...
-							var proc = T
-							var rtn = N // What we Return
-							var _active = F
-							var doNest = F
-							if(!ds_list_empty(D.diaParLst)) {
-								
-								if(!ds_list_empty(D.diaNestLst)) _active = ds_list_top(D.diaNestLst) == diaInst
-								else _active = diaNar_get_par() == diaInst
-								
-							}
-							// If proc is T and rtn is something, that is a successful   , run return
-							// If proc is T and rtn is nothing  , that is a continue     , run what we had if anything
-							// If proc if F and rtn is something, that is a skip         , not ready to run return
-							// If proc is F and rtn is nothing  , that is a total failure, mark as done and forget it
+						#region Process Dialogue/Narrative Sets... (_sks; Triggers, Links, Actors, Ect...)
+							
+							// If _proc is T and _rtn is something, that is a successful   , run return
+							// If _proc is T and _rtn is nothing  , that is a continue     , run what we had if anything
+							// If _proc if F and _rtn is something, that is a skip         , not ready to run return
+							// If _proc is F and _rtn is nothing  , that is a total failure, mark as done and forget it
 							// This is probably over-done, we probably either return [False and Nothing] or [True and Something] or just Noone...
 							// WIP
 							
-							// Loop through (set)ting keys array (sks; (s)etting (k)ey(s))
-							for(var i = 0; i < array_length(sks); i++) {
+							#region Make constants for multi-part keys /*#as needed...*/
 								
-								#region Init/Continues/Skips/Prelims/Breaks
+								var _nflg = string(K.INV+K.FLG) // Inverted Flag Check
+								var _nanm = string(K.INV+K.ANM) // Inverted Anim Check
+								var _actrL = string(K.ACT+K.LFT) // Actor Left (focusL)
+								var _actrM = string(K.ACT+K.MID) // Actor Left (focusL)
+								var _actrR = string(K.ACT+K.RHT) // Actor Right (focusR)
+								
+							#endregion
+							
+							var _proc = T // Whether we may (proc)eed with our return or not...
+							var _rtn = N // Dialogue we return if any
+							var _isCurrent = F // Is what we're iterating the current dialogue? (Usually is...)
+							#region Is Current Init
+								
+								if(!ds_list_empty(D.diaParLst)) {
 									
-									// Proc already set to false? Then we're done, all conditions must be true... For Now... WIP
-									var kDone = F
-									if(proc == F) break;
+									if(!ds_list_empty(D.diaNestLst)) _isCurrent = (ds_list_top(D.diaNestLst) == diaInst);
+									else _isCurrent = (diaNar_get_par() == diaInst);
+									
+								}
+								
+							#endregion
+							var _isFork = diaNar_is_fork(diaInst) // Is this dialogue just a fork? (All rks elements are structs)
+							if(_isFork and !D.diaNestDir) {
+								
+								_proc = F
+								_rtn = diaInst
+								
+							}
+							
+							// Loop through (set)ting keys array (_sks; (s)etting (k)ey(s))
+							for(var i = 0; i < array_length(_sks); i++) {
+								
+								#region Init
 									
 									// Get Current Key to Check...
-									var _k = sks[i]
+									var _k = _sks[i]
+									// This key is already done... (Some keys might have nested blocks so we need this to prevent defaults)
+									var _kdone = F
 									
-									// Trigger Bypass
-									// Level 4 is a nested instance, Triggers don't apply... (Exceptions? WIP)
-									if(lvl == 4 and _k == K.TRG) continue;
-									
-								#endregion
-								
-								#region Make constants from multi-keys
-									
-									var _nflg = string(K.INV+K.FLG) // Inverted Flag Check
-									var _actrL = string(K.ACT+K.LFT) // Actor Left (focusL)
-									var _actrM = string(K.ACT+K.MID) // Actor Left (focusL)
-									var _actrR = string(K.ACT+K.RHT) // Actor Right (focusR)
+									// Proc already set to false? Then we're done, all conditions must be true... For Now... WIP
+									if(_proc == F) break;
 									
 								#endregion
 								
 								switch(_k) {
 									
-									#region Trigger K.TRG (Parent Dialogue Instance Only (3))
+									#region Trigger K.TRG (Parent Dialogue Only [diaLyr == 3]) RTN
 										
+										// Triggers will set rtn to this dialogue upon success and will run it if still _proc
 										case K.TRG: {
 											
-											#region Trigger Cases...
+											if(diaLyr == 3) {
 												
-												switch(diaInst[$ _k]) {
+												#region Trigger Cases...
 													
-													case TRIGGER.START: {
+													switch(diaInst[$ _k]) {
 														
-														// Done? Should be this simple...
-														// Not Done and is Start...
-														rtn = diaInst
-														break
-														
-													}
-													
-													case TRIGGER.SUIT: {
-														
-														if(actr) {
+														case TRIGGER.START: {
 															
-															if(actr.suited != actr.suitedo) {
+															// Done? Should be this simple...
+															// Not Done and is Start...
+															_rtn = diaInst
+															break
+															
+														}
+														
+														case TRIGGER.SUIT: {
+															
+															if(actr) {
 																
-																#region Suit SFX
+																if(actr.suited != actr.suitedo) {
 																	
-																	// Zipper SFX
-																	if(!audio_is_playing(sfxZip))
-																		audio_play_sound(sfxZip,0,F,1);
+																	#region Suit SFX
+																		
+																		// Zipper SFX
+																		if(!audio_is_playing(sfxZip))
+																			audio_play_sound(sfxZip,0,F,1);
+																		
+																		// Prevent Audio Overlap...
+																		if(audio_is_playing(sfxZip)) {
+																			
+																			if(audio_is_playing(sfxSwoosh))
+																				audio_stop_sound(sfxSwoosh);
+																			
+																		}
 																	
-																	// Prevent Audio Overlap...
-																	if(audio_is_playing(sfxZip)) {
-																		
-																		if(audio_is_playing(sfxSwoosh))
-																			audio_stop_sound(sfxSwoosh);
-																		
-																	}
-																
-																#endregion
-																
-																// Set Return
-																rtn = diaInst;
+																	#endregion
+																	
+																	// Set Return
+																	_rtn = diaInst;
+																	
+																}
 																
 															}
+															break
 															
 														}
-														break
+														
+														case TRIGGER.ANIM: {
+															
+															if(variable_instance_exists(diaInst,K.ANM)) {
+																
+																if(NS[$ diaInst[$ K.ANM]])
+																	_rtn = diaNar_iterate_level(diaInst,uid,4); // Check sets for ability to do...
+																	// If we return N we know it is a no-go, otherwise it will return the dialogue...
+																
+															}
+															break
+															
+														}
+														
+														case TRIGGER.CLICK: {
+															
+															if(actr != N) {
+																
+																if(MBLR and actr.mouseIn)
+																	_rtn = diaInst;
+																
+															}
+															break
+															
+														}
 														
 													}
 													
-													case TRIGGER.ANIM: {
-														
-														if(variable_instance_exists(diaInst,K.ANM)) {
-															
-															if(NS[$ diaInst[$ K.ANM]])
-																rtn = diaNar_iterate_level(diaInst,uid,4); // Check sets for ability to do...
-																// If we return N we know it is a no-go, otherwise it will return the dialogue...
-															
-														}
-														break
-														
-													}
-													
-													case TRIGGER.CLICK: {
-														
-														if(actr != N) {
-															
-															if(MBLR and actr.mouseIn)
-																rtn = diaInst;
-															
-														}
-														break
-														
-													}
-													
-												}
+												#endregion
 												
-											#endregion
+											}
 											
 											break
 											
@@ -429,11 +498,12 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 										
 									#endregion
 									
-									#region Flags K.FLG
+									#region Flags K.FLG PROC
 										
+										// Flags help determine if we _proc or not...
 										case K.FLG: {
 											
-											#region Normal Flags
+											#region Normal Flag
 												
 												if(is_array(diaInst[$ _k])) {
 													
@@ -467,9 +537,8 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 																			
 																			// flagArr[1] == The Anim(name/str) to find in NS
 																			if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
-																				proc = NS[$ flagArr[1]][$ K.DN];
-																			else proc = F;
-																			kDone = T
+																				_proc = NS[$ flagArr[1]][$ K.DN];
+																			_kdone = T
 																			break
 																			
 																		}
@@ -488,22 +557,15 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												
 											#endregion
 											
-											// Successful
-											if(kDone) {
-												
-												D.diaHold = F
-												break
-												
-											}
 											// If we get here, we did not get what we were looking for
-											proc = F
+											if(!_kdone) _proc = F;
 											break
 											
 										}
 										
 										case _nflg: {
 											
-											#region Inverse Flags
+											#region Inverse Flag
 												
 												if(is_array(diaInst[$ _k])) {
 													
@@ -530,9 +592,8 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 																			
 																			// Remember, Inverse, so we don't want the anim to be done in this case...
 																			if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
-																				proc = !(NS[$ flagArr[1]][$ K.DN]);
-																			else proc = T;
-																			kDone = T
+																				_proc = !(NS[$ flagArr[1]][$ K.DN]);
+																			_kdone = T
 																			break
 																			
 																		}
@@ -550,25 +611,18 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												}
 												
 											#endregion
-										
-											// Successful
-											if(kDone) {
-												
-												D.diaHold = F
-												break
-												
-											}
+											
 											// If we get here, we did not get what we were looking for
-											proc = F
+											if(!_kdone) _proc = F;
 											break
 											
 										}
 										
 									#endregion
 									
-									#region Anim Check...
+									#region Simple Anim Checks... PROC
 										
-										// Rather Redundant, but a simpler flag check specifically for an anim's completion...
+										// Simple anim checks is like a flag and determines whether or not we continue...
 										case K.ANM: {
 											
 											#region Normal
@@ -579,10 +633,9 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 														
 														if(variable_instance_exists(NS[$ diaInst[$ _k]],K.DN)) {
 															
-															// Is it Done?
-															proc = NS[$ diaInst[$ _k]][$ K.DN]
-															if(proc) D.diaHold = F;
-															break
+															// Is this anim Done?
+															_proc = NS[$ diaInst[$ _k]][$ K.DN]
+															_kdone = T
 															
 														}
 														
@@ -593,21 +646,50 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											#endregion
 											
 											// If we get here, this is a total fail, not setup right
-											proc = F
-											rtn = N
+											if(!_kdone) _proc = F;
+											break
+											
+										}
+										
+										// Rather Redundant, but a simpler flag check specifically for an anim's completion... (Inverted)
+										case _nanm: {
+											
+											#region Inverted
+												
+												if(variable_instance_exists(diaInst,_k)) {
+													
+													if(variable_instance_exists(NS,diaInst[$ _k])) {
+														
+														if(variable_instance_exists(NS[$ diaInst[$ _k]],K.DN)) {
+															
+															// Is this anim Done?
+															_proc = !(NS[$ diaInst[$ _k]][$ K.DN])
+															_kdone = T
+															
+														}
+														
+													}
+													
+												}
+												
+											#endregion
+											
+											// If we get here, this is a total fail, not setup right
+											if(!_kdone) _proc = F;
 											break
 											
 										}
 										
 									#endregion
 									
-									#region Actor Positions
+									#region Actor Positions STATIC
 										
+										// Does not affect end results; Positions Actors in Dialogue
 										#region Left
 											
 											case _actrL: {
 												
-												if(_active) {
+												if(_isCurrent) {
 													
 													var _actr = actor_find(diaInst[$ _k])
 													if(_actr and _actr != D.focusL
@@ -626,7 +708,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											
 											case _actrM: {
 												
-												if(_active) {
+												if(_isCurrent) {
 													
 													var _actr = actor_find(diaInst[$ _k])
 													if(_actr and _actr != D.focusL
@@ -645,7 +727,7 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 											
 											case _actrR: {
 												
-												if(_active) {
+												if(_isCurrent) {
 													
 													var _actr = actor_find(diaInst[$ _k])
 													if(_actr and _actr != D.focusL
@@ -662,31 +744,38 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 										
 									#endregion
 									
-									#region Branch
+									#region Branch HYBRID
 										
+										// _proc as long as everything exists, will set _rtn to a new inst
 										case K.BR: {
-											
-											var pass = F
 											
 											if(variable_instance_exists(diaInst,K.BR)) {
 												
 												if(is_array_ext(diaInst[$ K.BR],2,N)) {
 													
+													// Init
 													var _k = diaInst[$ K.BR][0]
 													var _e = diaInst[$ K.BR][1]
+													
 													switch(_k) {
 														
 														#region Branch Type[0,_k]... (i.e. V.SUIT[0,_k] = is <char>[1,_e] suited?)
 															
 															case V.SUIT: {
 																
-																if(ds_list_has(D.actorLst,_e)) { //TP2
+																if(ds_list_has(D.actorLst,_e)) {
 																	
-																	rtn = diaInst[$ _e.suited]
-																	pass = T
+																	if(variable_instance_exists(diaInst,string(_e.suited))) _rtn = diaInst[$ _e.suited];
+																	else {
+																		
+																		// If we return false proc with inst we close that inst
+																		_proc = F
+																		_rtn = diaInst
+																		
+																	}
+																	_kdone = T
 																	
 																}
-																
 																break
 																
 															}
@@ -699,92 +788,97 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 												
 											}
 											
-											if(pass) {
-												
-												proc = T; // Return proc to true since we got the T/F for the branch...
-												D.diaDoNest = T
-												D.diaHold = F
-												
-											} else {
-												
-												proc = F
-												rtn = N
-												D.diaDoNest = F
-												D.diaHold = T
-												
-											}
-											
+											if(!_kdone) _proc = F
 											break
 											
 										}
 										
 									#endregion
 									
-									#region Option
+									#region Option RTN
 										
+										// Will draw the buttons and sha'll return N if an option is not made yet
 										case K.OPT: {
 											
-											// Set Options somehow to draw in diaNar_draw()?
-											// Just Draw Here...
+											// Get Options Array [Strings Entries first, Value Entries Last]
+											// String entry index corresponds to the rks index to goto when picked (0: "Hi" -> Open Nest @ 0)
+											// Value Entries are special actions (V.LEAVE -> Exit Dialogue)
 											var _e = diaInst[$ _k]
+											
 											if(is_array(_e)) {
 												
-												// Actor Focus should be Player...
-												if(D.diaSpeaker != P and !diaNar_get_par()[$ K.DN]) diaNar_focus_switch(P);
+												#region Init
+													
+													// Actor Focus should be Player...
+													if(D.diaSpeaker != P and !diaInst[$ K.DN]) diaNar_focus_switch(P);
+													
+												#endregion
 												
-												for(var i2 = 0; i2 < array_length(_e); i2++) {
+												// If Player is Focus and Transition done... WIP
+												if(D.diaSpeaker == P and D.diaTranPct >= 1) {
 													
-													// Option already selected? Rtn is set...
-													if(rtn != N) break;
-													
-													if(D.diaTranPct >= 1 and D.diaSpeaker == P) {
+													for(var i2 = 0; i2 < array_length(_e); i2++) {
 														
-														var _e2 = _e[i2]
-														if(is_string(_e2)) {
+														if(D.diaTranPct >= 1 and D.diaSpeaker == P) {
 															
-															#region String Option (Normal; i2 -> diaInst key)
-																
-																var _xy = []
-																_xy[0] = WW*.33
-																_xy[2] = WW*.67
-																_xy[3] = (WH*.3)+((i2+1)*200)
-																_xy[1] = _xy[3]-200
-																var rtn2 = draw_button_fxl(_xy,bgc_,fgc_,_e2,BUTTON.DIA_GOTO,T)
-																if(rtn2 != BUTTON.DIA_GOTO) D.diaHold = T;
-																else D.diaHold = F;
-																if(rtn2 == BUTTON.DIA_GOTO) rtn = diaInst[$ i2]; // Means this was picked
-																continue
-																
-															#endregion
+															// Get option from array
+															var _e2 = _e[i2]
+															var _bgc = []
+															var _fgc = []
+															array_copy(_bgc,0,bgc_,0,array_length(bgc_))
+															_bgc[1] = c.blk
+															_bgc[2] = c.blk
+															_bgc[3] = make_color_rgb(16,16,16)
+															_bgc[4] = _bgc[3]
+															array_copy(_fgc,0,fgc_,0,array_length(fgc_))
 															
-														} else {
-															
-															#region Value Option
+															if(is_string(_e2)) {
 																
-																switch(_e2) {
+																#region String Option (Normal; i2 -> diaInst key)
 																	
-																	case BUTTON.DIA_LEAVE: {
+																	var _xy = [] // TMP; TODO: Standardized system of drawing [#] of buttons
+																	_xy[0] = WW*.33
+																	_xy[2] = WW*.67
+																	_xy[3] = (WH*.3)+((i2+1)*200)
+																	_xy[1] = _xy[3]-180
+																	var _done = F
+																	if(variable_instance_exists(diaInst[$ i2],K.DN)) _done = diaInst[$ i2][$ K.DN];
+																	var rtn2 = draw_button_fxl(_xy,_bgc,_fgc,_e2,ACTION.DIA_GOTO,!_done)
+																	if(rtn2 == ACTION.DIA_GOTO) _rtn = diaInst[$ i2]; // Means this was picked
+																	continue
+																	
+																#endregion
+																
+															} else {
+																
+																#region Value Option
+																	
+																	switch(_e2) {
 																		
-																		var _xy = []
-																		_xy[0] = WW*.33
-																		_xy[2] = WW*.67
-																		_xy[3] = (WH*.3)+((i2+1)*200)
-																		_xy[1] = _xy[3]-200
-																		var rtn2 = draw_button_fxl(_xy,bgc_,fgc_,"Leave",BUTTON.DIA_LEAVE,T)
-																		if(rtn2 == N) D.diaHold = T;
-																		else D.diaHold = F;
-																		if(rtn2 == BUTTON.DIA_LEAVE) diaNar_close(F);
-																		continue
+																		case ACTION.DIA_LEAVE: {
+																			
+																			var _xy = [] // TMP; TODO: Standardized system of drawing [#] of buttons
+																			_xy[0] = WW*.33
+																			_xy[2] = WW*.67
+																			_xy[3] = (WH*.3)+((i2+1)*200)
+																			_xy[1] = _xy[3]-200
+																			_fgc[1] = c.r
+																			_fgc[2] = c.r
+																			_fgc[3] = c.dr
+																			_fgc[4] = c.dr
+																			var rtn2 = draw_button_fxl(_xy,_bgc,_fgc,"Leave",ACTION.DIA_LEAVE,T)
+																			if(rtn2 == ACTION.DIA_LEAVE) diaNar_close(F);
+																			continue
+																			
+																		}
 																		
 																	}
 																	
-																}
+																#endregion
 																
-															#endregion
+															}
 															
 														}
-														
-														if(!D.diaHold) D.diaDoNest = T;
 														
 													}
 													
@@ -799,27 +893,29 @@ function diaNar_iterate_level(diaInst,uid,lvl) {
 									
 								}
 								
-								#region Finalize Nested...
-									
-									if(lvl >= 4 and !rtn) {
-										
-										// Made it through all checks with no fails?
-										if(i == array_length(sks)-1 and proc)
-											rtn = diaInst;
-										
-									}
-									
-								#endregion
+							}
+							
+						#endregion
+						
+						#region Finalize... //TPFinal
+							
+							// Is Not Parent Level? Return not set? Not Fork?
+							if(diaLyr >= 4 and !_rtn and !_isFork) {
+								
+								// At end and still _proc then assume proc with self
+								if(_proc) _rtn = diaInst;
 								
 							}
 							
 						#endregion
 						
-						#region Process diaNarr Lines... (rks; 0,1,2...)
+						#region Process diaNarr Lines... (_rks; 0,1,2...)
 							
-							return [proc,rtn]
+							// If proc true then continue with whatever return is (generally)
+							return [_proc,_rtn]
 							
 						#endregion
+						
 						break
 						
 					}
@@ -849,7 +945,7 @@ function diaNar_get_par() {
 	
 }
 
-function diaNar_get_lines(diaInst) {
+function diaNar_get_real_keys(diaInst) {
 	
 	var rtn = []
 	if(is_struct(diaInst)) {
@@ -869,7 +965,7 @@ function diaNar_get_lines(diaInst) {
 	
 }
 
-function diaNar_get_sets(diaInst) {
+function diaNar_get_string_keys(diaInst) {
 	
 	var rtn = []
 	if(is_struct(diaInst)) {
@@ -889,9 +985,17 @@ function diaNar_get_sets(diaInst) {
 	
 }
 
-function diaNar_get_line_count(struct) {
+function diaNar_get_real_keys_count(diaInst) {
 	
-	var tmp = variable_instance_get_sorted_numKeys(struct,T)
+	var tmp = variable_instance_get_sorted_numKeys(diaInst,T)
+	if(is_array(tmp)) return (array_length(tmp)-1);
+	else return N;
+	
+}
+
+function diaNar_get_string_keys_count(diaInst) {
+	
+	var tmp = variable_instance_get_sorted_strKeys(diaInst,T)
 	if(is_array(tmp)) return (array_length(tmp)-1);
 	else return N;
 	
@@ -1082,7 +1186,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 					if(D.diaSpeaker != N) {
 						
-						var rcnt = diaNar_get_line_count(diaInst)
+						var rcnt = diaNar_get_real_keys_count(diaInst)
 						if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1;
 						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T;
 						D.diaTranDeli = D.diaTranDel
@@ -1210,41 +1314,30 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						
 					#endregion
 					
-					#region Line Effect & Narrative Draw Logix
+					#region Line Effect & Narrative Draw Logix //TPDraw
 						
-						// Iterate Dialogue Level...
-						var rtn = diaNar_iterate_level(diaInst,actr.uid,4)
-						
-						var rcnt = diaNar_get_line_count(diaInst)
-						if(rcnt != N and !is_struct(diaInst[$ diaNarI()])) {
+						if(!D.diaSoftClose) {
 							
-							#region Continue Dialogue...
+							// Iterate Dialogue Level...
+							// If rtn[1] != diaInst that means whatever the next nest was already returned another nest; Likely a fork
+							var _rtn = diaNar_iterate_level(diaInst,actr.uid,4)
+							var rcnt = diaNar_get_real_keys_count(diaInst)
+							
+							if(is_array(_rtn)) {
 								
-								if(is_array(rtn)) {
+								if(_rtn[0] and _rtn[1] == diaInst) {
+									// Proceed with self...
 									
-									if(rtn[0]) {
+									#region Continue with Self...
 										
-										#region Auxiliary(Indirect) Operations or Primary(Direct) Operations
+										#region Content Operation...
 											
-											if(rtn[1] and rtn[1] != diaInst) {
+											// Get Content
+											var _e = diaInst[$ diaNarI()]
+											
+											if(!is_struct(_e)) {
 												
-												#region Indirect Operations...
-													
-													#region New Nest
-														
-														if(is_struct(rtn[1]) and D.diaDoNest) //TP1
-															diaNar_open_nest(actr,rtn[1],diaLyr); // Open Nest Attempt; Will move on if unable...
-														
-													#endregion
-													
-												#endregion
-												
-											} else {
-												
-												#region Direct Operations...
-													
-													// Get Content
-													var _e = diaInst[$ diaNarI()]
+												#region Normal
 													
 													if(!is_string_real(_e) and D.diaTranPct >= 1) {
 														
@@ -1350,22 +1443,64 @@ function diaNar_draw(actr,diaInst,diaLyr){
 													
 												#endregion
 												
+											} else {
+												
+												#region Open Struct Here... (Direct; Normal; This line is a struct goto it...)
+													
+													if(DBG.diaDebug) {
+														
+														if(keyboard_check(vk_shift) and keyboard_check_pressed(vk_enter))
+															diaNar_open_nest(actr,diaInst,diaLyr);
+														
+													} else diaNar_open_nest(actr,diaInst,diaLyr); // Direct Dialogue Open
+													
+												#endregion
+												
 											}
 											
 										#endregion
 										
-										
-									}
-									
-								} else {
-									
-									#region Return Was Noone... Anyting Else?
-										
-										if(rtn == N) {
+										#region Update Old...
 											
-											// How did this happen?
-											diaInst[$ K.DN] = T; // This is Done?
-											D.focus.dia[$ K.I] = rcnt
+											if(diaLyr == 0) D.focus.dia[$ K.IO] = diaNarI(); // Level 0; Parent
+											else diaInst[$ K.IO] = diaNarI(); // Level 1+; Nest
+											
+										#endregion
+										
+									#endregion
+									
+								} else if(_rtn[0] and _rtn[1] != diaInst) {
+									// Proceed with new Dialogue?
+									// Indirect Dialogue Open (Bypasses a layer? Fork?)
+									
+									#region Open Nest (iteration returned a totally different layer; Fork Likely)
+										
+										if(is_struct(_rtn[1])) {
+											
+											if(DBG.diaDebug) {
+												
+												if(keyboard_check(vk_shift) and keyboard_check_pressed(vk_enter))
+													diaNar_open_nest(actr,diaInst,diaLyr);
+												
+											} else diaNar_open_nest(actr,diaInst,diaLyr); // Direct Dialogue Open
+											
+										}
+										
+									#endregion
+									
+								} else if(!_rtn[0]) {
+									
+									#region False Proc
+										
+										if(!_rtn[1]) {
+											
+											// Start Soft Close; We got False but also Nothing...
+											D.diaSoftClose = T
+											
+										} else if(_rtn[1] == diaInst) {
+											
+											// False and self? This is Done...
+											diaInst[$ K.DN] = T
 											
 										}
 										
@@ -1373,31 +1508,15 @@ function diaNar_draw(actr,diaInst,diaLyr){
 									
 								}
 								
-								#region Update Old...
-									
-									if(diaLyr == 0) D.focus.dia[$ K.IO] = diaNarI(); // Level 0; Parent
-									else diaInst[$ K.IO] = diaNarI(); // Level 1+; Nest
-									
-								#endregion
-								
-							#endregion
+							}
 							
-						} else if(is_struct(diaInst[$ diaNarI()])) {
-							
-							if(!D.diaHold or D.diaDoNest) {
-								
-								diaNar_open_nest(actr,diaInst,diaLyr) // Open Nest Attempt; Will move on if unable...
-								D.diaDoNest = F
-								
-							} else diaNar_iterate_level(diaInst[$ diaNarI()],actr.uid,4); //TP3
-							
-						}
+						} else diaInst[$ K.DN] = T; // Soft Close Active, Keep Closing...
 						
 					#endregion
 					
 					#region Iterate Dialogue (Done!)
 						
-						if(diaInst[$ K.DN]) {
+						if(diaInst[$ K.DN] or D.diaSoftClose) {
 							
 							#region Trigger Actions
 								
@@ -1405,7 +1524,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 									
 									switch(diaInst[$ K.ATN]) {
 										
-										case BUTTON.DIA_LEAVE: {
+										case ACTION.DIA_LEAVE: {
 											
 											if(in_party(actr)) leave_party(actr);
 											break
@@ -1418,11 +1537,10 @@ function diaNar_draw(actr,diaInst,diaLyr){
 								
 							#endregion
 							
-							// Do the Close; If we plan on reopening this dialogue later
+							// Do the Close; If we plan on having this be repeatable, D.diaSoftClose will be T
 							// Normally when we're done with a dialogue we just use diaNar_close(T)
 							// Otherwise when we use diaNar_close(F) it will trigger this to reset the done value for each level we close out of...
-							D.diaSoftDone = diaNar_close(!D.diaSoftDone)
-							if(ds_list_empty(D.diaParLst) or D.diaSoftDone = N) D.diaSoftDone = F;
+							diaNar_close(!D.diaSoftClose)
 							
 						}
 						
