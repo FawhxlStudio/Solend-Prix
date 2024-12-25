@@ -81,7 +81,8 @@
 	zo = zmn
 	
 	// Hover
-	isHvr = F
+	isHvr = N
+	isHvro = N
 	hvrDel = GSPD/2
 	hvrDeli = 0
 	hvrPct = 0
@@ -162,6 +163,7 @@
 	#macro CM global.contextuals_map
 	CM = U
 	db_context()
+	cmHvr = F
 	
 #endregion
 

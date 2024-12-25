@@ -170,6 +170,7 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 1] = "Not now I'm looking for someone..."
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0] = {} // Option 0 == Array[0] == "Are you in the race too?"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ K.REL+K.ADJ] = -1 // Actor's Relation change. (- bad, + good)
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 0] = "Aren't you a pilot in the race?"

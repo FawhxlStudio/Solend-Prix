@@ -28,6 +28,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		hvrPct = 0
 		
 	}
-	isHvr = F
+	isHvro = isHvr
+	isHvr = N
 	
 #endregion

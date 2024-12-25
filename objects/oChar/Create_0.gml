@@ -17,6 +17,7 @@ relation = 0
 mouseIn = F
 spkr = F
 spkro = F
+diaAvailable = F
 
 #region Dialogue
 	

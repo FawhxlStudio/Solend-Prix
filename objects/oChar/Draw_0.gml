@@ -18,35 +18,44 @@ if(D.scni == scni) {
 		if(bbox_sanity(id)) {
 			
 			if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
-				 and D.focusL == N and !TRAN.override and !D.ctrlOverride) {
+				 and D.focusL == N and !TRAN.override and !D.ctrlOverride
+				 and is_hover(id)) {
 				
-				D.isHvr = T
+				// Init
+				D.isHvr = id
 				mouseIn = T
 				
-				#region Shader Draw
+				if(diaAvailable) {
 					
-					shader_set(shWhite)
+					#region Shader Draw
 						
-						if(MBL) {
+						shader_set(shWhite)
 							
-							var _a = shader_get_uniform(shWhite,"alpha")
-							shader_set_uniform_f(_a,D.hvrPct/6)
+							if(MBL) {
+								
+								var _a = shader_get_uniform(shWhite,"alpha")
+								shader_set_uniform_f(_a,D.hvrPct/6)
+								
+							} else {
+								
+								var _a = shader_get_uniform(shWhite,"alpha")
+								shader_set_uniform_f(_a,D.hvrPct/5)
+								
+							}
+							draw_self()
 							
-						} else {
-							
-							var _a = shader_get_uniform(shWhite,"alpha")
-							shader_set_uniform_f(_a,D.hvrPct/5)
-							
-						}
-						draw_self()
+						shader_reset()
 						
-					shader_reset()
+					#endregion
 					
-				#endregion
+				} else D.isHvr = N;
 				
 			} else mouseIn = F;
 			
 		}
+		
+		// Reset Dialogue Available
+		diaAvailable = F
 		
 	}
 	

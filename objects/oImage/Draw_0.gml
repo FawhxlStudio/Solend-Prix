@@ -14,10 +14,11 @@ if(D.game_state == GAME.PLAY
 			
 			if(bbox_sanity(id)) {
 				
-				if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])) {
+				if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
+					and is_hover(id)) {
 					
 					// Set Hover
-					D.isHvr = T
+					D.isHvr = id
 					
 					#region Shader Draw
 						

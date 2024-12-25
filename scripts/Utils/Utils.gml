@@ -197,3 +197,22 @@ function struct_trim_and_backfill(inst) {
 	}
 	
 }
+
+function struct_find(inst,k) {
+	
+	try {
+		
+		if(variable_instance_exists(inst,k)) return inst[$ k];
+		
+	} catch(_ex) {}
+	
+	return U
+	
+}
+
+function is_hover(inst) {
+	
+	// Return True if No Hover set or Hover is instance
+	return ((!D.isHvr or D.isHvr == inst) and (!D.isHvro or D.isHvro == inst))
+	
+}

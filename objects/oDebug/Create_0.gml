@@ -10,7 +10,10 @@ resetControl = T
 unstuck = T
 muted = F
 envInvert = T
-diaDebug = T
+diaDebug = F
+
+// Variables...
+diaPrev = N // For previewing dialogue that is available...
 
 // Dbg Strings, 1 Auto Clear; 2 Manual Clear
 dbgStr = T

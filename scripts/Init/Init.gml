@@ -245,10 +245,13 @@ function _init() {
 			LINK_D,
 			LINK_E,
 			MB_LP,
+			PARENT,
+			PARENT_ALL,
 			LAST
 			
 		}
 		Vn = [
+			
 			"FIRST",
 			"STATIC",
 			"DONE",
@@ -270,7 +273,10 @@ function _init() {
 			"LINK_D",
 			"LINK_E",
 			"MB_LP",
+			"PARENT",
+			"PARENT_ALL",
 			"LAST"
+			
 		]
 		if(array_length(Vn)-1 < V.LAST) {
 			show_debug_message("Critical: Value Names Missing!")

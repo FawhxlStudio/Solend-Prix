@@ -87,10 +87,11 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																		
 																		if(mouse_in_rectangle(_xy4) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
 																			and variable_instance_exists(CM[$ string(i)],K.HVR)
-																			and variable_instance_exists(CM[$ string(i)],K.FND)) {
+																			and variable_instance_exists(CM[$ string(i)],K.FND)
+																			and is_hover(id)) {
 																			
 																			// Set Hover
-																			D.isHvr = T
+																			D.isHvr = id
 																			
 																			if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
 																					or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
@@ -336,10 +337,11 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 													
 													if(mouse_in_circle(_xy2,_rad) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
 														and variable_instance_exists(CM[$ string(i)],K.HVR)
-															and variable_instance_exists(CM[$ string(i)],K.FND)) {
+															and variable_instance_exists(CM[$ string(i)],K.FND)
+															and is_hover(id)) {
 														
 														// Set Hover
-														D.isHvr = T
+														D.isHvr = id
 														
 														if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
 															or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
