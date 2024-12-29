@@ -1,0 +1,6 @@
+
+Done - fix dialogue repeating when going out but jumping forks
+Done - Need to reopen dialogue with spitfire when we return with suit
+Done - fix textbox adjustments for Right side actor
+
+Look at cosmic wallpaper engine background, get shaders to do that, will look fucking amazingggggggggggggg

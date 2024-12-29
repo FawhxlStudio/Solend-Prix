@@ -4,22 +4,31 @@ function db_diaNar() {
 	
 	#region Anims
 		
-		#region News 1
+		#region News 1 (Revised)
 			
 			NS[$ K.ANM+"News1"] = {}
 			NS[$ K.ANM+"News1"][$ K.BD0+K.SPR] = animNews1BD
 			NS[$ K.ANM+"News1"][$ K.SP0+K.SPR] = animNews1Ship
 			NS[$ K.ANM+"News1"][$ K.BG0+K.SPR] = animNews1BG
-			NS[$ K.ANM+"News1"][$ K.NM] = "Anchor Woman"
-			NS[$ K.ANM+"News1"][$ 0] = "-colonys' tragedy serve as grim reminder to the dangers of settling distant systems..."
-			NS[$ K.ANM+"News1"][$ 1] = "..."
-			NS[$ K.ANM+"News1"][$ 2] = "Now onto the topic that has the known galaxy on the edge of their seat's tonight..."
-			NS[$ K.ANM+"News1"][$ 3] = "Hosted by Saints Corp, An Interstellar league of competitors line up tonight for the launch of the exciting event known as \"The Grand Wing Prix\"..."
-			NS[$ K.ANM+"News1"][$ 4] = "The course has now been finalized, and as the name suggests the course takes competitors from one end of the Galactic Wing to the other..."
-			NS[$ K.ANM+"News1"][$ 5] = "The contestants will be starting in the Occulo system, racing through both known and unknown space to our own home system of Sol..."
-			NS[$ K.ANM+"News1"][$ 6] = "It will be a long race with many challenges but all the competitors certainly have their eyes set on the 100,000,000 cr. prize pool at end..."
-			NS[$ K.ANM+"News1"][$ 7] = "It's winner takes all and it's a once in a lifetime event, a lot can happen over the course of the race so trust \"Star Stream Network\" to keep you updated..."
-			NS[$ K.ANM+"News1"][$ 8] = "This is Alexandria at SSN, Have a good night..."
+			// The TV cuts into the news through from static as the broadcast is started
+			NS[$ K.ANM+"News1"][$ K.NM] = "Hostess Alexandria"
+			NS[$ K.ANM+"News1"][$ 0] = "My name's Alexandria and I'll be your hostess here from Earth's own trusted \"Astra-Link Media\" center..."
+			NS[$ K.ANM+"News1"][$ 1] = "If you're just tuning in, The \"Solend's Prix\", is set to begin in a few Terran hours..."
+			NS[$ K.ANM+"News1"][$ 2] = "An Interstellar pool of the best pilots throughout the galaxy are getting ready for the flight of their lives..."
+			NS[$ K.ANM+"News1"][$ 3] =  "*She pauses as if listening to a hidden voice and she gently clears her throat*"
+			NS[$ K.ANM+"News1"][$ 4] = "I just got word from my crew that the officials have finished finalizing the course..."
+			NS[$ K.ANM+"News1"][$ 5] = "The race, as the name suggests, will start in the Solend system where the pilots are gathering now..."
+			NS[$ K.ANM+"News1"][$ 6] = "Starting from the furthest habitable system at the very tip of our own Milkyway's wing, back to humanity's cradle, here at Sol..." 
+			NS[$ K.ANM+"News1"][$ 7] = "Racing through both known and unknown space the veteran pilots will be forced to navigate dangerous and hostile environments..."
+			NS[$ K.ANM+"News1"][$ 8] = "It will be a long race with many challenges and while some of the competitors might have their eyes set on the one billion credit prize pool at the end..."
+			NS[$ K.ANM+"News1"][$ 9] = "Many tune in throughout the galaxy in hopes that their system's pilot will win, and... Well..."
+			NS[$ K.ANM+"News1"][$ 10] = "*She clears her throat quietly*"
+			NS[$ K.ANM+"News1"][$ 11] = "Secure the chance for their own system to recieve crucial aide and attention from Sol..."
+			NS[$ K.ANM+"News1"][$ 12] = "Knowing this, each pilot, certainly feels the gravity of the stakes at play..."
+			NS[$ K.ANM+"News1"][$ 13] = "It's a once in a lifetime oppurtunity, not only for the pilots, but the countless souls they represent..."
+			NS[$ K.ANM+"News1"][$ 14] = "That is all for now, and we'd like to thank the sponsor of this event, \"Angel Investments\"..."
+			NS[$ K.ANM+"News1"][$ 15] = "The best in helping humanity, safely, find new homes throughout the stars..."
+			NS[$ K.ANM+"News1"][$ 16] =  "*The anchor woman briefly interacts with a tablet in her desk before the stream cuts off...*"
 			
 		#endregion
 		

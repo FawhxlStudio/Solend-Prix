@@ -374,9 +374,9 @@ function _init() {
 			TMR:"timer",
 			SRF:"surface",
 			RPT:"repeat",
-			BYP:"bypass",
 			// Hybrid
 			REL:"relation_",
+			BYP:"bypass_",
 			// Hybrid Child
 			I:"_iterator",
 			IO:"_iteratorOld",
