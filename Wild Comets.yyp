@@ -72,6 +72,8 @@
   "name":"Wild Comets",
   "resources":[
     {"id":{"name":"GMLive_fallback","path":"extensions/GMLive_fallback/GMLive_fallback.yy",},},
+    {"id":{"name":"fAlexandria1","path":"fonts/fAlexandria1/fAlexandria1.yy",},},
+    {"id":{"name":"fAlexandria2","path":"fonts/fAlexandria2/fAlexandria2.yy",},},
     {"id":{"name":"fDebug","path":"fonts/fDebug/fDebug.yy",},},
     {"id":{"name":"fFem","path":"fonts/fFem/fFem.yy",},},
     {"id":{"name":"fFemB","path":"fonts/fFemB/fFemB.yy",},},

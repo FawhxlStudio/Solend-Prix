@@ -7,7 +7,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		D.game_state = GAME.PLAY
 		D.scene_state = GAME.INIT
-		D.scni = SCENE.CLUB
+		D.scni = SCENE.APARTMENT
 		audio_stop_all()
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)

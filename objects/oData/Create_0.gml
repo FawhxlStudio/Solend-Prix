@@ -110,6 +110,7 @@
 	diaSoftClose = F
 	diad = 0
 	diaNestDir = T // T == Into Nest, F == Out of Nest
+	diaContinue = F
 	
 #endregion
 

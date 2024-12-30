@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fFemL",
+  "%Name":"fFem",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":28,
@@ -9,7 +9,7 @@
   "canGenerateBitmap":true,
   "charset":0,
   "first":0,
-  "fontName":"Segoe UI",
+  "fontName":"Segoe UI Light",
   "glyphOperations":0,
   "glyphs":{
     "32":{"character":32,"h":35,"offset":0,"shift":7,"w":7,"x":2,"y":2,},
@@ -112,7 +112,7 @@
   "hinting":0,
   "includeTTF":false,
   "interpreter":0,
-  "italic":false,
+  "italic":true,
   "kerningPairs":[
     {"amount":-1,"first":34,"second":114,},
     {"amount":-1,"first":34,"second":115,},
@@ -1255,7 +1255,7 @@
   "last":0,
   "lineHeight":35,
   "maintainGms1Font":false,
-  "name":"fFemL",
+  "name":"fFem",
   "parent":{
     "name":"Fonts",
     "path":"folders/Fonts.yy",

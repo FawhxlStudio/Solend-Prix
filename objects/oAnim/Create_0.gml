@@ -30,3 +30,6 @@ font = fNeu
 bg = sprNA
 bd = sprNA
 ship = sprNA
+strBld = ""
+strDel = 3
+strDeli = 0

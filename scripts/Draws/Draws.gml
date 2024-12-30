@@ -221,5 +221,22 @@
 		}
 		
 	#endregion
+		
+		// Line before: var _str,_strw,_strh,_bgc,_fgc
+		// Since this is setting where it is called from...
+		function text_prep_cc(str) {
+			
+			try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+			
+			// the usual init; non-ext
+			str_  = str
+			strw_ = string_width_ext(str,STRH,WW*(2/3))
+			strh_ = string_height_ext(str,STRH,WW*(2/3))
+			bgc_  = [.9,c.blk,c.blk,c.blk,c.blk] // Background Default
+			fgc_  = [1,c.wht,c.wht,c.lgry,c.lgry] // Foreground/Text Default
+			
+		}
+		
+	#endregion
 	
 #endregion

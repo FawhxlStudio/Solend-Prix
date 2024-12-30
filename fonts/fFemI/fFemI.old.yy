@@ -9,7 +9,7 @@
   "canGenerateBitmap":true,
   "charset":0,
   "first":0,
-  "fontName":"Segoe UI Light",
+  "fontName":"Segoe UI",
   "glyphOperations":0,
   "glyphs":{
     "32":{"character":32,"h":35,"offset":0,"shift":7,"w":7,"x":2,"y":2,},

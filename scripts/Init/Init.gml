@@ -195,6 +195,7 @@ function _init() {
 			FIRST,
 			SYLAS,
 			SPITFIRE,
+			ALEXANDRIA,
 			LAST
 			
 		}
@@ -202,6 +203,7 @@ function _init() {
 			"FIRST",
 			"SYLAS",
 			"SPITFIRE",
+			"ALEXANDRIA",
 			"LAST"
 		]
 		if(array_length(ACTORn)-1 < ACTOR.LAST) {

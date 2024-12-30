@@ -12,6 +12,7 @@ function db_diaNar() {
 			NS[$ K.ANM+"News1"][$ K.BG0+K.SPR] = animNews1BG
 			// The TV cuts into the news through from static as the broadcast is started
 			NS[$ K.ANM+"News1"][$ K.NM] = "Hostess Alexandria"
+			NS[$ K.ANM+"News1"][$ K.ACT] = ACTOR.ALEXANDRIA
 			NS[$ K.ANM+"News1"][$ 0] = "My name's Alexandria and I'll be your hostess here from Earth's own trusted \"Astra-Link Media\" center..."
 			NS[$ K.ANM+"News1"][$ 1] = "If you're just tuning in, The \"Solend's Prix\", is set to begin in a few Terran hours..."
 			NS[$ K.ANM+"News1"][$ 2] = "An Interstellar pool of the best pilots throughout the galaxy are getting ready for the flight of their lives..."
@@ -205,7 +206,7 @@ function db_diaNar() {
 	#region Club 2
 		
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1] = {}
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.TRG] = TRIGGER.CLICK_OR_CONTINUE
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.TRG] = TRIGGER.CONTINUE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.ACT+K.RHT] = ACTOR.SYLAS
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.FLG] = [V.SUIT,P] // Flags must be true
@@ -473,6 +474,22 @@ function db_act() {
 		_char.head = sprSpitfire2
 		_char.headpol = 1
 		_char.uid = ACTOR.SPITFIRE
+		
+	#endregion
+	
+	#region Alexandria
+		
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
+		_char.dia[$ K.NM] = "Alexandria"
+		_char.dia[$ K.SX]  = SEX.FEMALE
+		_char.body = sprNA
+		_char.bodypol = 1
+		_char.head = sprNA
+		_char.headpol = 1
+		_char.uid = ACTOR.ALEXANDRIA
+		_char.font1 = fAlexandria1
+		_char.font2 = fAlexandria2
 		
 	#endregion
     

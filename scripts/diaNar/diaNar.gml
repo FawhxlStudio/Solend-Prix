@@ -699,6 +699,43 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 															
 														}
 														
+														case TRIGGER.CONTINUE: {
+															
+															if(D.diaContinue) {
+																
+																// Done? Should be this simple...
+																// Not Done and is Start...
+																if(!diaNar_done(diaInst)) _rtn = diaInst;
+																else if(_byp != N) {
+																	
+																	if(!is_array(_byp)) {
+																		
+																		#region Single Bypass Condition...
+																			
+																			// Currently the kind of bypass is not taken into consideration...
+																			// Just if it is set and is a struct, use it...
+																			if(is_struct(diaInst[$ _byp])) {
+																				
+																				_rtn = diaInst[$ _byp]
+																				_isBypassing = T
+																				
+																			}
+																			
+																		#endregion
+																		
+																	} // TODO else? Multi-Bypass?
+																	
+																}
+																
+																// Reset
+																D.diaContinue = F
+																
+															}
+															
+															break
+															
+														}
+														
 													}
 													
 												#endregion
@@ -1567,7 +1604,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						else _xy = [_xy[2],h,WW*.9,WH*.5];
 						var _str = diaInst[$ string(diaNarI())]
 						var _c = actr.col
-						draw_set_font(actr.font)
+						draw_set_font(actr.font1)
 						var _strsep = (STRH*1.5)*_scl
 						var _pad = STRW*_scl
 						var _strwmx = (WW/3)-(_pad*2)
@@ -1735,6 +1772,19 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		}
 																		
 																	#endregion
+																	
+																#endregion
+																
+																#region Continue
+																	
+																	case V.DONE_AND_CONTINUE: {
+																		
+																		D.diaSoftClose = F
+																		D.diaContinue = T
+																		diaInst[$ K.DN] = T
+																		break
+																		
+																	}
 																	
 																#endregion
 																
