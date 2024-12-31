@@ -138,7 +138,7 @@ function db_diaNar() {
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.DN] = F
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.ANM] = K.ANM+"News1"
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 0] = "Alright I still got some time..."
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 1] = "I wonder if anyone else in the race is at the bar..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 1] = "I wonder if anyone else in the race is at the club..."
 		
 	#endregion
 	
@@ -209,7 +209,6 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.TRG] = TRIGGER.CONTINUE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.ACT+K.RHT] = ACTOR.SYLAS
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.FLG] = [V.SUIT,P] // Flags must be true
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.REL+K.BR] = 0 // True or False: Is Actor's Relation atleast this?
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 0] = V.LEFT
@@ -245,7 +244,7 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ACT+K.RHT] = ACTOR.SYLAS
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.OPT] = ["Investigate","Just Leave"]
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ANM] = K.ANM+"ClubAlley1"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ANM+K.TO] = K.ANM+"ClubAlley1"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ 0] = {} // Investigate
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ 0][$ K.REL+K.ADJ] = 1
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ 0][$ 0] = "Hold on... I want to see what's going on..."

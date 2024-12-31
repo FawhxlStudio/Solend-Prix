@@ -12,6 +12,183 @@ function diaNar_focus_reset() {
 	
 }
 
+function diaNar_is_link(diaInst,clear) {
+	
+	if(D.diaLnkA != N) {
+		
+		if(is_array_ext(D.diaLnkA,2,N)) {
+			
+			if(is_struct(D.diaLnkA[1])) {
+				
+				if(D.diaLnkA[1] == diaInst) {
+					
+					if(clear) D.diaLnkA = N;
+					return T
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkB != N) {
+		
+		if(is_array_ext(D.diaLnkB,2,N)) {
+			
+			if(is_struct(D.diaLnkB[1])) {
+				
+				if(D.diaLnkB[1] == diaInst) {
+					
+					if(clear) D.diaLnkB = N;
+					return T
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkC != N) {
+		
+		if(is_array_ext(D.diaLnkC,2,N)) {
+			
+			if(is_struct(D.diaLnkC[1])) {
+				
+				if(D.diaLnkC[1] == diaInst) {
+					
+					if(clear) D.diaLnkC = N;
+					return T
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkD != N) {
+		
+		if(is_array_ext(D.diaLnkD,2,N)) {
+			
+			if(is_struct(D.diaLnkD[1])) {
+				
+				if(D.diaLnkD[1] == diaInst) {
+					
+					if(clear) D.diaLnkD = N;
+					return T
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkE != N) {
+		
+		if(is_array_ext(D.diaLnkE,2,N)) {
+			
+			if(is_struct(D.diaLnkE[1])) {
+				
+				if(D.diaLnkE[1] == diaInst) {
+					
+					if(clear) D.diaLnkE = N;
+					return T
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	return F
+	
+}
+
+function diaNar_get_link(diaInst) {
+	
+	if(D.diaLnkA != N) {
+		
+		if(is_array_ext(D.diaLnkA,2,N)) {
+			
+			if(is_struct(D.diaLnkA[1])) {
+				
+				if(D.diaLnkA[1] == diaInst) return V.LINK_A;
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkB != N) {
+		
+		if(is_array_ext(D.diaLnkB,2,N)) {
+			
+			if(is_struct(D.diaLnkB[1])) {
+				
+				if(D.diaLnkB[1] == diaInst) return V.LINK_B;
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkC != N) {
+		
+		if(is_array_ext(D.diaLnkC,2,N)) {
+			
+			if(is_struct(D.diaLnkC[1])) {
+				
+				if(D.diaLnkC[1] == diaInst) return V.LINK_C;
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkD != N) {
+		
+		if(is_array_ext(D.diaLnkD,2,N)) {
+			
+			if(is_struct(D.diaLnkD[1])) {
+				
+				if(D.diaLnkD[1] == diaInst) return V.LINK_D;
+				
+			}
+			
+		}
+		
+	}
+	
+	if(D.diaLnkE != N) {
+		
+		if(is_array_ext(D.diaLnkE,2,N)) {
+			
+			if(is_struct(D.diaLnkE[1])) {
+				
+				if(D.diaLnkE[1] == diaInst) return V.LINK_E;
+				
+			}
+			
+		}
+		
+	}
+	
+	return N
+	
+}
+
 function diaNar_close(isDone) {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
@@ -25,6 +202,7 @@ function diaNar_close(isDone) {
 			// Finish the current nest...
 			var _t = ds_list_top(D.diaNestLst)
 			_t[$ K.DN] = isDone
+			diaNar_is_link(_t,T)
 			ds_list_del_top(D.diaNestLst)
 			D.diaNestDir = F
 			
@@ -33,6 +211,7 @@ function diaNar_close(isDone) {
 			// Finish parent...
 			var _t = diaNar_get_par()
 			_t[$ K.DN] = isDone
+			diaNar_is_link(_t,T)
 			ds_list_delete(D.diaParLst,0)
 			D.focus.dia[$ K.I] = 0
 			diaNar_focus_reset()
@@ -135,8 +314,10 @@ function diaNar_open_nest(actr,diaInst,diaLyr) {
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	#region Start a Nest diaParLst here...
 		
-		// Init; We assume diaInst[$ diaNarI()] is a struct
-		var _dia = diaInst[$ diaNarI()]
+		// Init; If it diaNarI() isn't a struct then we assume it is a link and we want to open itself...
+		var _dia = N
+		if(!is_struct(diaInst[$ diaNarI()]) and !diaNar_is_open(diaInst)) _dia = diaInst;
+		else _dia = diaInst[$ diaNarI()];
 		if(!is_struct(_dia)) return F; // If it isn't a struct, how? Return false.
 		var rcnt = diaNar_get_real_keys_count(diaInst)
 		var _rtn = diaNar_iterate_level(_dia,actr.uid,4)
@@ -331,9 +512,26 @@ function diaNar_is_choice(diaInst) {
 	
 }
 
-function diaNar_is_nest_open(diaInst) {
+function diaNar_is_open(diaInst) {
 	
-	return ds_list_has(D.diaNestLst,diaInst)
+	#region Search Parent List for Instance...
+		
+		var found = F
+		for(var i = 0; i < ds_list_size(D.diaParLst); i++) {
+			
+			if(D.diaParLst[|i][1] == diaInst) {
+				
+				found = T
+				break
+				
+			}
+			
+		}
+		
+	#endregion
+	
+	// Search Nest list and return whether or not was found in parent...
+	return (ds_list_has(D.diaNestLst,diaInst) or found)
 	
 }
 
@@ -463,22 +661,17 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 								var _actrM = string(K.ACT+K.MID) // Actor Left (focusL)
 								var _actrR = string(K.ACT+K.RHT) // Actor Right (focusR)
 								var _bypd  = string(K.BYP+K.DN)  // Bypass Done (to Struct)
+								var _rlbr = string(K.REL+K.BR)  // Relationship Branch
+								var _anto = string(K.ANM+K.TO) // Anim To...
 								
 							#endregion
 							
 							var _proc = T // Whether we may (proc)eed with our return or not...
 							var _rtn = N // Dialogue we return if any
-							var _isCurrent = F // Is what we're iterating the current dialogue? (Usually is...)
-							#region Is Current Init
-								
-								if(!ds_list_empty(D.diaParLst)) {
-									
-									if(!ds_list_empty(D.diaNestLst)) _isCurrent = (ds_list_top(D.diaNestLst) == diaInst);
-									else _isCurrent = (diaNar_get_par() == diaInst);
-									
-								}
-								
-							#endregion
+							var _isCurrent = (diaInst == diaNar_get_top()) // Is what we're iterating the current dialogue? (Usually is...)
+							var _awaiting = (diaNar_get_top()[$ diaNarI()] == diaInst)
+							var _linked = diaNar_get_link(diaInst)
+							if(_linked != N) _awaiting = (diaNar_get_top()[$ diaNarI()] == _linked);
 							var _isFork = diaNar_is_fork(diaInst) // Is this dialogue just a fork? (All rks elements are structs)
 							if(_isFork and !D.diaNestDir) {
 								
@@ -489,6 +682,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 							var _byp = diaNar_get_bypass(diaInst)
 							var _isBypassing = F
 							var _isTrgd = F
+							var _isBranch = (_isFork and is_array_ext(_rks,2,"real"))
 							
 							// Loop through (set)ting keys array (_sks; (s)etting (k)ey(s))
 							for(var i = 0; i < array_length(_sks); i++) {
@@ -521,27 +715,32 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 														// Just starts!
 														case TRIGGER.START: {
 															
-															// Done? Should be this simple...
-															// Not Done and is Start...
-															if(!diaNar_done(diaInst)) _rtn = diaInst;
-															else if(_byp != N) {
+															// Debug diaShortcut skips start triggers
+															if(!is_debug(DBG.diaShortcut)) {
 																
-																if(!is_array(_byp)) {
+																// Done? Should be this simple...
+																// Not Done and is Start...
+																if(!diaNar_done(diaInst)) _rtn = diaInst;
+																else if(_byp != N) {
 																	
-																	#region Single Bypass Condition...
+																	if(!is_array(_byp)) {
 																		
-																		// Currently the kind of bypass is not taken into consideration...
-																		// Just if it is set and is a struct, use it...
-																		if(is_struct(diaInst[$ _byp])) {
+																		#region Single Bypass Condition...
 																			
-																			_rtn = diaInst[$ _byp]
-																			_isBypassing = T
+																			// Currently the kind of bypass is not taken into consideration...
+																			// Just if it is set and is a struct, use it...
+																			if(is_struct(diaInst[$ _byp])) {
+																				
+																				_rtn = diaInst[$ _byp]
+																				_isBypassing = T
+																				
+																			}
 																			
-																		}
+																		#endregion
 																		
-																	#endregion
+																	} // TODO else? Multi-Bypass?
 																	
-																} // TODO else? Multi-Bypass?
+																}
 																
 															}
 															break
@@ -606,11 +805,11 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 															
 															if(variable_instance_exists(diaInst,K.ANM)) {
 																
-																if(NS[$ diaInst[$ K.ANM]]) {
+																if(diaNar_done(NS[$ diaInst[$ K.ANM]])) {
 																	
 																	// Check sets for ability to do...
 																	// If we return N we know it is a no-go, otherwise it will return the dialogue...
-																	if(!diaNar_done(diaInst)) _rtn = diaNar_iterate_level(diaInst,uid,4);
+																	if(!diaNar_done(diaInst)) _rtn = diaInst;
 																	else if(_byp != N) {
 																		
 																		if(!is_array(_byp)) {
@@ -705,7 +904,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 																
 																// Done? Should be this simple...
 																// Not Done and is Start...
-																if(!diaNar_done(diaInst)) _rtn = diaInst;
+																if(!diaNar_done(diaInst) and !_rtn) _rtn = diaInst;
 																else if(_byp != N) {
 																	
 																	if(!is_array(_byp)) {
@@ -1001,6 +1200,9 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 										// _proc as long as everything exists, will set _rtn to a new inst
 										case K.BR: {
 											
+											// Only do when current...
+											if(!_isCurrent and !_awaiting) break;
+											
 											if(variable_instance_exists(diaInst,K.BR)) {
 												
 												if(is_array_ext(diaInst[$ K.BR],2,N)) {
@@ -1051,6 +1253,9 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 										
 										// Will draw the buttons and sha'll return N if an option is not made yet
 										case K.OPT: {
+											
+											// Only do when current...
+											if(!_isCurrent and !_awaiting) break;
 											
 											// Get Options Array [Strings Entries first, Value Entries Last]
 											// String entry index corresponds to the rks index to goto when picked (0: "Hi" -> Open Nest @ 0)
@@ -1152,6 +1357,9 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 											
 											case K.BYP: {
 												
+												// Only do when current...
+												if(!_isCurrent and !_awaiting) break;
+												
 												var _arr = diaInst[$ _k]
 												if(is_array_ext(_arr,2,N)) {
 													
@@ -1188,6 +1396,71 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 											}
 											
 										#endregion
+										
+									#endregion
+									
+									#region Relation Branch
+										
+										case _rlbr: {
+											
+											// Only do when current...
+											if(!_isCurrent and !_awaiting) break;
+											
+											if(diaLyr >= 4) {
+												
+												// Check that is like a branch... (2)
+												var _v = diaInst[$ _k]
+												if(actr) {
+													
+													if(variable_instance_exists(diaInst,string(actr.relation >= _v)))
+														_rtn = diaInst[$ string(actr.relation >= _v)];
+													
+												}
+												
+											}
+											
+											break
+											
+										}
+										
+									#endregion
+									
+									#region Link
+										
+										case K.LNK: {
+											
+											if(!diaNar_done(diaInst)) {
+												
+												var _v = diaInst[$ _k]
+												switch(_v) {
+													
+													case V.LINK_A: D.diaLnkA = [uid,diaInst]; break;
+													case V.LINK_B: D.diaLnkB = [uid,diaInst]; break;
+													case V.LINK_C: D.diaLnkC = [uid,diaInst]; break;
+													case V.LINK_D: D.diaLnkD = [uid,diaInst]; break;
+													case V.LINK_E: D.diaLnkE = [uid,diaInst]; break;
+													
+												}
+												
+											}
+											break
+											
+										}
+										
+									#endregion
+									
+									#region Anim To
+										
+										case _anto: {
+											
+											// Only do when current...
+											if(!_isCurrent and !_awaiting) break;
+											
+											if(!diaNar_done(NS[$ diaInst[$ _k]]))
+												D.diaAnimTo = NS[$ diaInst[$ _k]];
+											break
+											
+										}
 										
 									#endregion
 									
@@ -1731,6 +2004,9 @@ function diaNar_draw(actr,diaInst,diaLyr){
 													
 													#region Is (V)alue
 														
+														// To bypass iterating incase i.e. we open a linked nest, we don't want to mess up the old iter value...
+														var noIter = F
+														
 														#region Do Value Actions
 															
 															switch(_e) {
@@ -1788,14 +2064,87 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	
 																#endregion
 																
+																#region Links
+																	
+																	case V.LINK_A: {
+																		
+																		if(is_array_ext(D.diaLnkA,2,N)) {
+																			
+																			var _actr = actor_find(D.diaLnkA[0])
+																			if(_actr != N) diaNar_open_nest(_actr,D.diaLnkA[1],diaLyr);
+																			noIter = T
+																			
+																		}
+																		break
+																		
+																	}
+																	
+																	case V.LINK_B: {
+																		
+																		if(is_array_ext(D.diaLnkB,2,N)) {
+																			
+																			var _actr = actor_find(D.diaLnkB[0])
+																			if(_actr != N) diaNar_open_nest(_actr,D.diaLnkB[1],diaLyr);
+																			noIter = T
+																			
+																		}
+																		break
+																		
+																	}
+																	
+																	case V.LINK_C: {
+																		
+																		if(is_array_ext(D.diaLnkC,2,N)) {
+																			
+																			var _actr = actor_find(D.diaLnkC[0])
+																			if(_actr != N) diaNar_open_nest(_actr,D.diaLnkC[1],diaLyr);
+																			noIter = T
+																			
+																		}
+																		break
+																		
+																	}
+																	
+																	case V.LINK_D: {
+																		
+																		if(is_array_ext(D.diaLnkD,2,N)) {
+																			
+																			var _actr = actor_find(D.diaLnkD[0])
+																			if(_actr != N) diaNar_open_nest(_actr,D.diaLnkD[1],diaLyr);
+																			noIter = T
+																			
+																		}
+																		break
+																		
+																	}
+																	
+																	case V.LINK_E: {
+																		
+																		if(is_array_ext(D.diaLnkE,2,N)) {
+																			
+																			var _actr = actor_find(D.diaLnkE[0])
+																			if(_actr != N) diaNar_open_nest(_actr,D.diaLnkE[1],diaLyr);
+																			noIter = T
+																			
+																		}
+																		break
+																		
+																	}
+																	
+																#endregion
+																
 															}
 															
 														#endregion
 														
 														#region Iterate past value...
 															
-															if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1
-															else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T
+															if(!noIter) {
+																
+																if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1
+																else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T
+																
+															}
 															
 														#endregion
 														
@@ -1807,8 +2156,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 											
 											#region Update Old...
 												
-												if(diaInst != diaNar_get_par()) diaInst[$ K.IO] = diaNarI();
-												else D.focus.dia[$ K.IO] = diaNarI();
+												if(diaInst == diaNar_get_top()) {
+													
+													if(diaInst != diaNar_get_par()) diaInst[$ K.IO] = diaNarI();
+													else D.focus.dia[$ K.IO] = diaNarI();
+													
+												}
 												
 											#endregion
 											

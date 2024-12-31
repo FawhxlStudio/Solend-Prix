@@ -216,3 +216,23 @@ function is_hover(inst) {
 	return ((!D.isHvr or D.isHvr == inst) and (!D.isHvro or D.isHvro == inst))
 	
 }
+
+function is_debug(val) {
+	
+	try {
+		
+		if(DBG) {
+			
+			if(DBG.active) {
+				
+				return val;
+				
+			}
+			
+		}
+		
+	} catch(_ex) {}
+	
+	return F
+	
+}

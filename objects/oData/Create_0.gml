@@ -111,6 +111,12 @@
 	diad = 0
 	diaNestDir = T // T == Into Nest, F == Out of Nest
 	diaContinue = F
+	diaLnkA = N
+	diaLnkB = N
+	diaLnkC = N
+	diaLnkD = N
+	diaLnkE = N
+	diaAnimTo = N
 	
 #endregion
 

@@ -177,6 +177,19 @@ if(active and edit and !console) {
 					
 				#endregion
 				
+				#region Dialogue Pre-Vars
+					
+					dbgStr1 += "\nPar Dia List Count: "+string(ds_list_size(D.diaParLst))
+					if(D.diaContinue) dbgStr1 += "\nDia Continue...";
+					if(D.diaLnkA != N) dbgStr1 += "\nDia Link A:["+ACTORn[D.diaLnkA[0]]+","+string(is_struct(D.diaLnkA[1]))+"]";
+					if(D.diaLnkB != N) dbgStr1 += "\nDia Link B:["+ACTORn[D.diaLnkB[0]]+","+string(is_struct(D.diaLnkB[1]))+"]";
+					if(D.diaLnkC != N) dbgStr1 += "\nDia Link C:["+ACTORn[D.diaLnkC[0]]+","+string(is_struct(D.diaLnkC[1]))+"]";
+					if(D.diaLnkD != N) dbgStr1 += "\nDia Link D:["+ACTORn[D.diaLnkD[0]]+","+string(is_struct(D.diaLnkD[1]))+"]";
+					if(D.diaLnkE != N) dbgStr1 += "\nDia Link E:["+ACTORn[D.diaLnkE[0]]+","+string(is_struct(D.diaLnkE[1]))+"]";
+					if(D.diaAnimTo != N) dbgStr1 += "\nDia Anim To: "+string(D.diaAnimTo);
+					
+				#endregion
+				
 				#region Selected Editor Struct...
 					
 					if(ESsel) dbgStr2 = "\n"+json_stringify(ES[$ string(ESsel)],T);
@@ -274,7 +287,6 @@ if(active and edit and !console) {
 								else dbgStr2 += "\nFocus M: None";
 								if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
 								else dbgStr2 += "\nSpeaker: None";
-								dbgStr2 += "\nPar Dia List Count: "+string(ds_list_size(D.diaParLst))
 								dbgStr2 += "\nNest Dia List Count: "+string(ds_list_size(D.diaNestLst))
 								dbgStr2 += "\nDia Delay sec/frame: "+string(D.diad/GSPD)+"/"+string(D.diad)
 								dbgStr2 += "\nLevel/Layer: "+string(ds_list_size(D.diaNestLst))

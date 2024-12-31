@@ -243,3 +243,40 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	}
 	
 #endregion
+
+
+#region Application Surface Draw (Shaders)
+	
+	/* OLD
+	var exSurf = surface_create(WW,WH)
+	surface_set_target(exSurf)
+	var arg = shader_get_uniform(shExtractBright, "threshold")
+	shader_set_uniform_f(arg, 0.8)
+	shader_set(shExtractBright)
+	draw_surface_ext(surfBuf, 0, 0, 1, 1, 0, c_white, 1)
+	surface_reset_target()
+	
+	var blrSurf = surface_create(WW,WH)
+	surface_set_target(blrSurf)
+	shader_set(shBlur)
+	arg = shader_get_uniform(shBlur, "blurStrength")
+	shader_set_uniform_f(arg, 4.0)
+	draw_surface_ext(exSurf, 0, 0, 1, 1, 0, c_white, 1)
+	surface_reset_target()
+	
+	shader_set(shCombine)
+	arg = shader_get_uniform(shCombine, "originalTexture")
+	shader_set_uniform_f(arg, surface_get_texture(surfBuf))
+	arg = shader_get_uniform(shCombine, "bloomTexture")
+	shader_set_uniform_f(arg, surface_get_texture(blrSurf))
+	arg = shader_get_uniform(shCombine, "bloomIntensity")
+	shader_set_uniform_f(arg, 4.0)
+	draw_surface_ext(application_surface, 0, 0, 1, 1, 0, c_white, 1)
+	shader_reset()
+	surface_free(exSurf)
+	surface_free(blrSurf)
+	surface_free(surfBuf)
+	surfBuf = surface_create(WW,WH)
+	*/
+	
+#endregion
