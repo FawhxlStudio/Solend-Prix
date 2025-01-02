@@ -1787,6 +1787,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 		
 		if(D.diaDelPct2 >= 1) {
 			
+			/* OLD
 			#region Name Plate
 				
 				#region Init
@@ -1865,6 +1866,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				#endregion
 				
 			#endregion
+			*/
 			
 			#region Is the Speaker? (Draw the actual Dialogue)
 				
@@ -1939,6 +1941,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 										
 										// Get Content
 										var _e = diaInst[$ diaNarI()]
+										D.diaEnter = F
 										
 										if(!is_struct(_e)) {
 											
@@ -1948,6 +1951,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 													
 													#region Is Dialogue
 														
+														/* OLD
 														#region Text Box
 															
 															if(diaLyr == ds_list_size(D.diaNestLst)) {
@@ -1997,6 +2001,16 @@ function diaNar_draw(actr,diaInst,diaLyr){
 															}
 															
 														#endregion
+														*/
+														
+														diaNar_draw_dialogue(diaInst,actr,diaNarI())
+														
+														if(D.diaEnter) {
+															
+															if(keyboard_check_pressed(vk_enter) and diaNarI() < rcnt) D.focus.dia[$ K.I]+=1
+															else if(keyboard_check_pressed(vk_enter) and diaNarI() >= rcnt) diaInst[$ K.DN] = T
+															
+														}
 														
 													#endregion
 													
@@ -2261,6 +2275,167 @@ function diaNar_draw(actr,diaInst,diaLyr){
 		
 		draw_set_font(fNeu)
 		draw_set_alpha(1)
+		
+	#endregion
+	
+}
+
+function diaNar_draw_dialogue(inst,actr,i) {
+	
+	#region Text Pre
+		
+		// Set Font...
+		if(actr != N) draw_set_font(actr.font1);
+		else draw_set_font(fNeu);
+		
+		var strFull = (strBld_ == inst[$ i])
+		text_prep_cc(inst[$ i])
+		var xx = WW/2
+		var yy = WH*(7/8)
+		var xy = []
+		xy[0] = 0
+		xy[1] = WH*.75
+		xy[2] = WW
+		xy[3] = WH
+		draw_set_hvalign([fa_center,fa_middle])
+		var ao = draw_get_alpha()
+		
+	#endregion
+	
+	#region Draw Message Box
+		
+		draw_set_alpha(bgc_[0])
+		draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
+		
+	#endregion
+	
+	#region Hilight
+		
+		if(mouse_in_rectangle(xy) and strFull) {
+			
+			if(MBL) draw_set_alpha(fgc_[0]/8)
+			else draw_set_alpha(fgc_[0]/4)
+			draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.blk,c.blk,c.dgry,c.dgry,F)
+			
+		} else if(strFull) {
+			
+			// Init
+			var _sin = -sin(degtorad(D.diaTrigi))/2
+			draw_set_alpha(abs(_sin)/4)
+			
+			#region Draw Glow
+				
+				if(actr != N) {
+					
+					var _c = actr.col
+					draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.blk,c.blk,_c[1],_c[3],F)
+					
+				} else draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.wht,c.wht,c.ltgry,c.ltgry,F);
+				
+			#endregion
+			
+			// Iterate and Loop trigi
+			D.diaTrigi++
+			if(D.diaTrigi >= 360) D.diaTrigi -= 360
+			else if(D.diaTrigi < 0) D.diaTrigi += 360
+			
+		} else D.diaTrigi = 0;
+		
+	#endregion
+	
+	#region Draw Message
+		
+		draw_set_alpha(fgc_[0])
+		// Colors
+		if(actr != N) {
+			
+			// Draw Text...
+			var _c = actr.col
+			draw_text_ext_color(xx,lerp(xy[1],xy[3],0.5),strBld_,STRH,strw_,_c[1],_c[2],_c[3],_c[4],_c[0])
+			
+		} else draw_text_ext_color(xx,lerp(xy[1],xy[3],0.5),strBld_,STRH,strw_,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+		
+	#endregion
+	
+	#region Iterate String Build (Output)
+		
+		if(strDeli_ >= strDel_ and strBld_ != inst[$ i]) {
+			
+			#region Add to Build (Next Char)
+				
+				strBld_ += string_char_at(inst[$ i],string_length(strBld_)+1)
+				strDeli_ = 0
+				
+			#endregion
+			
+		} else strDeli_++; // Iterate Delay (Time it takes between each char to add to build)...
+		
+		#region Reset Str Bld when next started... UPDATE w/ more
+			
+			if(keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and MBLR)) {
+				
+				if(strFull) {
+					
+					D.diaEnter = T
+					strBld_ = ""
+					strDeli_ = 0
+					D.diaTrigi = 0
+					
+				} else strBld_ = inst[$ i];
+				
+			}
+			
+		#endregion
+		
+	#endregion
+	
+	#region Draw Name
+		
+		// Reset Font
+		draw_set_font(fNeu)
+		
+		#region Anim Name Variable
+			
+			if(actr != N) {
+				
+				// Init;
+				var _nm = actr.dia[$ K.NM]
+				
+				#region Text Pre
+					
+					draw_set_font(fNeuB)
+					var w = WW/3
+					var h = (WH*.9)-1
+					var _w = string_width(_nm)
+					var _h = string_height(_nm)
+					xy[0] = WW*.25
+					xy[2] = xy[0]+_w+10
+					xy[3] = xy[1]-_h-10
+					
+				#endregion
+				
+				#region Name BG
+					
+					draw_set_alpha(bgc_[0])
+					draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
+					
+				#endregion
+				
+				#region Draw Name
+					
+					draw_set_alpha(ao)
+					draw_set_hvalign([fa_left,fa_bottom])
+					var _c = actr.col
+					draw_text_color(xy[0]+5,xy[1]-5,_nm,_c[1],_c[2],_c[3],_c[4],1)
+					
+					// Reset Font
+					draw_set_font(fNeu)
+					
+				#endregion
+				
+			}
+			
+		#endregion
 		
 	#endregion
 	

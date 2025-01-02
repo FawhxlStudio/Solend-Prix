@@ -30,15 +30,6 @@ if(D.game_state == GAME.PLAY
 		
 		draw_self()
 		
-		var rcnt = diaNar_get_real_keys_count(NS[$ animStr])
-		
-		if(rcnt != N) {
-			
-			if(keyboard_check_pressed(vk_enter) and NS[$ K.I] < rcnt) NS[$ K.I] += 1
-			else if(keyboard_check_pressed(vk_enter) and NS[$ K.I] >= rcnt) NS[$ animStr][$ K.DN] = T
-			
-		}
-		
 		if(NS[$ animStr][$ K.DN]) TRAN.from_anim = id;
 		
 	}

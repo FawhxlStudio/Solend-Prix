@@ -418,6 +418,9 @@ function _init() {
 			globalvar strh_
 			globalvar bgc_
 			globalvar fgc_
+			globalvar strBld_
+			globalvar strDel_
+			globalvar strDeli_
 			text_prep("") // init Values...
 			
 		#endregion

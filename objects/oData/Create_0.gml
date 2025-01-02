@@ -117,6 +117,8 @@
 	diaLnkD = N
 	diaLnkE = N
 	diaAnimTo = N
+	diaTrigi = 0
+	diaEnter = F
 	
 #endregion
 

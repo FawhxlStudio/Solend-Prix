@@ -1,5 +1,7 @@
 
-Anim:
-Dialogue Continue...
+Dialogue Styled Like Anim
+Dialogue Glow when Ready
+Dialogue Hover FX
+fix anim dialogue iteration -- now (oAnim)
 
 Look at cosmic wallpaper engine background, get shaders to do that, will look fucking amazingggggggggggggg

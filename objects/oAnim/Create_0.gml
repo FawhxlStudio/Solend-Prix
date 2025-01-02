@@ -31,5 +31,5 @@ bg = sprNA
 bd = sprNA
 ship = sprNA
 strBld = ""
-strDel = 3
+strDel = 1.5
 strDeli = 0

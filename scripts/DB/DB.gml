@@ -13,10 +13,10 @@ function db_diaNar() {
 			// The TV cuts into the news through from static as the broadcast is started
 			NS[$ K.ANM+"News1"][$ K.NM] = "Hostess Alexandria"
 			NS[$ K.ANM+"News1"][$ K.ACT] = ACTOR.ALEXANDRIA
-			NS[$ K.ANM+"News1"][$ 0] = "My name's Alexandria and I'll be your hostess here from Earth's own trusted \"Astra-Link Media\" center..."
+			NS[$ K.ANM+"News1"][$ 0] = "My name's Alexandria and I'll be your hostess here from Sol's Nebula Relay..."
 			NS[$ K.ANM+"News1"][$ 1] = "If you're just tuning in, The \"Solend's Prix\", is set to begin in a few Terran hours..."
 			NS[$ K.ANM+"News1"][$ 2] = "An Interstellar pool of the best pilots throughout the galaxy are getting ready for the flight of their lives..."
-			NS[$ K.ANM+"News1"][$ 3] =  "*She pauses as if listening to a hidden voice and she gently clears her throat*"
+			NS[$ K.ANM+"News1"][$ 3] = "*She pauses as if listening to a hidden voice and she gently clears her throat*"
 			NS[$ K.ANM+"News1"][$ 4] = "I just got word from my crew that the officials have finished finalizing the course..."
 			NS[$ K.ANM+"News1"][$ 5] = "The race, as the name suggests, will start in the Solend system where the pilots are gathering now..."
 			NS[$ K.ANM+"News1"][$ 6] = "Starting from the furthest habitable system at the very tip of our own Milkyway's wing, back to humanity's cradle, here at Sol..." 
@@ -489,6 +489,10 @@ function db_act() {
 		_char.uid = ACTOR.ALEXANDRIA
 		_char.font1 = fAlexandria1
 		_char.font2 = fAlexandria2
+		_char.col[1] = make_color_rgb(192,0,192)
+		_char.col[2] = make_color_rgb(192,0,192)
+		_char.col[3] = make_color_rgb(128,0,128)
+		_char.col[4] = make_color_rgb(128,0,128)
 		
 	#endregion
     
