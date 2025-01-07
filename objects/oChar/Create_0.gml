@@ -4,10 +4,14 @@
 suited = T
 suitedo = suited
 head = sprSpitfire2
-headpol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+headPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
 body = sprSpitfireBod
-bodypol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+bodyPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+bodyBack = sprSpitfireBack
+bodyBackPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
 suitSpr = sprContainer
+diaSpr = N
+diaSprPol = 1
 suitInst = N
 font1 = fFem
 font2 = fFem

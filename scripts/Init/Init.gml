@@ -249,6 +249,8 @@ function _init() {
 			MB_LP,
 			PARENT,
 			PARENT_ALL,
+			BODY,
+			BODY_BACK,
 			LAST
 			
 		}
@@ -277,6 +279,8 @@ function _init() {
 			"MB_LP",
 			"PARENT",
 			"PARENT_ALL",
+			"BODY",
+			"BODY_BACK",
 			"LAST"
 			
 		]

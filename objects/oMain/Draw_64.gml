@@ -105,7 +105,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		#region Scene Darken
 			
 			var ao = draw_get_alpha()
-			draw_set_alpha((2/3)*(D.diaDelPct))
+			draw_set_alpha((1/3)*(D.diaDelPct))
 			draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
 			draw_set_alpha(ao)
 			
@@ -119,9 +119,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 					#region Draw Calls...
 						
-						if(D.focusL) diaNar_draw(D.focusL,e[1],0);
-						if(D.focusR) diaNar_draw(D.focusR,e[1],0);
-						if(D.focusM) diaNar_draw(D.focusM,e[1],0);
+						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,e[1],0);
+						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,e[1],0);
+						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,e[1],0);
+						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,e[1],0);
 						
 					#endregion
 					
@@ -140,9 +141,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 					#region Do Nested Dialogue Draw Calls & Recursion...
 						
-						if(D.focusL) diaNar_draw(D.focusL,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.focusR) diaNar_draw(D.focusR,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.focusM) diaNar_draw(D.focusM,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
 						
 					#endregion
 					
@@ -197,25 +199,29 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	#endregion
 	
-	#region Scene Darken (If no diaParLst)
+	if((D.diaTranPct < 1 and D.diaTranPct > 0) or D.diaDelPct2 < 1) {
 		
-		if(ds_list_empty(D.diaParLst)) {
+		#region Scene Darken (If no diaParLst)
 			
-			var ao = draw_get_alpha()
-			draw_set_alpha((2/3)*(D.diaDelPct))
-			draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
-			draw_set_alpha(ao)
+			if(ds_list_empty(D.diaParLst)) {
+				
+				var ao = draw_get_alpha()
+				draw_set_alpha((1/3)*(D.diaDelPct))
+				draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+				draw_set_alpha(ao)
+				
+			}
 			
-		}
+		#endregion
 		
-	#endregion
-	
-	#region Letterboxing
+		#region Letterboxing
+			
+			draw_set_alpha(1)
+			draw_rectangle_color(0,0,WW,(WH*.1)*D.diaDelPct,c.blk,c.blk,c.blk,c.blk,F)
+			draw_rectangle_color(0,WH-((WH*.1)*D.diaDelPct),WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+			
+		#endregion
 		
-		draw_set_alpha(1)
-		draw_rectangle_color(0,0,WW,(WH*.1)*D.diaDelPct,c.blk,c.blk,c.blk,c.blk,F)
-		draw_rectangle_color(0,WH-((WH*.1)*D.diaDelPct),WW,WH,c.blk,c.blk,c.blk,c.blk,F)
-		
-	#endregion
+	}
 
 #endregion

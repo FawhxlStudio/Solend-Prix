@@ -23,19 +23,19 @@ if(D.game_state == GAME.PLAY and D.scene_state == GAME.PLAY and D.animPlay = id 
 					if(!is_undefined(_act)) {
 						
 						var _actr = actor_find(_act)
-						diaNar_draw_dialogue(_ani,_actr,_ani[$ K.I])
+						diaNar_draw_dialogue(_ani,_actr,_ani[$ K.I],F)
 						
-					} else diaNar_draw_dialogue(_ani,N,_ani[$ K.I]);
+					} else diaNar_draw_dialogue(_ani,N,_ani[$ K.I],F);
 					
 				#endregion
 				
 				#region Iterate Dialogue...
 					
-					var rcnt = diaNar_get_real_keys_count(NS[$ animStr])
+					var rcnt = diaNar_get_real_keys_count(_ani)
 					if(rcnt != N and D.diaEnter) {
 						
-						if(keyboard_check_pressed(vk_enter) and NS[$ K.I] < rcnt) NS[$ K.I] += 1
-						else if(keyboard_check_pressed(vk_enter) and NS[$ K.I] >= rcnt) NS[$ animStr][$ K.DN] = T
+						if(_ani[$ K.I] < rcnt) _ani[$ K.I] += 1
+						else if(_ani[$ K.I] >= rcnt) _ani[$ K.DN] = T
 						
 					}
 					

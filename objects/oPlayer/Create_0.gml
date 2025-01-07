@@ -4,11 +4,13 @@
 suited = F
 suitedo = F
 head = sprSylas2
-headpol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+headPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
 body = sprSylasBod2
-bodypol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+bodyPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
 suitSpr = sprContainer
 suitInst = N
+diaSpr = N
+diaSprPol = 1
 font1 = fNeu
 font2 = fNeuB
 col = [1,c.nb,c.nb,c.lb,c.lb]

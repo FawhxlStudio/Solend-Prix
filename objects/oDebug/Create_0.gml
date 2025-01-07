@@ -23,6 +23,7 @@ diaPrev2Str = ""
 dbgStr = T
 dbgStr1 = ""
 dbgStr2 = ""
+markerStr = ""
 dbgStrScrl = 0
 CON = U
 CONi = 0

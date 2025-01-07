@@ -166,39 +166,40 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 0] = V.RIGHT // Switch to Right Character as Speaker (Sylas)
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 1] = "Hey you in the Spacer suit..." // Dialogue
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 2] = V.LEFT // Switch to Left Character as Speaker (Spitfire)
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 3] = "Hmm? I guess you must be talking to me..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 4] = "[They look you up and down]" // Emote
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5] = {}
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ K.BR] = [V.SUIT,P] // True or False: Player Suited?
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ T] = {} // Player is Suited:
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ T][$ 0] = "[They turn towards you promptly]"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ T][$ 1] = "Wait- You're the one that flies Praey!"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ T][$ 2] = "Your name's Sylas right?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ T][$ 3] = V.DONE_AND_CONTINUE // Mark this Narrative Parent as Done (NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0])
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F] = {} // Player is NOT Suited:
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 0] = "[They wave their hand at you dismissively]"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 1] = "Not now I'm looking for someone..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2] = {}
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0] = {} // Option 0 == Array[0] == "Are you in the race too?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ K.REL+K.ADJ] = -1 // Actor's Relation change. (- bad, + good)
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 0] = "Aren't you a pilot in the race?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 1] = V.LEFT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 2] = "Grghhh- I just said-"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 3] = V.RIGHT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 4] = "I'm in the race too, My name's Sylas."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 5] = V.LEFT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 6] = "Oh- I've been looking for you! You fly Praey right?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 7] = "[Their head tilts to the side]... Where's your suit?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 8] = V.RIGHT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 9] = "Oh- I uh-"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 10] = V.LEFT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 11] = "[They put their hand up towards you]"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 12] = "Stop- We don't have time, just go get it on and we'll talk more later."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 13] = "Come back here when you're suited..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 14] = "[They turn away from you impaitently]..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5][$ F][$ 2][$ 0][$ 15] = V.DONE // Also marks this narrative parent as done
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 3] = V.BODY // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 4] = "Hmm? I guess you must be talking to me..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5] = "[They look you up and down]" // Emote
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6] = {}
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ K.BR] = [V.SUIT,P] // True or False: Player Suited?
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ T] = {} // Player is Suited:
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ T][$ 0] = "[They turn towards you promptly]"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ T][$ 1] = "Wait- You're the one that flies Praey!"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ T][$ 2] = "Your name's Sylas right?"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ T][$ 3] = V.DONE_AND_CONTINUE // Mark this Narrative Parent as Done (NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0])
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F] = {} // Player is NOT Suited:
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 0] = "[They wave their hand at you dismissively]"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 1] = "Not now I'm looking for someone..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2] = {}
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0] = {} // Option 0 == Array[0] == "Are you in the race too?"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ K.REL+K.ADJ] = -1 // Actor's Relation change. (- bad, + good)
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 0] = "Aren't you a pilot in the race?"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 1] = V.LEFT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 2] = "Grghhh- I just said-"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 3] = V.RIGHT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 4] = "I'm in the race too, My name's Sylas."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 5] = V.LEFT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 6] = "Oh- I've been looking for you! You fly Praey right?"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 7] = "[Their head tilts to the side]... Where's your suit?"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 8] = V.RIGHT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 9] = "Oh- I uh-"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 10] = V.LEFT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 11] = "[They put their hand up towards you]"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 12] = "Stop- We don't have time, just go get it on and we'll talk more later."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 13] = "Come back here when you're suited..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 14] = "[They turn away from you impaitently]..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 15] = V.DONE // Also marks this narrative parent as done
 		// Option 1 == Array[1] == ACTION.LEAVE; Just trigger action in this case, no additional dialogue set...
 		
 	#endregion
@@ -469,10 +470,16 @@ function db_act() {
 		_char.dia[$ K.NM] = "Spitfire"
 		_char.dia[$ K.SX]  = SEX.FEMALE
 		_char.body = sprSpitfireBod
-		_char.bodypol = 1
+		_char.bodyPol = 1
+		_char.bodyBack = sprSpitfireBack
+		_char.bodyBackPol = 1
+		_char.diaSpr = _char.bodyBack
+		_char.diaSprPol = _char.bodyBackPol
 		_char.head = sprSpitfire2
-		_char.headpol = 1
+		_char.headPol = 1
 		_char.uid = ACTOR.SPITFIRE
+		_char.font1 = fSpitfire
+		_char.font2 = fSpitfireB
 		
 	#endregion
 	
@@ -483,9 +490,9 @@ function db_act() {
 		_char.dia[$ K.NM] = "Alexandria"
 		_char.dia[$ K.SX]  = SEX.FEMALE
 		_char.body = sprNA
-		_char.bodypol = 1
+		_char.bodyPol = 1
 		_char.head = sprNA
-		_char.headpol = 1
+		_char.headPol = 1
 		_char.uid = ACTOR.ALEXANDRIA
 		_char.font1 = fAlexandria1
 		_char.font2 = fAlexandria2

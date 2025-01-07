@@ -177,6 +177,12 @@ if(active and edit and !console) {
 					
 				#endregion
 				
+				#region Debug Marker Variables...
+					
+					if(markerStr != "") dbgStr1 += markerStr;
+					
+				#endregion
+				
 				#region Dialogue Pre-Vars
 					
 					dbgStr1 += "\nPar Dia List Count: "+string(ds_list_size(D.diaParLst))
@@ -290,10 +296,10 @@ if(active and edit and !console) {
 								dbgStr2 += "\nNest Dia List Count: "+string(ds_list_size(D.diaNestLst))
 								dbgStr2 += "\nDia Delay sec/frame: "+string(D.diad/GSPD)+"/"+string(D.diad)
 								dbgStr2 += "\nLevel/Layer: "+string(ds_list_size(D.diaNestLst))
-								if(D.diaSoftClose) dbgStr2 += "\nSoft Close: True/Not Done";
-								else dbgStr2 += "\nSoft Close: False/Is Done";
-								if(D.diaNestDir) dbgStr2 += "\nNesting Direction: In/Open";
-								else dbgStr2 += "\nNesting Direction: Out/Close";
+								if(D.diaSoftClose) dbgStr2 += "\nSoft Close: Don't Mark as Done (True)";
+								else dbgStr2 += "\nSoft Close: Mark as Done (False)";
+								if(D.diaNestDir) dbgStr2 += "\nNesting Direction: In/Open (True)";
+								else dbgStr2 += "\nNesting Direction: Out/Close (False)";
 								if(D.focus) {
 									dbgStr2 += "\nIter: "+string(diaNarI())
 									dbgStr2 += "\nIter Old (Par): "+string(D.focus.dia[$ K.IO])
@@ -624,6 +630,7 @@ if(active and edit and !console) {
 					// Reset
 					draw_olds_push()
 					dbgStr1 = ""
+					markerStr = ""
 					
 				#endregion
 				
