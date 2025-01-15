@@ -7,6 +7,5 @@
     "path":"folders/Notes.yy",
   },
   "resourceType":"GMNotes",
-  "resourceVersion":"1.1",
-  "tags":[],
+  "resourceVersion":"2.0",
 }

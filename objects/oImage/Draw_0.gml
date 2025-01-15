@@ -4,8 +4,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 if(D.game_state == GAME.PLAY
 	and is(sprite_index)) {
 	
-	image_blend = D.scnBlend3;
-	
+	image_blend = D.scnBlend3
 	draw_self()
 	
 	#region Interaction (To Make Universal)

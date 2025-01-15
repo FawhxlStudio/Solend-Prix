@@ -408,6 +408,36 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																					
 																				#endregion
 																				
+																				#region X Offset
+																					
+																					if(variable_instance_exists(ES[$ string(i)],K.XOF)) {
+																						
+																						if(ES[$ string(i)][$ K.XOF] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "X Offset: "+string(ES[$ string(i)][$ K.XOF])
+																							
+																						}
+																						
+																					}
+																					
+																				#endregion
+																				
+																				#region Y Offset
+																					
+																					if(variable_instance_exists(ES[$ string(i)],K.YOF)) {
+																						
+																						if(ES[$ string(i)][$ K.YOF] != N) {
+																							
+																							if(_str2 != "") _str2 += ", "
+																							_str2 += "Y Offset: "+string(ES[$ string(i)][$ K.YOF])
+																							
+																						}
+																						
+																					}
+																					
+																				#endregion
+																				
 																			#endregion
 																			
 																			// Add to _str
@@ -726,6 +756,36 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																	
 																}
 																
+																#region X Offset
+																	
+																	if(variable_instance_exists(ES[$ string(i)],K.XOF)) {
+																		
+																		if(ES[$ string(i)][$ K.XOF] != N) {
+																			
+																			if(_str2 != "") _str2 += ", "
+																			_str2 += "X Offset: "+string(ES[$ string(i)][$ K.XOF])
+																			
+																		}
+																		
+																	}
+																	
+																#endregion
+																
+																#region Y Offset
+																	
+																	if(variable_instance_exists(ES[$ string(i)],K.YOF)) {
+																		
+																		if(ES[$ string(i)][$ K.YOF] != N) {
+																			
+																			if(_str2 != "") _str2 += ", "
+																			_str2 += "Y Offset: "+string(ES[$ string(i)][$ K.YOF])
+																			
+																		}
+																		
+																	}
+																	
+																#endregion
+																
 															#endregion
 															
 															// Add to _str
@@ -911,7 +971,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
-									} else if(keyboard_check_pressed(ord("X"))) {
+									} else if(keyboard_check_pressed(ord("K"))) {
 										
 										#region Init Destroy Toggle
 											
@@ -949,6 +1009,38 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 												
 												keyboard_string = ""
 												ES[$ string(ESsel)][$ K.DL] = ""
+												
+											}
+											
+										#endregion
+										
+									} else if(keyboard_check_pressed(ord("X"))) {
+										
+										#region X Offset
+											
+											ESedit = EDIT.XOFFSET
+											if(variable_instance_exists(ES[$ string(ESsel)],K.XOF))
+												keyboard_string = ES[$ string(ESsel)][$ K.XOF]
+											else {
+												
+												keyboard_string = ""
+												ES[$ string(ESsel)][$ K.XOF] = ""
+												
+											}
+											
+										#endregion
+										
+									} else if(keyboard_check_pressed(ord("Y"))) {
+										
+										#region Y Offset
+											
+											ESedit = EDIT.YOFFSET
+											if(variable_instance_exists(ES[$ string(ESsel)],K.YOF))
+												keyboard_string = ES[$ string(ESsel)][$ K.YOF]
+											else {
+												
+												keyboard_string = ""
+												ES[$ string(ESsel)][$ K.YOF] = ""
 												
 											}
 											
@@ -1106,6 +1198,30 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 										#endregion
 										
+									} else if(ESedit == EDIT.XOFFSET) { // Delay Edit #
+										
+										#region X Offset
+											
+											if(keyboard_check_pressed(vk_backspace)
+												and ES[$ string(ESsel)][$ K.XOF] == "") {
+												variable_struct_remove(ES[$ string(ESsel)],K.XOF)
+												ESedit = N
+											} else ES[$ string(ESsel)][$ K.XOF] = keyboard_string
+											
+										#endregion
+										
+									} else if(ESedit == EDIT.YOFFSET) { // Delay Edit #
+										
+										#region Y Offset
+											
+											if(keyboard_check_pressed(vk_backspace)
+												and ES[$ string(ESsel)][$ K.YOF] == "") {
+												variable_struct_remove(ES[$ string(ESsel)],K.YOF)
+												ESedit = N
+											} else ES[$ string(ESsel)][$ K.YOF] = keyboard_string
+											
+										#endregion
+										
 									} else if(ESedit == EDIT.ANIMATION) { // Animation Edit STR
 										
 										#region Animation
@@ -1201,6 +1317,26 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 													if(is_string_real(ES[$ string(ESsel)][$ K.DL]))
 														ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.DL]);
 													else variable_struct_remove(ES[$ string(ESsel)],K.DL);
+													
+												#endregion
+												
+											} else if(ESedit == EDIT.XOFFSET) {
+												
+												#region Delay
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.XOF]))
+														ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.XOF]);
+													else variable_struct_remove(ES[$ string(ESsel)],K.XOF);
+													
+												#endregion
+												
+											} else if(ESedit == EDIT.YOFFSET) {
+												
+												#region Delay
+													
+													if(is_string_real(ES[$ string(ESsel)][$ K.YOF]))
+														ES[$ string(ESsel)][$ K.DL] = real(ES[$ string(ESsel)][$ K.YOF]);
+													else variable_struct_remove(ES[$ string(ESsel)],K.YOF);
 													
 												#endregion
 												

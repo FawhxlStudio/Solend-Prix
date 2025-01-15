@@ -7,7 +7,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		D.game_state = GAME.PLAY
 		D.scene_state = GAME.INIT
-		D.scni = SCENE.APARTMENT
+		D.scni = SCENE.CLUB
 		audio_stop_all()
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
@@ -224,4 +224,24 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	}
 
+#endregion
+
+#region UI?
+	
+	if(!ds_list_empty(P.party)) {
+		
+		for(var i = 0; i < ds_list_size(P.party); i++) {
+			
+			var _e = P.party[|i]
+			var _spr = sprNA
+			if(_e.dia[$ K.KNW]) _spr = _e.body;
+			else _spr = _e.head;
+			var _w = WW*.1
+			var _scl = _w/sprite_get_width(_spr)
+			draw_sprite_ext(_spr,0,(sprite_get_xoffset(_spr)*_scl)+((sprite_get_width(_spr)*_scl)*i),sprite_get_yoffset(_spr)*_scl,_scl,_scl,0,c.gry,2/3)
+			
+		}
+		
+	}
+	
 #endregion

@@ -10,11 +10,11 @@ function in_party(inst) {
 	
 }
 
-function leave_party(inst) {
+function leave_party(actr) {
 	
 	for(var i = 0; i < ds_list_size(P.party); i++) {
 		
-		if(P.party[|i] == inst) {
+		if(P.party[|i] == actr) {
 			
 			ds_list_delete(P.party,i)
 			return T
@@ -27,11 +27,11 @@ function leave_party(inst) {
 	
 }
 
-function join_party(inst) {
+function join_party(actr) {
 	
-	if(!in_party(inst)) {
+	if(!in_party(actr)) {
 		
-		ds_list_add(P.party,inst)
+		ds_list_add(P.party,actr)
 		return T
 		
 	}

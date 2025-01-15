@@ -182,6 +182,7 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ K.RPT] = T // Even if this dialogue is done; return here...
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0] = {} // Option 0 == Array[0] == "Are you in the race too?"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ K.REL+K.ADJ] = -1 // Actor's Relation change. (- bad, + good)
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 0] = "Aren't you a pilot in the race?"
@@ -198,8 +199,9 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 11] = "[They put their hand up towards you]"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 12] = "Stop- We don't have time, just go get it on and we'll talk more later."
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 13] = "Come back here when you're suited..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 14] = "[They turn away from you impaitently]..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 15] = V.DONE // Also marks this narrative parent as done
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 14] = V.BODY_BACK // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 15] = "[They turn away from you impaitently]..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6][$ F][$ 2][$ 0][$ 16] = V.DONE // Also marks this narrative parent as done
 		// Option 1 == Array[1] == ACTION.LEAVE; Just trigger action in this case, no additional dialogue set...
 		
 	#endregion

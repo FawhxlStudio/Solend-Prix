@@ -3,7 +3,7 @@
 // Vars
 suited = F
 suitedo = F
-head = sprSylas2
+head = sprSylas4
 headPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
 body = sprSylasBod2
 bodyPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw

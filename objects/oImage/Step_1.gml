@@ -11,7 +11,6 @@ if(D.game_state == GAME.PLAY
 				
 				if(P.suitInst == id)
 					P.suitInst = N;
-				
 				reset_image()
 				
 			}

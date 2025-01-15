@@ -1,17 +1,19 @@
 /// @description Draw In Scene
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-if(D.scni == scni) {
+if(D.scni == scni and !in_party(id)) {
 	
 	if(D.actorLeft == id) {
 		
-		sprite_index = body
+		if(diaSpr) sprite_index = diaSpr;
+		else if(suited) sprite_index = body;
+		else sprite_index = head;
 		image_alpha = 1
-		var scl = ((WW*D.z)*(2/3))/sprite_get_width(body)
+		var scl = (D.href)/sprite_get_height(sprite_index)
 		image_xscale = scl
 		image_yscale = scl
-		x = ((WW*D.z)*(1/3))+D.bgdltx
-		y = ((WH*D.z))+D.bgdlty
+		x = ((WW)*(1/5))+D.bgImg.dltx
+		y = D.bgImg.bbox_bottom
 		image_blend = D.scnBlend3;
 		draw_self()
 		
@@ -30,20 +32,21 @@ if(D.scni == scni) {
 					#region Shader Draw
 						
 						shader_set(shWhite)
+						
+						if(MBL) {
 							
-							if(MBL) {
-								
-								var _a = shader_get_uniform(shWhite,"alpha")
-								shader_set_uniform_f(_a,D.hvrPct/6)
-								
-							} else {
-								
-								var _a = shader_get_uniform(shWhite,"alpha")
-								shader_set_uniform_f(_a,D.hvrPct/5)
-								
-							}
-							draw_self()
+							var _a = shader_get_uniform(shWhite,"alpha")
+							shader_set_uniform_f(_a,D.hvrPct/6)
 							
+						} else {
+							
+							var _a = shader_get_uniform(shWhite,"alpha")
+							shader_set_uniform_f(_a,D.hvrPct/5)
+							
+						}
+						
+						draw_self()
+						
 						shader_reset()
 						
 					#endregion
