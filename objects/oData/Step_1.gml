@@ -41,16 +41,16 @@ try {
 	
 	#region Global Relative Draw Vars
 		
-		wref = max(1,bgImg.sprite_height)
-		href = max(1,bgImg.sprite_width)
-		bgmxpct = MX/wref
-		bgmypct = MY/href
+		wref = max(1,bgImg.sprite_width)
+		href = max(1,bgImg.sprite_height)
 		mwref = 1
 		mhref = 1
 		if(bbox_sanity(bgImg)) {
 			
 			mwref = max(1,bgImg.bbox_right)
 			mhref = max(1,bgImg.bbox_bottom)
+			bgmxpct = MX/mwref
+			bgmypct = MY/mhref
 			bgdltx = bgImg.bbox_left
 			bgdlty = bgImg.bbox_top
 			

@@ -31,7 +31,11 @@ if(D.game_state == GAME.PLAY and D.scene_state == GAME.PLAY and D.animPlay = id 
 				
 				#region Iterate Dialogue...
 					
+					// Init
 					var rcnt = diaNar_get_real_keys_count(_ani)
+					// Override Dialogue Continuing
+					if(D.diaInstArr != N) D.diaEnter = F;
+					
 					if(rcnt != N and D.diaEnter) {
 						
 						if(_ani[$ K.I] < rcnt) _ani[$ K.I] += 1

@@ -52,8 +52,8 @@
 	fgImg.persistent = T
 	
 	// Global Factors
-	wref = max(1,bgImg.sprite_height)
-	href = max(1,bgImg.sprite_width)
+	wref = max(1,bgImg.sprite_width)
+	href = max(1,bgImg.sprite_height)
 	bgmxpct = MX/wref
 	bgmypct = MY/href
 	mwref = 1
@@ -119,6 +119,14 @@
 	diaAnimTo = N
 	diaTrigi = 0
 	diaEnter = F
+	diaDone = F
+	diaDly = GSPD*2
+	diaI = 0
+	diaPct = 0
+	diaInstArr = N // Array to hold instance vars (i.e. [actor id, image] to transition to) ([Inst]ance [Arr]ay)
+	diaImn = 0
+	diaImx = diaDly
+	diaInstRpt = N
 	
 #endregion
 
