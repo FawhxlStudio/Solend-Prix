@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"BG Layers",
-    "path":"folders/Sprites/Scenes/City/BG Layers.yy",
+    "path":"folders/Sprites/Scenes/BG Layers.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

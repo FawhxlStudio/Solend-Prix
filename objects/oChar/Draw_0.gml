@@ -1,21 +1,25 @@
 /// @description Draw In Scene
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-if(D.scni == scni and !in_party(id)) {
+if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 	
 	if(D.actorLeft == id) {
 		
-		if(diaSpr) sprite_index = diaSpr;
-		else if(suited) sprite_index = body;
-		else sprite_index = head;
-		image_alpha = 1
-		var scl = (D.href)/sprite_get_height(sprite_index)
-		image_xscale = scl
-		image_yscale = scl
-		x = ((WW)*(1/5))+D.bgImg.dltx
-		y = D.bgImg.bbox_bottom
-		image_blend = D.scnBlend3;
-		draw_self()
+		#region Init/Draw
+			
+			if(diaSpr) sprite_index = diaSpr;
+			else if(suited) sprite_index = body;
+			else sprite_index = head;
+			image_alpha = 1
+			var scl = (D.href)/sprite_get_height(sprite_index)
+			image_xscale = scl
+			image_yscale = scl
+			x = ((WW)*(1/5))+D.bgImg.dltx
+			y = D.bgImg.bbox_bottom
+			image_blend = D.scnBlend3;
+			draw_self()
+			
+		#endregion
 		
 		if(bbox_sanity(id)) {
 			

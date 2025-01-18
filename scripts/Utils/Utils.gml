@@ -112,7 +112,7 @@ function color_make_rgb(colArr) {
 	
 }
 
-function color_darken(col,mlt) {
+function color_brightness(col,mlt) {
 	
 	var _c = color_get_rgb(col)
 	return make_color_rgb(_c[0]*mlt,_c[1]*mlt,_c[2]*mlt)

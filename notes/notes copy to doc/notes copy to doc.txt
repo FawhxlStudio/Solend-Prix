@@ -1,12 +1,8 @@
-Actor Dia Sprite Change Transition
-Draw Letterboxing when switching dialogue and going back down to a choice (Prevent Flicker)
+
 Dialogue to Anim Trigger (V.DONE_TO_ANIM)
 Name Unknown -> Known when V.ACTOR_MET
 Dialogue Buttons Design/Layout
 Does the Bypass actually work?
-Reset Unused Links/To_Anim etc.
-Adjust Spitfires size in club scene so butt is visible
-Spitfire turns back around?
 Draw Head Shadows behind body sprites in dialogue
 
 Character: Nick

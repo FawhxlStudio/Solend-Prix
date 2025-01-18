@@ -140,10 +140,11 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																						if(CM[$ string(i)][$ K.HLT]) {
 																							
 																							var ao = draw_get_alpha()
-																							if(MBL) draw_set_alpha(D.hvrPct/6)
-																							else draw_set_alpha(D.hvrPct/5)
+																							if(MBL) draw_set_alpha(D.hvrPct/4)
+																							else draw_set_alpha(D.hvrPct/3)
 																							
-																							draw_rectangle_color(_xy4[0],_xy4[1],_xy4[2],_xy4[3],c.wht,c.wht,c.wht,c.wht,F)
+																							var cc = color_brightness(D.scnBlend3,1.4)
+																							draw_rectangle_color(_xy4[0],_xy4[1],_xy4[2],_xy4[3],cc,cc,cc,cc,F)
 																							
 																							draw_set_alpha(ao)
 																							
@@ -208,7 +209,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																												
 																												// Single Blending Specified
 																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD]; // Brighter...
-																												else D.scnBlend2 = color_darken(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4); // Darker... ~25% Darker? WIP: Can make a variable here...
+																												else D.scnBlend2 = color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4); // Darker... ~25% Darker? WIP: Can make a variable here...
 																												
 																											} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
 																												and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
@@ -390,10 +391,11 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																	if(CM[$ string(i)][$ K.HLT]) {
 																		
 																		var ao = draw_get_alpha()
-																		if(MBL) draw_set_alpha(D.hvrPct/6)
-																		else draw_set_alpha(D.hvrPct/5)
+																		if(MBL) draw_set_alpha(D.hvrPct/4)
+																		else draw_set_alpha(D.hvrPct/3)
 																		
-																		draw_circle_color(_xy2[0],_xy2[1],_rad,c.wht,c.wht,F)
+																		var cc = color_brightness(D.scnBlend3,1.4)
+																		draw_circle_color(_xy2[0],_xy2[1],_rad,cc,cc,F)
 																		
 																		draw_set_alpha(ao)
 																		
@@ -425,7 +427,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																					TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref]
 																					// "Destroy"
 																					if(CM[$ string(i)][$ K.DTR])
-																						CM[$ string(i)][$ K.DTD] = T
+																						CM[$ string(i)][$ K.DTD] = T;
 																					break
 																					
 																				}

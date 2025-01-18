@@ -23,7 +23,7 @@
   ],
   "name":"sprSpitfire2",
   "nineSlice":null,
-  "origin":7,
+  "origin":6,
   "parent":{
     "name":"Spitfire",
     "path":"folders/Sprites/Actors/Spitfire.yy",
@@ -75,7 +75,7 @@
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":3072,
+    "xorigin":0,
     "yorigin":4096,
   },
   "swatchColours":null,

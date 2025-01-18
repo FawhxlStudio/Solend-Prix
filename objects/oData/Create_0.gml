@@ -127,6 +127,7 @@
 	diaImn = 0
 	diaImx = diaDly
 	diaInstRpt = N
+	diaLBDrawn = F
 	
 #endregion
 

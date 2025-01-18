@@ -7,7 +7,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		D.game_state = GAME.PLAY
 		D.scene_state = GAME.INIT
-		D.scni = SCENE.CLUB
+		D.scni = SCENE.APARTMENT
 		audio_stop_all()
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
@@ -199,36 +199,42 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	#endregion
 	
-	if((D.diaTranPct < 1 and D.diaTranPct > 0) or D.diaDelPct2 < 1) {
+	if((D.diaTranPct < 1 and D.diaTranPct > 0) or D.diaDelPct2 < 1 or (!D.diaLBDrawn and D.diaTranPct == 1)) {
 		
-		#region Scene Darken (If no diaParLst)
+		if(!D.diaLBDrawn) {
 			
-			if(ds_list_empty(D.diaParLst)) {
+			#region Scene Darken (If no diaParLst)
 				
-				var ao = draw_get_alpha()
-				draw_set_alpha((1/3)*(D.diaDelPct))
-				draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
-				draw_set_alpha(ao)
+				if(ds_list_empty(D.diaParLst)) {
+					
+					var ao = draw_get_alpha()
+					draw_set_alpha((1/3)*(D.diaDelPct))
+					draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+					draw_set_alpha(ao)
+					
+				}
 				
-			}
+			#endregion
 			
-		#endregion
-		
-		#region Letterboxing
+			#region Letterboxing
+				
+				draw_set_alpha(1)
+				draw_rectangle_color(0,0,WW,(WH*.1)*D.diaDelPct,c.blk,c.blk,c.blk,c.blk,F)
+				draw_rectangle_color(0,WH-((WH*.1)*D.diaDelPct),WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+				
+			#endregion
 			
-			draw_set_alpha(1)
-			draw_rectangle_color(0,0,WW,(WH*.1)*D.diaDelPct,c.blk,c.blk,c.blk,c.blk,F)
-			draw_rectangle_color(0,WH-((WH*.1)*D.diaDelPct),WW,WH,c.blk,c.blk,c.blk,c.blk,F)
-			
-		#endregion
+		}
 		
 	}
+	
+	D.diaLBDrawn = F
 
 #endregion
 
 #region UI?
 	
-	if(!ds_list_empty(P.party)) {
+	if(!ds_list_empty(P.party) and !D.ctrlOverride) {
 		
 		for(var i = 0; i < ds_list_size(P.party); i++) {
 			

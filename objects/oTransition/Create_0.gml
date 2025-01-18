@@ -9,3 +9,4 @@ to_anim = N
 from_anim = N
 zmt = 1+(1/3)
 zXYpct = N
+elevator = F

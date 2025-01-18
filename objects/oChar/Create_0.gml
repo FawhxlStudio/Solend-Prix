@@ -35,14 +35,5 @@ diaAvailable = F
 	dia[$ K.CAR] = 0
 	dia[$ K.CAR+K.DL] = GSPD*.2
 	dia[$ K.CAR+K.DLI] = 0
-	/*
-	dia[$ 0] = {}
-	dia[$ 0][$ 0] = {}
-	dia[$ 0][$ 0][$ K.TRG] = TRIGGER.START
-	dia[$ 0][$ 0][$ K.DN] = F
-	dia[$ 0][$ 0][$ 0] = "Euurghhh...."
-	dia[$ 0][$ 0][$ 1] = "Is it time already?"
-	dia[$ 0][$ 0][$ 2] = "Shit! I'm late!"
-	*/
 	
 #endregion

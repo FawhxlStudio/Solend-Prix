@@ -13,6 +13,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				if(!audio_is_playing(msx007) and is(introInst))
 					msx = audio_play_sound(msx007,1,T,0);
 				
+				// Clears all dialogue control variables to default
+				diaNar_reset()
+				
 			#endregion
 			
 			#region Init Scene
@@ -147,13 +150,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 									
 									// Single Blend... w/ Multiplier
 									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD]); // Brighter...
-									else scene_set_blend(color_darken(S[$ string(D.scni)][$ K.SCN+K.BLD],S[$ string(D.scni)][$ K.SCN+K.BLD+K.MT])); // Darker...
+									else scene_set_blend(color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],S[$ string(D.scni)][$ K.SCN+K.BLD+K.MT])); // Darker...
 									
 								} else {
 									
 									// Single Blend... No Multiplier, Default 1/4
 									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD]); // Brighter...
-									else scene_set_blend(color_darken(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4)); // Darker...
+									else scene_set_blend(color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4)); // Darker...
 									
 								}
 								
@@ -188,13 +191,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 									
 									// No Blend... w/ Multiplier
 									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(c.wht); // Brighter...
-									else scene_set_blend(color_darken(c.wht,S[$ string(D.scni)][$ K.SCN+K.BLD+K.MT])); // Darker...
+									else scene_set_blend(color_brightness(c.wht,S[$ string(D.scni)][$ K.SCN+K.BLD+K.MT])); // Darker...
 									
 								} else {
 									
 									// No Blend... No Multiplier, Default 1/4
 									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(c.wht); // Brighter...
-									else scene_set_blend(color_darken(c.wht,1/4)); // Darker...
+									else scene_set_blend(color_brightness(c.wht,1/4)); // Darker...
 									
 								}
 								
