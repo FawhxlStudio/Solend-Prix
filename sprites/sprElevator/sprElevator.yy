@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"City",
-    "path":"folders/Sprites/Scenes/City.yy",
+    "name":"Anims",
+    "path":"folders/Sprites/Scenes/Anims.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

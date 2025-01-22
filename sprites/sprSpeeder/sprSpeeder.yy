@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Ships",
-    "path":"folders/Sprites/Ships.yy",
+    "name":"Travellers",
+    "path":"folders/Sprites/Ships/Travellers.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

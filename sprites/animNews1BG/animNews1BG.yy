@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Anims",
-    "path":"folders/Sprites/Scenes/Anims.yy",
+    "name":"News1",
+    "path":"folders/Sprites/Scenes/Anims/News1.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

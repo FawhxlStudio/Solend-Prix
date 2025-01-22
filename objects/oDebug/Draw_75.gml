@@ -9,6 +9,7 @@ if(active and edit and !console) {
 			
 			console = T
 			edit = F
+			dbgStrScrl = 0
 			
 		}
 		
@@ -800,7 +801,12 @@ if(active and edit and !console) {
 	
 	#region Console Toggle
 		
-		if(keyboard_check_pressed(192)) console = F;
+		if(keyboard_check_pressed(192)) {
+			
+			console = F
+			dbgStrScrl = 0
+			
+		}
 		
 	#endregion
 	
@@ -828,6 +834,22 @@ if(active and edit and !console) {
 				
 				keyboard_string = CONarr[CONstri]
 				CONinit = F
+				
+			}
+			
+		#endregion
+		
+		#region Debug String Scrolling
+			
+			if(mouse_wheel_up()) {
+				
+				if(keyboard_check(vk_shift)) dbgStrScrl -= 12;
+				else dbgStrScrl -= 6;
+				
+			} else if(mouse_wheel_down()) {
+				
+				if(keyboard_check(vk_shift)) dbgStrScrl += 12;
+				else dbgStrScrl += 6;
 				
 			}
 			
@@ -1056,16 +1078,53 @@ if(active and edit and !console) {
 					
 					if(CONstri == array_length(CONarr)-1) {
 						
-						// Append
-						keyboard_string = ""
-						CONstri++
-						CONarr[CONstri] = ""
+						#region New Entry
+							
+							var _spt =  string_split_ext(CONarr[CONstri],["\"] = ","\""],T)
+							
+							if(array_length(_spt) <= 1) {
+								
+								// Append
+								keyboard_string = ""
+								
+							} else {
+								
+								keyboard_string = _spt[0]+"\"] = "
+								if(array_length(_spt) >= 3) keyboard_string += _spt[1]+"\"";
+								
+							}
+							
+							CONstri++
+							CONarr[CONstri] = keyboard_string
+							
+						#endregion
 						
 					} else {
 						
-						// Return to Latest after edit confirm
-						CONstri = array_length(CONarr)-1
-						keyboard_string = CONarr[CONstri]
+						#region Previous Entry
+							
+							CONstri++
+							keyboard_string = CONarr[CONstri]
+							
+							/* Un-Needed?
+							var _spt =  string_split(CONarr[CONstri],"\"] = ",T)
+							
+							if(array_length(_spt) <= 1) {
+								
+								// Append
+								keyboard_string = ""
+								
+							} else {
+								
+								keyboard_string = _spt[0]+"\"] = "
+								
+							}
+							
+							// Return to Latest after edit confirm
+							CONarr[CONstri] = keyboard_string
+							*/
+							
+						#endregion
 						
 					}
 					
@@ -1077,43 +1136,95 @@ if(active and edit and !console) {
 		
 		#region Draw
 			
-			var ex = "Example:\n"
-				+"dia = {}\n"
-				+"dia[$ \"name\"] = \"SYLAS\"\n"
-				+"dia[$ \"sex\"] = SEX.MALE\n"
-				+"dia[$ \"known\"] = F\n"
-				+"dia[$ \"i\"] = 0\n"
-				+"dia[$ \"cur\"] = 0\n"
-				+"dia[$ \"curd\"] = GSPD*.2\n"
-				+"dia[$ \"curi\"] = 0\n"
-				+"dia[$ \"0\"] = {}\n"
-				+"dia[$ \"0\"][$ \"0\"] = {}\n"
-				+"dia[$ \"0\"][$ \"0\"][$ \"trg\"] = TRIGGER.START\n"
-				+"dia[$ \"0\"][$ \"0\"][$ \"done\"] = F\n"
-				+"dia[$ \"0\"][$ \"0\"][$ \"lim\"] = 2\n"
-				+"dia[$ \"0\"][$ \"0\"][$ \"0\"] = \"Euurghhh....\"\n"
-				+"dia[$ \"0\"][$ \"0\"][$ \"1\"] = \"Is it time already?\"\n"
-				+"dia[$ \"0\"][$ \"0\"][$ \"2\"] = \"Shit! I'm late!\"\n"
-				+"________________________________________________\n"
-				+"Pending:\n"
-			var pre = CONpre
-			var str = "Prefix: "+pre+"\n"+ex+"\n"
-			for(var i = 0; i < array_length(CONarr)-1; i++) {
+			#region Init
 				
-				if(CONarr[i] == "") continue;
-				if(i == CONstri) str += pre+CONarr[i]+" |>CURRENT EDIT<|\n";
-				else str += pre+CONarr[i]+"\n";
+				#region Example/Legend
+					
+					var ex = "Example:\n"
+						+"dia = {}\n"
+						+"dia[$ \"name\"] = \"SYLAS\"\n"
+						+"dia[$ \"sex\"] = SEX.MALE\n"
+						+"dia[$ \"known\"] = F\n"
+						+"dia[$ \"i\"] = 0\n"
+						+"dia[$ \"cur\"] = 0\n"
+						+"dia[$ \"curd\"] = GSPD*.2\n"
+						+"dia[$ \"curi\"] = 0\n"
+						+"dia[$ \"0\"] = {}\n"
+						+"dia[$ \"0\"][$ \"0\"] = {}\n"
+						+"dia[$ \"0\"][$ \"0\"][$ \"trg\"] = TRIGGER.START\n"
+						+"dia[$ \"0\"][$ \"0\"][$ \"done\"] = F\n"
+						+"dia[$ \"0\"][$ \"0\"][$ \"lim\"] = 2\n"
+						+"dia[$ \"0\"][$ \"0\"][$ \"0\"] = \"Euurghhh....\"\n"
+						+"dia[$ \"0\"][$ \"0\"][$ \"1\"] = \"Is it time already?\"\n"
+						+"dia[$ \"0\"][$ \"0\"][$ \"2\"] = \"Shit! I'm late!\"\n"
+						+"______________________________________________\n"
+					
+				#endregion
+				
+				var _pre = CONpre
+				var _preStr = "Prefix: "+_pre+"\n"+ex+"\n"
+				var _strw = 0
+				var _strh = 0
+				var _th = string_height_ext(">"+CONarr[CONstri],20,WW)
+				var _xx = 0
+				var _yy = WH // sep+padding = 30
+				draw_set_font(fDebug)
+				draw_set_hvalign([fa_left,fa_bottom])
+				
+				#region String W/H
+					
+					for(var i = 0; i < array_length(CONarr)-1; i++) {
+						
+						var _str = CONarr[i]
+						_strw = max(string_width_ext(_str,20,WW),_strw)
+						_strh = max(string_height_ext(_str,20,WW),_strh)
+						
+					}
+					
+				#endregion
+				
+			#endregion
+			
+			for(var i = array_length(CONarr)-1; i >= 0; i--) {
+				
+				var _str = CONarr[i]
+				var _ih = string_height_ext(_str,20,WW)
+				_th += _ih
+				var _yi = -(_th+(-dbgStrScrl))
+				
+				if(_str == "" and i != CONstri) continue;
+				if(i == CONstri) {
+					
+					// Old
+					//str += pre+CONarr[i]+" |>CURRENT EDIT<|\n";
+					draw_set_alpha(1/3)
+					if(string_ends_with(_str," ")) draw_rectangle_color(_xx,_yy+_yi,string_width_ext(">"+_str+"_",20,WW),_yy+_yi-string_height_ext(">"+_str,20,WW),c.blk,c.blk,c.blk,c.blk,F);
+					else draw_rectangle_color(_xx,_yy+_yi,string_width_ext(">"+_str,20,WW),_yy+_yi-string_height_ext(">"+_str,20,WW),c.blk,c.blk,c.blk,c.blk,F);
+					draw_set_alpha(1)
+					if(string_ends_with(_str," ")) draw_rectangle_color(_xx,_yy+_yi,string_width_ext(">"+_str+"_",20,WW),_yy+_yi-string_height_ext(">"+_str,20,WW),c.ng,c.ng,c.wht,c.wht,T);
+					else draw_rectangle_color(_xx,_yy+_yi,string_width_ext(">"+_str,20,WW),_yy+_yi-string_height_ext(">"+_str,20,WW),c.ng,c.ng,c.wht,c.wht,T);
+					draw_text_ext_color(_xx,_yy+_yi,">"+_str,20,WW,c.ng,c.ng,c.lg,c.lg,1)
+					
+				} else {
+					
+					draw_set_alpha(1/3)
+					draw_rectangle_color(_xx,_yy+_yi,_strw,(_yy+_yi)-_ih,c.blk,c.blk,c.blk,c.blk,F)
+					draw_set_alpha(1)
+					draw_rectangle_color(_xx,_yy+_yi,_strw,(_yy+_yi)-_ih,c.dgry,c.dgry,c.gry,c.gry,T)
+					draw_text_ext_color(_xx,_yy+_yi,_str,20,WW,c.ng,c.ng,c.lg,c.lg,1)
+					
+					// Old
+					//str += pre+CONarr[i]+"\n";
+					
+				}
 				
 			}
-			draw_set_hvalign([fa_left,fa_bottom])
-			draw_set_font(fDebug)
-			var strw = max(string_width(str),string_width(pre+CONarr[CONstri]))
-			draw_set_alpha(5/6)
-			draw_rectangle_color(0,0,strw,WH,c.blk,c.blk,c.blk,c.blk,F)
-			draw_set_alpha(1)
-			draw_text_ext_color(0,WH-20,pre+CONarr[CONstri],20,WW,c.wht,c.wht,c.ng,c.ng,1)
-			draw_text_ext_color(0,WH-(STRH+40),str,20,WW,c.lg,c.lg,c.g,c.g,1)
 			
+			// Draw Input Line (Bottom)
+			draw_set_alpha(1/3)
+			draw_rectangle_color(_xx,_yy,WW,_yy-string_height_ext(">"+CONarr[CONstri],20,WW),c.blk,c.blk,c.blk,c.blk,F)
+			draw_set_alpha(1)
+			draw_text_ext_color(_xx,_yy,">"+CONarr[CONstri],20,WW,c.ng,c.ng,c.lg,c.lg,1)
 			
 		#endregion
 		

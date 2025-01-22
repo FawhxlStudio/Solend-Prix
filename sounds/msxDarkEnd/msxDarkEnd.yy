@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"msxDarkEnd",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":256,
+  "compression":0,
+  "conversionMode":0,
+  "duration":27.99746,
+  "name":"msxDarkEnd",
+  "parent":{
+    "name":"Music",
+    "path":"folders/Sounds/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":48000,
+  "soundFile":"msxDarkEnd.wav",
+  "type":1,
+  "volume":1.0,
+}

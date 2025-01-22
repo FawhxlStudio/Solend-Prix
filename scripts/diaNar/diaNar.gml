@@ -2570,16 +2570,16 @@ function diaNar_draw(actr,diaInst,diaLyr){
 													
 												}
 												
-											#endregion
-											
-											#region Update Old...
-												
-												if(diaInst == diaNar_get_top()) {
+												#region Update Old...
 													
-													if(diaInst != diaNar_get_par()) diaInst[$ K.IO] = diaNarI();
-													else D.focus.dia[$ K.IO] = diaNarI();
+													if(diaInst == diaNar_get_top()) {
+														
+														if(diaInst != diaNar_get_par()) diaInst[$ K.IO] = diaNarI();
+														else D.focus.dia[$ K.IO] = diaNarI();
+														
+													}
 													
-												}
+												#endregion
 												
 											#endregion
 											
