@@ -1807,6 +1807,75 @@ function diaNarI() {
 	
 }
 
+function diaNar_get_scene() {
+	
+	try {
+		
+		if(variable_instance_exists(NS,string(D.scni)))
+			return NS[$ D.scni];
+		
+	} catch (_ex) {}
+	
+	return N
+	
+}
+
+// Converts NS to Strings for editing like: NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
+function diaNar_to_editor(inst,lyr,k) {
+	
+	var arr = [k+" = {}"]
+	// Where do we append to k?
+	
+	try {
+		
+		var sz = variable_instance_names_count(inst)
+		if(sz > 0) {
+			
+			var rks = variable_instance_get_sorted_numKeys(inst,T)
+			var rksz = array_length(rks)
+			var sks = variable_instance_get_sorted_strKeys(inst,T)
+			var sksz = array_length(sks)
+			
+			#region Proc Strings First (To do)
+				
+				for(var i = 0; i < sksz; i++) {
+					
+					var e = sks[i]
+					
+				}
+				
+			#endregion
+			
+			#region Proc Numbered
+				
+				for(var i = 0; i < rksz; i++) {
+					
+					var e = inst[$ rks[i]]
+					if(is_struct(e)) {
+						
+						var rtn = diaNar_to_editor(e,lyr+1,k)
+						if(is_array(rtn)) array_copy(arr,array_length(arr),rtn,0,array_length(rtn))
+						
+					} else {
+						
+						if(is_string(e) and !is_string_real(e)) arr[array_length(arr)] = k+" = \""+e+"\"";
+						else if(is_string_real(e) or is_real(e)) arr[array_length(arr)] = k+" = V."+Vn[real(e)];
+						
+					}
+					
+				}
+				
+			#endregion
+			
+			
+		}
+		
+	} catch(_ex) {}
+	
+	return N
+	
+}
+
 function diaNar_draw(actr,diaInst,diaLyr){
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
