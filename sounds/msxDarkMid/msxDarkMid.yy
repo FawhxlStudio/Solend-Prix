@@ -9,7 +9,7 @@
   "bitRate":256,
   "compression":0,
   "conversionMode":0,
-  "duration":21.998005,
+  "duration":17.998367,
   "name":"msxDarkMid",
   "parent":{
     "name":"Music",

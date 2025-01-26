@@ -166,6 +166,7 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ K.TRG] = TRIGGER.CLICK // Activate when spitfire character is clicked at scene 2
+		//NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ K.RST] = V.SUIT // Activate when spitfire character is clicked at scene 2
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.LFT] = ACTOR.SPITFIRE // Character to draw on left of screen
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.RHT] = ACTOR.SYLAS // Character to draw on right of screen
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 0] = V.RIGHT // Switch to Right Character as Speaker (Sylas)
@@ -207,7 +208,7 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 13] = "Come back here when you're suited..."
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 14] = V.BODY_BACK // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 15] = "[They turn away from you impaitently]..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 16] = V.DONE // Also marks this narrative parent as done
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 16] = V.DONE_SOFT // Also marks this narrative parent as done
 		// Option 1 == Array[1] == ACTION.LEAVE; Just trigger action in this case, no additional dialogue set...
 		
 	#endregion
@@ -216,26 +217,29 @@ function db_diaNar() {
 		
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.TRG] = TRIGGER.CONTINUE
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.FLG] = V.SUIT
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.ACT+K.RHT] = ACTOR.SYLAS
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ K.REL+K.BR] = 0 // True or False: Is Actor's Relation atleast this?
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 0] = V.LEFT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 1] = "Great! Oh- I'm Spitfire by the way..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 2] = V.ACTOR_MET // Actor known var to True
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 3] = "I saw your profile in the roster for the race."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 4] = "I wanted to talk to you because I figured we might be able to watch eachothers' backs out there..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 5] = "I overheard other pilots talking to eachother, seems like others are teaming up to split the prize..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 6] = "I don't think either of us can win this race alone... And your ship-"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 7] = V.LINK_A
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 1] = V.BODY
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 2] = "Great! Oh- I'm Spitfire by the way..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 3] = V.ACTOR_MET // Actor known var to True
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 4] = "I saw your profile in the roster for the race."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 5] = "I wanted to talk to you because I figured we might be able to watch eachothers' backs out there..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 6] = "I overheard other pilots talking to eachother, seems like others are teaming up to split the prize..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 7] = "I don't think either of us can win this race alone... And your ship-"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ T][$ 8] = V.LINK_A
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 0] = V.LEFT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 1] = "Finally... I'm Spitfire by the way..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 2] = V.ACTOR_MET // Actor known var to True
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 3] = "I've seen your profile from the race roster."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 4] = "I know other racers are forming teams to split the prize..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 5] = "Just want to let you know I think we-"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 6] = V.LINK_A
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 1] = V.BODY
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 2] = "Finally... I'm Spitfire by the way..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 3] = V.ACTOR_MET // Actor known var to True
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 4] = "I've seen your profile from the race roster."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 5] = "I know other racers are forming teams to split the prize..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 6] = "Just want to let you know I think we-"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 1][$ F][$ 7] = V.LINK_A
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ K.LNK] = V.LINK_A // Like a trigger, but specific to the end of another dialogue/narrative
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
@@ -468,6 +472,26 @@ function db_act() {
 	#region Sylas (You)/Player
 		
 		ds_list_add(actorLst,P)
+		
+	#endregion
+	
+	#region Narrator
+		
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
+		_char.dia[$ K.NM] = "Narrator"
+		_char.dia[$ K.SX]  = SEX.MALE
+		_char.body = sprNA
+		_char.bodyPol = 1
+		_char.bodyBack = sprNA
+		_char.bodyBackPol = 1
+		_char.diaSpr = _char.bodyBack
+		_char.diaSprPol = _char.bodyBackPol
+		_char.head = sprNA
+		_char.headPol = 1
+		_char.uid = ACTOR.NARRATOR
+		_char.font1 = fNeu
+		_char.font2 = fNeuB
 		
 	#endregion
 	

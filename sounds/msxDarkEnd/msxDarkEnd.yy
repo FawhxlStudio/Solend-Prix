@@ -9,7 +9,7 @@
   "bitRate":256,
   "compression":0,
   "conversionMode":0,
-  "duration":27.99746,
+  "duration":21.998005,
   "name":"msxDarkEnd",
   "parent":{
     "name":"Music",

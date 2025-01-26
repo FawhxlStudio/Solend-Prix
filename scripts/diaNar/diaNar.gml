@@ -203,7 +203,7 @@ function diaNar_close(isDone) {
 	
 	#region Close Out Current...
 		
-		D.diaSoftClose = !isDone
+		if(!isDone) D.diaSoftClose = T;
 		
 		if(!ds_list_empty(D.diaNestLst)) {
 			
@@ -212,6 +212,7 @@ function diaNar_close(isDone) {
 				if(!diaNar_at_choice()) diaNar_focus_switch(D.focus);
 				var _t = ds_list_top(D.diaNestLst)
 				if(_t == D.diaInstRpt) _t[$ K.DN] = F;
+				else if(ds_list_size(D.diaNestLst) > 1 and diaNar_is_choice(D.diaNestLst[|ds_list_size(D.diaNestLst)-2])) _t[$ K.DN] = T;
 				else if(diaNar_is_choice(_t)) _t[$ K.DN] = F;
 				else _t[$ K.DN] = isDone;
 				diaNar_is_link(_t,T)
@@ -267,16 +268,14 @@ function diaNar_close(isDone) {
 						if(D.diaDone) {
 							
 							// Unless Bypass this is done too...
-							_t[$ K.DN] = F
+							_t[$ K.DN] = isDone
 							D.diaNestDir = F
-							D.diaSoftClose = F
 							
 						} else {
 							
 							// Choices don't finish? WIP
 							_t[$ K.DN] = F
 							D.diaNestDir = T
-							D.diaSoftClose = F
 							return T
 							
 						}
@@ -407,14 +406,14 @@ function diaNar_open_nest(actr,diaInst,diaLyr) {
 						// WIP
 						// From Parent Dialogue...
 						if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1 // Continue Past...
-						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T // Or Dialogue is done....
+						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftClose // Or Dialogue is done....
 						// We do not need to use IO here because we haven't gone into a new nested layer...
 						
 					} else {
 						
 						// From Nested...
 						if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1 // Continue Past...
-						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T // Or Dialogue is done....
+						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftCloseT // Or Dialogue is done....
 						// We do not need to use IO here because we haven't gone into a new nested layer...
 						
 					}
@@ -434,14 +433,14 @@ function diaNar_open_nest(actr,diaInst,diaLyr) {
 					// WIP
 					// Parent Dialogue (diaInst might be the same as D.focus.dia but for sanity sake...
 					if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1 // Continue Past...
-					else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T // Or Dialogue is done....
+					else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftClose // Or Dialogue is done....
 					// We do not need to use IO here because we haven't gone into a new nested layer...
 					
 				} else {
 					
 					// Nested...
 					if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1 // Continue Past...
-					else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T // Or Dialogue is done....
+					else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftClose // Or Dialogue is done....
 					// We do not need to use IO here because we haven't gone into a new nested layer...
 					
 				}
@@ -1071,53 +1070,69 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 											
 											#region Normal Flag
 												
-												if(is_array(diaInst[$ _k])) {
+												var flagArr = diaInst[$ _k]
+												if(is_array(flagArr)) {
 													
-													var flagArr = diaInst[$ _k]
-													if(is_array(flagArr)) {
+													if(is_array(flagArr[0])) {
 														
-														if(is_array(flagArr[0])) {
+														#region WIP When Needed: Multi (2d arr)
 															
-															#region WIP When Needed: Multi (2d arr)
-																
-																/* We'd need this if we had multiple flags to check for a dialogue...
-																	[ (2D Array Example of Contents)
-																		0:[ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String>],
-																		1:[ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String>],
-																		...
-																	]
-																*/
-																
-															#endregion
+															/* We'd need this if we had multiple flags to check for a dialogue...
+																[ (2D Array Example of Contents)
+																	0:[ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String>],
+																	1:[ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String>],
+																	...
+																]
+															*/
 															
-														} else {
+														#endregion
+														
+													} else {
+														
+														#region Single Flag Pair
 															
-															#region Single Flag Pair
+															// [ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String> ]
+															switch(flagArr[0]) {
 																
-																// [ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String> ]
-																switch(flagArr[0]) {
+																#region Anim Check
 																	
-																	#region Anim Check
+																	case V.ANIM: {
 																		
-																		case V.ANIM: {
-																			
-																			// flagArr[1] == The Anim(name/str) to find in NS
-																			if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
-																				_proc = NS[$ flagArr[1]][$ K.DN];
-																			_kdone = T
-																			break
-																			
-																		}
+																		// flagArr[1] == The Anim(name/str) to find in NS
+																		if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
+																			_proc = NS[$ flagArr[1]][$ K.DN];
+																		_kdone = T
+																		break
 																		
-																	#endregion
+																	}
 																	
-																}
+																#endregion
 																
-															#endregion
+															}
+															
+														#endregion
+														
+													}
+													
+												} else if(is_string_real(flagArr) or is_real(flagArr)) {
+												
+													#region Value
+														
+														flagArr = real(flagArr)
+														switch(flagArr) {
+															
+															case V.SUIT: {
+																
+																// Just V.SUIT? Check Player Suit.
+																_proc = P.suited
+																_kdone = T
+																break
+																
+															}
 															
 														}
 														
-													}
+													#endregion
 													
 												}
 												
@@ -1133,14 +1148,13 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 											
 											#region Inverse Flag
 												
-												var _v = diaInst[$ _k]
-												
-												if(is_array(_v)) {
+												var flagArr = diaInst[$ _k]
+												if(is_array(flagArr)) {
 													
 													if(is_array(flagArr[0])) {
 														
 														#region TODO When Needed: Multi (2d arr)
-														
+															
 															// See Normal for Example...
 															
 														#endregion
@@ -1171,17 +1185,17 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 														
 													}
 													
-												} else if(is_string_real(_v) or is_real(_v)) {
+												} else if(is_string_real(flagArr) or is_real(flagArr)) {
 													
 													#region Value
 														
-														_v = real(_v)
-														switch(_v) {
+														var flagArr = real(flagArr)
+														switch(flagArr) {
 															
 															case V.SUIT: {
 																
 																// Just V.SUIT? Check Player Suit.
-																_proc = P.suited;
+																_proc = P.suited
 																_kdone = T
 																break
 																
@@ -2172,7 +2186,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						
 						var rcnt = diaNar_get_real_keys_count(diaInst)
 						if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1;
-						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T;
+						else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftClose;
 						D.diaTranDeli = D.diaTranDel
 						D.diaTranPct = 1
 						
@@ -2273,7 +2287,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 			
 			#region Finish Dialogue (Done!)
 				
-				if(diaInst[$ K.DN] or D.diaDone) {
+				if(diaInst[$ K.DN] or D.diaDone or !D.diaNestDir) {
 					
 					#region Trigger Actions
 						
@@ -2428,7 +2442,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 															if(D.diaEnter) {
 																
 																if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1
-																else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T
+																else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftClose
 																
 																D.diaEnter = F
 																
@@ -2493,8 +2507,16 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	
 																	case V.DONE: {
 																		
-																		D.diaSoftClose = F
-																		diaInst[$ K.DN] = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
+																		D.diaDone = T
+																		break
+																		
+																	}
+																	
+																	case V.DONE_SOFT: {
+																		
+																		D.diaSoftClose = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
 																		D.diaDone = T
 																		break
 																		
@@ -2502,9 +2524,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	
 																	case V.DONE_AND_CONTINUE: {
 																		
-																		D.diaSoftClose = F
 																		D.diaContinue = T
-																		diaInst[$ K.DN] = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
 																		D.diaDone = T
 																		break
 																		
@@ -2513,8 +2534,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	case V.DONE_AND_JOIN: {
 																		
 																		join_party(D.focus)
-																		D.diaSoftClose = F
-																		diaInst[$ K.DN] = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
 																		D.diaDone = T
 																		break
 																		
@@ -2522,8 +2542,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	
 																	case V.DONE_TO_ANIM: {
 																		
-																		D.diaSoftClose = F
-																		diaInst[$ K.DN] = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
 																		D.diaDone = T
 																		break
 																		
@@ -2629,7 +2648,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 															if(!noIter) {
 																
 																if(diaNarI() < rcnt) D.focus.dia[$ K.I]+=1
-																else if(diaNarI() >= rcnt) diaInst[$ K.DN] = T
+																else if(diaNarI() >= rcnt) diaInst[$ K.DN] = !D.diaSoftClose
 																
 															}
 															
@@ -2690,7 +2709,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	#region Start Soft Close; We got False but also Nothing...
 																	
 																		D.diaSoftClose = T
-																		diaInst[$ K.DN] = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
 																		
 																	#endregion
 																	
@@ -2698,8 +2717,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	
 																	#region False and self? This is Done...
 																		
-																		D.diaSoftClose = F
-																		diaInst[$ K.DN] = T
+																		diaInst[$ K.DN] = !D.diaSoftClose
 																		
 																	#endregion
 																	
@@ -2716,6 +2734,37 @@ function diaNar_draw(actr,diaInst,diaLyr){
 											#endregion
 											
 										}
+										
+										#region Letterbox Check
+											
+											if(!D.diaLBDrawn) {
+												
+												#region Scene Darken (If no diaParLst)
+													
+													if(ds_list_empty(D.diaParLst)) {
+														
+														var ao = draw_get_alpha()
+														draw_set_alpha((1/3)*(D.diaDelPct))
+														draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+														draw_set_alpha(ao)
+														
+													}
+													
+												#endregion
+												
+												#region Letterboxing
+													
+													draw_set_alpha(1)
+													draw_rectangle_color(0,0,WW,(WH*.1)*D.diaDelPct,c.blk,c.blk,c.blk,c.blk,F)
+													draw_rectangle_color(0,WH-((WH*.1)*D.diaDelPct),WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+													
+												#endregion
+												
+												D.diaLBDrawn = T
+												
+											}
+											
+										#endregion
 										
 									#endregion
 									
@@ -2769,7 +2818,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 														#region Start Soft Close; We got False but also Nothing...
 															
 															D.diaSoftClose = T
-															diaInst[$ K.DN] = T
+															diaInst[$ K.DN] = !D.diaSoftClose
 															
 														#endregion
 														
@@ -2777,8 +2826,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 														
 														#region False and self? This is Done...
 															
-															D.diaSoftClose = F
-															diaInst[$ K.DN] = T
+															diaInst[$ K.DN] = !D.diaSoftClose
 															
 														#endregion
 														
@@ -2804,7 +2852,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 										#region Start Soft Close; We got False but also Nothing...
 											
 											D.diaSoftClose = T
-											diaInst[$ K.DN] = T
+											diaInst[$ K.DN] = !D.diaSoftClose
 											
 										#endregion
 										
@@ -2812,8 +2860,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 										
 										#region False and self? This is Done...
 											
-											D.diaSoftClose = F
-											diaInst[$ K.DN] = T
+											diaInst[$ K.DN] = !D.diaSoftClose
 											
 										#endregion
 										
@@ -2888,13 +2935,15 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		xy[1] = WH*.75
 		xy[2] = WW
 		xy[3] = WH
+		var bldh = string_height_ext(strBld_,STRH,WW*(7/8))
+		if(xy[1] > WH-bldh) xy[1] = (WH-bldh)-(STRH/2);
 		draw_set_hvalign([fa_center,fa_middle])
 		var ao = draw_get_alpha()
 		
 	#endregion
 	
-	#region Draw Message Box
-		
+	#region Draw Message Box (Expands for String Height)
+	
 		draw_set_alpha(bgc_[0])
 		draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
 		

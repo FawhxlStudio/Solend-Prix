@@ -11,7 +11,7 @@ unstuck = T
 muted = F
 envInvert = T
 diaDebug = F
-diaShortcut = T
+diaShortcut = F
 
 // Variables...
 diaPrev = N // For previewing dialogue that is available...

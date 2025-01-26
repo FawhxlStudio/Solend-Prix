@@ -9,7 +9,7 @@
   "bitRate":256,
   "compression":0,
   "conversionMode":0,
-  "duration":45.995827,
+  "duration":33.996918,
   "name":"msxDarkStart",
   "parent":{
     "name":"Music",

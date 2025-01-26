@@ -90,6 +90,17 @@
 	// Overrides
 	ctrlOverride = F
 	
+	// circs
+	circ1 = 0
+	circ1i = 0
+	circ1iv = 0
+	circ2 = 0
+	circ2i = 0
+	circ2iv = 0
+	circ3 = 0
+	circ3i = 0
+	circ3iv = 0
+	
 #endregion
 
 #region Dialogue Globals

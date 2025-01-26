@@ -198,6 +198,7 @@ function _init() {
 			SYLAS,
 			SPITFIRE,
 			ALEXANDRIA,
+			NARRATOR,
 			LAST
 			
 		}
@@ -206,6 +207,7 @@ function _init() {
 			"SYLAS",
 			"SPITFIRE",
 			"ALEXANDRIA",
+			"NARRATOR",
 			"LAST"
 		]
 		if(array_length(ACTORn)-1 < ACTOR.LAST) {
@@ -253,6 +255,7 @@ function _init() {
 			PARENT_ALL,
 			BODY,
 			BODY_BACK,
+			DONE_SOFT,
 			LAST
 			
 		}
@@ -283,6 +286,7 @@ function _init() {
 			"PARENT_ALL",
 			"BODY",
 			"BODY_BACK",
+			"DONE_SOFT",
 			"LAST"
 			
 		]
@@ -382,6 +386,7 @@ function _init() {
 			TMR:"timer",
 			SRF:"surface",
 			RPT:"repeat",
+			RST:"reset",
 			// Hybrid
 			REL:"relation_",
 			BYP:"bypass_",
