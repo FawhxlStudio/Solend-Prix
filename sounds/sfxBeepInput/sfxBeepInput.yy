@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sfxBeepInput",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":256,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.021083,
+  "name":"sfxBeepInput",
+  "parent":{
+    "name":"SFX",
+    "path":"folders/Sounds/SFX.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":22050,
+  "soundFile":"sfxBeepInput.wav",
+  "type":1,
+  "volume":1.0,
+}

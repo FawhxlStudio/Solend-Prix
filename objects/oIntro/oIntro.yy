@@ -10,8 +10,8 @@
   "name":"oIntro",
   "overriddenProperties":[],
   "parent":{
-    "name":"Logic",
-    "path":"folders/Objects/Logic.yy",
+    "name":"Scene Specific",
+    "path":"folders/Objects/Scene Specific.yy",
   },
   "parentObjectId":null,
   "persistent":true,

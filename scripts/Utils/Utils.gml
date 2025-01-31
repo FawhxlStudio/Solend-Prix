@@ -1,6 +1,9 @@
 function chance(pct) {
 	
-	return (random_range(0,100) <= pct)
+	var r = random_range(0,100)
+	if(pct > r or pct == 100) return T
+	else if(pct < r) return F
+	else return chance(pct)
 	
 }
 
@@ -140,8 +143,6 @@ function mouse_in_window() {
 	
 }
 
-// This has a very specific use case (i.e. nodes.json)
-// Cleans iterate-able struct of structs to fill in empty entries
 function struct_trim_and_backfill(inst) {
 	
 	if(is_struct(inst)) {

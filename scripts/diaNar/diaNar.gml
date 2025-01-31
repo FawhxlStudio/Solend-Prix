@@ -530,6 +530,39 @@ function diaNar_get_bypass(inst) {
 	
 }
 
+function diaNar_anim_start(animName) {
+	
+	// Init Anim
+	var _anim = instance_create_layer(0,0,"FG",oAnim)
+	_anim.animStr = animName
+	
+	#region Anim Specific Sets...
+		
+		// Make Constants... (For the different names to be the case)
+		var _n1 = string(global.nw1nm)
+		
+		// sprite_index acts as FG layer...
+		switch(animName) {
+			
+			case _n1: _anim.sprite_index = animNews1; break;
+			
+		}
+		
+	#endregion
+	
+	// Scale based on FG?
+	if(_anim.sprite_index != sprNA) _anim.scl = (WW*D.zmn)/sprite_get_width(_anim.sprite_index);
+	else if(_anim.sprite_index == sprNA and variable_instance_exists(NS[$ animName],K.BG0+K.SPR)) _anim.scl = (WW*D.zmn)/sprite_get_width(NS[$ animName][$ K.BG0+K.SPR]);
+	
+	// Set Transition
+	TRAN.to_anim = _anim
+	if(_anim.sprite_index != sprNA) TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref];
+	else TRAN.zXYpct = [.5,.5]
+	
+	// Return Created Anim Ref...
+	return _anim
+	
+}
 // To expand with any new dialogue mechanics that act as a choice for the player... (ie option)
 function diaNar_is_choice(diaInst) {
 	
@@ -2926,7 +2959,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		if(actr != N) draw_set_font(actr.font1);
 		else draw_set_font(fNeu);
 		
-		var strFull = (strBld_ == inst[$ i])
+		var strFull = string_ends_with(strBld_,inst[$ i])
 		text_prep_cc(inst[$ i])
 		var xx = WW/2
 		var yy = WH*(7/8)
@@ -2936,14 +2969,22 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		xy[2] = WW
 		xy[3] = WH
 		var bldh = string_height_ext(strBld_,STRH,WW*(7/8))
+		if(actr.uid == ACTOR.FOX) {
+			
+			draw_set_hvalign([fa_left,fa_bottom]);
+			xx = 0
+			yy = WH
+			bldh = string_height_ext(strBld_,STRH,WW)
+			
+		} else draw_set_hvalign([fa_center,fa_middle]);
 		if(xy[1] > WH-bldh) xy[1] = (WH-bldh)-(STRH/2);
-		draw_set_hvalign([fa_center,fa_middle])
+		if(draw_get_valign() == fa_middle) yy = lerp(xy[1],xy[3],0.5);
 		var ao = draw_get_alpha()
 		
 	#endregion
 	
 	#region Draw Message Box (Expands for String Height)
-	
+		
 		draw_set_alpha(bgc_[0])
 		draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
 		
@@ -2951,7 +2992,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 	
 	#region Hilight/Glow
 		
-		if(mouse_in_rectangle(xy) and strFull) {
+		if(mouse_in_rectangle(xy) and strFull and actr.uid != ACTOR.FOX) {
 			
 			#region Do Highlight
 				
@@ -2977,9 +3018,12 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 					if(actr != N) {
 						
 						var _c = actr.col
-						draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.blk,c.blk,_c[1],_c[3],F)
+						if(actr.uid == ACTOR.FOX or draw_get_font() == fTransmit)
+							draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,_c[1],_c[3],F);
+						else draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.blk,c.blk,_c[1],_c[3],F);
 						
-					} else draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.wht,c.wht,c.ltgry,c.ltgry,F);
+					} else if(draw_get_font() != fTransmit) draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.wht,c.wht,c.ltgry,c.ltgry,F);
+					else draw_rectangle_color(0,0,WW,WH,c.wht,c.wht,c.ltgry,c.ltgry,F);
 					
 				#endregion
 				
@@ -3001,23 +3045,68 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		draw_set_alpha(fgc_[0])
 		// Colors
-		if(actr != N) {
+		if(!actr) {
+			
+			// If Transmit, blink carot every other second
+			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+				
+				// Play Beep at fr 0
+				if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
+				
+				// Draw w/ Carot;  Reuse Carot if Already there...; ] is carot because it uses a nice default character
+				if(string_ends_with(string_trim_end(strBld_),"]")) draw_text_ext_color(xx,yy,strBld_,STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+				else draw_text_ext_color(xx,yy,strBld_+"]",STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+				
+			} else {
+				
+				// If is Transmit and ends with ], use it as carot
+				if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(strBld_),"]")  and strFull)
+					draw_text_ext_color(xx,yy,string_copy(strBld_,0,string_length(strBld_)-1),STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+				else draw_text_ext_color(xx,yy,strBld_,STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+				
+			}
+			
+		} else if(actr.uid == ACTOR.FOX) {
+			
+			var _c = actr.col
+			// If Transmit, blink carot every other second
+			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+				
+				// Play Beep at fr 0
+				if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
+				
+				// Draw w/ Carot;  Reuse Carot if Already there...; ] is carot because it uses a nice default character
+				if(string_ends_with(string_trim_end(strBld_),"]")) draw_text_ext_color(xx,yy,strBld_,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+				else draw_text_ext_color(xx,yy,strBld_+"]",STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+				
+			} else {
+				
+				// If is Transmit and ends with ], use it as carot
+				if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(strBld_),"]") and strFull)
+					draw_text_ext_color(xx,yy,string_copy(strBld_,0,string_length(strBld_)-1),STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+				else draw_text_ext_color(xx,yy,strBld_,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+				
+			}
+			
+		} else {
 			
 			// Draw Text...
 			var _c = actr.col
-			draw_text_ext_color(xx,lerp(xy[1],xy[3],0.5),strBld_,STRH,strw_,_c[1],_c[2],_c[3],_c[4],_c[0])
+			draw_text_ext_color(xx,yy,strBld_,STRH,strw_,_c[1],_c[2],_c[3],_c[4],_c[0])
 			
-		} else draw_text_ext_color(xx,lerp(xy[1],xy[3],0.5),strBld_,STRH,strw_,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+		}
 		
 	#endregion
 	
 	#region Iterate String Build (Output)
 		
-		if(strDeli_ >= strDel_ and strBld_ != inst[$ i]) {
+		if(strDeli_ >= strDel_ and !string_ends_with(strBld_,inst[$ i])) {
 			
 			#region Add to Build (Next Char)
 				
-				strBld_ += string_char_at(inst[$ i],string_length(strBld_)+1)
+				strBld_ += string_char_at(inst[$ i],stri_+1)
+				stri_ += 1
+				if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
 				strDeli_ = 0
 				
 			#endregion
@@ -3026,7 +3115,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		#region Reset Str Bld when next started... UPDATE w/ more
 			
-			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and MBLR))
+			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and MBLR and actr.uid != ACTOR.FOX))
 				and D.diaInstArr == N) {
 				
 				#region Dialogue Next
@@ -3034,11 +3123,13 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 					if(strFull) {
 						
 						D.diaEnter = T
-						strBld_ = ""
+						if(actr.uid == ACTOR.FOX) strBld_ += "\n\n" // FOX prints like a terminal
+						else strBld_ = "";
 						strDeli_ = 0
+						stri_ = 0
 						D.diaTrigi = 0
 						
-					} else strBld_ = inst[$ i];
+					} else if(actr.uid != ACTOR.FOX) strBld_ = inst[$ i]; // Skip Printing (When Normal)
 					
 				#endregion
 				
@@ -3055,7 +3146,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		#region Anim Name Variable
 			
-			if(actr != N) {
+			if(actr != N and (actr.uid != ACTOR.FOX)) {
 				
 				// Init;
 				var _nm = actr.dia[$ K.NM]

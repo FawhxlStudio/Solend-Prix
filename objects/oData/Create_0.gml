@@ -101,6 +101,18 @@
 	circ3i = 0
 	circ3iv = 0
 	
+	// Timers
+	// Normal ( -> Runtime)
+	fr = 0
+	sc = 0
+	mn = 0
+	hr = 0
+	// States; Randomized Start
+	frs = chance(50)
+	scs = chance(50)
+	mns = chance(50)
+	hrs = chance(50)
+	
 #endregion
 
 #region Dialogue Globals
@@ -144,15 +156,15 @@
 
 #region Scene Globals
 	
-	scni = -1
-	scene_state = GAME.INIT
-	scnBlend1 = c.wht
-	scnBlend2 = c.wht
-	scnBlend3 = c.wht
-	scnLight = N
-	scnBlendDel = GSPD/4
+	scni         = -1
+	scene_state  = GAME.INIT
+	scnBlend1    = c.wht
+	scnBlend2    = c.wht
+	scnBlend3    = c.wht
+	scnLight     = N
+	scnBlendDel  = GSPD/4
 	scnBlendDeli = 0
-	scnBlendPct = 0
+	scnBlendPct  = 0
 	
 #endregion
 

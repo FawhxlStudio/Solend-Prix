@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sfxType",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":256,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.089688,
+  "name":"sfxType",
+  "parent":{
+    "name":"SFX",
+    "path":"folders/Sounds/SFX.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":48000,
+  "soundFile":"sfxType.wav",
+  "type":0,
+  "volume":1.0,
+}

@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sfxBassGong",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":256,
+  "compression":0,
+  "conversionMode":0,
+  "duration":7.658292,
+  "name":"sfxBassGong",
+  "parent":{
+    "name":"SFX",
+    "path":"folders/Sounds/SFX.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":48000,
+  "soundFile":"sfxBassGong.wav",
+  "type":1,
+  "volume":0.42,
+}

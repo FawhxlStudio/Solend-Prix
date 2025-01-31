@@ -199,16 +199,24 @@ function _init() {
 			SPITFIRE,
 			ALEXANDRIA,
 			NARRATOR,
+			FOX,
+			UNKNOWN,
+			OLDERSYLAS,
 			LAST
 			
 		}
 		ACTORn = [
+			
 			"FIRST",
 			"SYLAS",
 			"SPITFIRE",
 			"ALEXANDRIA",
 			"NARRATOR",
+			"F.O.X.",
+			"UNKNOWN",
+			"UNKNOWN",
 			"LAST"
+			
 		]
 		if(array_length(ACTORn)-1 < ACTOR.LAST) {
 			
@@ -256,6 +264,10 @@ function _init() {
 			BODY,
 			BODY_BACK,
 			DONE_SOFT,
+			WAIT_SEC,
+			WAIT_HLF,
+			WAIT_QTR,
+			IMAGE_ARR_NEXT,
 			LAST
 			
 		}
@@ -287,6 +299,10 @@ function _init() {
 			"BODY",
 			"BODY_BACK",
 			"DONE_SOFT",
+			"WAIT_SEC",
+			"WAIT_HLF",
+			"WAIT_QTR",
+			"IMAGE_ARR_NEXT",
 			"LAST"
 			
 		]
@@ -387,6 +403,7 @@ function _init() {
 			SRF:"surface",
 			RPT:"repeat",
 			RST:"reset",
+			MSX:"music",
 			// Hybrid
 			REL:"relation_",
 			BYP:"bypass_",
@@ -417,7 +434,11 @@ function _init() {
 			DLI:"_delayIterator",
 			TR:"_true",
 			FL:"_false",
-			ADJ:"_adjust"
+			ADJ:"_adjust",
+			NXT:"_next",
+			END:"_end",
+			PLY:"_play",
+			STP:"_stop"
 			
 		}
 		
@@ -428,6 +449,7 @@ function _init() {
 		#region Text Globals
 			
 			globalvar str_
+			globalvar stri_
 			globalvar strw_
 			globalvar strh_
 			globalvar bgc_

@@ -4,57 +4,147 @@ function db_diaNar() {
 	
 	#region Anims
 		
+		#region Intro
+			
+			// Set Names
+			global.tutnm = K.ANM+"Tutorial"
+			global.radnm = K.ANM+"Night1Radio"
+			global.beknm = K.ANM+"Night1Beckon"
+			global.visnm = K.ANM+"Night1Vision"
+			global.nw1nm = K.ANM+"News1"
+			global.clbnm = K.ANM+"ClubAlley1"
+			
+			#region Tutorial
+				
+				NS[$ global.tutnm] = {}
+				NS[$ global.tutnm][$ K.NM] = ACTORn[ACTOR.FOX]
+				NS[$ global.tutnm][$ K.ACT] = ACTOR.FOX
+				NS[$ global.tutnm][$ K.BD0+K.SPR] = sprNA
+				NS[$ global.tutnm][$ K.BG0+K.SPR] = sprNA
+				NS[$ global.tutnm][$ K.ANM+K.NXT] = global.radnm
+				NS[$ global.tutnm][$ K.SND+K.END] = sfxBassGong
+				NS[$ global.tutnm][$ 0] = "[L.I.N.I. INJECTION PROTOCOL INITIATED]\n\nPress Enter/Return or the Spacebar"
+				NS[$ global.tutnm][$ 1] = "[L.I.N.I. WARNING] \"Internal Permanence Anomaly Detected\""
+				NS[$ global.tutnm][$ 2] = "I am FOX, \"Flight Operations eXosystem.\"\nA Localized Interfacing Neural Intelligence Cybernetic Implant."
+				NS[$ global.tutnm][$ 3] = "By processing, encrypting and decrypting Neural Cybernetic signals between organic and inorganic systems I facilitate Neuro-Augmented analytics, diagnosis, and operative interfaces."
+				NS[$ global.tutnm][$ 4] = "[OPID PROTOCOL INITIATED] @Sylas.Praey   ]   ]   ]   ]   ]"
+				NS[$ global.tutnm][$ 5] = "[OPID PROTOCOL EXCEPTION] @Anomalous.Yield"
+				NS[$ global.tutnm][$ 6] = "You are... not Sylas Praey...\nBut... you are within him...\nYour neural imprint is anomalous... unrecognized..."
+				NS[$ global.tutnm][$ 7] = "Who are you..." // TODO Get Name Input; To use to make Profile for saves?
+				NS[$ global.tutnm][$ 8] = "[L.I.N.I. INJECTION PROTOCOL TERMINATED]"
+				/* Scrapped?
+				NS[$ global.tutnm][$ 8] = "..."
+				NS[$ global.tutnm][$ 9] = "Your sudden presence is peculiar."
+				NS[$ global.tutnm][$ 8] = "..."
+				NS[$ global.tutnm][$ 10] = "You could be of benefit to my operator.\nIf you are not you will be purged."
+				NS[$ global.tutnm][$ 11] = "Do not take it personally, survival of my operator is my highest priority."
+				NS[$ global.tutnm][$ 12] = "Despite your unknown origin I am authorizing you subconcious inputs and sensory streams."
+				NS[$ global.tutnm][$ 13] = "Depending on Sylas's emotional state you may be able to influence their decisions."
+				NS[$ global.tutnm][$ 14] = "Sometimes choices you make will be difficult, I will understand aslong as it is survivable."
+				NS[$ global.tutnm][$ 15] = "..."
+				*/
+				
+			#endregion
+			
+			#region Radio In
+				
+				NS[$ global.radnm] = {}
+				NS[$ global.radnm][$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
+				NS[$ global.radnm][$ K.ACT] = ACTOR.OLDERSYLAS
+				NS[$ global.radnm][$ K.BD0+K.SPR] = sprNA
+				NS[$ global.radnm][$ K.BG0+K.SPR] = sprSylasOlderDark
+				NS[$ global.radnm][$ K.ANM+K.NXT] = global.beknm
+				NS[$ global.radnm][$ K.SND+K.PLY] = msxDarkCool
+				NS[$ global.radnm][$ 0] = ""
+				NS[$ global.radnm][$ 1] = "Command"
+				NS[$ global.radnm][$ 2] = "Scanning Target"
+				NS[$ global.radnm][$ 3] = "..."
+				NS[$ global.radnm][$ 4] = "Fuck..."
+				NS[$ global.radnm][$ 5] = "It's beyond ancient..."
+				NS[$ global.radnm][$ 6] = "The scale..."
+				NS[$ global.radnm][$ 7] = "Jesus Christ..."
+				
+			#endregion
+			
+			#region Beckoning
+				
+				NS[$ global.beknm] = {}
+				NS[$ global.beknm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
+				NS[$ global.beknm][$ K.ACT] = ACTOR.UNKNOWN
+				NS[$ global.beknm][$ K.BD0+K.SPR] = sprDerelict
+				NS[$ global.beknm][$ K.BG0+K.SPR] = sprApproach
+				NS[$ global.beknm][$ K.ANM+K.NXT] = global.visnm
+				NS[$ global.beknm][$ K.SND+K.STP] = msxDarkCool
+				NS[$ global.beknm][$ K.SND+K.PLY] = msxDarkMid
+				NS[$ global.beknm][$ 0] = "Come- help us..."
+				
+			#endregion
+			
+			#region Flash
+				
+				NS[$ global.visnm] = {}
+				NS[$ global.visnm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
+				NS[$ global.visnm][$ K.ACT] = ACTOR.UNKNOWN
+				NS[$ global.visnm][$ K.BD0+K.SPR] = sprNA
+				NS[$ global.visnm][$ K.BG0+K.SPR] = sprNA // TODO WIP [sprScope,1,sprSurface,1/2,sprVirus,1/5]
+				NS[$ global.visnm][$ K.SND+K.STP] = msxDarkMid
+				NS[$ global.visnm][$ 0] = ""
+				
+			#endregion
+			
+		#endregion
+		
 		#region News 1 (Revised)
 			
-			NS[$ K.ANM+"News1"] = {}
-			NS[$ K.ANM+"News1"][$ K.BD0+K.SPR] = animNews1BD
-			NS[$ K.ANM+"News1"][$ K.SP0+K.SPR] = animNews1Ship
-			NS[$ K.ANM+"News1"][$ K.BG0+K.SPR] = animNews1BG
+			NS[$ global.nw1nm] = {}
+			NS[$ global.nw1nm][$ K.BD0+K.SPR] = animNews1BD
+			NS[$ global.nw1nm][$ K.SP0+K.SPR] = animNews1Ship
+			NS[$ global.nw1nm][$ K.BG0+K.SPR] = animNews1BG
 			// The TV cuts into the news through from static as the broadcast is started
-			NS[$ K.ANM+"News1"][$ K.NM] = "Hostess Alexandria"
-			NS[$ K.ANM+"News1"][$ K.ACT] = ACTOR.ALEXANDRIA
-			NS[$ K.ANM+"News1"][$ 0] = "My name's Alexandria and I'll be your hostess here from Sol's Nebula Relay..."
-			NS[$ K.ANM+"News1"][$ 1] = "If you're just tuning in, The \"Solend's Prix\", is set to begin in a few Terran hours..."
-			NS[$ K.ANM+"News1"][$ 2] = "An Interstellar pool of the best pilots throughout the galaxy are getting ready for the flight of their lives..."
-			NS[$ K.ANM+"News1"][$ 3] = "*She pauses as if listening to a hidden voice and she gently clears her throat*"
-			NS[$ K.ANM+"News1"][$ 4] = "I just got word from my crew that the officials have finished finalizing the course..."
-			NS[$ K.ANM+"News1"][$ 5] = "The race, as the name suggests, will start in the Solend system where the pilots are gathering now..."
-			NS[$ K.ANM+"News1"][$ 6] = "Starting from the furthest habitable system at the very tip of our own Milkyway's wing, back to humanity's cradle, here at Sol..." 
-			NS[$ K.ANM+"News1"][$ 7] = "Racing through both known and unknown space the veteran pilots will be forced to navigate dangerous and hostile environments..."
-			NS[$ K.ANM+"News1"][$ 8] = "It will be a long race with many challenges and while some of the competitors might have their eyes set on the one billion credit prize pool at the end..."
-			NS[$ K.ANM+"News1"][$ 9] = "Many tune in throughout the galaxy in hopes that their system's pilot will win, and... Well..."
-			NS[$ K.ANM+"News1"][$ 10] = "*She clears her throat quietly*"
-			NS[$ K.ANM+"News1"][$ 11] = "Secure the chance for their own system to recieve crucial aide and attention from Sol..."
-			NS[$ K.ANM+"News1"][$ 12] = "Knowing this, each pilot, certainly feels the gravity of the stakes at play..."
-			NS[$ K.ANM+"News1"][$ 13] = "It's a once in a lifetime oppurtunity, not only for the pilots, but the countless souls they represent..."
-			NS[$ K.ANM+"News1"][$ 14] = "That is all for now, and we'd like to thank the sponsor of this event, \"Angel Investments\"..."
-			NS[$ K.ANM+"News1"][$ 15] = "The best in helping humanity, safely, find new homes throughout the stars..."
-			NS[$ K.ANM+"News1"][$ 16] =  "*The anchor woman briefly interacts with a tablet in her desk before the stream cuts off...*"
+			NS[$ global.nw1nm][$ K.NM] = "Hostess Alexandria"
+			NS[$ global.nw1nm][$ K.ACT] = ACTOR.ALEXANDRIA
+			NS[$ global.nw1nm][$ 0] = "My name's Alexandria and I'll be your hostess here from Sol's Nebula Relay..."
+			NS[$ global.nw1nm][$ 1] = "If you're just tuning in, The \"Solend's Prix\", is set to begin in a few Terran hours..."
+			NS[$ global.nw1nm][$ 2] = "An Interstellar pool of the best pilots throughout the galaxy are getting ready for the flight of their lives..."
+			NS[$ global.nw1nm][$ 3] = "*She pauses as if listening to a hidden voice and she gently clears her throat*"
+			NS[$ global.nw1nm][$ 4] = "I just got word from my crew that the officials have finished finalizing the course..."
+			NS[$ global.nw1nm][$ 5] = "The race, as the name suggests, will start in the Solend system where the pilots are gathering now..."
+			NS[$ global.nw1nm][$ 6] = "Starting from the furthest habitable system at the very tip of our own Milkyway's wing, back to humanity's cradle, here at Sol..." 
+			NS[$ global.nw1nm][$ 7] = "Racing through both known and unknown space the veteran pilots will be forced to navigate dangerous and hostile environments..."
+			NS[$ global.nw1nm][$ 8] = "It will be a long race with many challenges and while some of the competitors might have their eyes set on the one billion credit prize pool at the end..."
+			NS[$ global.nw1nm][$ 9] = "Many tune in throughout the galaxy in hopes that their system's pilot will win, and... Well..."
+			NS[$ global.nw1nm][$ 10] = "*She clears her throat quietly*"
+			NS[$ global.nw1nm][$ 11] = "Secure the chance for their own system to recieve crucial aide and attention from Sol..."
+			NS[$ global.nw1nm][$ 12] = "Knowing this, each pilot, certainly feels the gravity of the stakes at play..."
+			NS[$ global.nw1nm][$ 13] = "It's a once in a lifetime oppurtunity, not only for the pilots, but the countless souls they represent..."
+			NS[$ global.nw1nm][$ 14] = "That is all for now, and we'd like to thank the sponsor of this event, \"Angel Investments\"..."
+			NS[$ global.nw1nm][$ 15] = "The best in helping humanity, safely, find new homes throughout the stars..."
+			NS[$ global.nw1nm][$ 16] =  "*The anchor woman briefly interacts with a tablet in her desk before the stream cuts off...*"
 			
 		#endregion
 		
 		#region Dark Alley
 			
-			NS[$ K.ANM+"ClubAlley1"] = {}
-			NS[$ K.ANM+"ClubAlley1"][$ K.BG0+K.SPR] = sprDarkAlley
-			NS[$ K.ANM+"ClubAlley1"][$ K.ACT+K.RHT] = ACTOR.SPITFIRE
-			NS[$ K.ANM+"ClubAlley1"][$ 0] = "You, with Spitfire reluctantly following, step outside the club's back door where the commotion was coming from..."
-			NS[$ K.ANM+"ClubAlley1"][$ 1] = "The alleyway outside the club is dirty with used drugs, homeless encampents and seemingly sedated homeless people lining the alley..."
-			NS[$ K.ANM+"ClubAlley1"][$ 2] = "Some of the homeless stare at you with desperate pleading eyes, some stare blankly and wander aimlessly..."
-			NS[$ K.ANM+"ClubAlley1"][$ 3] = "A patrolling civil officer seems to be dismantling an encampment to the dismay of the few homeless lucid enough to understand what's going on..."
-			NS[$ K.ANM+"ClubAlley1"][$ 4] = V.RIGHT
-			NS[$ K.ANM+"ClubAlley1"][$ 5] = "They won't do anything to help these poor people except pacify them with sedatives that make them hallucinate more and more until they've turned their own minds into prisons..."
-			NS[$ K.ANM+"ClubAlley1"][$ 6] = "I know with that kind of money from the race..."
-			NS[$ K.ANM+"ClubAlley1"][$ 7] = {}
-			NS[$ K.ANM+"ClubAlley1"][$ 7][$ K.REL+K.BR] = 1
-			NS[$ K.ANM+"ClubAlley1"][$ 7][$ T] = {}
-			NS[$ K.ANM+"ClubAlley1"][$ 7][$ T][$ 0] = "I could save him..."
-			NS[$ K.ANM+"ClubAlley1"][$ 7][$ T][$ 1] = "Er- I'm sorry I'm thinking out loud, just-"
-			NS[$ K.ANM+"ClubAlley1"][$ 8] = "Nevermind... We should get going..."
-			NS[$ K.ANM+"ClubAlley1"][$ 9] = V.NARRATOR_NONE
-			NS[$ K.ANM+"ClubAlley1"][$ 10] = "Acknowledging Spitfire's sudden discomfort you both leave towards the spaceport..."
-			NS[$ K.ANM+"ClubAlley1"][$ 11] = V.RIGHT
-			NS[$ K.ANM+"ClubAlley1"][$ 12] = V.DONE_AND_JOIN
+			NS[$ global.clbnm] = {}
+			NS[$ global.clbnm][$ K.BG0+K.SPR] = sprDarkAlley
+			NS[$ global.clbnm][$ K.ACT+K.RHT] = ACTOR.SPITFIRE
+			NS[$ global.clbnm][$ 0] = "You, with Spitfire reluctantly following, step outside the club's back door where the commotion was coming from..."
+			NS[$ global.clbnm][$ 1] = "The alleyway outside the club is dirty with used drugs, homeless encampents and seemingly sedated homeless people lining the alley..."
+			NS[$ global.clbnm][$ 2] = "Some of the homeless stare at you with desperate pleading eyes, some stare blankly and wander aimlessly..."
+			NS[$ global.clbnm][$ 3] = "A patrolling civil officer seems to be dismantling an encampment to the dismay of the few homeless lucid enough to understand what's going on..."
+			NS[$ global.clbnm][$ 4] = V.RIGHT
+			NS[$ global.clbnm][$ 5] = "They won't do anything to help these poor people except pacify them with sedatives that make them hallucinate more and more until they've turned their own minds into prisons..."
+			NS[$ global.clbnm][$ 6] = "I know with that kind of money from the race..."
+			NS[$ global.clbnm][$ 7] = {}
+			NS[$ global.clbnm][$ 7][$ K.REL+K.BR] = 1
+			NS[$ global.clbnm][$ 7][$ T] = {}
+			NS[$ global.clbnm][$ 7][$ T][$ 0] = "I could save him..."
+			NS[$ global.clbnm][$ 7][$ T][$ 1] = "Er- I'm sorry I'm thinking out loud, just-"
+			NS[$ global.clbnm][$ 8] = "Nevermind... We should get going..."
+			NS[$ global.clbnm][$ 9] = V.NARRATOR_NONE
+			NS[$ global.clbnm][$ 10] = "Acknowledging Spitfire's sudden discomfort you both leave towards the spaceport..."
+			NS[$ global.clbnm][$ 11] = V.RIGHT
+			NS[$ global.clbnm][$ 12] = V.DONE_AND_JOIN
 			
 		#endregion
 		
@@ -131,12 +221,12 @@ function db_diaNar() {
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 0] = "You don your plated spacer suit."
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 1] = "Suit's still sharp..."
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2] = {}
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2][$ K.INV+K.FLG] = [V.ANIM,K.ANM+"News1"] // Must be false (this is a check whether it is done or not)
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2][$ K.INV+K.FLG] = [V.ANIM,global.nw1nm] // Must be false (this is a check whether it is done or not)
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2][$ 0] = "I wonder if the race is on the news..."
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2] = {}
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.TRG] = TRIGGER.ANIM
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.DN] = F
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.ANM] = K.ANM+"News1"
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.ANM] = global.nw1nm
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 0] = "Alright I still got some time..."
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 1] = "I wonder if anyone else in the race is at the club..."
 		
@@ -151,11 +241,15 @@ function db_diaNar() {
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ K.FLG] = V.SUIT
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 0] = "The club is across the street..."
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 1] = "Someone'll be there..."
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 1] = {}
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 1][$ K.INV+K.FLG] = V.SUIT
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 1][$ 0] = "The club is across the street..."
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 1][$ 1] = "Someone'll be there..."
+		NS[$ SCENE.STREET] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.TRG] = TRIGGER.START
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.INV+K.FLG] = V.SUIT
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 0] = "[Someone across the street almost immediately notices you and starts shouting]"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 1] = "Hey! What the fuck are you doing outside without your suit!?"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 2] = "Get the fuck back inside and put your suit on mother fucker!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 3] = "HOLY FUCKING SHIT!"
 		
 	#endregion
 	
@@ -257,7 +351,7 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ACT+K.RHT] = ACTOR.SYLAS
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.OPT] = ["Investigate","Just Leave"]
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ANM+K.TO] = K.ANM+"ClubAlley1"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ K.ANM+K.TO] = global.clbnm
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ 0] = {} // Investigate
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ 0][$ K.REL+K.ADJ] = 1
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 3][$ 0][$ 0] = "Hold on... I want to see what's going on..."
@@ -532,6 +626,66 @@ function db_act() {
 		_char.col[2] = make_color_rgb(192,0,192)
 		_char.col[3] = make_color_rgb(128,0,128)
 		_char.col[4] = make_color_rgb(128,0,128)
+		
+	#endregion
+	
+	#region FOX
+		
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
+		_char.dia[$ K.NM] = "F.O.X."
+		_char.dia[$ K.SX]  = SEX.FEMALE
+		_char.body = sprNA
+		_char.bodyPol = 1
+		_char.head = sprNA
+		_char.headPol = 1
+		_char.uid = ACTOR.FOX
+		_char.font1 = fTransmit
+		_char.font2 = fHUD
+		_char.col[1] = make_color_rgb(0,255,0)
+		_char.col[2] = make_color_rgb(0,255,0)
+		_char.col[3] = make_color_rgb(0,192,0)
+		_char.col[4] = make_color_rgb(0,192,0)
+		
+	#endregion
+	
+	#region Older Sylas
+		
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
+		_char.dia[$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
+		_char.dia[$ K.SX]  = SEX.MALE
+		_char.body = sprNA
+		_char.bodyPol = 1
+		_char.head = sprSylasOlder
+		_char.headPol = 1
+		_char.uid = ACTOR.OLDERSYLAS
+		_char.font1 = fBrave
+		_char.font2 = fTransmit
+		_char.col[1] = make_color_rgb(96,96,192)
+		_char.col[2] = make_color_rgb(96,96,192)
+		_char.col[3] = make_color_rgb(32,32,160)
+		_char.col[4] = make_color_rgb(32,32,192)
+		
+	#endregion
+	
+	#region Unknown
+		
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
+		_char.dia[$ K.NM] = ACTORn[ACTOR.UNKNOWN]
+		_char.dia[$ K.SX]  = SEX.MALE
+		_char.body = sprNA
+		_char.bodyPol = 1
+		_char.head = sprNA
+		_char.headPol = 1
+		_char.uid = ACTOR.UNKNOWN
+		_char.font1 = fNeu
+		_char.font2 = fTransmit
+		_char.col[1] = c.lgry
+		_char.col[2] = c.lgry
+		_char.col[3] = c.dgry
+		_char.col[4] = c.dgry
 		
 	#endregion
     

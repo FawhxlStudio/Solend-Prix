@@ -213,14 +213,13 @@
 			
 			// the usual init; non-ext
 			str_  = str
+			stri_ = 0
 			strw_ = string_width(str)
 			strh_ = string_height(str)
 			bgc_  = [1/3,c.dgry,c.dgry,c.blk,c.blk] // Background Default
 			fgc_  = [1,c.ng,c.ng,c.lg,c.lg] // Foreground/Text Default
 			
 		}
-		
-	#endregion
 		
 		// Line before: var _str,_strw,_strh,_bgc,_fgc
 		// Since this is setting where it is called from...

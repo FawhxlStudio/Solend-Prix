@@ -1,13 +1,16 @@
 /// @description Updates
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-if(D.game_state == GAME.PLAY
-	and is(sprite_index)) {
-
+if(D.game_state == GAME.PLAY) {
+	
+	// Dialogue Instance
+	if(diaInst == N and is_string(animStr)) diaInst = NS[$ animStr];
+	
 	// Image Scale
 	image_xscale = scl*D.z
 	image_yscale = scl*D.z
 	
+	// Init
 	var _w = sprite_width
 	var _h = sprite_height
 	var _dw = _w-WW
@@ -23,11 +26,7 @@ if(D.game_state == GAME.PLAY
 		xship = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultShip)+xxship
 		xbg = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBG)
 		
-	} else {
-		
-		x = lerp(0,(WW+D.bgImg.dltx)*D.z,xpct)
-		
-	}
+	} else x = lerp(0,(WW+D.bgImg.dltx)*D.z,xpct);
 	
 	#region Iterate Ship Delay
 		

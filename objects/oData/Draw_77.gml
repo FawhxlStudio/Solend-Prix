@@ -32,3 +32,31 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	isHvr = N
 	
 #endregion
+
+#region Timers
+	
+	fr++
+	frs = !frs
+	if(fr >= GSPD) {
+		
+		fr = 0
+		sc++
+		scs = !scs
+		if(sc >= 60) {
+			
+			sc = 0
+			mn++
+			mns = !mns
+			if(mn >= 60) {
+				
+				mn = 0
+				hr++
+				hrs = !hrs
+				
+			}
+			
+		}
+		
+	}
+	
+#endregion

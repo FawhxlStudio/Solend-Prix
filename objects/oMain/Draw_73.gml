@@ -166,14 +166,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																									
 																									if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
 																										
-																										// TODO: Make Universal (Set for just animNews1 atm)
-																										var _anim = instance_create_layer(0,0,"FG",oAnim)
-																										_anim.sprite_index = animNews1
-																										_anim.animStr = CM[$ string(i)][$ K.ANM]
-																										_anim.scl = (WW*D.zmn)/sprite_get_width(_anim.sprite_index)
-																										_anim.font = fFem
-																										TRAN.to_anim = _anim
-																										TRAN.zXYpct = [lerp(_xy4[0],_xy4[2],.5)/D.mwref,lerp(_xy4[1],_xy4[3],.5)/D.mhref]
+																										// Start Anim w/ Anim Name...
+																										diaNar_anim_start(CM[$ string(i)][$ K.ANM])
+																										
 																										// "Destroy"
 																										if(CM[$ string(i)][$ K.DTR])
 																											CM[$ string(i)][$ K.DTD] = T
@@ -417,17 +412,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																				
 																				if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
 																					
-																					// TODO: Make Universal (Set for just animNews1 atm)
-																					var _anim = instance_create_layer(0,0,"FG",oAnim)
-																					_anim.sprite_index = animNews1
-																					_anim.animStr = CM[$ string(i)][$ K.ANM]
-																					_anim.scl = (WW*D.zmn)/sprite_get_width(_anim.sprite_index)
-																					_anim.font = fFem
-																					TRAN.to_anim = _anim
-																					TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref]
+																					diaNar_anim_start(CM[$ string(i)][$ K.ANM])
+																					
 																					// "Destroy"
 																					if(CM[$ string(i)][$ K.DTR])
 																						CM[$ string(i)][$ K.DTD] = T;
+																						
 																					break
 																					
 																				}

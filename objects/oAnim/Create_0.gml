@@ -1,5 +1,6 @@
 /// @description Init
 
+par = N
 xx = WW/2
 yy = WH/2
 xbd = xx
@@ -38,3 +39,4 @@ ship = sprNA
 strBld = ""
 strDel = 1.5
 strDeli = 0
+diaInst = N

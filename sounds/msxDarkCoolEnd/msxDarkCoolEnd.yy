@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"msxDarkCoolEnd",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":256,
+  "compression":0,
+  "conversionMode":0,
+  "duration":17.998367,
+  "name":"msxDarkCoolEnd",
+  "parent":{
+    "name":"Music",
+    "path":"folders/Sounds/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":48000,
+  "soundFile":"msxDarkCoolEnd.wav",
+  "type":1,
+  "volume":1.0,
+}
