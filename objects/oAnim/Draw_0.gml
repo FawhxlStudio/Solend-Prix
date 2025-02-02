@@ -94,6 +94,7 @@ if(D.game_state == GAME.PLAY
 										
 										if(!audio_is_playing(v)) {
 											
+											show_message("Playing: "+string(v))
 											audio_play_sound(v,3,T,0)
 											audio_sound_gain(v,2/3,4000)
 											

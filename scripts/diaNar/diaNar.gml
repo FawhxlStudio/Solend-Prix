@@ -1127,17 +1127,21 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 															// [ 0:V.<Instance Type to Look Inside>, 1:<Instance Name/UID/ID/String> ]
 															switch(flagArr[0]) {
 																
-																#region Anim Check
+																#region 2 Size Array
 																	
-																	case V.ANIM: {
+																	#region Anim Check
 																		
-																		// flagArr[1] == The Anim(name/str) to find in NS
-																		if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
-																			_proc = NS[$ flagArr[1]][$ K.DN];
-																		_kdone = T
-																		break
+																		case V.ANIM: {
+																			
+																			// flagArr[1] == The Anim(name/str) to find in NS
+																			if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
+																				_proc = NS[$ flagArr[1]][$ K.DN];
+																			_kdone = T
+																			break
+																			
+																		}
 																		
-																	}
+																	#endregion
 																	
 																#endregion
 																
@@ -1194,25 +1198,29 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 														
 													} else {
 														
-														#region Single Flag Pair
+														#region 2 Size Array
 															
-															switch(flagArr[0]) {
+															#region Single Flag Pair
 																
-																#region Anim Check
+																switch(flagArr[0]) {
 																	
-																	case V.ANIM: {
+																	#region Anim Check
 																		
-																		// Remember, Inverse, so we don't want the anim to be done in this case...
-																		if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
-																			_proc = !(NS[$ flagArr[1]][$ K.DN]);
-																		_kdone = T
-																		break
+																		case V.ANIM: {
+																			
+																			// Remember, Inverse, so we don't want the anim to be done in this case...
+																			if(variable_instance_exists(NS[$ flagArr[1]],K.DN))
+																				_proc = !(NS[$ flagArr[1]][$ K.DN]);
+																			_kdone = T
+																			break
+																			
+																		}
 																		
-																	}
+																	#endregion
 																	
-																#endregion
+																}
 																
-															}
+															#endregion
 															
 														#endregion
 														
@@ -1228,7 +1236,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 															case V.SUIT: {
 																
 																// Just V.SUIT? Check Player Suit.
-																_proc = P.suited
+																_proc = !P.suited
 																_kdone = T
 																break
 																

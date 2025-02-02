@@ -241,15 +241,14 @@ function db_diaNar() {
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ K.FLG] = V.SUIT
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 0] = "The club is across the street..."
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 1] = "Someone'll be there..."
-		NS[$ SCENE.STREET] = {}
 		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN] = {}
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0] = {}
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.INV+K.FLG] = V.SUIT
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 0] = "[Someone across the street almost immediately notices you and starts shouting]"
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 1] = "Hey! What the fuck are you doing outside without your suit!?"
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 2] = "Get the fuck back inside and put your suit on mother fucker!"
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 3] = "HOLY FUCKING SHIT!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ K.TRG] = TRIGGER.START
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ K.INV+K.FLG] = V.SUIT
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 0] = "[Someone across the street almost immediately notices you and starts shouting]"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 1] = "Hey! What the fuck are you doing outside without your suit!?"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 2] = "Get the fuck back inside and put your suit on mother fucker!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 3] = "HOLY FUCKING SHIT!"
 		
 	#endregion
 	
