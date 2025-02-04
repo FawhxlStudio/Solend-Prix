@@ -53,8 +53,11 @@ function db_diaNar() {
 				NS[$ global.radnm][$ K.ACT] = ACTOR.OLDERSYLAS
 				NS[$ global.radnm][$ K.BD0+K.SPR] = sprNA
 				NS[$ global.radnm][$ K.BG0+K.SPR] = sprSylasOlderDark
+				NS[$ global.radnm][$ K.BG0+K.PMT] = 1/20
+				NS[$ global.radnm][$ K.BG0+K.WMT] = 1.3
 				NS[$ global.radnm][$ K.ANM+K.NXT] = global.beknm
 				NS[$ global.radnm][$ K.SND+K.PLY] = msxDarkCool
+				NS[$ global.radnm][$ K.SND+K.STP+K.END] = msxDarkCool
 				NS[$ global.radnm][$ 0] = ""
 				NS[$ global.radnm][$ 1] = "Command"
 				NS[$ global.radnm][$ 2] = "Scanning Target"
@@ -74,7 +77,6 @@ function db_diaNar() {
 				NS[$ global.beknm][$ K.BD0+K.SPR] = sprDerelict
 				NS[$ global.beknm][$ K.BG0+K.SPR] = sprApproach
 				NS[$ global.beknm][$ K.ANM+K.NXT] = global.visnm
-				NS[$ global.beknm][$ K.SND+K.STP] = msxDarkCool
 				NS[$ global.beknm][$ K.SND+K.PLY] = msxDarkMid
 				NS[$ global.beknm][$ 0] = "Come- help us..."
 				

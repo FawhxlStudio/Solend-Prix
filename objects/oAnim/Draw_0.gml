@@ -41,7 +41,7 @@ if(D.game_state == GAME.PLAY
 		
 		#region SKS Actions (Beginning Only)
 			
-			if(diaInst[$ NS[$ K.I]] == 0) {
+			if(diaInst[$ K.I] == 0 and D.animPlay == id) {
 				
 				var sks = variable_instance_get_sorted_strKeys(diaInst,F)
 				for(var i = 0; i < array_length(sks); i++) {
@@ -68,18 +68,19 @@ if(D.game_state == GAME.PLAY
 										
 										if(audio_is_playing(v)) {
 											
-											if(audio_sound_get_gain(v) >= 2/3) audio_sound_gain(v,0,4000);
-											if(audio_sound_get_gain(v) <= 0) audio_stop_sound(v);
+											if(audio_sound_get_gain(v) >= 2/3) audio_sound_gain(v,0,1000);
+											else if(audio_sound_get_gain(v) <= 0) audio_stop_sound(v);
 											
 										}
-										
 										
 									#endregion
 									
 								} else {
 									
 									#region Array Process TODO
+										
 										//TODO
+										
 									#endregion
 									
 								}
@@ -92,11 +93,14 @@ if(D.game_state == GAME.PLAY
 									
 									#region Single Sound Entry
 										
-										if(!audio_is_playing(v)) {
+										// Don't start a new sound if while we stop another...
+										if(array_contains(sks,_sndsp)) sndStp = !audio_is_playing(diaInst[$ _sndsp]);
+										
+										if(is_undefined(sndStp) or sndStp) {
 											
-											show_message("Playing: "+string(v))
-											audio_play_sound(v,3,T,0)
-											audio_sound_gain(v,2/3,4000)
+											var snd = N
+											if(!audio_is_playing(v)) snd = audio_play_sound(v,3,T,0);
+											if(snd != N) audio_sound_gain(snd,2/3,1000);
 											
 										}
 										
@@ -105,7 +109,9 @@ if(D.game_state == GAME.PLAY
 								} else {
 									
 									#region Array Process TODO
+										
 										//TODO
+										
 									#endregion
 									
 								}

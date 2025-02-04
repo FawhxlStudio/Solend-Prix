@@ -237,3 +237,86 @@ function is_debug(val) {
 	return F
 	
 }
+
+function trig_iter(struct) {
+	
+	if(is_struct(struct)) {
+		
+		#region Ensure Variables...
+			
+			if(!variable_instance_exists(struct,"i")) struct[$  "i"] = 0;
+			if(!variable_instance_exists(struct,"d")) struct[$  "d"] = GSPD;
+			if(!variable_instance_exists(struct,"pct")) struct[$  "pct"] = 0;
+			if(!variable_instance_exists(struct,"deg")) struct[$  "deg"] = 0;
+			if(!variable_instance_exists(struct,"sn")) struct[$  "sn"] = sin(degtorad(0));
+			if(!variable_instance_exists(struct,"snMlt")) struct[$  "snMlt"] = 0;
+			if(!variable_instance_exists(struct,"snM")) struct[$  "snM"] = struct[$ "sn"]*(struct[$ "snMlt"]+1);
+			if(!variable_instance_exists(struct,"sn2")) struct[$  "sn2"] = struct[$ "sn"]/2;
+			if(!variable_instance_exists(struct,"csn")) struct[$  "csn"] = cos(degtorad(0));
+			if(!variable_instance_exists(struct,"csnMlt")) struct[$  "csnMlt"] = 0;
+			if(!variable_instance_exists(struct,"csnM")) struct[$  "csnM"] = struct[$ "csn"]*(struct[$ "csnMlt"]+1);
+			if(!variable_instance_exists(struct,"csn2")) struct[$  "csn2"] = struct[$ "csn"]/2;
+			
+		#endregion
+		
+		#region Iterate + Updates
+			
+			with(struct) {
+				
+				// Iterate i -> d -> i = 0
+				if(i >= d) i = 0;
+				else i++;
+				
+				// Calc Updates
+				pct = i/d
+				deg = 360*pct
+				sn = sin(degtorad(deg))
+				sn2 = sn/2
+				csn = cos(degtorad(deg))
+				csn2 = csn/2
+				
+				
+			}
+			
+		#endregion
+		
+	}
+	
+}
+
+function noise1D(seed, x) {
+	
+    var xi = floor(x); // Get the integer position
+    var xf = x - xi;   // Get the fractional part for interpolation
+
+    // Get noise values at integer positions
+    var n0 = hash(xi + seed * 10000);
+    var n1 = hash(xi + 1 + seed * 10000);
+
+    // Interpolate between the two noise values
+    return mix(n0, n1, smoothstep(xf));
+    
+}
+
+// Hash function to generate pseudo-random gradients
+function hash(n) {
+	
+    n = (n << 13) ^ n;
+    return (1.0 - ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
+    
+}
+
+// Smooth interpolation function
+function smoothstep(t) {
+	
+    return t * t * (3.0 - 2.0 * t);
+    
+}
+
+// Linear interpolation function
+function mix(a, b, t) {
+	
+    return a + (b - a) * t;
+    
+}
+

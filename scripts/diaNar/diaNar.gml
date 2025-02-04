@@ -505,6 +505,19 @@ function diaNar_next_dia(close) {
 	
 }
 
+function diaNar_get_sks_ends(sks) {
+	
+	var rtn = []
+	for(var i = 0; i < array_length(sks); i++) {
+		
+		if(string_ends_with(sks[i],K.END))
+			rtn[array_length(rtn)] = sks[i];
+		
+	}
+	return rtn;
+	
+}
+
 // Will get any key that starts with bypass
 function diaNar_get_bypass(inst) {
 	
@@ -538,13 +551,17 @@ function diaNar_anim_start(animName) {
 	
 	#region Anim Specific Sets...
 		
-		// Make Constants... (For the different names to be the case)
-		var _n1 = string(global.nw1nm)
-		
 		// sprite_index acts as FG layer...
 		switch(animName) {
 			
-			case _n1: _anim.sprite_index = animNews1; break;
+			case global.nw1nm: _anim.sprite_index = animNews1; break;
+			case global.radnm:
+				
+				_anim.tightPan = T
+				_anim.actionPan = T
+				_anim.alarm[0] = 1
+				
+			break
 			
 		}
 		
@@ -556,8 +573,7 @@ function diaNar_anim_start(animName) {
 	
 	// Set Transition
 	TRAN.to_anim = _anim
-	if(_anim.sprite_index != sprNA) TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref];
-	else TRAN.zXYpct = [.5,.5]
+	TRAN.zXYpct = [.5,.5]
 	
 	// Return Created Anim Ref...
 	return _anim

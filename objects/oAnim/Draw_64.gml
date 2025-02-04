@@ -47,23 +47,68 @@ if(D.game_state == GAME.PLAY and D.scene_state == GAME.PLAY and D.animPlay = id 
 							
 							#region Anim K.END Actions
 								
-								if(variable_instance_exists(diaInst,K.SND+K.END)) {
+								var ends = diaNar_get_sks_ends(variable_instance_get_sorted_strKeys(diaInst,F))
+								for(var i = 0; i < array_length(ends); i++) {
 									
-									var _ar = diaInst[$ K.SND+K.END]
-									if(is_array_ext(_ar,4,N)) {
+									#region SKS Names
 										
-										try {
-											
-											audio_play_sound(_ar[0],_ar[1],_ar[2],_ar[3])
-											
-										} catch (_ex) {
-											
-											show_debug_message("[WARN: Anim K.END Actions] Unable to play sound: "+string(_ar))
-											show_debug_message(_ex)
-											
-										}
+										var _snden = K.SND+K.END
+										var _sndspen = K.SND+K.STP+K.END
 										
-									} else if(audio_exists(_ar)) audio_play_sound(_ar,4,F,2/3);
+									#endregion
+									
+									var k = ends[i]
+									var v = diaInst[$ k]
+									switch(k) {
+										
+										case _snden: 
+												
+											if(is_array_ext(v,4,N)) {
+												
+												try {
+													
+													audio_play_sound(v[0],v[1],v[2],v[3])
+													
+												} catch (_ex) {
+													
+													show_debug_message("[WARN: Anim K.END Actions] Unable to play sound: "+string(_ar))
+													show_debug_message(_ex)
+													
+												}
+												
+											} else if(audio_exists(v)) audio_play_sound(v,4,F,2/3);
+											
+											
+										break
+										
+										case _sndspen:
+											
+											if(!is_array(v) and audio_exists(v)) {
+												
+												#region Single Sound Entry
+													
+													if(audio_is_playing(v)) {
+														
+														if(audio_sound_get_gain(v) >= 2/3) audio_sound_gain(v,0,1000);
+														else if(audio_sound_get_gain(v) <= 0) audio_stop_sound(v);
+														
+													}
+													
+												#endregion
+												
+											} else {
+												
+												#region Array Process TODO
+													
+													//TODO
+													
+												#endregion
+												
+											}
+											
+										break
+										
+									}
 									
 								}
 								
