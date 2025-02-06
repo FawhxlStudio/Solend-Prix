@@ -138,6 +138,7 @@
     {"id":{"name":"shCombine","path":"shaders/shCombine/shCombine.yy",},},
     {"id":{"name":"shExtractBright","path":"shaders/shExtractBright/shExtractBright.yy",},},
     {"id":{"name":"shTranGradientBlk","path":"shaders/shTranGradientBlk/shTranGradientBlk.yy",},},
+    {"id":{"name":"shTranGradientCol","path":"shaders/shTranGradientCol/shTranGradientCol.yy",},},
     {"id":{"name":"shWhite","path":"shaders/shWhite/shWhite.yy",},},
     {"id":{"name":"msx007","path":"sounds/msx007/msx007.yy",},},
     {"id":{"name":"msxAsh","path":"sounds/msxAsh/msxAsh.yy",},},

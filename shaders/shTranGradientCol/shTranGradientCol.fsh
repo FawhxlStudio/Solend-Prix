@@ -9,5 +9,5 @@ void main()
 {
 	float _a = max(v_vColour.r,v_vColour.g);
 	_a = max(_a,v_vColour.b);
-    gl_FragColor = vec4(0.0,0.0,0.0,_a);
+    gl_FragColor = vec4(v_vColour.r,v_vColour.g,v_vColour.b,_a);
 }

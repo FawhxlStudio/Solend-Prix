@@ -72,33 +72,37 @@ if(D.game_state == GAME.PLAY) {
 		
 	#endregion
 	
-	if(!is(xpct)) { 
+	#region X Axis Updates
 		
-		if(actionPan) {
+		if(!is(xpct)) { 
 			
-			dltx = -(lerp(-_dw/2,_dw/2,fxInst.sn2)*panMult)
-			xbd = xx-(lerp(-_dw/2,_dw/2,fxInst.sn2)*panMultBD)
-			xship = xx-(lerp(-_dw/2,_dw/2,fxInst.sn2)*panMultShip)+xxship
-			xbg = xx-(lerp(-_dw/2,_dw/2,fxInst.sn2)*panMultBG)
+			if(actionPan) {
+				
+				dltx = -(lerp(-_dw/2,_dw/2,fxInst.sn)*panMult)
+				xbd = xx-(lerp(-_dw/2,_dw/2,fxInst.sn)*panMultBD)
+				xship = xx-(lerp(-_dw/2,_dw/2,fxInst.sn)*panMultShip)+xxship
+				xbg = xx-(lerp(-_dw/2,_dw/2,fxInst.sn)*panMultBG)
+				
+			} else {
+				
+				dltx = -(lerp(-_dw/2,_dw/2,MXPCT)*panMult)
+				xbd = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBD)
+				xship = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultShip)+xxship
+				xbg = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBG)
+				
+			}
+			velship = .5*D.z
+			xxship += velship*(1-shipDel2Pct)
+			x = xx+dltx
 			
 		} else {
 			
-			dltx = -(lerp(-_dw/2,_dw/2,MXPCT)*panMult)
-			xbd = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBD)
-			xship = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultShip)+xxship
-			xbg = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBG)
+			if(actionPan) x = lerp(0,(WW+D.bgImg.dltx)*D.z,fxInst.sn);
+			else x = lerp(0,(WW+D.bgImg.dltx)*D.z,xpct);
 			
 		}
-		velship = .5*D.z
-		xxship += velship*(1-shipDel2Pct)
-		x = xx+dltx
 		
-	} else {
-		
-		if(actionPan) x = lerp(0,(WW+D.bgImg.dltx)*D.z,fxInst.sn2);
-		else x = lerp(0,(WW+D.bgImg.dltx)*D.z,xpct);
-		
-	}
+	#endregion
 	
 	#region Iterate Ship Delay
 		
@@ -123,31 +127,35 @@ if(D.game_state == GAME.PLAY) {
 		
 	#endregion
 	
-	if(!is(ypct)) {
+	#region Y Axis Updates...
 		
-		if(actionPan) {
+		if(!is(ypct)) {
 			
-			dlty = -(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMult)
-			ybd = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultBD)
-			yship = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultShip)
-			ybg = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultBG)
+			if(actionPan) {
+				
+				dlty = -(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMult)
+				ybd = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultBD)
+				yship = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultShip)
+				ybg = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultBG)
+				
+			} else {
+				
+				dlty = -(lerp(-_dh/2,_dh/2,MYPCT)*panMult)
+				ybd = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultBD)
+				yship = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultShip)
+				ybg = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultBG)
+				
+			}
+			y = yy+dlty
 			
 		} else {
 			
-			dlty = -(lerp(-_dh/2,_dh/2,MYPCT)*panMult)
-			ybd = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultBD)
-			yship = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultShip)
-			ybg = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultBG)
+			if(actionPan) y = lerp(0,(WH+D.bgImg.dlty)*D.z,fxInst.csn2);
+			else y = lerp(0,(WH+D.bgImg.dlty)*D.z,ypct);
 			
 		}
-		y = yy+dlty
 		
-	} else {
-		
-		if(actionPan) y = lerp(0,(WH+D.bgImg.dlty)*D.z,fxInst.csn2);
-		else y = lerp(0,(WH+D.bgImg.dlty)*D.z,ypct);
-		
-	}
+	#endregion
 	
 	// Rescale Trigger
 	if(M.alarm[0] > 0) alarm[0] = 2;

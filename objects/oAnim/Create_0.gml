@@ -48,15 +48,10 @@ actionPan = F
 lightFX = F
 fxInst = {
 	
-	col : make_color_rgb(random_range(192,255),random_range(102,153),random_range(0,51)),
-	i : 0,
-	d : GSPD,
-	pct : GSPD,
-	deg : 0,
-	sn : sin(degtorad(0)),
-	sn2 : sin(degtorad(0))/2,
-	csn : cos(degtorad(0)),
-	csn2 : cos(degtorad(0))/2,
-	
+	col    : make_color_rgb(random_range(192,255),random_range(102,153),random_range(0,51)),
+	blend  : F,
+	blendc : c.r,
+	dark   : F,
+	cinematic: F
 	
 }

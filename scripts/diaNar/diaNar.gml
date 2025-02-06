@@ -559,6 +559,22 @@ function diaNar_anim_start(animName) {
 				
 				_anim.tightPan = T
 				_anim.actionPan = T
+				_anim.lightFX = T
+				_anim.fxInst.blend = T
+				_anim.fxInst.dark = T
+				_anim.fxInst.cinematic = T
+				_anim.alarm[0] = 1
+				
+			break
+			case global.beknm:
+				
+				_anim.fxInst.cinematic = T
+				_anim.alarm[0] = 1
+				
+			break
+			case global.visnm:
+				
+				_anim.fxInst.cinematic = T
 				_anim.alarm[0] = 1
 				
 			break
@@ -3009,14 +3025,18 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 	
 	#region Draw Message Box (Expands for String Height)
 		
-		draw_set_alpha(bgc_[0])
-		draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
+		if(!fxInst.cinematic) {
+			
+			draw_set_alpha(bgc_[0])
+			draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
+			
+		}
 		
 	#endregion
 	
 	#region Hilight/Glow
 		
-		if(mouse_in_rectangle(xy) and strFull and actr.uid != ACTOR.FOX) {
+		if(mouse_in_rectangle(xy) and strFull and actr.uid != ACTOR.FOX and !fxInst.cinematic) {
 			
 			#region Do Highlight
 				
@@ -3026,7 +3046,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				
 			#endregion
 			
-		} else if(strFull) {
+		} else if(strFull and !fxInst.cinematic) {
 			
 			#region Do Glow
 				
@@ -3131,6 +3151,9 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				strBld_ += string_char_at(inst[$ i],stri_+1)
 				stri_ += 1
 				if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
+				else if(!actr.dia[$ K.KNW]) audio_play_sound(sfxType,0,F,.5);
+				else if(actr.dia[$ K.SX] == SEX.MALE) audio_play_sound(sfxType,0,F,.5);
+				else if(actr.dia[$ K.SX] == SEX.FEMALE) audio_play_sound(sfxType,0,F,.5);
 				strDeli_ = 0
 				
 			#endregion
@@ -3153,7 +3176,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 						stri_ = 0
 						D.diaTrigi = 0
 						
-					} else if(actr.uid != ACTOR.FOX) strBld_ = inst[$ i]; // Skip Printing (When Normal)
+					} else strBld_ += string_copy(inst[$ i],stri_+1,string_length(inst[$ i])); // Skip Printing (When Normal)
 					
 				#endregion
 				
@@ -3170,7 +3193,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		#region Anim Name Variable
 			
-			if(actr != N and (actr.uid != ACTOR.FOX)) {
+			if(actr != N and actr.uid != ACTOR.FOX and actr.dia[$ K.NM] != ACTORn[ACTOR.UNKNOWN]) {
 				
 				// Init;
 				var _nm = actr.dia[$ K.NM]

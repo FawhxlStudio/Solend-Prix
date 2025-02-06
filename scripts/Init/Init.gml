@@ -48,15 +48,15 @@ function _init() {
 		
 		#region Display
 			
-			#macro DW display_get_width()
-			#macro DH display_get_height()
+			#macro DW max(1,display_get_width())
+			#macro DH max(1,display_get_height())
 			
 		#endregion Display
 		
 		#region Window
 			
-			#macro WW window_get_width()
-			#macro WH window_get_height()
+			#macro WW max(1,window_get_width())
+			#macro WH max(1,window_get_height())
 			
 		#endregion Window
 		

@@ -244,10 +244,17 @@ function trig_iter(struct) {
 		
 		#region Ensure Variables...
 			
-			if(!variable_instance_exists(struct,"i")) struct[$  "i"] = 0;
+			if(!variable_instance_exists(struct,"seed")) struct[$  "seed"] = random_range(pi/10,pi)*10000;
+			if(!variable_instance_exists(struct,"seed2")) struct[$  "seed2"] = random_range(pi/10,pi)*10000;
+			if(!variable_instance_exists(struct,"i")) struct[$  "i"] = random(GSPD);
+			if(!variable_instance_exists(struct,"i2")) struct[$  "i2"] = random(GSPD);
 			if(!variable_instance_exists(struct,"d")) struct[$  "d"] = GSPD;
+			if(!variable_instance_exists(struct,"d2")) struct[$  "d2"] = GSPD;
+			if(!variable_instance_exists(struct,"xi")) struct[$  "xi"] = 0;
 			if(!variable_instance_exists(struct,"pct")) struct[$  "pct"] = 0;
+			if(!variable_instance_exists(struct,"pct2")) struct[$  "pct2"] = 0;
 			if(!variable_instance_exists(struct,"deg")) struct[$  "deg"] = 0;
+			if(!variable_instance_exists(struct,"deg2")) struct[$  "deg2"] = 0;
 			if(!variable_instance_exists(struct,"sn")) struct[$  "sn"] = sin(degtorad(0));
 			if(!variable_instance_exists(struct,"snMlt")) struct[$  "snMlt"] = 0;
 			if(!variable_instance_exists(struct,"snM")) struct[$  "snM"] = struct[$ "sn"]*(struct[$ "snMlt"]+1);
@@ -265,16 +272,126 @@ function trig_iter(struct) {
 				
 				// Iterate i -> d -> i = 0
 				if(i >= d) i = 0;
-				else i++;
+				else i+=(noise1D(seed,xi));
+				if(i2 < 0) i2 = d2+i2;
+				else i2-=(noise1D(seed2,xi))
+				
 				
 				// Calc Updates
+				xi++;
 				pct = i/d
+				pct2 = i2/d2
 				deg = 360*pct
-				sn = sin(degtorad(deg))
-				sn2 = sn/2
+				deg2 = 360*pct2
+				sn = -sin(degtorad(deg))
+				sn2 = -sin(degtorad(deg2))
 				csn = cos(degtorad(deg))
-				csn2 = csn/2
+				csn2 = cos(degtorad(deg2))
 				
+				
+			}
+			
+		#endregion
+		
+	}
+	
+}
+
+function fx_iter(struct) {
+	
+	if(is_struct(struct)) {
+		
+		#region Ensure Variables...
+			
+			if(!variable_instance_exists(struct,"bounds")) struct[$ "bounds"] = [-DW*4,-DH*4,DW*5,DH*5];
+			if(!variable_instance_exists(struct,"xy4o")) struct[$ "xy4o"] = [-DW*2,DH*.5,DW*2,DH*1.5];
+			if(!variable_instance_exists(struct,"xy4")) struct[$ "xy4"] = [-DW*2,DH*.5,DW*2,DH*1.5];
+			if(!variable_instance_exists(struct,"rot")) struct[$ "rot"] = 30;
+			if(!variable_instance_exists(struct,"blendc")) struct[$ "blendc"] = c.nr;
+			if(!variable_instance_exists(struct,"col5")) struct[$ "col5"] = [1,struct[$ "blendc"],struct[$ "blendc"],c.blk,c.blk];
+			if(!variable_instance_exists(struct,"outline")) struct[$ "outline"] = F;
+			if(!variable_instance_exists(struct,"li")) struct[$ "li"] = random(GSPD);
+			if(!variable_instance_exists(struct,"liv")) struct[$ "liv"] = random_range(2/3,1+(1/3));
+			if(!variable_instance_exists(struct,"lpol")) struct[$ "lpol"] = 1 // Polarity for direction of iteration (li (+/-)liv)
+			if(!variable_instance_exists(struct,"ld")) struct[$ "ld"] = GSPD;
+			if(!variable_instance_exists(struct,"ldel")) struct[$ "ldel"] = random_range(GSPD,GSPD*2);
+			if(!variable_instance_exists(struct,"ldeli")) struct[$ "ldeli"] = 0;
+			if(!variable_instance_exists(struct,"lde")) struct[$ "ldeg"] = 0;
+			if(!variable_instance_exists(struct,"lpct")) struct[$ "lpct"] = 0;
+			if(!variable_instance_exists(struct,"lsn")) struct[$ "lsn"] = -sin(0);
+			if(!variable_instance_exists(struct,"lcsn")) struct[$ "lcsn"] = cos(0);
+			if(!variable_instance_exists(struct,"lsnM")) struct[$ "lsnM"] = 1;
+			if(!variable_instance_exists(struct,"lcsnM")) struct[$ "lcsnM"] = 1;
+			
+		#endregion
+		
+		#region Iterate + Updates
+			
+			with(struct) {
+				
+				#region Iterate
+					
+					if(li >= ld) li = 0;
+					else if(li < 0) li = ld;
+					else li+=liv*lpol;
+					lpct = li/ld
+					ldeg = 360*lpct
+					lsn  = -sin(degtorad(rot+90))
+					lcsn = cos(degtorad(rot+90))
+					if(lpct == 0) array_clone(xy4,xy4o)
+					
+				#endregion
+				
+				#region Dark+Light FX
+					// We Draw a layer of darkness on a surface, subtract from it with the light, and blend
+					
+					if(dark) {
+						
+						// Init Surface
+						var surf = surface_create(WW,WH)
+						surface_set_target(surf)
+						
+						// Draw Darkness
+						shader_set(shTranGradientBlk)
+							
+							draw_rectangle_color(0,0,WW,WH,c.nr,c.lr,c.nr,c.lr,F)
+							
+						shader_reset()
+						
+						// Subtract from Darkness...
+						gpu_set_blendmode(bm_subtract)
+							
+							shader_set(shTranGradientCol)
+								
+								/*
+								var _xv = lcsn*100
+								var _yv =  lsn*100
+								xy4[0]+=_xv
+								xy4[1]+=_yv
+								xy4[2]+=_xv
+								xy4[3]+=_yv
+								*/
+								draw_rectangle_ext_color(xy4,rot,[col5[0],c.wht,c.wht,c.blk,c.blk],outline)
+								
+							shader_reset()
+							
+						gpu_set_blendmode(bm_normal)
+						
+						// Draw Surface
+						surface_reset_target()
+						draw_surface(surf,0,0)
+						surface_free(surf)
+						
+						// Add Color to below...
+						shader_set(shTranGradientCol)
+							
+							draw_rectangle_ext_color(xy4,rot,col5,outline)
+							
+						shader_reset()
+						
+					}
+					
+				#endregion
 				
 			}
 			
@@ -320,3 +437,26 @@ function mix(a, b, t) {
     
 }
 
+function lerp_color(c1,c2,pct) {
+	
+	var _r = lerp(color_get_red(c1),color_get_red(c2),pct)
+	var _g = lerp(color_get_green(c1),color_get_green(c2),pct)
+	var _b = lerp(color_get_blue(c1),color_get_blue(c2),pct)
+	return make_color_rgb(_r,_g,_b)
+	
+}
+
+function delta_pct(ll,ul,val) {
+	
+	rtn = U
+	if(val-ul > ll) rtn = ((val-ul)-ll)/(ul-ll);
+	else rtn = (val-ll)/(ul-ll);
+	return rtn
+	
+}
+
+function array_clone(dst,src) {
+	
+	array_copy(dst,0,src,0,array_length(src))
+	
+}

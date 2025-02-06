@@ -201,6 +201,81 @@
 			
 		}
 		
+		/// @desc draw rectangle primitive rotated color
+		/// @func draw_rectangle_ext_color(xy4[0],xy4[1],xy4[2],xy4[3],rot,col5[1],col5[2],col5[3],col5[4],outline)
+		/// @param xy4
+		/// @param rot
+		/// @param col5[4]
+		/// @param outline
+		/// @returns n/a
+		function draw_rectangle_ext_color(xy4,rot,col5,outline) {
+			
+			// Init Alpha
+			var ao = draw_get_alpha()
+			draw_set_alpha(col5[0])
+			
+			// Orign x/y
+			var ox,oy
+			ox = lerp(xy4[0],xy4[2],0.5)
+			oy = lerp(xy4[1],xy4[3],0.5)
+			
+			// Get x/y rotations
+			var sxx,sxy,syx,syy
+			sxx =  cos(degtorad(rot))
+			sxy = -sin(degtorad(rot))
+			syx =  sin(degtorad(rot))
+			syy =  cos(degtorad(rot))
+			
+			// Apply x rotations
+			var sx1,sx2,sx3,sx4
+			sx1 = sxx*(xy4[0]-ox)
+			sx2 = sxx*(xy4[2]-ox)
+			sx3 = sxy*(xy4[0]-ox)
+			sx4 = sxy*(xy4[2]-ox)
+			
+			// Apply y rotations
+			var sy1,sy2,sy3,sy4
+			sy1 = syx*(xy4[1]-oy)
+			sy2 = syx*(xy4[3]-oy)
+			sy3 = syy*(xy4[1]-oy)
+			sy4 = syy*(xy4[3]-oy)
+			
+			// Get rectangle x coordinates
+			var xx1,xx2,xx3,xx4
+			xx1=ox+sx1+sy1
+			xx2=ox+sx2+sy1
+			xx3=ox+sx2+sy2
+			xx4=ox+sx1+sy2
+			
+			// Get rectangle y coordinates
+			var yy1,yy2,yy3,yy4
+			yy1=oy+sx3+sy3
+			yy2=oy+sx4+sy3
+			yy3=oy+sx4+sy4
+			yy4=oy+sx3+sy4
+			
+			// Draw...
+			if(outline) {
+				
+				// Outline
+				draw_line_color(xx1,yy1,xx4,yy4,col5[1],col5[4])
+				draw_line_color(xx2,yy2,xx1,yy1,col5[2],col5[1])
+				draw_line_color(xx3,yy3,xx2,yy2,col5[3],col5[2])
+				draw_line_color(xx4,yy4,xx3,yy3,col5[4],col5[3])
+				
+			} else {
+				
+				// Filled
+				draw_triangle_color(xx1,yy1,xx2,yy2,xx3,yy3,col5[1],col5[2],col5[3],false)
+				draw_triangle_color(xx1,yy1,xx3,yy3,xx4,yy4,col5[1],col5[3],col5[4],false)
+				
+			}
+			
+			// Reset Alpha
+			draw_set_alpha(col5[0])
+			
+		}
+		
 	#endregion
 	
 	#region Text

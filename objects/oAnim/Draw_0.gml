@@ -15,29 +15,51 @@ if(D.game_state == GAME.PLAY
 			
 		#endregion
 		
+		#region Light FX Sets...
+			
+			if(lightFX) {
+				
+				if(fxInst.blend) {
+					
+					if(variable_instance_exists(fxInst,"lpct"))
+						image_blend = lerp_color(c.wht,fxInst.blendc,delta_pct(0,.5,fxInst.lpct));
+					else image_blend = fxInst.blendc;
+					
+				}
+				
+			} else image_blend = c.wht;
+			
+		#endregion
+		
 		#region Apply Sprites...
 			
 			if(variable_instance_exists(diaInst,K.BD0+K.SPR)) {
 				
-				draw_sprite_ext(diaInst[$ K.BD0+K.SPR],0,xbd,ybd,image_xscale,image_yscale,0,c.wht,1)
+				draw_sprite_ext(diaInst[$ K.BD0+K.SPR],0,xbd,ybd,image_xscale,image_yscale,0,image_blend,1)
 				
 			}
 			
 			if(variable_instance_exists(diaInst,K.SP0+K.SPR)) {
 				
-				draw_sprite_ext(diaInst[$ K.SP0+K.SPR],0,xship,yship,image_xscale/2,image_yscale/2,0,c.wht,1)
+				draw_sprite_ext(diaInst[$ K.SP0+K.SPR],0,xship,yship,image_xscale/2,image_yscale/2,0,image_blend,1)
 				
 			}
 			
 			if(variable_instance_exists(diaInst,K.BG0+K.SPR)) {
 				
-				draw_sprite_ext(diaInst[$ K.BG0+K.SPR],0,xbg,ybg,image_xscale,image_yscale,0,c.wht,1)
+				draw_sprite_ext(diaInst[$ K.BG0+K.SPR],0,xbg,ybg,image_xscale,image_yscale,0,image_blend,1)
 				
 			}
 			
 		#endregion
 		
 		draw_self()
+		
+		#region Light FX Iter
+			
+			if(lightFX) fx_iter(fxInst);
+			
+		#endregion
 		
 		#region SKS Actions (Beginning Only)
 			
