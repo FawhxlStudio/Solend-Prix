@@ -246,10 +246,10 @@ function trig_iter(struct) {
 			
 			if(!variable_instance_exists(struct,"seed")) struct[$  "seed"] = random_range(pi/10,pi)*10000;
 			if(!variable_instance_exists(struct,"seed2")) struct[$  "seed2"] = random_range(pi/10,pi)*10000;
-			if(!variable_instance_exists(struct,"i")) struct[$  "i"] = random(GSPD);
-			if(!variable_instance_exists(struct,"i2")) struct[$  "i2"] = random(GSPD);
-			if(!variable_instance_exists(struct,"d")) struct[$  "d"] = GSPD;
-			if(!variable_instance_exists(struct,"d2")) struct[$  "d2"] = GSPD;
+			if(!variable_instance_exists(struct,"i")) struct[$  "i"] = random(GSPD*8);
+			if(!variable_instance_exists(struct,"i2")) struct[$  "i2"] = random(GSPD*8);
+			if(!variable_instance_exists(struct,"d")) struct[$  "d"] = GSPD*16;
+			if(!variable_instance_exists(struct,"d2")) struct[$  "d2"] = GSPD*16;
 			if(!variable_instance_exists(struct,"xi")) struct[$  "xi"] = 0;
 			if(!variable_instance_exists(struct,"pct")) struct[$  "pct"] = 0;
 			if(!variable_instance_exists(struct,"pct2")) struct[$  "pct2"] = 0;
@@ -272,9 +272,9 @@ function trig_iter(struct) {
 				
 				// Iterate i -> d -> i = 0
 				if(i >= d) i = 0;
-				else i+=(noise1D(seed,xi));
+				else i+=1;
 				if(i2 < 0) i2 = d2+i2;
-				else i2-=(noise1D(seed2,xi))
+				else i2-=1;
 				
 				
 				// Calc Updates
@@ -303,20 +303,20 @@ function fx_iter(struct) {
 		
 		#region Ensure Variables...
 			
-			if(!variable_instance_exists(struct,"bounds")) struct[$ "bounds"] = [-DW*4,-DH*4,DW*5,DH*5];
-			if(!variable_instance_exists(struct,"xy4o")) struct[$ "xy4o"] = [-DW*2,DH*.5,DW*2,DH*1.5];
-			if(!variable_instance_exists(struct,"xy4")) struct[$ "xy4"] = [-DW*2,DH*.5,DW*2,DH*1.5];
+			if(!variable_instance_exists(struct,"spr")) struct[$ "spr"] = sprBeam;
+			if(!variable_instance_exists(struct,"xy4")) struct[$ "xy4"] = [-DW*4,-DH*4,DW*5,DH*5];
+			if(!variable_instance_exists(struct,"xy")) struct[$ "xy"]   = [DW*5,DH*5];
 			if(!variable_instance_exists(struct,"rot")) struct[$ "rot"] = 30;
 			if(!variable_instance_exists(struct,"blendc")) struct[$ "blendc"] = c.nr;
 			if(!variable_instance_exists(struct,"col5")) struct[$ "col5"] = [1,struct[$ "blendc"],struct[$ "blendc"],c.blk,c.blk];
 			if(!variable_instance_exists(struct,"outline")) struct[$ "outline"] = F;
-			if(!variable_instance_exists(struct,"li")) struct[$ "li"] = random(GSPD);
+			if(!variable_instance_exists(struct,"li")) struct[$ "li"] = random(GSPD*3);
 			if(!variable_instance_exists(struct,"liv")) struct[$ "liv"] = random_range(2/3,1+(1/3));
 			if(!variable_instance_exists(struct,"lpol")) struct[$ "lpol"] = 1 // Polarity for direction of iteration (li (+/-)liv)
-			if(!variable_instance_exists(struct,"ld")) struct[$ "ld"] = GSPD;
+			if(!variable_instance_exists(struct,"ld")) struct[$ "ld"] = GSPD*3;
 			if(!variable_instance_exists(struct,"ldel")) struct[$ "ldel"] = random_range(GSPD,GSPD*2);
 			if(!variable_instance_exists(struct,"ldeli")) struct[$ "ldeli"] = 0;
-			if(!variable_instance_exists(struct,"lde")) struct[$ "ldeg"] = 0;
+			if(!variable_instance_exists(struct,"ldeg")) struct[$ "ldeg"] = 0;
 			if(!variable_instance_exists(struct,"lpct")) struct[$ "lpct"] = 0;
 			if(!variable_instance_exists(struct,"lsn")) struct[$ "lsn"] = -sin(0);
 			if(!variable_instance_exists(struct,"lcsn")) struct[$ "lcsn"] = cos(0);
@@ -331,6 +331,11 @@ function fx_iter(struct) {
 				
 				#region Iterate
 					
+					if(lpct >= 1) {
+						
+						struct[$ "blendc"] = c.nr
+						
+					}
 					if(li >= ld) li = 0;
 					else if(li < 0) li = ld;
 					else li+=liv*lpol;
@@ -338,7 +343,7 @@ function fx_iter(struct) {
 					ldeg = 360*lpct
 					lsn  = -sin(degtorad(rot+90))
 					lcsn = cos(degtorad(rot+90))
-					if(lpct == 0) array_clone(xy4,xy4o)
+					xy = [lerp(xy4[3],xy4[1],lpct),lerp(xy4[2],xy4[0],lpct)]
 					
 				#endregion
 				
@@ -353,28 +358,12 @@ function fx_iter(struct) {
 						
 						// Draw Darkness
 						shader_set(shTranGradientBlk)
-							
 							draw_rectangle_color(0,0,WW,WH,c.nr,c.lr,c.nr,c.lr,F)
-							
 						shader_reset()
 						
 						// Subtract from Darkness...
 						gpu_set_blendmode(bm_subtract)
-							
-							shader_set(shTranGradientCol)
-								
-								/*
-								var _xv = lcsn*100
-								var _yv =  lsn*100
-								xy4[0]+=_xv
-								xy4[1]+=_yv
-								xy4[2]+=_xv
-								xy4[3]+=_yv
-								*/
-								draw_rectangle_ext_color(xy4,rot,[col5[0],c.wht,c.wht,c.blk,c.blk],outline)
-								
-							shader_reset()
-							
+							draw_sprite_ext(spr,0,xy[0],xy[1],1,1,rot,c.wht,.8)
 						gpu_set_blendmode(bm_normal)
 						
 						// Draw Surface
@@ -383,11 +372,9 @@ function fx_iter(struct) {
 						surface_free(surf)
 						
 						// Add Color to below...
-						shader_set(shTranGradientCol)
-							
-							draw_rectangle_ext_color(xy4,rot,col5,outline)
-							
-						shader_reset()
+						gpu_set_blendmode(bm_add)
+							draw_sprite_ext(spr,0,xy[0],xy[1],1,1,rot,blendc,.8)
+						gpu_set_blendmode(bm_normal)
 						
 					}
 					

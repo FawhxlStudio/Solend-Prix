@@ -25,10 +25,10 @@ if(D.game_state == GAME.PLAY) {
 	#region Init
 		
 		// Var Init
-		var _w = 0
-		var _h = 0
-		var _dw = 0
-		var _dh = 0
+		var _w = 1
+		var _h = 1
+		var _dw = 1
+		var _dh = 1
 		
 		// Target?
 		if(sprite_index != sprNA) {
@@ -48,8 +48,18 @@ if(D.game_state == GAME.PLAY) {
 				
 				#region diaInst BG0
 					
-					_w = sprite_get_width(diaInst[$ K.BG0+K.SPR])*scl
-					_h = sprite_get_height(diaInst[$ K.BG0+K.SPR])*scl
+					if(is_array(diaInst[$ K.BG0+K.SPR]) and !arrSprDone) {
+						
+						if(arrSpri == N) arrSpri = 0;
+						_w = sprite_get_width(diaInst[$ K.BG0+K.SPR][arrSpri])*scl
+						_h = sprite_get_height(diaInst[$ K.BG0+K.SPR][arrSpri])*scl
+						
+					} else if(!is_array(diaInst[$ K.BG0+K.SPR])){
+						
+						_w = sprite_get_width(diaInst[$ K.BG0+K.SPR])*scl
+						_h = sprite_get_height(diaInst[$ K.BG0+K.SPR])*scl
+						
+					}
 					_dw = max(0,_w-WW)
 					_dh = max(0,_h-WH)
 					

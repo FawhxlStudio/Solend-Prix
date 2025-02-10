@@ -55,3 +55,9 @@ fxInst = {
 	cinematic: F
 	
 }
+
+// Sprite Array Vars
+arrSpri = N // The current step/sprite in the array used; Only the even elements are the sprites
+arrSprDeli = N // Delay Iterator; 
+arrSprDel = N // Next Odd Element; Delay Length
+arrSprDone = F

@@ -59,13 +59,12 @@ function db_diaNar() {
 				NS[$ global.radnm][$ K.SND+K.PLY] = msxDarkCool
 				NS[$ global.radnm][$ K.SND+K.STP+K.END] = msxDarkCool
 				NS[$ global.radnm][$ 0] = ""
-				NS[$ global.radnm][$ 1] = "Command"
-				NS[$ global.radnm][$ 2] = "Scanning Target"
+				NS[$ global.radnm][$ 1] = "command, this is silent..."
+				NS[$ global.radnm][$ 2] = "unwarped, scanning..."
 				NS[$ global.radnm][$ 3] = "..."
-				NS[$ global.radnm][$ 4] = "Fuck..."
-				NS[$ global.radnm][$ 5] = "It's beyond ancient..."
-				NS[$ global.radnm][$ 6] = "The scale..."
-				NS[$ global.radnm][$ 7] = "Jesus Christ..."
+				NS[$ global.radnm][$ 4] = "it's ancient..."
+				NS[$ global.radnm][$ 5] = "wait..."
+				NS[$ global.radnm][$ 6] = "systems failing! don't Come! somethI-"
 				
 			#endregion
 			
@@ -88,7 +87,7 @@ function db_diaNar() {
 				NS[$ global.visnm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
 				NS[$ global.visnm][$ K.ACT] = ACTOR.UNKNOWN
 				NS[$ global.visnm][$ K.BD0+K.SPR] = sprNA
-				NS[$ global.visnm][$ K.BG0+K.SPR] = sprNA // TODO WIP [sprScope,1,sprSurface,1/2,sprVirus,1/5]
+				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[1,[V.ZOOM_PAN,1]],sprSurface,[1/3,N],sprVirus,[1/8,N]]
 				NS[$ global.visnm][$ K.SND+K.STP] = msxDarkMid
 				NS[$ global.visnm][$ 0] = ""
 				

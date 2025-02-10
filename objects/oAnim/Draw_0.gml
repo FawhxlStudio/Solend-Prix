@@ -47,7 +47,73 @@ if(D.game_state == GAME.PLAY
 			
 			if(variable_instance_exists(diaInst,K.BG0+K.SPR)) {
 				
-				draw_sprite_ext(diaInst[$ K.BG0+K.SPR],0,xbg,ybg,image_xscale,image_yscale,0,image_blend,1)
+				if(is_array(diaInst[$ K.BG0+K.SPR]) and !arrSprDone) {
+					
+					try {
+						
+						#region Init arrSpr Delay/Delay Iterator
+							
+							if(!arrSpri) arrSpri = 0
+							if(!arrSprDel and arrSpri <= array_length(diaInst[$ K.BG0+K.SPR])-2) {
+								
+								arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1]*GSPD // Ensure Delay Set...
+								arrSprDeli = 0
+								
+							}
+							
+						#endregion
+						
+						#region Iterate arrSpr
+							
+							if(arrSprDeli >= arrSprDel) {
+								
+								if(arrSpri <= array_length(diaInst[$ K.BG0+K.SPR])-2) {
+									
+									#region More to go...
+										
+										arrSprDeli = 0
+										arrSpri += 2 // Go to next sprite in array, skip over index with delay value
+										arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1]*GSPD;
+										// Resize
+										if(tightPan) scl = (WW*1.1)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
+										else scl = (WW*D.zmn)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
+										
+									#endregion
+									
+								} else {
+									
+									#region Done...
+										
+										arrSprDeli = N
+										arrSpri = N
+										arrSprDel = N
+										arrSprDone = T
+										
+									#endregion
+									
+								}
+								
+							} else arrSprDeli++;
+							
+						#endregion
+						
+						// Draw Current Array Sprite...
+						if(arrSprDeli != N) draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,image_xscale,image_yscale,0,image_blend,1);
+						
+					} catch(_ex) {
+						
+						#region Done...
+							
+							arrSprDeli = N
+							arrSpri = N
+							arrSprDel = N
+							arrSprDone = T
+							
+						#endregion
+						
+					}
+					
+				} else if (!is_array(diaInst[$ K.BG0+K.SPR])) draw_sprite_ext(diaInst[$ K.BG0+K.SPR],0,xbg,ybg,image_xscale,image_yscale,0,image_blend,1);
 				
 			}
 			

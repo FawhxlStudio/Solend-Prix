@@ -560,7 +560,7 @@ function diaNar_anim_start(animName) {
 				_anim.tightPan = T
 				_anim.actionPan = T
 				_anim.lightFX = T
-				_anim.fxInst.blend = T
+				_anim.fxInst.blend = F
 				_anim.fxInst.dark = T
 				_anim.fxInst.cinematic = T
 				_anim.alarm[0] = 1
@@ -585,7 +585,12 @@ function diaNar_anim_start(animName) {
 	
 	// Scale based on FG?
 	if(_anim.sprite_index != sprNA) _anim.scl = (WW*D.zmn)/sprite_get_width(_anim.sprite_index);
-	else if(_anim.sprite_index == sprNA and variable_instance_exists(NS[$ animName],K.BG0+K.SPR)) _anim.scl = (WW*D.zmn)/sprite_get_width(NS[$ animName][$ K.BG0+K.SPR]);
+	else if(_anim.sprite_index == sprNA and variable_instance_exists(NS[$ animName],K.BG0+K.SPR)) {
+		
+		if(is_array(NS[$ animName][$ K.BG0+K.SPR])) _anim.scl = (WW*D.zmn)/sprite_get_width(NS[$ animName][$ K.BG0+K.SPR][0]); // Array of BG Sprites? Cutscene/Slideshow?
+		else _anim.scl = (WW*D.zmn)/sprite_get_width(NS[$ animName][$ K.BG0+K.SPR]); // Normal; Single Sprite...
+		
+	}
 	
 	// Set Transition
 	TRAN.to_anim = _anim
@@ -3025,7 +3030,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 	
 	#region Draw Message Box (Expands for String Height)
 		
-		if(!fxInst.cinematic) {
+		if(object_index != oAnim or (object_index == oAnim and !fxInst.cinematic)) {
 			
 			draw_set_alpha(bgc_[0])
 			draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
@@ -3036,7 +3041,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 	
 	#region Hilight/Glow
 		
-		if(mouse_in_rectangle(xy) and strFull and actr.uid != ACTOR.FOX and !fxInst.cinematic) {
+		if(mouse_in_rectangle(xy) and strFull and actr.uid != ACTOR.FOX and (object_index != oAnim or (object_index == oAnim and !fxInst.cinematic))) {
 			
 			#region Do Highlight
 				
@@ -3046,7 +3051,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				
 			#endregion
 			
-		} else if(strFull and !fxInst.cinematic) {
+		} else if(strFull and (object_index != oAnim or (object_index == oAnim and !fxInst.cinematic))) {
 			
 			#region Do Glow
 				
@@ -3074,8 +3079,8 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				#region Iterate and Loop Trigonometry Variable
 					
 					D.diaTrigi++
-					if(D.diaTrigi >= 360) D.diaTrigi -= 360
-					else if(D.diaTrigi < 0) D.diaTrigi += 360
+					if(D.diaTrigi >= 360) D.diaTrigi -= 360;
+					else if(D.diaTrigi < 0) D.diaTrigi += 360;
 					
 				#endregion
 				
@@ -3112,7 +3117,9 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 			
 		} else if(actr.uid == ACTOR.FOX) {
 			
+			// Init
 			var _c = actr.col
+			
 			// If Transmit, blink carot every other second
 			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
 				
@@ -3151,9 +3158,9 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				strBld_ += string_char_at(inst[$ i],stri_+1)
 				stri_ += 1
 				if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
-				else if(!actr.dia[$ K.KNW]) audio_play_sound(sfxType,0,F,.5);
-				else if(actr.dia[$ K.SX] == SEX.MALE) audio_play_sound(sfxType,0,F,.5);
-				else if(actr.dia[$ K.SX] == SEX.FEMALE) audio_play_sound(sfxType,0,F,.5);
+				else if(!actr.dia[$ K.KNW] and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
+				else if(actr.dia[$ K.SX] == SEX.MALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
+				else if(actr.dia[$ K.SX] == SEX.FEMALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
 				strDeli_ = 0
 				
 			#endregion
