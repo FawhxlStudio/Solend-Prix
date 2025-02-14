@@ -3157,10 +3157,10 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				
 				strBld_ += string_char_at(inst[$ i],stri_+1)
 				stri_ += 1
-				if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
-				else if(!actr.dia[$ K.KNW] and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
-				else if(actr.dia[$ K.SX] == SEX.MALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
-				else if(actr.dia[$ K.SX] == SEX.FEMALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5);
+				if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(.9,1.1));
+				else if(!actr.dia[$ K.KNW] and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(.9,1.1));
+				else if(actr.dia[$ K.SX] == SEX.MALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(.8,.9));
+				else if(actr.dia[$ K.SX] == SEX.FEMALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(1.1,1.2));
 				strDeli_ = 0
 				
 			#endregion
@@ -3169,8 +3169,8 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		#region Reset Str Bld when next started... UPDATE w/ more
 			
-			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and MBLR and actr.uid != ACTOR.FOX))
-				and D.diaInstArr == N) {
+			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and (MBLR and actr.uid != ACTOR.FOX))
+				and D.diaInstArr == N and (object_index == oAnim and !is_undefined(n_fxi) and n_fxdone ))) {
 				
 				#region Dialogue Next
 					

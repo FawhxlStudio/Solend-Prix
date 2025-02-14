@@ -48,11 +48,11 @@ actionPan = F
 lightFX = F
 fxInst = {
 	
-	col    : make_color_rgb(random_range(192,255),random_range(102,153),random_range(0,51)),
-	blend  : F,
-	blendc : c.r,
-	dark   : F,
-	cinematic: F
+	col       : make_color_rgb(random_range(192,255),random_range(102,153),random_range(0,51)),
+	blend     : F,
+	blendc    : c.r,
+	dark      : F,
+	cinematic : F
 	
 }
 
@@ -61,3 +61,6 @@ arrSpri = N // The current step/sprite in the array used; Only the even elements
 arrSprDeli = N // Delay Iterator; 
 arrSprDel = N // Next Odd Element; Delay Length
 arrSprDone = F
+n_z = U
+n_fxi = U
+n_fxdone = F

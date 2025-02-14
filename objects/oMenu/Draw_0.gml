@@ -1,7 +1,7 @@
 /// @description Draw BG
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-if(room == rMenu and D.game_state == GAME.MENU) {
+if room == rMenu and D.game_state == GAME.MENU {
 	
 	#region Init Menu Screen
 	    

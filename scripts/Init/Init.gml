@@ -268,6 +268,7 @@ function _init() {
 			WAIT_HLF,
 			WAIT_QTR,
 			IMAGE_ARR_NEXT,
+			ZOOM_PAN,
 			LAST
 			
 		}
@@ -303,6 +304,7 @@ function _init() {
 			"WAIT_HLF",
 			"WAIT_QTR",
 			"IMAGE_ARR_NEXT",
+			"ZOOM_PAN",
 			"LAST"
 			
 		]

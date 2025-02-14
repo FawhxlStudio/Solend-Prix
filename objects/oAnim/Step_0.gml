@@ -6,19 +6,6 @@ if(D.game_state == GAME.PLAY) {
 	// Dialogue Instance
 	if(diaInst == N and is_string(animStr)) diaInst = NS[$ animStr];
 	
-	// Image Scale
-	if(tightPan) {
-		
-		image_xscale = scl
-		image_yscale = scl
-		
-	} else {
-		
-		image_xscale = scl*D.z
-		image_yscale = scl*D.z
-		
-	}
-	
 	// Iterate fx Inst
 	if((lightFX or actionPan) and is_struct(fxInst)) trig_iter(fxInst);
 	
@@ -50,9 +37,11 @@ if(D.game_state == GAME.PLAY) {
 					
 					if(is_array(diaInst[$ K.BG0+K.SPR]) and !arrSprDone) {
 						
-						if(arrSpri == N) arrSpri = 0;
-						_w = sprite_get_width(diaInst[$ K.BG0+K.SPR][arrSpri])*scl
-						_h = sprite_get_height(diaInst[$ K.BG0+K.SPR][arrSpri])*scl
+						if(is_undefined(n_z)) n_z = 1;
+						if(!arrSpri) arrSpri = 0;
+						proc_fx_arr(diaInst[$ K.BG0+K.SPR][arrSpri+1])
+						_w = (sprite_get_width(diaInst[$ K.BG0+K.SPR][arrSpri])*scl)*n_z
+						_h = (sprite_get_height(diaInst[$ K.BG0+K.SPR][arrSpri])*scl)*n_z
 						
 					} else if(!is_array(diaInst[$ K.BG0+K.SPR])){
 						
@@ -81,6 +70,19 @@ if(D.game_state == GAME.PLAY) {
 		}
 		
 	#endregion
+	
+	// Image Scale
+	if(tightPan) {
+		
+		image_xscale = scl
+		image_yscale = scl
+		
+	} else {
+		
+		image_xscale = scl*D.z
+		image_yscale = scl*D.z
+		
+	}
 	
 	#region X Axis Updates
 		

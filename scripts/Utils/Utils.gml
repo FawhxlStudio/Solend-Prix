@@ -447,3 +447,105 @@ function array_clone(dst,src) {
 	array_copy(dst,0,src,0,array_length(src))
 	
 }
+
+function proc_fx_arr(inp) {
+	
+	// Init
+	var rtn = F
+	var time = N
+	
+	// Set Time? If it is an array...
+	if(is_array(inp)) time = inp[0]*GSPD; // Get Second(s) in Frames for Time
+	
+	if(is_undefined(inp) or inp == N or inp == []) rtn = T; // No FX
+	else if(is_array(inp) and array_length(inp) > 1) {
+		
+		#region inp == FX Array [Time, N/[FX+]]
+			
+			if(is_array(inp[1])) {
+				
+				#region Array Template: inp[0] = Time (Seconds); inp[1] = FX Array (ie [V.ZOOM_PAN, 1])
+					// [time/sec, [V.FX, velocity...]]
+					
+					var _narr = inp[1]
+					var _k = _narr[0]
+					
+					switch(_k) {
+						
+						#region Zoom Pan
+							
+							case V.ZOOM_PAN: {
+								
+								#region Init Parent-Nested Variables
+									
+									if(is_undefined(n_fxi)) {
+										
+										n_fxi = 0
+										// Option 1; Velocity
+										if(array_length(_narr) > 1) n_vel = _narr[1];
+										else n_vel = 1; // Default; 1
+										n_zmn = 1
+										// Option 2; Zoom Max
+										if(array_length(_narr) > 2) n_zmx = _narr[2];
+										else n_zmx = 1+(1/5); // Default; 1.2
+										
+									} else n_fxi++;
+									
+								#endregion
+								
+								// Calc
+								var pct = n_fxi/time
+								
+								// Apply
+								n_z = lerp(n_zmn,n_zmx,pct)
+								
+								// Effect Done?
+								if(pct >= 1) n_fxdone = T;
+								
+								break
+								
+							}
+							
+						#endregion
+						
+						default: rtn = F; break;
+						
+					}
+					
+				#endregion
+				
+			} else if(inp[1] != N) {
+				
+				#region [Time, V.FX]
+					
+					var _k = inp[1]
+					switch(_k) {
+						
+						default: rtn = F; break;
+						
+					}
+					
+				#endregion
+				
+			}
+			
+		#endregion
+		
+	} else if(inp != N and ((!is_array(inp) and is_real(inp)) or (is_array(inp) and array_length(inp) == 1))) {
+		
+		rtn = T
+		#region inp == FX Value Only
+			
+			switch(inp) {
+				
+				default: rtn = F; break;
+				
+			}
+			
+		#endregion
+		
+	}
+	
+	return rtn
+	
+}

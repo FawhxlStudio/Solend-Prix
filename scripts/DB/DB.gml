@@ -58,13 +58,14 @@ function db_diaNar() {
 				NS[$ global.radnm][$ K.ANM+K.NXT] = global.beknm
 				NS[$ global.radnm][$ K.SND+K.PLY] = msxDarkCool
 				NS[$ global.radnm][$ K.SND+K.STP+K.END] = msxDarkCool
-				NS[$ global.radnm][$ 0] = ""
-				NS[$ global.radnm][$ 1] = "command, this is silent..."
+				NS[$ global.radnm][$ 0] = "..."
+				NS[$ global.radnm][$ 1] = "this is silent 1..."
 				NS[$ global.radnm][$ 2] = "unwarped, scanning..."
 				NS[$ global.radnm][$ 3] = "..."
-				NS[$ global.radnm][$ 4] = "it's ancient..."
-				NS[$ global.radnm][$ 5] = "wait..."
-				NS[$ global.radnm][$ 6] = "systems failing! don't Come! somethI-"
+				NS[$ global.radnm][$ 4] = "unreal..."
+				NS[$ global.radnm][$ 5] = "it's ancient..."
+				NS[$ global.radnm][$ 6] = "and- fucking massive..."
+				NS[$ global.radnm][$ 7] = "who built this..."
 				
 			#endregion
 			
@@ -77,17 +78,25 @@ function db_diaNar() {
 				NS[$ global.beknm][$ K.BG0+K.SPR] = sprApproach
 				NS[$ global.beknm][$ K.ANM+K.NXT] = global.visnm
 				NS[$ global.beknm][$ K.SND+K.PLY] = msxDarkMid
-				NS[$ global.beknm][$ 0] = "Come- help us..."
+				NS[$ global.beknm][$ 0] = "come-"
+				NS[$ global.beknm][$ 1] = "help us..."
 				
 			#endregion
 			
 			#region Flash
 				
+				/*
+				* Template:
+				* [0] = Sprite; Every Even is a Sprite
+				* [1] = Array of [seconds,N or FX Array]
+				* [1][0] = seconds
+				* [1][1] = N (No FX, Just Seconds...) or fxArray (ie [V.FXNAME,[param],...])
+				*/
 				NS[$ global.visnm] = {}
 				NS[$ global.visnm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
 				NS[$ global.visnm][$ K.ACT] = ACTOR.UNKNOWN
 				NS[$ global.visnm][$ K.BD0+K.SPR] = sprNA
-				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[1,[V.ZOOM_PAN,1]],sprSurface,[1/3,N],sprVirus,[1/8,N]]
+				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[3,[V.ZOOM_PAN,1]],sprSurface,[2,[V.ZOOM_PAN,2,1+(1/4)]],sprVirus,[1,[V.ZOOM_PAN,3,1+(1/3)]]]
 				NS[$ global.visnm][$ K.SND+K.STP] = msxDarkMid
 				NS[$ global.visnm][$ 0] = ""
 				
