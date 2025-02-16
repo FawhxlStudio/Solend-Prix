@@ -64,3 +64,4 @@ arrSprDone = F
 n_z = U
 n_fxi = U
 n_fxdone = F
+n_zaln = U

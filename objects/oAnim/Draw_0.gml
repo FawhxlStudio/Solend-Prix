@@ -38,6 +38,12 @@ if(D.game_state == GAME.PLAY
 				draw_sprite_ext(diaInst[$ K.BD0+K.SPR],0,xbd,ybd,image_xscale,image_yscale,0,image_blend,1)
 				
 			}
+				
+				#region Light FX Pre (Darkness Layer for BD0)
+					
+					if(lightFX) fx_pre(fxInst);
+					
+				#endregion
 			
 			if(variable_instance_exists(diaInst,K.SP0+K.SPR)) {
 				
@@ -49,88 +55,100 @@ if(D.game_state == GAME.PLAY
 				
 				if(is_array(diaInst[$ K.BG0+K.SPR]) and !arrSprDone) {
 					
-					try {
+					#region BG0 Sprite Array
 						
-						#region Init arrSpr Delay/Delay Iterator
+						try {
 							
-							if(!arrSpri) arrSpri = 0
-							if(!arrSprDel and arrSpri <= array_length(diaInst[$ K.BG0+K.SPR])-2) {
+							#region Init arrSpr Delay/Delay Iterator
 								
-								arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1][0]*GSPD // Ensure Delay Set...
-								arrSprDeli = 0
-								
-							}
-							
-						#endregion
-						
-						#region Iterate arrSpr
-							
-							if(arrSprDeli >= arrSprDel or n_fxi >= arrSprDel) {
-								
-								if(arrSpri <= array_length(diaInst[$ K.BG0+K.SPR])-2) {
+								if(!arrSpri) {
 									
-									#region More to go...
-										
-										arrSprDeli = 0
-										arrSpri += 2 // Go to next sprite in array, skip over index with delay value
-										arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1][0]*GSPD;
-										if(!is_undefined(n_z)) {
-											
-											n_z = 1
-											n_fxi = 0
-											// Resize
-											if(tightPan) scl = ((WW*1.1)*n_z)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
-											else scl = ((WW*D.zmn)*n_z)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
-											
-										} else {
-											
-											// Resize
-											if(tightPan) scl = (WW*1.1)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
-											else scl = (WW*D.zmn)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
-											
-										}
-										
-									#endregion
+									arrSpri = 0
+									var sprs = []
+									for(var i2 = 0; i2 <= array_length(diaInst[$ K.BG0+K.SPR])-2; i2+=2) sprs[array_length(sprs)] = diaInst[$ K.BG0+K.SPR][i2];
+									if(sprs != []) sprite_prefetch_multi(sprs);
 									
-								} else {
+								}
+								if(!arrSprDel and arrSpri <= array_length(diaInst[$ K.BG0+K.SPR])-2) {
 									
-									#region Done...
-										
-										arrSprDeli = N
-										arrSpri = N
-										arrSprDel = N
-										arrSprDone = T
-										
-									#endregion
+									arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1][0]*GSPD // Ensure Delay Set...
+									arrSprDeli = 0
 									
 								}
 								
-							} else arrSprDeli++;
+							#endregion
 							
-						#endregion
-						
-						// Draw Current Array Sprite...
-						if(arrSprDeli != N) {
+							#region Iterate arrSpr
+								
+								if(arrSprDeli >= arrSprDel or n_fxi >= arrSprDel) {
+									
+									if(arrSpri <= array_length(diaInst[$ K.BG0+K.SPR])-2) {
+										
+										#region More to go...
+											
+											arrSprDeli = 0
+											arrSpri += 2 // Go to next sprite in array, skip over index with delay value
+											arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1][0]*GSPD
+											
+											if(!is_undefined(n_z)) {
+												
+												n_z = 1
+												n_fxi = 0
+												// Resize
+												if(tightPan) scl = ((WW*1.1)*n_z)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
+												else scl = ((WW*D.zmn)*n_z)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
+												
+											} else {
+												
+												// Resize
+												if(tightPan) scl = (WW*1.1)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
+												else scl = (WW*D.zmn)/sprite_get_width(NS[$ animStr][$ K.BG0+K.SPR][arrSpri])
+												
+											}
+											
+										#endregion
+										
+									} else {
+										
+										#region Done...
+											
+											arrSprDeli = N
+											arrSpri = N
+											arrSprDel = N
+											arrSprDone = T
+											
+										#endregion
+										
+									}
+									
+								} else arrSprDeli++;
+								
+							#endregion
 							
-							if(!is_undefined(n_z)) draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl*n_z,scl*n_z,0,image_blend,1);
-							else draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl,scl,0,image_blend,1);
+							// Draw Current Array Sprite...
+							if(arrSprDeli != N) {
+								
+								if(!is_undefined(n_z)) draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl*n_z,scl*n_z,0,image_blend,1);
+								else draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl,scl,0,image_blend,1);
+								
+							}
+							
+						} catch(_ex) {
+							
+							#region Done...
+								
+								arrSprDeli = N
+								arrSpri = N
+								arrSprDel = N
+								arrSprDone = T
+								
+							#endregion
 							
 						}
 						
-					} catch(_ex) {
-						
-						#region Done...
-							
-							arrSprDeli = N
-							arrSpri = N
-							arrSprDel = N
-							arrSprDone = T
-							
-						#endregion
-						
-					}
+					#endregion
 					
-				} else if (!is_array(diaInst[$ K.BG0+K.SPR])) draw_sprite_ext(diaInst[$ K.BG0+K.SPR],0,xbg,ybg,image_xscale,image_yscale,0,image_blend,1);
+				} else if(!is_array(diaInst[$ K.BG0+K.SPR])) draw_sprite_ext(diaInst[$ K.BG0+K.SPR],0,xbg,ybg,image_xscale,image_yscale,0,image_blend,1);
 				
 			}
 			

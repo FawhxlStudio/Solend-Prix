@@ -255,7 +255,7 @@ function trig_iter(struct) {
 			if(!variable_instance_exists(struct,"pct2")) struct[$  "pct2"] = 0;
 			if(!variable_instance_exists(struct,"deg")) struct[$  "deg"] = 0;
 			if(!variable_instance_exists(struct,"deg2")) struct[$  "deg2"] = 0;
-			if(!variable_instance_exists(struct,"sn")) struct[$  "sn"] = sin(degtorad(0));
+			if(!variable_instance_exists(struct,"sn")) struct[$  "sn"] = -sin(degtorad(0));
 			if(!variable_instance_exists(struct,"snMlt")) struct[$  "snMlt"] = 0;
 			if(!variable_instance_exists(struct,"snM")) struct[$  "snM"] = struct[$ "sn"]*(struct[$ "snMlt"]+1);
 			if(!variable_instance_exists(struct,"sn2")) struct[$  "sn2"] = struct[$ "sn"]/2;
@@ -388,6 +388,82 @@ function fx_iter(struct) {
 	
 }
 
+function fx_pre(struct) {
+	// This is used mostly for additional layers of darkness currently...
+	
+	if(is_struct(struct)) {
+		
+		#region Ensure Variables...
+			
+			if(!variable_instance_exists(struct,"spr")) struct[$ "spr"] = sprBeam;
+			if(!variable_instance_exists(struct,"xy4")) struct[$ "xy4"] = [-DW*4,-DH*4,DW*5,DH*5];
+			if(!variable_instance_exists(struct,"xy")) struct[$ "xy"]   = [DW*5,DH*5];
+			if(!variable_instance_exists(struct,"rot")) struct[$ "rot"] = 30;
+			if(!variable_instance_exists(struct,"blendc")) struct[$ "blendc"] = c.nr;
+			if(!variable_instance_exists(struct,"col5")) struct[$ "col5"] = [1,struct[$ "blendc"],struct[$ "blendc"],c.blk,c.blk];
+			if(!variable_instance_exists(struct,"outline")) struct[$ "outline"] = F;
+			if(!variable_instance_exists(struct,"li")) struct[$ "li"] = random(GSPD*3);
+			if(!variable_instance_exists(struct,"liv")) struct[$ "liv"] = random_range(2/3,1+(1/3));
+			if(!variable_instance_exists(struct,"lpol")) struct[$ "lpol"] = 1 // Polarity for direction of iteration (li (+/-)liv)
+			if(!variable_instance_exists(struct,"ld")) struct[$ "ld"] = GSPD*3;
+			if(!variable_instance_exists(struct,"ldel")) struct[$ "ldel"] = random_range(GSPD,GSPD*2);
+			if(!variable_instance_exists(struct,"ldeli")) struct[$ "ldeli"] = 0;
+			if(!variable_instance_exists(struct,"ldeg")) struct[$ "ldeg"] = 0;
+			if(!variable_instance_exists(struct,"lpct")) struct[$ "lpct"] = 0;
+			if(!variable_instance_exists(struct,"lsn")) struct[$ "lsn"] = -sin(0);
+			if(!variable_instance_exists(struct,"lcsn")) struct[$ "lcsn"] = cos(0);
+			if(!variable_instance_exists(struct,"lsnM")) struct[$ "lsnM"] = 1;
+			if(!variable_instance_exists(struct,"lcsnM")) struct[$ "lcsnM"] = 1;
+			
+		#endregion
+		
+		#region Iterate + Updates
+			
+			with(struct) {
+				
+				// We iterate only in fx_iter
+				
+				#region Dark+Light FX
+					// We Draw a layer of darkness on a surface, subtract from it with the light, and blend
+					
+					if(dark) {
+						
+						// Init Surface
+						var surf = surface_create(WW,WH)
+						surface_set_target(surf)
+						
+						// Draw Darkness
+						shader_set(shTranGradientBlk)
+							draw_rectangle_color(0,0,WW,WH,c.lr,c.nr,c.lr,c.nr,F)
+						shader_reset()
+						
+						// Subtract from Darkness...
+						gpu_set_blendmode(bm_subtract)
+							draw_sprite_ext(spr,0,xy[0]*.6,xy[1]*.6,1,1,rot,c.wht,2/3)
+						gpu_set_blendmode(bm_normal)
+						
+						// Draw Surface
+						surface_reset_target()
+						draw_surface(surf,0,0)
+						surface_free(surf)
+						
+						// Add Color to below...
+						gpu_set_blendmode(bm_add)
+							draw_sprite_ext(spr,0,xy[0]*.6,xy[1]*.6,1,1,rot,blendc,.1)
+						gpu_set_blendmode(bm_normal)
+						
+					}
+					
+				#endregion
+				
+			}
+			
+		#endregion
+		
+	}
+	
+}
+
 function noise1D(seed, x) {
 	
     var xi = floor(x); // Get the integer position
@@ -448,7 +524,7 @@ function array_clone(dst,src) {
 	
 }
 
-function proc_fx_arr(inp) {
+function proc_fx_arr(inp,last) {
 	
 	// Init
 	var rtn = F
@@ -482,12 +558,14 @@ function proc_fx_arr(inp) {
 										
 										n_fxi = 0
 										// Option 1; Velocity
-										if(array_length(_narr) > 1) n_vel = _narr[1];
+										if(array_length(_narr) >= 2 and !is_undefined(_narr[1])) n_vel = _narr[1];
 										else n_vel = 1; // Default; 1
 										n_zmn = 1
 										// Option 2; Zoom Max
-										if(array_length(_narr) > 2) n_zmx = _narr[2];
+										if(array_length(_narr) >= 3 and !is_undefined(_narr[2])) n_zmx = _narr[2];
 										else n_zmx = 1+(1/5); // Default; 1.2
+										// Option 3; Alignment Array i.e. [fa_center,fa_middle]
+										if(array_length(_narr) >= 4 and !is_undefined(_narr[3])) n_zaln = _narr[3];
 										
 									} else n_fxi++;
 									
@@ -500,7 +578,7 @@ function proc_fx_arr(inp) {
 								n_z = lerp(n_zmn,n_zmx,pct)
 								
 								// Effect Done?
-								if(pct >= 1) n_fxdone = T;
+								if(pct >= 1 and last) n_fxdone = T;
 								
 								break
 								

@@ -14,8 +14,8 @@ if(D.game_state == GAME.PLAY) {
 		// Var Init
 		var _w = 1
 		var _h = 1
-		var _dw = 1
-		var _dh = 1
+		var _dw = 0
+		var _dh = 0
 		
 		// Target?
 		if(sprite_index != sprNA) {
@@ -37,18 +37,28 @@ if(D.game_state == GAME.PLAY) {
 					
 					if(is_array(diaInst[$ K.BG0+K.SPR]) and !arrSprDone) {
 						
-						if(is_undefined(n_z)) n_z = 1;
-						if(!arrSpri) arrSpri = 0;
-						proc_fx_arr(diaInst[$ K.BG0+K.SPR][arrSpri+1])
-						_w = (sprite_get_width(diaInst[$ K.BG0+K.SPR][arrSpri])*scl)*n_z
-						_h = (sprite_get_height(diaInst[$ K.BG0+K.SPR][arrSpri])*scl)*n_z
+						#region BG0 Array
+							
+							if(is_undefined(n_z)) n_z = 1;
+							if(!arrSpri) arrSpri = 0;
+							proc_fx_arr(diaInst[$ K.BG0+K.SPR][arrSpri+1],(arrSpri == array_length(diaInst[$ K.BG0+K.SPR])-2))
+							_w = (sprite_get_width(diaInst[$ K.BG0+K.SPR][arrSpri])*scl)*n_z
+							_h = (sprite_get_height(diaInst[$ K.BG0+K.SPR][arrSpri])*scl)*n_z
+							
+						#endregion
 						
 					} else if(!is_array(diaInst[$ K.BG0+K.SPR])){
 						
-						_w = sprite_get_width(diaInst[$ K.BG0+K.SPR])*scl
-						_h = sprite_get_height(diaInst[$ K.BG0+K.SPR])*scl
+						#region BG0 Single Sprite
+							
+							_w = sprite_get_width(diaInst[$ K.BG0+K.SPR])*scl
+							_h = sprite_get_height(diaInst[$ K.BG0+K.SPR])*scl
+							
+						#endregion
 						
 					}
+					
+					// Set Delta W/H
 					_dw = max(0,_w-WW)
 					_dh = max(0,_h-WH)
 					
@@ -58,8 +68,8 @@ if(D.game_state == GAME.PLAY) {
 				
 				#region Default/None
 					
-					_w = 0
-					_h = 0
+					_w = 1
+					_h = 1
 					_dw = max(0,_w-WW)
 					_dh = max(0,_h-WH)
 					
@@ -86,31 +96,76 @@ if(D.game_state == GAME.PLAY) {
 	
 	#region X Axis Updates
 		
-		if(!is(xpct)) { 
+		if(!is(xpct)) {
 			
 			if(actionPan) {
 				
-				dltx = -(lerp(-_dw/2,_dw/2,fxInst.sn)*panMult)
-				xbd = xx-(lerp(-_dw/2,_dw/2,fxInst.sn)*panMultBD)
-				xship = xx-(lerp(-_dw/2,_dw/2,fxInst.sn)*panMultShip)+xxship
-				xbg = xx-(lerp(-_dw/2,_dw/2,fxInst.sn)*panMultBG)
+				#region Action/Auto Panning
+					
+					var _pct = fxInst.sn/4
+					dltx = -(lerp(-_dw/2,_dw/2,_pct)*panMult)
+					xbd = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultBD)
+					xship = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultShip)+xxship
+					xbg = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultBG)
+					
+				#endregion
 				
 			} else {
 				
-				dltx = -(lerp(-_dw/2,_dw/2,MXPCT)*panMult)
-				xbd = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBD)
-				xship = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultShip)+xxship
-				xbg = xx-(lerp(-_dw/2,_dw/2,MXPCT)*panMultBG)
+				var _pct = MXPCT
+				#region Manual/Mouse Panning
+					
+					#region Alignment
+						
+						if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+							
+							if(n_zaln[0] == fa_left) _pct = 0;
+							else if(n_zaln[0] == fa_right) _pct = 1;
+							else _pct = .5;
+							
+						}
+						
+					#endregion
+					dltx = -(lerp(-_dw/2,_dw/2,_pct)*panMult)
+					xbd = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultBD)
+					xship = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultShip)+xxship
+					xbg = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultBG)
+					
+				#endregion
 				
 			}
-			velship = .5*D.z
-			xxship += velship*(1-shipDel2Pct)
+			
+			#region Ship XX/Velocity Updates
+				
+				velship = .5*D.z
+				xxship += velship*(1-shipDel2Pct)
+				
+			#endregion
+			
+			// Apply
 			x = xx+dltx
 			
 		} else {
 			
-			if(actionPan) x = lerp(0,(WW+D.bgImg.dltx)*D.z,fxInst.sn);
-			else x = lerp(0,(WW+D.bgImg.dltx)*D.z,xpct);
+			if(actionPan) x = lerp(0,(WW+D.bgImg.dltx)*D.z,fxInst.sn/2);
+			else {
+				
+				var _pct = xpct
+				#region Alignment
+					
+					if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+						
+						if(n_zaln[0] == fa_left) _pct = 0;
+						else if(n_zaln[0] == fa_right) _pct = 1;
+						else _pct = .5;
+						
+					}
+					
+				#endregion
+				
+				x = lerp(0,(WW+D.bgImg.dltx)*D.z,_pct)
+				
+			}
 			
 		}
 		
@@ -145,25 +200,65 @@ if(D.game_state == GAME.PLAY) {
 			
 			if(actionPan) {
 				
-				dlty = -(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMult)
-				ybd = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultBD)
-				yship = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultShip)
-				ybg = yy-(lerp(-_dh/2,_dh/2,fxInst.csn2)*panMultBG)
+				var _pct = fxInst.csn2/4
+				#region Action/Auto Panning
+					
+					dlty = -(lerp(-_dh/2,_dh/2,_pct)*panMult)
+					ybd = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultBD)
+					yship = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultShip)
+					ybg = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultBG)
+					
+				#endregion
 				
 			} else {
 				
-				dlty = -(lerp(-_dh/2,_dh/2,MYPCT)*panMult)
-				ybd = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultBD)
-				yship = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultShip)
-				ybg = yy-(lerp(-_dh/2,_dh/2,MYPCT)*panMultBG)
+				var _pct = MYPCT
+				#region Manual/Mouse Panning
+					
+					#region Alignment
+						
+						if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+							
+							if(n_zaln[1] == fa_top) _pct = 0;
+							else if(n_zaln[1] == fa_bottom) _pct = 1;
+							else _pct = .5;
+							
+						}
+						
+					#endregion
+					
+					dlty = -(lerp(-_dh/2,_dh/2,_pct)*panMult)
+					ybd = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultBD)
+					yship = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultShip)
+					ybg = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultBG)
+					
+				#endregion
 				
 			}
+			
+			// Apply
 			y = yy+dlty
 			
 		} else {
 			
 			if(actionPan) y = lerp(0,(WH+D.bgImg.dlty)*D.z,fxInst.csn2);
-			else y = lerp(0,(WH+D.bgImg.dlty)*D.z,ypct);
+			else {
+				
+				var _pct = ypct
+				#region Alignment
+					
+					if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+						
+						if(n_zaln[1] == fa_top) _pct = 0;
+						else if(n_zaln[1] == fa_bottom) _pct = 1;
+						else _pct = .5;
+						
+					}
+					
+				#endregion
+				y = lerp(0,(WH+D.bgImg.dlty)*D.z,_pct)
+				
+			}
 			
 		}
 		

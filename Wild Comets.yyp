@@ -182,6 +182,7 @@
     {"id":{"name":"sprCityBD","path":"sprites/sprCityBD/sprCityBD.yy",},},
     {"id":{"name":"sprCitySky","path":"sprites/sprCitySky/sprCitySky.yy",},},
     {"id":{"name":"sprCockpit","path":"sprites/sprCockpit/sprCockpit.yy",},},
+    {"id":{"name":"sprCockpitBG","path":"sprites/sprCockpitBG/sprCockpitBG.yy",},},
     {"id":{"name":"sprComet","path":"sprites/sprComet/sprComet.yy",},},
     {"id":{"name":"sprContainer","path":"sprites/sprContainer/sprContainer.yy",},},
     {"id":{"name":"sprDarkAlley","path":"sprites/sprDarkAlley/sprDarkAlley.yy",},},

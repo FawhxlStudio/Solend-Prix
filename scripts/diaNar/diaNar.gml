@@ -3169,15 +3169,16 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		#region Reset Str Bld when next started... UPDATE w/ more
 			
+			var isNotFX = (object_index != oAnim or (object_index == oAnim and is_undefined(n_fxi)))
 			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and (MBLR and actr.uid != ACTOR.FOX))
-				and D.diaInstArr == N and (object_index == oAnim and !is_undefined(n_fxi) and n_fxdone ))) {
+				and D.diaInstArr == N and isNotFX)) {
 				
 				#region Dialogue Next
 					
 					if(strFull) {
 						
 						D.diaEnter = T
-						if(actr.uid == ACTOR.FOX) strBld_ += "\n\n" // FOX prints like a terminal
+						if(actr.uid == ACTOR.FOX) strBld_ += "\n\n"; // FOX prints like a terminal
 						else strBld_ = "";
 						strDeli_ = 0
 						stri_ = 0
@@ -3186,6 +3187,15 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 					} else strBld_ += string_copy(inst[$ i],stri_+1,string_length(inst[$ i])); // Skip Printing (When Normal)
 					
 				#endregion
+				
+			} else if(!isNotFX and n_fxdone) {
+				
+				D.diaEnter = T
+				if(actr.uid == ACTOR.FOX) strBld_ += "\n\n"; // FOX prints like a terminal
+				else strBld_ = "";
+				strDeli_ = 0
+				stri_ = 0
+				D.diaTrigi = 0
 				
 			}
 			

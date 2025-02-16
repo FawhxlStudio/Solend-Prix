@@ -51,7 +51,7 @@ function db_diaNar() {
 				NS[$ global.radnm] = {}
 				NS[$ global.radnm][$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
 				NS[$ global.radnm][$ K.ACT] = ACTOR.OLDERSYLAS
-				NS[$ global.radnm][$ K.BD0+K.SPR] = sprNA
+				NS[$ global.radnm][$ K.BD0+K.SPR] = sprCockpitBG
 				NS[$ global.radnm][$ K.BG0+K.SPR] = sprSylasOlderDark
 				NS[$ global.radnm][$ K.BG0+K.PMT] = 1/20
 				NS[$ global.radnm][$ K.BG0+K.WMT] = 1.3
@@ -96,7 +96,7 @@ function db_diaNar() {
 				NS[$ global.visnm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
 				NS[$ global.visnm][$ K.ACT] = ACTOR.UNKNOWN
 				NS[$ global.visnm][$ K.BD0+K.SPR] = sprNA
-				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[3,[V.ZOOM_PAN,1]],sprSurface,[2,[V.ZOOM_PAN,2,1+(1/4)]],sprVirus,[1,[V.ZOOM_PAN,3,1+(1/3)]]]
+				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[4,[V.ZOOM_PAN,U,U,[fa_center,fa_middle]]],sprSurface,[2,[V.ZOOM_PAN,2,1+(1/4),[fa_left,fa_middle]]],sprVirus,[1,[V.ZOOM_PAN,3,1+(1/3),[fa_left,fa_bottom]]]]
 				NS[$ global.visnm][$ K.SND+K.STP] = msxDarkMid
 				NS[$ global.visnm][$ 0] = ""
 				
