@@ -202,6 +202,8 @@ function _init() {
 			FOX,
 			UNKNOWN,
 			OLDERSYLAS,
+			VIRAL,
+			RANDOM,
 			LAST
 			
 		}
@@ -213,6 +215,8 @@ function _init() {
 			"ALEXANDRIA",
 			"NARRATOR",
 			"F.O.X.",
+			"UNKNOWN",
+			"UNKNOWN",
 			"UNKNOWN",
 			"UNKNOWN",
 			"LAST"
@@ -269,6 +273,7 @@ function _init() {
 			WAIT_QTR,
 			IMAGE_ARR_NEXT,
 			ZOOM_PAN,
+			DONE_AND_LEAVE,
 			LAST
 			
 		}
@@ -305,6 +310,7 @@ function _init() {
 			"WAIT_QTR",
 			"IMAGE_ARR_NEXT",
 			"ZOOM_PAN",
+			"DONE_AND_LEAVE",
 			"LAST"
 			
 		]

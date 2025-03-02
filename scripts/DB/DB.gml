@@ -72,14 +72,14 @@ function db_diaNar() {
 			#region Beckoning
 				
 				NS[$ global.beknm] = {}
-				NS[$ global.beknm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
-				NS[$ global.beknm][$ K.ACT] = ACTOR.UNKNOWN
+				NS[$ global.beknm][$ K.NM] = ACTORn[ACTOR.VIRAL]
+				NS[$ global.beknm][$ K.ACT] = ACTOR.VIRAL
 				NS[$ global.beknm][$ K.BD0+K.SPR] = sprDerelict
 				NS[$ global.beknm][$ K.BG0+K.SPR] = sprApproach
 				NS[$ global.beknm][$ K.ANM+K.NXT] = global.visnm
 				NS[$ global.beknm][$ K.SND+K.PLY] = msxDarkMid
-				NS[$ global.beknm][$ 0] = "come-"
-				NS[$ global.beknm][$ 1] = "help us..."
+				NS[$ global.beknm][$ 0] = "Come"
+				NS[$ global.beknm][$ 1] = "Help us"
 				
 			#endregion
 			
@@ -96,7 +96,9 @@ function db_diaNar() {
 				NS[$ global.visnm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
 				NS[$ global.visnm][$ K.ACT] = ACTOR.UNKNOWN
 				NS[$ global.visnm][$ K.BD0+K.SPR] = sprNA
-				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[4,[V.ZOOM_PAN,U,U,[fa_center,fa_middle]]],sprSurface,[2,[V.ZOOM_PAN,2,1+(1/4),[fa_left,fa_middle]]],sprVirus,[1,[V.ZOOM_PAN,3,1+(1/3),[fa_left,fa_bottom]]]]
+				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[4,[V.ZOOM_PAN,U,U,[fa_center,fa_middle]]],
+													sprSurface,[2,[V.ZOOM_PAN,2,1+(1/4),[fa_left,fa_middle],make_color_rgb(255,192,192)]],
+													sprVirus,[1,[V.ZOOM_PAN,3,1+(1/3),[fa_left,fa_bottom],c.r]]]
 				NS[$ global.visnm][$ K.SND+K.STP] = msxDarkMid
 				NS[$ global.visnm][$ 0] = ""
 				
@@ -116,20 +118,20 @@ function db_diaNar() {
 			NS[$ global.nw1nm][$ 0] = "My name's Alexandria and I'll be your hostess here from Sol's Nebula Relay..."
 			NS[$ global.nw1nm][$ 1] = "If you're just tuning in, The \"Solend's Prix\", is set to begin in a few Terran hours..."
 			NS[$ global.nw1nm][$ 2] = "An Interstellar pool of the best pilots throughout the galaxy are getting ready for the flight of their lives..."
-			NS[$ global.nw1nm][$ 3] = "*She pauses as if listening to a hidden voice and she gently clears her throat*"
+			NS[$ global.nw1nm][$ 3] = "*She pauses as if listening to a hidden voice and she gently clears her throat"
 			NS[$ global.nw1nm][$ 4] = "I just got word from my crew that the officials have finished finalizing the course..."
 			NS[$ global.nw1nm][$ 5] = "The race, as the name suggests, will start in the Solend system where the pilots are gathering now..."
 			NS[$ global.nw1nm][$ 6] = "Starting from the furthest habitable system at the very tip of our own Milkyway's wing, back to humanity's cradle, here at Sol..." 
 			NS[$ global.nw1nm][$ 7] = "Racing through both known and unknown space the veteran pilots will be forced to navigate dangerous and hostile environments..."
 			NS[$ global.nw1nm][$ 8] = "It will be a long race with many challenges and while some of the competitors might have their eyes set on the one billion credit prize pool at the end..."
 			NS[$ global.nw1nm][$ 9] = "Many tune in throughout the galaxy in hopes that their system's pilot will win, and... Well..."
-			NS[$ global.nw1nm][$ 10] = "*She clears her throat quietly*"
+			NS[$ global.nw1nm][$ 10] = "*She clears her throat quietly"
 			NS[$ global.nw1nm][$ 11] = "Secure the chance for their own system to recieve crucial aide and attention from Sol..."
 			NS[$ global.nw1nm][$ 12] = "Knowing this, each pilot, certainly feels the gravity of the stakes at play..."
 			NS[$ global.nw1nm][$ 13] = "It's a once in a lifetime oppurtunity, not only for the pilots, but the countless souls they represent..."
 			NS[$ global.nw1nm][$ 14] = "That is all for now, and we'd like to thank the sponsor of this event, \"Angel Investments\"..."
 			NS[$ global.nw1nm][$ 15] = "The best in helping humanity, safely, find new homes throughout the stars..."
-			NS[$ global.nw1nm][$ 16] =  "*The anchor woman briefly interacts with a tablet in her desk before the stream cuts off...*"
+			NS[$ global.nw1nm][$ 16] =  "*The anchor woman briefly interacts with a tablet in her desk before the stream cuts off..."
 			
 		#endregion
 		
@@ -221,24 +223,37 @@ function db_diaNar() {
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS] = {}
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0] = {}
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ K.DN] = F
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 0] = "Euurghhh...."
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 1] = "Is it time already?"
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 2] = "Shit! I'm late!"
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 0] = "*You jolt awake gasping for air."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 1] = "fuck!"
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 2] = "*You're in a quiet suite as you awake drowsily."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 3] = "ugh- the hell was that..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 0][$ 4] = "*You get up shaking off the familiar anxiety from the nightly dreams and nightmares..."
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1] = {}
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ K.DN] = F
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 0] = "You don your plated spacer suit."
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 1] = "Suit's still sharp..."
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2] = {}
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2][$ K.INV+K.FLG] = [V.ANIM,global.nw1nm] // Must be false (this is a check whether it is done or not)
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2][$ 0] = "I wonder if the race is on the news..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.LFT] = ACTOR.SYLAS
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.RHT] = ACTOR.FOX
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 0] = "*Unboxing the gear, you put on the suit that was inside..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 1] = V.RIGHT
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 2] = "L.I.N.I. [ E.A.F. INTEGRATION [ SYSTEMS REPORT [  [  [  [ NOMINAL [\n\nOperator, this is your Environmental Aegis Fame."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 3] = "This will protect you from most external environmental hazards within its own isolated internal environment."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 4] = "An augmented HUD will aide you in navigating your environment as well as monitoring and analyzing interests."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 5] = "You may access internal data drives for additional information on your E.A.F."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 6] = {}
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 6][$ K.INV+K.FLG] = [V.ANIM,global.nw1nm] // Must be false (this is a check whether it is done or not)
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 6][$ 0] =  V.LEFT
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 6][$ 1] = "*You familiarize yourself with the suit before moving on..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ 6][$ 2] = "I should check to see if the Neb has anything about the race tonight..."
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2] = {}
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.TRG] = TRIGGER.ANIM
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.DN] = F
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.LFT] = ACTOR.SYLAS
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.RHT] = ACTOR.FOX
 		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ K.ANM] = global.nw1nm
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 0] = "Alright I still got some time..."
-		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 1] = "I wonder if anyone else in the race is at the club..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 0] = "There's plenty of time until the race..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 1] = "I need to get out of here before i lose my mind..."
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 2] = {}
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 2][$ K.INV+K.FLG] = V.SUIT // If the player isn't suited...
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 2][$ 0] = V.RIGHT
+		NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 2][$ 2][$ 1] = "L.I.N.I. Notice [\n\nOperator, please don your E.A.F. (Environmental Aegis Frame) before leaving the suite."
 		
 	#endregion
 	
@@ -249,16 +264,60 @@ function db_diaNar() {
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0] = {}
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
 		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ K.FLG] = V.SUIT
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 0] = "The club is across the street..."
-		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 1] = "Someone'll be there..."
+		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 0] = "the club is across this street..."
+		NS[$ SCENE.STREET][$ ACTOR.SYLAS][$ 0][$ 1] = "someone should be there..."
 		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN] = {}
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1] = {}
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ K.INV+K.FLG] = V.SUIT
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 0] = "[Someone across the street almost immediately notices you and starts shouting]"
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 1] = "Hey! What the fuck are you doing outside without your suit!?"
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 2] = "Get the fuck back inside and put your suit on mother fucker!"
-		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 1][$ 3] = "HOLY FUCKING SHIT!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.TRG] = TRIGGER.START
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.INV+K.FLG] = V.SUIT
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.ACT+K.RHT] = ACTOR.SYLAS
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ K.ACT+K.LFT] = ACTOR.RANDOM
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 0] = "*Someone across the street notices you and starts shouting..."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 1] = "Hey! What the fuck are you doing!?"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 2] = "Where the fuck is your suit?!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 3] = "*An eager gruff voice in the distance shouts..."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 4] = "I'LL FUCKING KILL YOU RIGHT NOW, HAHA!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 5] = V.RIGHT
+		// This needs to be player... WIP TODO
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ K.OPT] = ["*How dare they?!\nFight the fuck back!","Get out of here..."]
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 0] = "Who the fuck are you!?"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 1] = "I'm not afraid of you?!"
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 2] = "*You instinctively throw a near by loose canister and it clatters across the ground violently..."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 3] = V.LEFT
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 4] = "*Several others start closing in on you."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 5] = "You better go back inside punkass..."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1] = {}
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 0] = "*\"What the fuck...\" you think."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 1] = "*Carefully, you back up into the elevator and back to your suite..."
+		NS[$ SCENE.STREET][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 2] = "*\"Ok... We really need our suit...\""
+		// [$ 2]Scene -> [$ ACTOR.SPITFIRE]Actor -> [$ 0]Narrative Parent -> [$ 5]Narrative Branch -> [$ T|F]Narrative Dialogue -> [$ F:2]Narrative Selection -> [$ 0|1]Outcome
+		NS[$ SCENE.STREET] = {}
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE] = {}
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0] = {}
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ K.TRG] = TRIGGER.START // Activate when spitfire character is clicked at scene 2
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.LFT] = ACTOR.SYLAS // Character to draw on left of screen
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.RHT] = ACTOR.SPITFIRE // Character to draw on right of screen
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ K.REL+K.BR] = 0 // Atleast Neutral?
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T] = {}
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 0] = V.RIGHT
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 1] = "Hey "+P.dia[$ K.NM]+"-"
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 2] = "We can go through the plaza to get to the Spaceport from here."
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 3] = "But- it's a while before we need to be there..."
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 4] = "*Confidently, she faces you..."
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 5] = "We should try to see what we can find out about the other racers..."
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ T][$ 6] = V.DONE
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F] = {}
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ K.REL+K.BR] = -2 // Atleast not disliked?
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ T] = {} // Not disliked
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 0] = V.RIGHT
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 1] = "Hey- I'm going to the Spaceport...     \n\nThink about what I said..."
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 2] = "*Looking over her shoulder, She raises a hand and walks away down the street"
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 3] = V.DONE_AND_LEAVE
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ F] = {} // Disliked
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ F][$ 0] = "*Spitefire walks away down the street"
+		NS[$ SCENE.STREET][$ ACTOR.SPITFIRE][$ 0][$ F][$ F][$ 1] = V.DONE_AND_LEAVE
 		
 	#endregion
 	
@@ -276,19 +335,20 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 1] = "Hey you in the Spacer suit..." // Dialogue
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 2] = V.LEFT // Switch to Left Character as Speaker (Spitfire)
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 3] = V.BODY // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 4] = "[They turn around to face you]" // Dialogue
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 4] = "*They turn around to face you" // Dialogue
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 5] = "Hmm? I guess you must be talking to me..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6] = "[They look you up and down]" // Emote
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 6] = "*They look you up and down" // Emote
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ K.BR] = [V.SUIT,P] // True or False: Player Suited?
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T] = {} // Player is Suited:
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 0] = "[They turn towards you promptly]"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 0] = "*They turn towards you promptly"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 1] = "Wait- You're the one that flies Praey!"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 2] = "Your name's Sylas right?"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 3] = V.DONE_AND_CONTINUE // Mark this Narrative Parent as Done (NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0])
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F] = {} // Player is NOT Suited:
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 0] = "[They wave their hand at you dismissively]"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 0] = "*They wave their hand at you dismissively"
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 1] = "Not now I'm looking for someone..."
+		
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2] = {}
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
@@ -302,16 +362,17 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 4] = "I'm in the race too, My name's Sylas."
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 5] = V.LEFT
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 6] = "Oh- I've been looking for you! You fly Praey right?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 7] = "[Their head tilts to the side]... Where's your suit?"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 8] = V.RIGHT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 9] = "Oh- I uh-"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 10] = V.LEFT
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 11] = "[They put their hand up towards you]"
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 12] = "Stop- We don't have time, just go get it on and we'll talk more later."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 13] = "Come back here when you're suited..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 14] = V.BODY_BACK // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 15] = "[They turn away from you impaitently]..."
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 16] = V.DONE_SOFT // Also marks this narrative parent as done
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 7] = "*Their head tilts to the side..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 8] = "Where's your suit?"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 9] = V.RIGHT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 10] = "Oh- I uh-"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 11] = V.LEFT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 12] = "*They put their hand up towards you"
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 13] = "Stop- We don't have time, just go get it on and we'll talk more later."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 14] = "Come back here when you're suited..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 15] = V.BODY_BACK // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 16] = "*They turn away from you impaitently..."
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 17] = V.DONE_SOFT // Also marks this narrative parent as done
 		// Option 1 == Array[1] == ACTION.LEAVE; Just trigger action in this case, no additional dialogue set...
 		
 	#endregion
@@ -348,8 +409,8 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ K.ACT+K.RHT] = ACTOR.SYLAS
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 0] = V.NARRATOR_NONE // All Actors Inactive (For stuff like meta narrations...)
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 1] = "[Distant Shouting] \"GET BACK!\""
-		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 2] = V.RIGHT
+		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 1] = "*You hear distant shouting, \"GET BACK!\""
+		  NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 2] = V.RIGHT
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 3] = "Sounds like a fight outside..."
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 4] = V.LEFT
 		NS[$ SCENE.CLUB][$ ACTOR.SPITFIRE][$ 2][$ 5] = "We should get going..."
@@ -695,6 +756,26 @@ function db_act() {
 		_char.col[2] = c.lgry
 		_char.col[3] = c.dgry
 		_char.col[4] = c.dgry
+		
+	#endregion
+	
+	#region Viral
+		
+		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
+		var _char = actorLst[|ds_list_size(actorLst)-1]
+		_char.dia[$ K.NM] = ACTORn[ACTOR.VIRAL]
+		_char.dia[$ K.SX]  = SEX.FEMALE
+		_char.body = sprNA
+		_char.bodyPol = 1
+		_char.head = sprNA
+		_char.headPol = 1
+		_char.uid = ACTOR.VIRAL
+		_char.font1 = fFakeLove
+		_char.font2 = fInfect
+		_char.col[1] = make_color_rgb(255,192,255)
+		_char.col[2] = make_color_rgb(192,128,192)
+		_char.col[3] = make_color_rgb(255,192,255)
+		_char.col[4] = make_color_rgb(192,128,192)
 		
 	#endregion
     

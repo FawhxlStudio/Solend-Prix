@@ -89,6 +89,12 @@ if(D.game_state == GAME.PLAY
 											arrSprDeli = 0
 											arrSpri += 2 // Go to next sprite in array, skip over index with delay value
 											arrSprDel = diaInst[$ K.BG0+K.SPR][arrSpri+1][0]*GSPD
+											if(!is_undefined(n_z)) n_z = U;
+											if(!is_undefined(n_aln)) n_aln = U;
+											if(!is_undefined(n_fxi)) n_fxi = U;
+											if(!is_undefined(n_vel)) n_vel = U;
+											if(!is_undefined(n_zmx)) n_zmx = U;
+											if(!is_undefined(n_col)) n_col = U;
 											
 											if(!is_undefined(n_z)) {
 												
@@ -127,6 +133,9 @@ if(D.game_state == GAME.PLAY
 							
 							// Draw Current Array Sprite...
 							if(arrSprDeli != N) {
+								
+								if(!is_undefined(n_col)) image_blend = n_col;
+								else image_blend = c.wht;
 								
 								if(!is_undefined(n_z)) draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl*n_z,scl*n_z,0,image_blend,1);
 								else draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl,scl,0,image_blend,1);
@@ -176,9 +185,13 @@ if(D.game_state == GAME.PLAY
 						
 					#endregion
 					
-					// Init
-					var k = sks[i]
-					var v = diaInst[$ k]
+					#region Init
+						
+						var k = sks[i]
+						var v = diaInst[$ k]
+						
+					#endregion
+					
 					switch(k) {
 						
 						#region Sound

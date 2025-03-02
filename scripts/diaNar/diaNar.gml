@@ -717,8 +717,12 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 					case 1: {
 						
 						// Goto Instance Level... If Exists...
-						if(variable_instance_exists(diaInst,string(uid)))
-							return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1);
+						if(variable_instance_exists(diaInst,string(uid))) {
+							
+							var actr = actor_find(uid)
+							if(actr == P or actr.scni == D.scni or ds_list_has(P.party,actr)) return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1)
+							
+						}
 						break
 						
 					}
@@ -1021,7 +1025,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 														// Trigger Dialogue When Clicking a Character in the scene...
 														case TRIGGER.CLICK: {
 															
-															// Actor Sanity...
+															// Actor Sanity... (Can't click self)
 															if(actr != N) {
 																
 																// Mouse In the Actor...
@@ -2223,7 +2227,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							case V.LEFT: {
 								
 								// Returns T/F on success...
-								if(D.focusL) diaNar_focus_switch(D.focusL);
+								if(D.focusL) {
+									
+									diaNar_focus_switch(D.focusL)
+									strBld_ = ""
+									
+								}
 								break
 								
 							}
@@ -2235,7 +2244,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							case V.MIDDLE: {
 								
 								// Returns T/F on success...
-								if(D.focusM) diaNar_focus_switch(D.focusM);
+								if(D.focusM) {
+									
+									diaNar_focus_switch(D.focusM)
+									strBld_ = ""
+									
+								}
 								break
 								
 							}
@@ -2247,7 +2261,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							case V.RIGHT: {
 								
 								// Returns T/F on success...
-								if(D.focusR) diaNar_focus_switch(D.focusR);
+								if(D.focusR) {
+									
+									diaNar_focus_switch(D.focusR)
+									strBld_ = ""
+									
+								}
 								break
 								
 							}
@@ -2548,7 +2567,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		case V.LEFT: {
 																			
 																			// Returns T/F on success...
-																			if(D.focusL) diaNar_focus_switch(D.focusL);
+																			if(D.focusL) {
+																				
+																				diaNar_focus_switch(D.focusL)
+																				strBld_ = ""
+																				
+																			}
 																			break
 																			
 																		}
@@ -2560,7 +2584,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		case V.MIDDLE: {
 																			
 																			// Returns T/F on success...
-																			if(D.focusM) diaNar_focus_switch(D.focusM);
+																			if(D.focusM) {
+																				
+																				diaNar_focus_switch(D.focusM)
+																				strBld_ = ""
+																				
+																			}
 																			break
 																			
 																		}
@@ -2572,7 +2601,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		case V.RIGHT: {
 																			
 																			// Returns T/F on success...
-																			if(D.focusR) diaNar_focus_switch(D.focusR);
+																			if(D.focusR) {
+																				
+																				diaNar_focus_switch(D.focusR)
+																				strBld_ = ""
+																				
+																			}
 																			break
 																			
 																		}
@@ -3004,6 +3038,36 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		if(actr != N) draw_set_font(actr.font1);
 		else draw_set_font(fNeu);
 		
+		#region Is Emote? * at start of string
+			
+			var _stro = inst[$ i]
+			if(is_string(inst[$ i]) and string_char_at(inst[$ i],0) == "*") {
+				
+				if(actr) {
+					
+					try {
+						
+						if(variable_instance_exists(actr.dia,K.SX)) {
+							
+							if(actr.dia[$ K.SX] == SEX.FEMALE) draw_set_font(fEmoteFemale);
+							else if(actr.dia[$ K.SX] == SEX.MALE) draw_set_font(fEmoteMale);
+							else draw_set_font(fEmoteNarrator);
+							
+						} else draw_set_font(fEmoteNarrator);
+						
+					} catch(_ex) {
+						
+						draw_set_font(fEmoteNarrator)
+						
+					}
+					
+				} else draw_set_font(fEmoteNarrator); // Set Emote Font
+				inst[$ i] = string_replace_all(inst[$ i],"*","") // Remove Asterisks
+				
+			}
+			
+		#endregion
+		
 		var strFull = string_ends_with(strBld_,inst[$ i])
 		text_prep_cc(inst[$ i])
 		var xx = WW/2
@@ -3096,6 +3160,10 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		// Colors
 		if(!actr) {
 			
+			// Emote?
+			var _fgco = fgc_
+			//if(draw_get_font() == fEmote) fgc_ = [fgc_[0],c.wht,c.wht,c.gry,c.gry];
+			
 			// If Transmit, blink carot every other second
 			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
 				
@@ -3115,10 +3183,14 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				
 			}
 			
+			// Reset Global FGC if was Emote
+			if(draw_get_font() == fEmote) fgc_ = _fgco;
+			
 		} else if(actr.uid == ACTOR.FOX) {
 			
 			// Init
 			var _c = actr.col
+			//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
 			
 			// If Transmit, blink carot every other second
 			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
@@ -3143,6 +3215,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 			
 			// Draw Text...
 			var _c = actr.col
+			//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
 			draw_text_ext_color(xx,yy,strBld_,STRH,strw_,_c[1],_c[2],_c[3],_c[4],_c[0])
 			
 		}
@@ -3196,12 +3269,16 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				strDeli_ = 0
 				stri_ = 0
 				D.diaTrigi = 0
+				n_fxi = U
 				
 			}
 			
 		#endregion
 		
 	#endregion
+	
+	// Reset String if Was Emote...
+	if(_stro != inst[$ i]) inst[$ i] = _stro;
 	
 	#region Draw Name
 		

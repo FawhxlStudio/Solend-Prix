@@ -7,4 +7,5 @@ if(!diaNar_done(NS[$ global.tutnm]) and is_undefined(inst)) {
 	audio_play_sound(sfxVoid,2,T,1)
 	
 }
+// diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and 
 done = (diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and diaNar_done(NS[$ global.visnm]))

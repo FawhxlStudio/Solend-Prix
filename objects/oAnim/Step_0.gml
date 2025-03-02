@@ -115,21 +115,23 @@ if(D.game_state == GAME.PLAY) {
 				var _pct = MXPCT
 				#region Manual/Mouse Panning
 					
-					#region Alignment
+					#region X Alignment
 						
-						if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+						if(!is_undefined(n_aln) and is_array_ext(n_aln,2,N)) {
 							
-							if(n_zaln[0] == fa_left) _pct = 0;
-							else if(n_zaln[0] == fa_right) _pct = 1;
+							if(n_aln[0] == fa_left) _pct = 0;
+							else if(n_aln[0] == fa_right) _pct = 1;
 							else _pct = .5;
 							
 						}
 						
 					#endregion
+					
 					dltx = -(lerp(-_dw/2,_dw/2,_pct)*panMult)
 					xbd = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultBD)
 					xship = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultShip)+xxship
 					xbg = xx-(lerp(-_dw/2,_dw/2,_pct)*panMultBG)
+					
 					
 				#endregion
 				
@@ -151,18 +153,17 @@ if(D.game_state == GAME.PLAY) {
 			else {
 				
 				var _pct = xpct
-				#region Alignment
+				#region X Alignment
 					
-					if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+					if(!is_undefined(n_aln) and is_array_ext(n_aln,2,N)) {
 						
-						if(n_zaln[0] == fa_left) _pct = 0;
-						else if(n_zaln[0] == fa_right) _pct = 1;
+						if(n_aln[0] == fa_left) _pct = 0;
+						else if(n_aln[0] == fa_right) _pct = 1;
 						else _pct = .5;
 						
 					}
 					
 				#endregion
-				
 				x = lerp(0,(WW+D.bgImg.dltx)*D.z,_pct)
 				
 			}
@@ -215,18 +216,17 @@ if(D.game_state == GAME.PLAY) {
 				var _pct = MYPCT
 				#region Manual/Mouse Panning
 					
-					#region Alignment
+					#region Y Alignment
 						
-						if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+						if(!is_undefined(n_aln) and is_array_ext(n_aln,2,N)) {
 							
-							if(n_zaln[1] == fa_top) _pct = 0;
-							else if(n_zaln[1] == fa_bottom) _pct = 1;
+							if(n_aln[1] == fa_top) _pct = 0;
+							else if(n_aln[1] == fa_bottom) _pct = 1;
 							else _pct = .5;
 							
 						}
 						
 					#endregion
-					
 					dlty = -(lerp(-_dh/2,_dh/2,_pct)*panMult)
 					ybd = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultBD)
 					yship = yy-(lerp(-_dh/2,_dh/2,_pct)*panMultShip)
@@ -245,12 +245,12 @@ if(D.game_state == GAME.PLAY) {
 			else {
 				
 				var _pct = ypct
-				#region Alignment
+				#region Y Alignment
 					
-					if(!is_undefined(n_zaln) and is_array_ext(n_zaln,2,N)) {
+					if(!is_undefined(n_aln) and is_array_ext(n_aln,2,N)) {
 						
-						if(n_zaln[1] == fa_top) _pct = 0;
-						else if(n_zaln[1] == fa_bottom) _pct = 1;
+						if(n_aln[1] == fa_top) _pct = 0;
+						else if(n_aln[1] == fa_bottom) _pct = 1;
 						else _pct = .5;
 						
 					}

@@ -23,9 +23,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	} else {
 		
-		// Reset
-		hvrDeli = 0
-		hvrPct = 0
+		// De-Iterate
+		if(hvrDeli > 0) max(0,hvrDeli--)
+		hvrPct = hvrDeli/hvrDel
 		
 	}
 	isHvro = isHvr
@@ -35,20 +35,24 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #region Timers
 	
+	// Frame
 	fr++
 	frs = !frs
 	if(fr >= GSPD) {
 		
+		// Second
 		fr = 0
 		sc++
 		scs = !scs
 		if(sc >= 60) {
 			
+			// Minute
 			sc = 0
 			mn++
 			mns = !mns
 			if(mn >= 60) {
 				
+				// Hour
 				mn = 0
 				hr++
 				hrs = !hrs

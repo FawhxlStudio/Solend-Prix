@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fNeu",
+  "%Name":"fEmoteMale",
   "AntiAlias":1,
   "applyKerning":0,
   "ascender":46,
@@ -112,12 +112,12 @@
   "hinting":0,
   "includeTTF":false,
   "interpreter":0,
-  "italic":false,
+  "italic":true,
   "kerningPairs":[],
   "last":0,
   "lineHeight":81,
   "maintainGms1Font":false,
-  "name":"fNeu",
+  "name":"fEmoteMale",
   "parent":{
     "name":"Fonts",
     "path":"folders/Fonts.yy",

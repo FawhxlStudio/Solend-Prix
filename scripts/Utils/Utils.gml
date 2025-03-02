@@ -557,15 +557,20 @@ function proc_fx_arr(inp,last) {
 									if(is_undefined(n_fxi)) {
 										
 										n_fxi = 0
+										n_z = 1
 										// Option 1; Velocity
 										if(array_length(_narr) >= 2 and !is_undefined(_narr[1])) n_vel = _narr[1];
 										else n_vel = 1; // Default; 1
-										n_zmn = 1
+										n_zmn = 1 // Zoom Min, Make changeable? Change to z_rng? [mn,mx]
 										// Option 2; Zoom Max
 										if(array_length(_narr) >= 3 and !is_undefined(_narr[2])) n_zmx = _narr[2];
 										else n_zmx = 1+(1/5); // Default; 1.2
 										// Option 3; Alignment Array i.e. [fa_center,fa_middle]
-										if(array_length(_narr) >= 4 and !is_undefined(_narr[3])) n_zaln = _narr[3];
+										if(array_length(_narr) >= 4 and !is_undefined(_narr[3])) n_aln = _narr[3];
+										else n_aln = U;
+										// Option 4; Color
+										if(array_length(_narr) >= 5 and !is_undefined(_narr[4])) n_col = _narr[4];
+										else n_col = U;
 										
 									} else n_fxi++;
 									
