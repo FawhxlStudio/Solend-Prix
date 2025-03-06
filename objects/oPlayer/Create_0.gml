@@ -11,6 +11,11 @@ suitSpr = sprContainer
 suitInst = N
 diaSpr = N
 diaSprPol = 1
+sprFlipH = F
+sprFlipV = F
+flipDel = GSPD
+flipHi = 0
+flipVi = 0
 font1 = fSylas
 font2 = fEmoteMale
 col = [1,c.nb,c.nb,c.lb,c.lb]
@@ -18,6 +23,7 @@ party = ds_list_create()
 uid = ACTOR.SYLAS
 spkr = F
 spkro = F
+sprPolo = N
 
 #region Dialogue
 	

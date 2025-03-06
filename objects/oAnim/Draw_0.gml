@@ -38,12 +38,12 @@ if(D.game_state == GAME.PLAY
 				draw_sprite_ext(diaInst[$ K.BD0+K.SPR],0,xbd,ybd,image_xscale,image_yscale,0,image_blend,1)
 				
 			}
+			
+			#region Light FX Pre (Darkness Layer for BD0)
 				
-				#region Light FX Pre (Darkness Layer for BD0)
-					
-					if(lightFX) fx_pre(fxInst);
-					
-				#endregion
+				if(lightFX) fx_pre(fxInst);
+				
+			#endregion
 			
 			if(variable_instance_exists(diaInst,K.SP0+K.SPR)) {
 				
@@ -131,16 +131,19 @@ if(D.game_state == GAME.PLAY
 								
 							#endregion
 							
-							// Draw Current Array Sprite...
-							if(arrSprDeli != N) {
+							#region Draw Current Array Sprite...
 								
-								if(!is_undefined(n_col)) image_blend = n_col;
-								else image_blend = c.wht;
+								if(arrSprDeli != N) {
+									
+									if(!is_undefined(n_col)) image_blend = n_col;
+									else image_blend = c.wht;
+									
+									if(!is_undefined(n_z)) draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl*n_z,scl*n_z,0,image_blend,1);
+									else draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl,scl,0,image_blend,1);
+									
+								}
 								
-								if(!is_undefined(n_z)) draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl*n_z,scl*n_z,0,image_blend,1);
-								else draw_sprite_ext(diaInst[$ K.BG0+K.SPR][arrSpri],0,xbg,ybg,scl,scl,0,image_blend,1);
-								
-							}
+							#endregion
 							
 						} catch(_ex) {
 							

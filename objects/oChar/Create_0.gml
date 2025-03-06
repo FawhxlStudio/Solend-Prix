@@ -12,6 +12,11 @@ bodyBackPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Ma
 suitSpr = sprContainer
 diaSpr = N
 diaSprPol = 1
+sprFlipH = F
+sprFlipV = F
+flipDel = GSPD
+flipHi = 0
+flipVi = 0
 suitInst = N
 font1 = fFem
 font2 = fFem
@@ -23,6 +28,7 @@ mouseIn = F
 spkr = F
 spkro = F
 diaAvailable = F
+sprPolo = N
 
 #region Dialogue
 	

@@ -193,7 +193,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		for(var i = 0; i < ds_list_size(D.actorLst); i++) {
 			
 			var act = D.actorLst[|i]
+			// var started = ds_list_empty(D.diaParLst) // Is the parent dialogue list empty?
 			diaNar_iterate_level(NS,act.uid,0)
+			/* Redundant?
+			if(started and ds_list_empty(D.diaParLst)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
+			// No Else Needed; Since if it wasn't empty already, then started is already false.
+			if(started and D.diaParLst[|0][0] == act.uid) D.diaSpeaker = act; // Set whose dialogue it belongs to, to be initial focus/speaker...
+			*/
 			
 		}
 		

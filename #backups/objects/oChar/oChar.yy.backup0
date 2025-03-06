@@ -1,0 +1,345 @@
+// 2025-03-05 19:10:27
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+persistent = true;
+uses_physics = false;
+
+#event create Init
+
+// Vars
+suited = T
+suitedo = suited
+head = sprSpitfire2
+headPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+body = sprSpitfireBod
+bodyPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+bodyBack = sprSpitfireBack
+bodyBackPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+suitSpr = sprContainer
+diaSpr = N
+diaSprPol = 1
+sprFlipH = F
+sprFlipV = F
+flipDel = GSPD
+flipHi = 0
+flipVi = 0
+suitInst = N
+font1 = fFem
+font2 = fFem
+col = [1,c.nr,c.nr,c.ny,c.ny]
+scni = N
+uid = ACTOR.SPITFIRE
+relation = 0
+mouseIn = F
+spkr = F
+spkro = F
+diaAvailable = F
+sprPolo = N
+
+#region Dialogue
+	
+	diai = 0
+	dia = {}
+	dia[$ K.NM] = "Unknown"
+	dia[$ K.SX] = N
+	dia[$ K.KNW] = F
+	dia[$ K.I] = 0
+	dia[$ K.CAR] = 0
+	dia[$ K.CAR+K.DL] = GSPD*.2
+	dia[$ K.CAR+K.DLI] = 0
+	
+#endregion
+
+#event step Logic Updates & Dialogue Triggers
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+if(in_party(id)) {
+	
+	#region Dialogue
+		
+		if(D.diaSpeaker == id) spkr = T;
+		else spkr = F;
+		
+		/*
+		
+		if(variable_instance_exists(dia,string(D.scni)) and D.focusL == N) {
+			
+			var diaCnt = variable_instance_names_count(dia[$ D.scni])
+			for(var i = 0; i < diaCnt; i++) {
+				
+				if(variable_instance_exists(dia[$ D.scni],string(i))) {
+					
+					if(!dia[$ string(D.scni)][$ i][$ K.DN]
+						and dia[$ string(D.scni)][$ i][$ K.TRG] == TRIGGER.START) {
+						
+						#region Start Trigger (Immediate/ASAP)
+							
+							var found = F
+							for(var i2 = 0; i2 < ds_list_size(D.dialogue); i2++)
+								found = (D.dialogue[|i2] == dia[$ string(D.scni)][$ i]);
+							if(!found) ds_list_add(D.dialogue,dia[$ D.scni][$ i]);
+							if(D.focusL == N) {
+								
+								D.focusL = id
+								diai = i
+								
+							}
+							
+						#endregion
+						
+					} else if(!dia[$ string(D.scni)][$ i][$ K.DN]
+						and dia[$ string(D.scni)][$ i][$ K.TRG] == TRIGGER.SUIT
+						and suitedo != suited) {
+						
+						#region Suit Trigger
+							
+							var found = F
+							for(var i2 = 0; i2 < ds_list_size(D.dialogue); i2++)
+								found = (D.dialogue[|i2] == dia[$ string(D.scni)][$ i]);
+							if(!found) ds_list_add(D.dialogue,dia[$ D.scni][$ i]);
+							if(D.focusL == N) {
+								
+								D.focusL = id
+								diai = i
+								
+							}
+							
+						#endregion
+						
+					} else if(!dia[$ string(D.scni)][$ i][$ K.DN]
+						and dia[$ string(D.scni)][$ i][$ K.TRG] == TRIGGER.ANIM) {
+						
+						#region Check Anim Trigger for Done
+							
+							var _trig = F
+							if(variable_instance_exists(dia[$ string(D.scni)][$ i],K.ANM)) {
+								
+								// DEBUG HERE LIKELY IF ISSUES WITH TRIGGERING POST-ANIM DIALOGUE
+								var _anim = dia[$ string(D.scni)][$ i][$ K.ANM]
+								if(variable_instance_exists(NS,_anim))
+									if(variable_instance_exists(NS[$ _anim],K.DN))
+										if(NS[$ _anim][$ K.DN])
+											_trig = T;
+								
+							}
+							
+						#endregion
+						
+						#region If Anim Trigger is Good, Queue Dialogue if not already
+							
+							if(_trig) {
+								
+								var found = F
+								for(var i2 = 0; i2 < ds_list_size(D.dialogue); i2++)
+									found = (D.dialogue[|i2] == dia[$ string(D.scni)][$ i]);
+								if(!found) ds_list_add(D.dialogue,dia[$ D.scni][$ i]);
+								if(D.focusL == N) {
+									
+									D.focusL = id
+									diai = i
+									
+								}
+								
+							}
+							
+						#endregion
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		*/
+		
+	#endregion Dialogue
+	
+}
+
+#event step_begin Controls & Updates
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region FX Updates
+	
+	#region Sprite Polarity Flip
+		
+		#region Horizontal
+			
+			if(sprFlipH) {
+				
+				// First? Set Old...
+				if(flipHi == 0) {
+					
+					// Set Polairty Old
+					if is(diaSpr) sprPolo = diaSprPol;
+					else if(suited) sprPolo = bodyPol;
+					else sprPolo = headPol;
+					
+				} else if(sprPolo != N) {
+					
+					// Apply Transistion
+					if is(diaSpr) diaSprPol = lerp(sprPolo*-1,sprPolo,cos(degtorad(180*(flipHi/flipDel))/2));
+					else if(suited) bodyPol = lerp(sprPolo*-1,sprPolo,cos(degtorad(180*(flipHi/flipDel))/2));
+					else headPol = lerp(sprPolo*-1,sprPolo,cos(degtorad(180*(flipHi/flipDel))/2));
+					
+				}
+				
+				// Iterate
+				flipHi++
+				if(flipHi > flipDel) {
+					
+					// Done?
+					flipHi = 0
+					sprFlipH = F
+					
+					// CHECKLIST:
+					// I think this is done?
+					// Delay Dialogue From Continuing until sprFlipH or sprFlipV is no longer true?
+					// Doesn't cos(0) == 2 or 1? We wan't sin right? 1 -> -1 in lerp???
+					
+				}
+				
+			}
+			
+		#endregion
+		
+	#endregion
+	
+#endregion
+
+#region Meta Updates
+	
+	#region Olds
+		
+		suitedo = suited
+		
+	#endregion
+	
+#endregion
+
+if(D.scene_state == GAME.PLAY) {
+	
+	if(in_party(id)) scni = D.scni
+	
+}
+
+#event draw Draw In Scene
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
+	
+	if(D.actorLeft == id) {
+		
+		#region Init/Draw
+			
+			if(diaSpr) sprite_index = diaSpr;
+			else if(suited) sprite_index = body;
+			else sprite_index = head;
+			image_alpha = 1
+			var scl = (D.href)/sprite_get_height(sprite_index)
+			image_xscale = scl
+			image_yscale = scl
+			x = ((WW)*(1/5))+D.bgImg.dltx
+			y = D.bgImg.bbox_bottom
+			image_blend = D.scnBlend3;
+			draw_self()
+			
+		#endregion
+		
+		if(bbox_sanity(id)) {
+			
+			if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
+				 and D.focusL == N and !TRAN.override and !D.ctrlOverride
+				 and is_hover(id)) {
+				
+				// Init
+				D.isHvr = id
+				mouseIn = T
+				
+				if(diaAvailable) {
+					
+					#region Shader Draw
+						
+						// Open Surface
+						var surf = surface_create(WW,WH)
+						surface_set_target(surf)
+							
+							shader_set(shWhite)
+								
+								if(MBL) {
+									
+									var _a = shader_get_uniform(shWhite,"alpha")
+									shader_set_uniform_f(_a,D.hvrPct/6)
+									
+								} else {
+									
+									var _a = shader_get_uniform(shWhite,"alpha")
+									shader_set_uniform_f(_a,D.hvrPct/5)
+									
+								}
+								
+								draw_self()
+								
+							shader_reset()
+							
+						// Finalize Surface
+						surface_reset_target()
+						draw_surface_ext(surf,0,0,1,1,0,col[1],1)
+						surface_free(surf)
+						
+					#endregion
+					
+				} else D.isHvr = N;
+				
+			} else if(D.focusL == N and !TRAN.override
+				and !D.ctrlOverride and D.hvrPct > 0) {
+				
+				// Init
+				mouseIn = F
+				
+				#region Shader Draw
+					
+					// Open Surface
+					var surf = surface_create(WW,WH)
+					surface_set_target(surf)
+						
+						shader_set(shWhite)
+							
+							if(MBL) {
+								
+								var _a = shader_get_uniform(shWhite,"alpha")
+								shader_set_uniform_f(_a,D.hvrPct/6)
+								
+							} else {
+								
+								var _a = shader_get_uniform(shWhite,"alpha")
+								shader_set_uniform_f(_a,D.hvrPct/5)
+								
+							}
+							
+							draw_self()
+							
+						shader_reset()
+						
+					// Finalize Surface
+					surface_reset_target()
+					draw_surface_ext(surf,0,0,1,1,0,col[3],D.hvrPct)
+					surface_free(surf)
+					
+				#endregion
+				
+			} else mouseIn = F;
+			
+		}
+		
+		// Reset Dialogue Available
+		diaAvailable = F
+		
+	}
+	
+}
+
+#event draw_pre Olds
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }

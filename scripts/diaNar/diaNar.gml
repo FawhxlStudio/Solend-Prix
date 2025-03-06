@@ -1992,15 +1992,21 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				
 				#region Transition
 					
-					// Iterate for Transition
-					D.diaPct = D.diaI/D.diaDly
-					if(D.diaI < D.diaDly) D.diaI++;
+					#region Iterate for Transition
+						
+						D.diaPct = D.diaI/D.diaDly
+						if(D.diaI < D.diaDly) D.diaI++;
+						
+					#endregion
 					
 					if(D.diaPct == 1) {
 						
-						// Dialogue Sprite Set
-						actr.diaSpr = D.diaInstArr[1];
-						D.diaInstArr = N
+						#region Dialogue Sprite Set
+							
+							actr.diaSpr = D.diaInstArr[1];
+							D.diaInstArr = N
+							
+						#endregion
 						
 						#region Reset Inst Arr Iterator (This way it doesn't interfere with others using it so its only reset right after we're done with it)
 							
@@ -2567,12 +2573,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		case V.LEFT: {
 																			
 																			// Returns T/F on success...
-																			if(D.focusL) {
+																			if(D.focusL and D.diaSpeaker != D.focusL) {
 																				
 																				diaNar_focus_switch(D.focusL)
-																				strBld_ = ""
 																				
 																			}
+																			strBld_ = ""
 																			break
 																			
 																		}
@@ -2584,12 +2590,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		case V.MIDDLE: {
 																			
 																			// Returns T/F on success...
-																			if(D.focusM) {
+																			if(D.focusM and D.diaSpeaker != D.focusM) {
 																				
 																				diaNar_focus_switch(D.focusM)
-																				strBld_ = ""
 																				
 																			}
+																			strBld_ = ""
 																			break
 																			
 																		}
@@ -2601,12 +2607,12 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		case V.RIGHT: {
 																			
 																			// Returns T/F on success...
-																			if(D.focusR) {
+																			if(D.focusR and D.diaSpeaker != D.focusR) {
 																				
 																				diaNar_focus_switch(D.focusR)
-																				strBld_ = ""
 																				
 																			}
+																			strBld_ = ""
 																			break
 																			
 																		}
@@ -2748,6 +2754,28 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																		break
 																		
 																	}
+																	
+																#endregion
+																
+																#region Actor Sprite Flips
+																	
+																	#region Horizontal
+																		
+																		case V.FLIP_H: {
+																			
+																			// Flip Current Sprite Polarity...
+																			D.diaSpeaker.sprFlipH = T
+																			break
+																			
+																		}
+																		
+																	#endregion
+																	
+																	#region Vertical TODO
+																		
+																		// TODO
+																		
+																	#endregion
 																	
 																#endregion
 																
@@ -3243,8 +3271,8 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		#region Reset Str Bld when next started... UPDATE w/ more
 			
 			var isNotFX = (object_index != oAnim or (object_index == oAnim and is_undefined(n_fxi)))
-			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and (MBLR and actr.uid != ACTOR.FOX))
-				and D.diaInstArr == N and isNotFX)) {
+			if((keyboard_check_pressed(vk_enter) or keyboard_check_pressed(vk_space) or (mouse_in_rectangle(xy) and (MBLR and actr.uid != ACTOR.FOX)))
+				and D.diaInstArr == N and isNotFX and !actr.sprFlipH and !actr.sprFlipV) {
 				
 				#region Dialogue Next
 					
