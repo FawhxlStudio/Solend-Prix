@@ -57,9 +57,10 @@ Temporary Items
 ## GameMaker cache
 /cache
 
-## Ignore GMLive Files/Folders
+## Ignore GMLive Files/Folders & Images?
 **/GMLive*
 **/obj_gmlive
+**/*.png
 /output
 
 ## Build files
