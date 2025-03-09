@@ -458,7 +458,7 @@ function db_scn() {
 		S[$ SCENE.APARTMENT][$ K.BG0+K.L1+K.SPR] = sprScrapersClose
 		S[$ SCENE.APARTMENT][$ K.BG0+K.L1+K.PMT] = 1/10
 		S[$ SCENE.APARTMENT][$ K.BG0+K.L1+K.WMT] = 1.5
-		S[$ SCENE.APARTMENT][$ K.BG0+K.SPR] = sprApartment1
+		S[$ SCENE.APARTMENT][$ K.BG0+K.SPR] = sprSuite
 		S[$ SCENE.APARTMENT][$ K.BG0+K.PMT] = 1
 		S[$ SCENE.APARTMENT][$ K.ENV] = F
 		S[$ SCENE.APARTMENT][$ K.TRA+K.CNT] = 8
@@ -492,9 +492,9 @@ function db_scn() {
 	#region Club
 		
 		S[$ SCENE.CLUB] = {}
-		S[$ SCENE.CLUB][$ K.BD0+K.SPR] = sprBar1
+		S[$ SCENE.CLUB][$ K.BD0+K.SPR] = sprClubBoothBD
 		S[$ SCENE.CLUB][$ K.BD0+K.PMT] = .8
-		S[$ SCENE.CLUB][$ K.BG0+K.SPR] = sprBarBooth
+		S[$ SCENE.CLUB][$ K.BG0+K.SPR] = sprClubBoothBG
 		S[$ SCENE.CLUB][$ K.BG0+K.PMT] = 1
 		S[$ SCENE.CLUB][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
 		S[$ SCENE.CLUB][$ K.ENV] = T
@@ -508,7 +508,7 @@ function db_scn() {
 		S[$ SCENE.PLAZA] = {}
 		S[$ SCENE.PLAZA][$ K.BD0+K.SPR] = sprCityBD
 		S[$ SCENE.PLAZA][$ K.BD0+K.PMT] = 1.1
-		S[$ SCENE.PLAZA][$ K.BG0+K.SPR] = sprCity1
+		S[$ SCENE.PLAZA][$ K.BG0+K.SPR] = sprCityPlaza
 		S[$ SCENE.PLAZA][$ K.BG0+K.PMT] = 1
 		S[$ SCENE.PLAZA][$ K.ENV] = T
 		S[$ SCENE.PLAZA][$ K.TRA+K.CNT] = 8
@@ -524,7 +524,7 @@ function db_scn() {
 		S[$ SCENE.SPACEPORT] = {}
 		S[$ SCENE.SPACEPORT][$ K.BD0+K.SPR] = sprNA
 		S[$ SCENE.SPACEPORT][$ K.BD0+K.PMT] = 1
-		S[$ SCENE.SPACEPORT][$ K.BG0+K.SPR] = sprSpaceport1
+		S[$ SCENE.SPACEPORT][$ K.BG0+K.SPR] = sprPortOverlook
 		S[$ SCENE.SPACEPORT][$ K.BG0+K.PMT] = 1
 		S[$ SCENE.SPACEPORT][$ K.BG0+K.L2+K.SPR] = sprScrapersFar
 		S[$ SCENE.SPACEPORT][$ K.BG0+K.L2+K.PMT] = 1/2
