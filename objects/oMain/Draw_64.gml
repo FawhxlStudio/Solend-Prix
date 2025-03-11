@@ -5,9 +5,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	
 	if(D.game_state == GAME.MENU and DBG.introSkip) {
 		
-		D.game_state = GAME.PLAY
-		D.scene_state = GAME.INIT
-		D.scni = SCENE.RESORT_SUITE
+		set_scni(SCENE.RESORT_BED)
 		audio_stop_all()
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)

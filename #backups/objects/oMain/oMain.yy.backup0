@@ -1,0 +1,1159 @@
+// 2025-03-10 22:10:06
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Init
+
+// Init
+dbg = T
+msx = N
+introInst = N
+strBld_ = ""
+strDel_ = 1.5
+strDeli_ = 0
+
+// Init App Resize
+alarm[0] = 1
+
+#event alarm0 Resize Surface
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+// Ensure Minimum WH of 1
+var _ww = max(1,WW)
+var _wh = max(1,WH)
+surface_resize(application_surface,_ww,_wh)
+room_width = _ww
+room_height = _wh
+//window_mouse_set(_ww/2,_wh/2)
+
+#event step Logic
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region Window Resize
+	
+	if((WW != room_width or WH != room_height) and alarm[0] < 0)
+		alarm[0] = 2
+	
+#endregion
+
+#event step_begin Insert description here
+// You can write your code in this editor
+
+
+#event step_end Insert description here
+// You can write your code in this editor
+
+
+#event other_room_start Resize?
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+if(room_width != WW or room_height != WH)
+	alarm[0] = 1
+
+
+#event draw Game
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region Game
+	
+	if(D.game_state == GAME.PLAY) {
+		
+		if(D.scene_state == GAME.INIT) {
+			
+			#region Init
+				
+				// Play BGM
+				if(!audio_is_playing(msx007) and is(introInst))
+					msx = audio_play_sound(msx007,1,T,0);
+				
+				// Clears all dialogue control variables to default
+				diaNar_reset()
+				
+			#endregion
+			
+			#region Init Scene
+				
+				#region Sky 0
+					
+					// Sprite
+					if(variable_instance_exists(S[$ string(D.scni)],K.SK0+K.SPR))
+						D.skyImg.sprite_index = S[$ string(D.scni)][$ K.SK0+K.SPR];
+						
+					// Pan Multiplier
+					if(variable_instance_exists(S[$ string(D.scni)],K.SK0+K.PMT))
+						D.skyImg.panMult = S[$ string(D.scni)][$ K.SK0+K.PMT];
+						
+					// Scale
+					if(variable_instance_exists(S[$ string(D.scni)],K.SK0+K.WMT))
+						D.skyImg.sclMult = S[$ string(D.scni)][$ K.SK0+K.WMT];
+					D.skyImg.scl = ((WW*D.zmn)/sprite_get_width(D.skyImg.sprite_index))*D.skyImg.sclMult
+					
+				#endregion
+				
+				#region BD 0
+					
+					// Sprite
+					if(variable_instance_exists(S[$ string(D.scni)],K.BD0+K.SPR))
+						D.bdImg.sprite_index = S[$ string(D.scni)][$ K.BD0+K.SPR];
+						
+					// Pan Multiplier
+					if(variable_instance_exists(S[$ string(D.scni)],K.BD0+K.PMT))
+						D.bdImg.panMult = S[$ string(D.scni)][$ K.BD0+K.PMT];
+						
+					// Scale
+					if(variable_instance_exists(S[$ string(D.scni)],K.BD0+K.WMT))
+						D.bdImg.sclMult = S[$ string(D.scni)][$ K.BD0+K.WMT];
+					D.bdImg.scl = ((WW*D.zmn)/sprite_get_width(D.bdImg.sprite_index))*D.bdImg.sclMult
+					
+				#endregion
+				
+				#region BG 0 Layer 2
+					
+					// Sprite
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L2+K.SPR))
+						D.bgL2Img.sprite_index = S[$ string(D.scni)][$ K.BG0+K.L2+K.SPR];
+						
+					// Pan Multiplier
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L2+K.PMT))
+						D.bgL2Img.panMult = S[$ string(D.scni)][$ K.BG0+K.L2+K.PMT];
+						
+					// Scale
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L2+K.WMT))
+						D.bgL2Img.sclMult = S[$ string(D.scni)][$ K.BG0+K.L2+K.WMT];
+					D.bgL2Img.scl = ((WW*D.zmn)/sprite_get_width(D.bgL2Img.sprite_index))*D.bgL2Img.sclMult
+					
+				#endregion
+				
+				#region BG 0 Layer 1
+					
+					// Sprite
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L1+K.SPR))
+						D.bgL1Img.sprite_index = S[$ string(D.scni)][$ K.BG0+K.L1+K.SPR];
+						
+					// Pan Multiplier
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L1+K.PMT))
+						D.bgL1Img.panMult = S[$ string(D.scni)][$ K.BG0+K.L1+K.PMT];
+						
+					// Scale
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L1+K.WMT))
+						D.bgL1Img.sclMult = S[$ string(D.scni)][$ K.BG0+K.L1+K.WMT];
+					D.bgL1Img.scl = ((WW*D.zmn)/sprite_get_width(D.bgL1Img.sprite_index))*D.bgL1Img.sclMult
+					
+				#endregion
+				
+				#region BG 0
+					
+					// Sprite
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.SPR))
+						D.bgImg.sprite_index = S[$ string(D.scni)][$ K.BG0+K.SPR];
+						
+					// Pan Multiplier
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.PMT))
+						D.bgImg.panMult = S[$ string(D.scni)][$ K.BG0+K.PMT];
+						
+					// Scale
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.WMT))
+						D.bgImg.sclMult = S[$ string(D.scni)][$ K.BG0+K.WMT];
+					D.bgImg.scl = ((WW*D.zmn)/sprite_get_width(D.bgImg.sprite_index))*D.bgImg.sclMult
+					
+				#endregion
+				
+			#endregion
+			
+			#region Scene Characters
+				
+				// Left
+				if(variable_instance_exists(S[$ string(D.scni)],K.ACT+K.LFT)) {
+					
+					var _act = actor_find(S[$ string(D.scni)][$ K.ACT+K.LFT])
+					if(!in_party(_act)) {
+						
+						_act.scni = D.scni
+						D.actorLeft = _act
+						
+					}
+					
+				}
+				// Right
+				if(variable_instance_exists(S[$ string(D.scni)],K.ACT+K.RHT)) {
+					
+					var _act = actor_find(S[$ string(D.scni)][$ K.ACT+K.RHT])
+					if(!in_party(_act)) {
+						
+						_act.scni = D.scni
+						D.actorRight = _act
+						
+					}
+					
+				}
+				
+			#endregion
+			
+			#region Environmental
+				
+				if(variable_instance_exists(S[$ string(D.scni)],K.ENV)) {
+					
+					#region Blending...
+						
+						if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD)) {
+							
+							#region Single Blend
+								
+								if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.MT)) {
+									
+									// Single Blend... w/ Multiplier
+									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD]); // Brighter...
+									else scene_set_blend(color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],S[$ string(D.scni)][$ K.SCN+K.BLD+K.MT])); // Darker...
+									
+								} else {
+									
+									// Single Blend... No Multiplier, Default 1/4
+									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD]); // Brighter...
+									else scene_set_blend(color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4)); // Darker...
+									
+								}
+								
+							#endregion
+							
+						} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+							and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+							
+							// True & False Blend...
+							if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]); // Brighter...
+							else scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]); // Darker...
+							
+						} else if(!variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+							and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+							
+							// False Only Blend...
+							if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(c.wht); // Brighter...
+							else scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]); // Darker?
+							
+						} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+							and !variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+							
+							// True Only Blend...
+							if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]); // Brighter?
+							else scene_set_blend(c.dgry); // Darker...
+							
+						} else {
+							
+							#region No Blend
+								
+								if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.MT)) {
+									
+									// No Blend... w/ Multiplier
+									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(c.wht); // Brighter...
+									else scene_set_blend(color_brightness(c.wht,S[$ string(D.scni)][$ K.SCN+K.BLD+K.MT])); // Darker...
+									
+								} else {
+									
+									// No Blend... No Multiplier, Default 1/4
+									if(S[$ string(D.scni)][$ K.ENV]) scene_set_blend(c.wht); // Brighter...
+									else scene_set_blend(color_brightness(c.wht,1/4)); // Darker...
+									
+								}
+								
+							#endregion
+							
+						}
+						
+					#endregion
+					
+				} else scene_set_blend(c.wht); // Default if no environment set... No Blend...
+				
+			#endregion
+			
+			#region Travellers
+				
+				if(variable_instance_exists(S[$ string(D.scni)],K.TRA+K.CNT )) {
+					
+					var cnt = S[$ string(D.scni)][$ K.TRA+K.CNT]
+					for(var i = 0; i < cnt; i++) {
+						// TODO TRAVELLERS SPAWNS
+					}
+					
+				}
+				if(variable_instance_exists(S[$ string(D.scni)],K.TRA+K.XRG)){}
+				if(variable_instance_exists(S[$ string(D.scni)],K.TRA+K.YRG)){}
+				if(variable_instance_exists(S[$ string(D.scni)],K.TRA+K.ZRG)){}
+				
+			#endregion
+			
+			// Set Play
+			D.scene_state = GAME.PLAY
+			
+		}
+		
+		#region Fade-In BGM
+			
+			if(audio_is_playing(msx007) and is(msx) and is(introInst)) {
+				
+				if(audio_sound_get_gain(msx) == 0 and introInst.del <= 0)
+					audio_sound_gain(msx,.1,10*1000);
+				
+			}
+			
+		#endregion
+		
+	}
+	
+#endregion
+
+
+#region Application Surface Draw (Shaders)
+	
+	/* OLD
+	var exSurf = surface_create(WW,WH)
+	surface_set_target(exSurf)
+	var arg = shader_get_uniform(shExtractBright, "threshold")
+	shader_set_uniform_f(arg, 0.8)
+	shader_set(shExtractBright)
+	draw_surface_ext(surfBuf, 0, 0, 1, 1, 0, c_white, 1)
+	surface_reset_target()
+	
+	var blrSurf = surface_create(WW,WH)
+	surface_set_target(blrSurf)
+	shader_set(shBlur)
+	arg = shader_get_uniform(shBlur, "blurStrength")
+	shader_set_uniform_f(arg, 4.0)
+	draw_surface_ext(exSurf, 0, 0, 1, 1, 0, c_white, 1)
+	surface_reset_target()
+	
+	shader_set(shCombine)
+	arg = shader_get_uniform(shCombine, "originalTexture")
+	shader_set_uniform_f(arg, surface_get_texture(surfBuf))
+	arg = shader_get_uniform(shCombine, "bloomTexture")
+	shader_set_uniform_f(arg, surface_get_texture(blrSurf))
+	arg = shader_get_uniform(shCombine, "bloomIntensity")
+	shader_set_uniform_f(arg, 4.0)
+	draw_surface_ext(application_surface, 0, 0, 1, 1, 0, c_white, 1)
+	shader_reset()
+	surface_free(exSurf)
+	surface_free(blrSurf)
+	surface_free(surfBuf)
+	surfBuf = surface_create(WW,WH)
+	*/
+	
+#endregion
+
+#event draw_gui Menu/Dialogue
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region Menu Skip (Debug)*
+	
+	if(D.game_state == GAME.MENU and DBG.introSkip) {
+		
+		set_scni(SCENE.RESORT_BED)
+		audio_stop_all()
+		sfx_gunshot(1)
+		introInst = instance_create_layer(0,0,"GUI",oIntro)
+		room_goto(rGame)
+		
+	}
+	
+#endregion Menu
+
+#region Dialogue Logic
+	
+	if(!ds_list_empty(D.diaParLst) and !D.diaOverride
+		and D.fd <= 0 and !TRAN.override) {
+		
+		#region Init Parent Dialogue if we haven't (Based on Focuses being noone or not)
+			
+			#region Init
+				
+				// Get Dialogue Array [ 0:actor_uid , 1:dia_instance ]..
+				var e = D.diaParLst[|0]
+				
+				// Set Control Override
+				D.ctrlOverride = T
+				
+				// Swoosh SFX @ Start; Is given a couple frames to ensure played if needed...
+				if(!audio_is_playing(sfxSwoosh) and D.diaDeli <= 3 and !audio_is_playing(sfxZip))
+					audio_play_sound(sfxSwoosh,0,F,random_range(.9,1),0,random_range(.9,1.1));
+				
+			#endregion
+			
+			#region Primary Focus setup and checks...
+				
+				if(is_array(e)) {
+					
+					if(array_length(e) == 2) {
+						
+						if(is_struct(e[1])) {
+							
+							var act = actor_find(e[0])
+							if(act != N) {
+								
+								#region Set Primary Focus...
+									
+									if(!D.focus) {
+										
+										D.focus = act;
+										D.diad = GSPD
+										
+										if(D.focusL != act and D.focusR != act and D.focusM != act) {
+											
+											if(!D.focusL) D.focusL = act;
+											else if(!D.focusR) D.focusR = act;
+											else if(!D.focusM) D.focusM = act;
+											
+										}
+										
+									}
+									
+								#endregion
+								
+							} else {
+								
+								if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
+								ds_list_delete(D.diaParLst,0); // Cancel
+								
+							}
+							
+						} else {
+							
+							if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
+							ds_list_delete(D.diaParLst,0); // Cancel
+							
+						}
+						
+						
+					} else {
+						
+						if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
+						ds_list_delete(D.diaParLst,0); // Cancel
+						
+					}
+					
+					
+				} else {
+					
+					if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
+					ds_list_delete(D.diaParLst,0); // Cancel
+					
+				}
+				
+			#endregion
+			
+		#endregion
+			
+		#region Scene Darken
+			
+			var ao = draw_get_alpha()
+			draw_set_alpha((1/3)*(D.diaDelPct))
+			draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+			draw_set_alpha(ao)
+			
+		#endregion
+		
+		#region Draw & Iterate Transitions...
+			
+			if(e == D.diaParLst[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestLst)) {
+				
+				#region Un-Nested Dialogue (There is no Nested Dialogue (yet))
+					
+					#region Draw Calls...
+						
+						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,e[1],0);
+						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,e[1],0);
+						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,e[1],0);
+						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,e[1],0);
+						
+					#endregion
+					
+					#region Iterate Dialogue Transition
+						
+						if(D.diaDeli < D.diaDel) D.diaDeli++;
+						if(D.diaDelPct >= 1) D.diaDeli2++;
+						
+					#endregion
+					
+				#endregion
+				
+			} else if(e == D.diaParLst[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestLst)) {
+				
+				#region Nested Dialogue (We are currently in a nested diaParLst instance)
+					
+					#region Do Nested Dialogue Draw Calls & Recursion...
+						
+						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						
+					#endregion
+					
+					#region Iterate Dialogue Transition
+						
+						if(D.diaDeli < D.diaDel) D.diaDeli++;
+						if(D.diaDelPct >= 1) D.diaDeli2++;
+						
+					#endregion
+					
+				#endregion
+				
+			}
+			
+		#endregion
+		
+	} else {
+		
+		#region No more diaParLst?
+			
+			diaNar_focus_reset() // Focus Sanity...
+			// De-Iterate
+			D.diaDeli--
+			D.diaDeli2--
+			
+		#endregion
+		
+	}
+	
+	#region Update diaDelis
+		
+		// Iterators
+		D.diaDeli = clamp(D.diaDeli,0,D.diaDel)
+		D.diaDeli2 = clamp(D.diaDeli2,0,D.diaDel)
+		// Percents
+		D.diaDelPct = D.diaDeli/D.diaDel
+		D.diaDelPct2 = D.diaDeli2/D.diaDel
+		
+		// Deiterate diad(elay)
+		if(D.diad > 0) D.diad = clamp(D.diad-1,0,D.diad);
+		
+	#endregion
+	
+	#region Parent Dialogue Checks; This is where diaParLst is initiated!
+		
+		for(var i = 0; i < ds_list_size(D.actorLst); i++) {
+			
+			var act = D.actorLst[|i]
+			// var started = ds_list_empty(D.diaParLst) // Is the parent dialogue list empty?
+			diaNar_iterate_level(NS,act.uid,0)
+			/* Redundant?
+			if(started and ds_list_empty(D.diaParLst)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
+			// No Else Needed; Since if it wasn't empty already, then started is already false.
+			if(started and D.diaParLst[|0][0] == act.uid) D.diaSpeaker = act; // Set whose dialogue it belongs to, to be initial focus/speaker...
+			*/
+			
+		}
+		
+	#endregion
+	
+	if((D.diaTranPct < 1 and D.diaTranPct > 0) or D.diaDelPct2 < 1 or (!D.diaLBDrawn and D.diaTranPct == 1)) {
+		
+		if(!D.diaLBDrawn) {
+			
+			#region Scene Darken (If no diaParLst)
+				
+				if(ds_list_empty(D.diaParLst)) {
+					
+					var ao = draw_get_alpha()
+					draw_set_alpha((1/3)*(D.diaDelPct))
+					draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+					draw_set_alpha(ao)
+					
+				}
+				
+			#endregion
+			
+			#region Letterboxing
+				
+				draw_set_alpha(1)
+				draw_rectangle_color(0,0,WW,(WH*.1)*D.diaDelPct,c.blk,c.blk,c.blk,c.blk,F)
+				draw_rectangle_color(0,WH-((WH*.1)*D.diaDelPct),WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+				
+			#endregion
+			
+		}
+		
+	}
+	
+	D.diaLBDrawn = F
+
+#endregion
+
+#region UI?
+	
+	if(!ds_list_empty(P.party) and !D.ctrlOverride) {
+		
+		for(var i = 0; i < ds_list_size(P.party); i++) {
+			
+			var _e = P.party[|i]
+			var _spr = sprNA
+			if(_e.dia[$ K.KNW]) _spr = _e.body;
+			else _spr = _e.head;
+			var _w = WW*.1
+			var _scl = _w/sprite_get_width(_spr)
+			draw_sprite_ext(_spr,0,(sprite_get_xoffset(_spr)*_scl)+((sprite_get_width(_spr)*_scl)*i),sprite_get_yoffset(_spr)*_scl,_scl,_scl,0,c.gry,2/3)
+			
+		}
+		
+	}
+	
+#endregion
+
+#event draw_resize Insert description here
+// You can write your code in this editor
+
+
+#event draw_begin Insert description here
+// You can write your code in this editor
+
+
+#event draw_end Context Map (It's a struct but w/e)
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+#region Mapped Contextuals...
+	
+	#region Draw Each Debug XY Entry per scni & Edit/Control Logic
+		
+		if(D.game_state == GAME.PLAY and D.scene_state == GAME.PLAY) {
+			
+			if(is(CM)) {
+				
+				// Loop through all the entries in CM
+				// (a struct of structs, each struct an entry with relevant data)
+				for(var i = 0; i < variable_instance_names_count(CM); i++) {
+					
+					var ao = draw_get_alpha()
+					
+					// Skip deleted entries
+					if(!is(CM[$ string(i)])) continue
+					
+					// Is it an actual entry yet? If K.SCN+K.IN ain'T set then it ain'T defined at all yet
+					if(variable_instance_exists(CM[$ string(i)],K.SCN+K.IN)) {
+						
+						#region Are we in the scni?
+							
+							if(CM[$ string(i)][$ K.SCN+K.IN] == D.scni) {
+								
+								#region Ensure needed bools for checks
+									
+									if(!variable_instance_exists(CM[$ string(i)],K.FOD))
+										CM[$ string(i)][$ K.FOD] = F
+									if(!variable_instance_exists(CM[$ string(i)],K.HLT))
+										CM[$ string(i)][$ K.HLT] = F
+									if(!variable_instance_exists(CM[$ string(i)],K.DTR))
+										CM[$ string(i)][$ K.DTR] = F
+									if(!variable_instance_exists(CM[$ string(i)],K.DTD))
+										CM[$ string(i)][$ K.DTD] = F
+									
+								#endregion
+								
+								#region Scene K.DTD (Skip)
+									
+									if(CM[$ string(i)][$ K.DTD]) continue
+									
+								#endregion
+								
+								#region Scene WH Sanity
+									
+									if(variable_instance_exists(CM[$ string(i)],K.WH2))
+										CM[$ string(i)][$ K.WH2] = [D.bgImg.sprite_width,D.bgImg.sprite_height]
+									
+								#endregion
+								
+								#region What shape? Circle or Rectangle?
+									
+									if(variable_instance_exists(CM[$ string(i)],K.SHP)) {
+										
+										if(CM[$ string(i)][$ K.SHP] == "rect") {
+											
+											#region Draw Debug XY Rectangles
+												
+												if(variable_instance_exists(CM[$ string(i)],K.XY4)) {
+													
+													#region Init
+														
+														var _dw2 = (D.bgImg.sprite_width-WW)/2
+														var _dh2 = (D.bgImg.sprite_height-WH)/2
+														
+														// Init (First coordinate)
+														var _xy4 = [CM[$ string(i)][$ K.XY4][0]*CM[$ string(i)][$ K.WH2][0]+D.bgImg.dltx-_dw2,
+															CM[$ string(i)][$ K.XY4][1]*CM[$ string(i)][$ K.WH2][1]+D.bgImg.dlty-_dh2]
+														
+													#endregion
+													
+													#region 2nd Coordinate?
+														
+														if(array_length(CM[$ string(i)][$ K.XY4]) == 4) {
+															
+															#region Do have 2nd Coordinate, Full Draw
+																
+																// Init 2nd Coordinate
+																_xy4[2] = CM[$ string(i)][$ K.XY4][2]*CM[$ string(i)][$ K.WH2][0]+D.bgImg.dltx-_dw2
+																_xy4[3] = CM[$ string(i)][$ K.XY4][3]*CM[$ string(i)][$ K.WH2][1]+D.bgImg.dlty-_dh2
+																
+																#region Draw Additional Vars
+																	
+																	#region Mouse Hover
+																		
+																		if(mouse_in_rectangle(_xy4) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
+																			and variable_instance_exists(CM[$ string(i)],K.HVR)
+																			and variable_instance_exists(CM[$ string(i)],K.FND)
+																			and is_hover(id)) {
+																			
+																			// Set Hover
+																			D.isHvr = id
+																			
+																			if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
+																					or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
+																				
+																				if(variable_instance_exists(CM[$ string(i)],K.STR)) {
+																					
+																					if(CM[$ string(i)][$ K.STR] != noone
+																						and is_string(CM[$ string(i)][$ K.STR])) {
+																						
+																						#region Draw Hover/Found Messages on Cursor
+																							
+																							draw_set_font(fNeu)
+																							var _w = D.bgImg.sprite_width/6
+																							var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																							var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																							
+																							// Draw and Reset
+																							var hvo = [draw_get_halign(),draw_get_valign()]
+																							var ao = draw_get_alpha()
+																							var hv = [fa_left,fa_top]
+																							var xx = WMX+STRH
+																							var yy = WMY+STRH
+																							if(xx+strw > WW) {
+																								hv[0] = fa_right
+																								xx = WMX-STRH
+																							}
+																							if(yy+strh > WH) {
+																								hv[1] = fa_bottom
+																								yy = WMY-STRH
+																							}
+																							draw_set_hvalign(hv)
+																							draw_text_ext_color(xx,yy,CM[$ string(i)][$ K.STR],
+																								STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
+																							draw_set_hvalign(hvo)
+																							
+																						#endregion
+																						
+																					}
+																					
+																				}
+																				
+																				#region Highlight
+																					
+																					if(variable_instance_exists(CM[$ string(i)],K.HLT)) {
+																						
+																						if(CM[$ string(i)][$ K.HLT]) {
+																							
+																							var ao = draw_get_alpha()
+																							if(MBL) draw_set_alpha(D.hvrPct/4)
+																							else draw_set_alpha(D.hvrPct/3)
+																							
+																							var cc = color_brightness(D.scnBlend3,1.4)
+																							draw_rectangle_color(_xy4[0],_xy4[1],_xy4[2],_xy4[3],cc,cc,cc,cc,F)
+																							
+																							draw_set_alpha(ao)
+																							
+																						}
+																						
+																					}
+																					
+																				#endregion Highlight
+																				
+																				#region Click Actions
+																					
+																					if(variable_instance_exists(CM[$ string(i)],K.CLK)) {
+																						
+																						#region Left Click
+																							
+																							if(CM[$ string(i)][$ K.CLK] == V.MB_LP and MBLP) {
+																								
+																								#region Anim
+																									
+																									if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
+																										
+																										// Start Anim w/ Anim Name...
+																										diaNar_anim_start(CM[$ string(i)][$ K.ANM])
+																										
+																										// "Destroy"
+																										if(CM[$ string(i)][$ K.DTR])
+																											CM[$ string(i)][$ K.DTD] = T
+																										break
+																										
+																									}
+																									
+																								#endregion
+																								
+																								#region Scene Change
+																									
+																									if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
+																										
+																										TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
+																										TRAN.zXYpct = [MXPCT,MYPCT]
+																										
+																									}
+																									
+																								#endregion
+																								
+																								#region WIP Light Toggle (blendBG)
+																									
+																									if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
+																										
+																										if(CM[$ string(i)][$ K.ENT] == "blendBG") {
+																											
+																											// Toggle/Set ENV
+																											if(variable_instance_exists(S[$ string(D.scni)],K.ENV))
+																												S[$ string(D.scni)][$ K.ENV] = !S[$ string(D.scni)][$ K.ENV];
+																											else S[$ string(D.scni)][$ K.ENV] = T;
+																											
+																											if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD)) {
+																												
+																												// Single Blending Specified
+																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD]; // Brighter...
+																												else D.scnBlend2 = color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4); // Darker... ~25% Darker? WIP: Can make a variable here...
+																												
+																											} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+																												and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+																												
+																												// True & False Blending Specified
+																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]; // Brighter?
+																												else D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]; // Darker?
+																												
+																											} else if(!variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+																												and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+																												
+																												// False Only Blending Specified
+																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = c.wht; // Brighter...
+																												else D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]; // Darker?
+																												
+																											} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+																												and !variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+																												
+																												// True Only Blending Specified
+																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]; // Brighter?
+																												else D.scnBlend2 = c.dgry; // Darker...
+																												
+																											} else {
+																												
+																												// No Blending Specified
+																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = c.wht; // Brighter...
+																												else D.scnBlend2 = c.dgry; // Darker...
+																												
+																											}
+																											
+																										}
+																										
+																									}
+																									
+																									
+																								#endregion
+																								
+																								// Delay to Prevent Click-Thru
+																								D.fd = 4
+																								
+																							}
+																							
+																						#endregion
+																						
+																					}
+																					
+																				#endregion
+																				
+																				/* N/A
+																				if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
+																					
+																					if(CM[$ string(i)][$ K.ENT] != noone
+																						and is_string(CM[$ string(i)][$ K.ENT])) {
+																						
+																						#region Entity Spawn
+																							switch(CM[$ string(i)][$ K.ENT]) {
+																								
+																								case "SniperLogBook": {
+																									
+																									if(!variable_instance_exists(s.set.entity,"SniperLogBook")) {
+																										
+																										var _xy = [irandom_range(_xy4[0],_xy4[2])-D.bgImg.sprite_width,irandom_range(_xy4[1],_xy4[3])-D.bgImg.sprite_height]
+																										s.set.entity[$ "SniperLogBook"] = init_entity(_xy,"Armory Logbook",ent.game,scenei,s)
+																										var _ent = s.set.entity[$ "SniperLogBook"]
+																										_ent.gameObj = eSniperGame
+																										_ent.spr = sprLogBook
+																										_ent.sprRot = random_range(-45,45)
+																										_ent.state = ent.game
+																										_ent.durability = 1
+																										
+																									}
+																									break
+																									
+																								}
+																								
+																							}
+																						#endregion
+																						
+																					}
+																					
+																				}
+																				*/
+																				
+																			}
+																			
+																			/*/Found?
+																			if(CM[$ string(i)][$ K.FND] and !CM[$ string(i)][$ K.FOD] and p.search.done)
+																				CM[$ string(i)][$ K.FOD] = T
+																			*/
+																			
+																		}
+																		
+																	#endregion
+																	
+																#endregion
+																
+																// Reset alpha
+																draw_set_alpha(ao)
+																
+															#endregion
+															
+														} else {}
+														
+													#endregion
+													
+												}
+												
+											#endregion
+											
+										} else if(CM[$ string(i)][$ K.SHP] == "circ") {
+											
+											#region Draw Debug XY Circles
+												
+												#region Inits
+													
+													var _dw2 = (D.bgImg.sprite_width-WW)/2
+													var _dh2 = (D.bgImg.sprite_height-WH)/2
+													
+													var _xy2 = [CM[$ string(i)][$ K.XY2][0]*CM[$ string(i)][$ K.WH2][0]+D.bgImg.dltx-_dw2,
+														CM[$ string(i)][$ K.XY2][1]*CM[$ string(i)][$ K.WH2][1]+D.bgImg.dlty-_dh2]
+													var _rad = real(CM[$ string(i)][$ K.RAD])
+													
+												#endregion
+												
+												#region Mouse Hover
+													
+													if(mouse_in_circle(_xy2,_rad) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
+														and variable_instance_exists(CM[$ string(i)],K.HVR)
+															and variable_instance_exists(CM[$ string(i)],K.FND)
+															and is_hover(id)) {
+														
+														// Set Hover
+														D.isHvr = id
+														
+														if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
+															or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
+															
+															if(variable_instance_exists(CM[$ string(i)],K.STR)) {
+																
+																if(CM[$ string(i)][$ K.STR] != noone
+																	and is_string(CM[$ string(i)][$ K.STR])) {
+																	
+																	#region Draw Hover/Found Messages on Cursor
+																		
+																		draw_set_font(fNeu)
+																		var _w = D.bgImg.sprite_width/6
+																		var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																		var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																		
+																		// Draw and Reset
+																		var hvo = [draw_get_halign(),draw_get_valign()]
+																		var ao = draw_get_alpha()
+																		var hv = [fa_left,fa_top]
+																		var xx = WMX+STRH
+																		var yy = WMY+STRH
+																		if(xx+strw > WW) {
+																			hv[0] = fa_right
+																			xx = WMX-STRH
+																		}
+																		if(yy+strh > WH) {
+																			hv[1] = fa_bottom
+																			yy = WMY-STRH
+																		}
+																		draw_set_hvalign(hv)
+																		draw_text_ext_color(xx,yy,CM[$ string(i)][$ K.STR],
+																			STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
+																		draw_set_hvalign(hvo)
+																		
+																	#endregion
+																	
+																}
+																
+															}
+															
+															#region Highlight
+																
+																if(variable_instance_exists(CM[$ string(i)],K.HLT)) {
+																	
+																	if(CM[$ string(i)][$ K.HLT]) {
+																		
+																		var ao = draw_get_alpha()
+																		if(MBL) draw_set_alpha(D.hvrPct/4)
+																		else draw_set_alpha(D.hvrPct/3)
+																		
+																		var cc = color_brightness(D.scnBlend3,1.4)
+																		draw_circle_color(_xy2[0],_xy2[1],_rad,cc,cc,F)
+																		
+																		draw_set_alpha(ao)
+																		
+																	}
+																	
+																}
+																
+															#endregion
+															
+															#region Click Actions
+																
+																if(variable_instance_exists(CM[$ string(i)],K.CLK)) {
+																	
+																	#region Left Click
+																		
+																		if(CM[$ string(i)][$ K.CLK] == V.MB_LP and MBLP) {
+																			
+																			#region Anim
+																				
+																				if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
+																					
+																					diaNar_anim_start(CM[$ string(i)][$ K.ANM])
+																					
+																					// "Destroy"
+																					if(CM[$ string(i)][$ K.DTR])
+																						CM[$ string(i)][$ K.DTD] = T;
+																						
+																					break
+																					
+																				}
+																				
+																			#endregion
+																			
+																			#region To Scene
+																				
+																				if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
+																					
+																					TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
+																					TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref]
+																					
+																				}
+																				
+																			#endregion
+																			
+																			// Delay to Prevent Click-Thru
+																			D.fd = 4
+																			
+																		}
+																		
+																	#endregion
+																	
+																}
+																
+															#endregion
+															
+														}
+														
+														/*
+														// Found?
+														if(CM[$ string(i)][$ K.FND] and !CM[$ string(i)][$ K.FOD])
+															CM[$ string(i)][$ K.FOD] = T
+														*/
+														
+													}
+													
+												#endregion
+												
+												#region Character/Entity Bodies
+													
+													if(CM[$ string(i)][$ K.ENT] == ACTOR.SYLAS) {
+														
+														// Init
+														var _w = (D.bgImg.sprite_width)
+														var _h = (D.bgImg.sprite_height)
+														var _img = D.mgImg
+														
+														if(!P.suited and P.suitInst == N) {
+															
+															#region Create/Show Suit Instance
+																
+																_img.sprite_index = P.suitSpr
+																_img.sclBase = 8
+																_img.scl = (WW/_img.sclBase)/sprite_get_width(P.suitSpr)
+																_img.xxpct = CM[$ string(i)][$ K.XY2][0]
+																_img.yypct = CM[$ string(i)][$ K.XY2][1]
+																_img.interact = T
+																if(variable_instance_exists(CM[$ string(i)],K.STR))
+																	_img.str = CM[$ string(i)][$ K.STR];
+																P.suitInst = _img
+																_img.inScn = D.scni
+																
+															#endregion
+															
+														} else if(P.suitInst != N and alarm[0] >= 0)
+															P.suitInst.alarm[0] = 2;
+														
+													} else if(CM[$ string(i)][$ K.ENT] == V.STATIC
+														and variable_instance_exists(CM[$ string(i)],K.SPR)) {
+														
+														#region Static - FG - Sprite
+															
+															var _spr = asset_get_index(CM[$ string(i)][$ K.SPR])
+															if(_spr != F) {
+																
+																var _scl = (WW/4)/sprite_get_width(_spr)
+																draw_sprite_ext(_spr,0,CM[$ string(i)][$ K.XY2][0],CM[$ string(i)][$ K.XY2][1],_scl,_scl,0,c.wht,1)
+																
+															}
+															
+														#endregion
+														
+													}
+													
+												#endregion
+												
+												// Reset Alpha
+												draw_set_alpha(ao)
+												
+											#endregion
+											
+										}
+										
+									}
+									
+								#endregion
+								
+							}
+							
+						#endregion
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	#endregion
+	
+#endregion
+
+
+#event draw_gui_begin Insert description here
+// You can write your code in this editor
+
+
+#event draw_gui_end Insert description here
+// You can write your code in this editor
+
+
+#event draw_pre Insert description here
+// You can write your code in this editor
+
+
+#event draw_post Insert description here
+// You can write your code in this editor
+
+
+#event keypress:vk_escape End Game
+game_end()
