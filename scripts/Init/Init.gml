@@ -17,7 +17,7 @@ function _init() {
 			#macro STRH string_height("|")
 			#macro STRW string_width("_")
 			
-		#endregion Basic/Bool
+		#endregion
 		
 		#region Mouse
 			
@@ -44,21 +44,21 @@ function _init() {
 			#macro MBR  mouse_check_button(mb_right)
 			#macro MBRR mouse_check_button_released(mb_right)
 			
-		#endregion Mouse
+		#endregion
 		
 		#region Display
 			
 			#macro DW max(1,display_get_width())
 			#macro DH max(1,display_get_height())
 			
-		#endregion Display
+		#endregion
 		
 		#region Window
 			
 			#macro WW max(1,window_get_width())
 			#macro WH max(1,window_get_height())
 			
-		#endregion Window
+		#endregion
 		
 		#region Chances (Rolls)
 			
@@ -69,7 +69,7 @@ function _init() {
 			#macro R10 (irandom(9) == 9)   // 10%; !R10 == 10%
 			#macro R1  (irandom(99) == 99) //  1%; !R1  == 99%
 			
-		#endregion Chances
+		#endregion
 		
 		#region Color Struct
 			
@@ -135,8 +135,7 @@ function _init() {
 			
 		#endregion
 		
-		
-	#endregion Macros
+	#endregion
 	
 	#region Enums
 		
@@ -204,6 +203,7 @@ function _init() {
 			OLDERSYLAS,
 			VIRAL,
 			RANDOM,
+			ROSNA,
 			LAST
 			
 		}
@@ -219,6 +219,7 @@ function _init() {
 			"UNKNOWN",
 			"UNKNOWN",
 			"UNKNOWN",
+			"ROSNA",
 			"LAST"
 			
 		]
@@ -338,23 +339,77 @@ function _init() {
 		enum SCENE {
 			
 			FIRST,
-			APARTMENT,
-			STREET,
-			CLUB,
-			PLAZA,
-			SPACEPORT,
-			PRAEY_COCKPIT,
+			RESORT_BED,
+			RESORT_SUITE,
+			RESORT_COURT1,
+			RESORT_COURT2,
+			CITY_PLAZA,
+			CITY_ST1,
+			CITY_ST2,
+			CITY_ST3,
+			CITY_ST4,
+			CITY_STORE,
+			CLUB_ENT,
+			CLUB_FLOOR,
+			CLUB_BAR,
+			CLUB_BOOTH,
+			BROTH_ENT,
+			BROTH_L1,
+			BROTH_L2,
+			BROTH_R,
+			BROTH_G1,
+			BROTH_G2,
+			BROTH_B,
+			SPACEPORT_ENT,
+			SPACEPORT_OVERLOOK,
+			SPACEPORT_TERM,
+			SPACEPORT_PRAEY,
+			SPACEPORT_SPITFIRE,
+			SPACEPORT_HANG1,
+			SPACEPORT_HANG2,
+			SLUM_A1,
+			SLUM_A2,
+			SLUM_A3,
+			SLUM_BOD,
+			COCKPIT_PRAEY,
 			LAST
 			
 		}
 		SCENEn = [
 			"FIRST",
-			"APARTMENT",
-			"STREET",
-			"CLUB",
-			"PLAZA",
-			"SPACEPORT",
-			"PRAEY_COCKPIT",
+			"RESORT_BED",
+			"RESORT_SUITE",
+			"RESORT_COURT1",
+			"RESORT_COURT2",
+			"CITY_PLAZA",
+			"CITY_ST1",
+			"CITY_ST2",
+			"CITY_ST3",
+			"CITY_ST4",
+			"CITY_STORE",
+			"CLUB_ENT",
+			"CLUB_FLOOR",
+			"CLUB_BAR",
+			"CLUB_BOOTH",
+			"BROTH_ENT",
+			"BROTH_L1",
+			"BROTH_L2",
+			"BROTH_R",
+			"BROTH_G1",
+			"BROTH_G2",
+			"BROTH_B",
+			"SPACEPORT_ENT",
+			"SPACEPORT_OVERLOOK",
+			"SPACEPORT_TERM",
+			"SPACEPORT_PRAEY",
+			"SPACEPORT_SPITFIRE",
+			"SPACEPORT_HANG1",
+			"SPACEPORT_HANG2",
+			"SLUM_A1",
+			"SLUM_A2",
+			"SLUM_A3",
+			"SLUM_BOD",
+			"COCKPIT_PRAEY",
 			"LAST"
 		]
 		if(array_length(SCENEn)-1 != SCENE.LAST) {
@@ -520,8 +575,8 @@ function _init() {
 			D = instance_create_layer(0,0,"Logic",oData)
 			D.persistent = T
 			
-		#endregion Essentials
+		#endregion
 		
-	#endregion Global Objects
+	#endregion
 	
 }

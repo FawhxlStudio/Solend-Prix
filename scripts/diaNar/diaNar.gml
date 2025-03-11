@@ -1916,7 +1916,7 @@ function diaNar_get_scene() {
 	
 }
 
-// Converts NS to Strings for editing like: NS[$ SCENE.APARTMENT][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
+// Converts NS to Strings for editing like: NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
 function diaNar_to_editor(inst,lyr,k) {
 	
 	var arr = [k+" = {}"]
