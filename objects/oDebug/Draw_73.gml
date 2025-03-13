@@ -206,6 +206,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 					#region Draw Each Debug XY Entry per room & Edit/Control Logic
 						
+						// Init Font
+						var fo = draw_get_font()
+						draw_set_font(fDebug)
+						
 						// Loop through all the entries in ES
 						// (a struct of structs, each struct an entry with relevant data)
 						for(var i = 0; i < variable_instance_names_count(ES); i++) {
@@ -933,6 +937,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							}
 							
 						}
+						
+						// Reset Font
+						draw_set_font(fo)
 						
 					#endregion
 					

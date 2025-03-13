@@ -13,6 +13,7 @@ envInvert = T
 diaDebug = F
 diaShortcut = F
 scnJump = T
+nightSkip = T
 
 // Variables...
 diaPrev = N // For previewing dialogue that is available...

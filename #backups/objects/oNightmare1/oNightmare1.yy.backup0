@@ -1,4 +1,28 @@
-/// @description Draw and Logix
+// 2025-03-10 23:06:21
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+persistent = true;
+uses_physics = false;
+
+#event create Weeks Earlier Fade-In
+
+#region Assets
+	
+	// Audio
+	msx0 = msxDark     // Tutorial
+	msx1 = msxDarkMid2 // Report-In
+	msx2 = msxDarkMid  // Derelict Approach + Virus
+	cuti = 0
+	inst = U
+	
+#endregion
+
+bgc = [1,c.blk,c.blk,c.blk,c.blk]
+fgc = [1,c.wht,c.wht,c.gry,c.gry]
+D.diaOverride = T
+done = F
+
+#event draw_gui Draw and Logix
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
 if(!DBG.active or !DBG.nightSkip) {
@@ -13,3 +37,5 @@ if(!DBG.active or !DBG.nightSkip) {
 	done = (diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and diaNar_done(NS[$ global.visnm]))
 
 } else done = T;
+
+#event draw_post

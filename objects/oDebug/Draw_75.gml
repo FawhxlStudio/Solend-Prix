@@ -119,7 +119,7 @@ if(active and edit and !console) {
 							+"F - Find Toggle\n"
 							+"L - Highlight\n"
 							+"H - Hover\n"
-							+"X - Destroy\n"
+							+"K - Destroy\n"
 							+"T - Timer\n"
 							+"D - Delay\n"
 							+"A - Anim\n"
@@ -128,6 +128,8 @@ if(active and edit and !console) {
 							+"E - Entity\n"
 							+"C - Click\n"
 							+"U - Surface\n"
+							+"X - X Offset\n"
+							+"Y - Y Offset\n"
 						
 					}
 					
@@ -723,7 +725,7 @@ if(active and edit and !console) {
 						} else {
 							
 							// Clear
-							dbgStr2 = ""
+							if(!ESsel) dbgStr2 = "";
 							diaPrev2Str = ""
 							
 						}
@@ -738,6 +740,7 @@ if(active and edit and !console) {
 					draw_olds_pull()
 					
 					// Init
+					draw_set_font(fDebug)
 					if(diaPrev2Str != "") {
 						
 						text_prep(string_trim(diaPrev2Str));
@@ -748,7 +751,6 @@ if(active and edit and !console) {
 						
 					} else if(is_string(dbgStr2)) text_prep(string_trim(dbgStr1+dbgStr2));
 					else text_prep(string_trim(dbgStr1));
-					draw_set_font(fDebug)
 					
 					// Make Debug STR BG more opaque for now...
 					bgc_[0] = .9

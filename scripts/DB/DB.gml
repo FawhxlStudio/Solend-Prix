@@ -12,6 +12,8 @@ function db_diaNar() {
 			global.visnm = K.ANM+"Night1Vision"
 			global.nw1nm = K.ANM+"News1"
 			global.clbnm = K.ANM+"ClubAlley1"
+			global.amctr = K.ANM+"AmbCtrl"
+			global.shctr = K.ANM+"ShutCtrl"
 			
 		#endregion
 		
@@ -163,6 +165,27 @@ function db_diaNar() {
 			
 		#endregion
 		
+		#region Ambient Controller
+			
+			NS[$ global.amctr] = {}
+			NS[$ global.amctr][$ K.BG0+K.SPR] = sprNA
+			NS[$ global.amctr][$ K.ACT] = ACTOR.FOX
+			NS[$ global.amctr][$ 0] = "[L.I.N.I Alert]\n\nNegative Feedback from the controller, terminating connection."
+			NS[$ global.amctr][$ 1] = "\"Careful, the controller sent an unexpected signal when we touched it so I disabled it."
+			NS[$ global.amctr][$ 2] = "Most devices are connected to the neb by default so are vulnerable to exploits from unknown actors"
+			NS[$ global.amctr][$ 2] = "If that's the case someone is already tracking us...\""
+			
+		#endregion
+		
+		#region Shutter Controller
+			
+			NS[$ global.shctr] = {}
+			NS[$ global.shctr][$ K.BG0+K.SPR] = sprNA
+			NS[$ global.shctr][$ K.ACT] = ACTOR.FOX
+			NS[$ global.shctr][$ 0] = "[L.I.N.I Alert]\n\nNegative Feedback from the controller, terminating connection."
+			
+		#endregion
+		
 		#region Fetch Anim Sprites
 			
 			// Init Anim Level Keys...
@@ -219,167 +242,260 @@ function db_diaNar() {
 		
 	#endregion
 	
-	#region Apartment
+	#region Resort
 		
-		//        $Scene ->      $Actor ->  $Instance -> $Dialogue/Narrative (Nestable)
-		NS[$ SCENE.RESORT_SUITE] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 0] = "*You jolt awake gasping for air."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 1] = "fuck!"
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 2] = "*You're in a quiet suite as you awake drowsily."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 3] = "ugh- the hell was that..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 4] = "*You get up shaking off the familiar anxiety from the nightly dreams and nightmares..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.LFT] = ACTOR.SYLAS
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.RHT] = ACTOR.FOX
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 0] = "*Unboxing the gear, you put on the suit that was inside..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 1] = V.RIGHT
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 2] = "L.I.N.I. [ E.A.F. INTEGRATION [ SYSTEMS REPORT [  [  [  [ NOMINAL [\n\nOperator, this is your Environmental Aegis Fame."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 3] = "This will protect you from most external environmental hazards within its own isolated internal environment."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 4] = "An augmented HUD will aide you in navigating your environment as well as monitoring and analyzing interests."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 5] = "You may access internal data drives for additional information on your E.A.F."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ K.INV+K.FLG] = [V.ANIM,global.nw1nm] // Must be false (this is a check whether it is done or not)
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 0] =  V.LEFT
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 1] = "*You familiarize yourself with the suit before moving on..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 2] = "I should check to see if the Neb has anything about the race tonight..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.TRG] = TRIGGER.ANIM
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.LFT] = ACTOR.SYLAS
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.RHT] = ACTOR.FOX
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ANM] = global.nw1nm
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 0] = "There's plenty of time until the race..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1] = "I need to get out of here before i lose my mind..."
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2] = {}
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ K.INV+K.FLG] = V.SUIT // If the player isn't suited...
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ 0] = V.RIGHT
-		NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ 1] = "L.I.N.I. Notice [\n\nOperator, please don your E.A.F. (Environmental Aegis Frame) before leaving the suite."
+		#region Suite Bedroom
+			
+			// $Scene -> $Actor -> $Instance -> $Dialogue/Narrative (Nestable)
+			NS[$ SCENE.RESORT_BED] = {}
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS] = {}
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0] = {}
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ K.ACT+K.LFT] = ACTOR.SYLAS
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ K.ACT+K.RHT] = ACTOR.FOX
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 0] = "*Jolting awake; felt like suddenly falling"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 1] = "\"fuck!\""
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 2] = "*Realizing you're in your assigned suite"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 3] = "\"ugh... what the hell was that...\""
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 4] = "*Shaking off anxiety"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 5] = V.RIGHT
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 6] = "[ L.I.N.I Prompt ]"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 7] = "Look around the environment to find points of interest."
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 8] = "\"By the way,\n\nSylas is shaking off the nightmare and his state affects our ability to guide him."
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 9] = "Fortunately, our operator is exceptionally stable during critical moments.\""
+			
+		#endregion
 		
-	#endregion
-	
-	#region Street
+		#region Suite
+			
+			//        $Scene ->      $Actor ->  $Instance -> $Dialogue/Narrative (Nestable)
+			NS[$ SCENE.RESORT_SUITE] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ K.ACT+K.LFT] = ACTOR.SYLAS
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ K.ACT+K.RHT] = ACTOR.FOX
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 0] = V.RIGHT
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 1] = "[ L.I.N.I Prompt ]"
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 2] = "Without wearing your E.A.F. you're missing several augmentations that aide in navigation."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 3] = "Put on the E.A.F."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 4] = "\"Also,\n\nI'm dependant on him, what happens to him happens to us..."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 5] = "So don't even think about sabotaging us...\""
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.LFT] = ACTOR.SYLAS
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.RHT] = ACTOR.FOX
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 0] = "*You unlock the light metal crate and equip the plated suit inside..."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 1] = V.RIGHT
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 2] = "[ L.I.N.I. [ E.A.F. INTEGRATION ] SYSTEM DIAG [  [  [  [ NOMINAL [\n\nOperator, this is your Environmental Aegis Frame."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 3] = "This will protect you from most external environmental hazards within its own isolated internal environment."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 4] = "An augmented HUD will aide you in navigating your environment, monitoring internals and analyzing points of interest."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 5] = "You may access internal data drives for additional information on your E.A.F."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ K.INV+K.FLG] = [V.ANIM,global.nw1nm] // Must be false (this is a check whether it is done or not)
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 0] =  V.LEFT
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 1] = "*You refamiliarize yourself with the suit's systems despite knowing every part of it already..."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 2] = "\"i should check to see if the neb has anything about the race tonight...\""
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.TRG] = TRIGGER.ANIM
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.LFT] = ACTOR.SYLAS
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.RHT] = ACTOR.FOX
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ANM] = global.nw1nm
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 0] = "\"there's plenty of time until the race...\""
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1] = "\"i need to get out of here before i lose my mind...\""
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ K.INV+K.FLG] = V.SUIT // If the player isn't suited...
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ 0] = V.RIGHT
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ 1] = "[ L.I.N.I. Prompt ]\n\nOperator, please don your E.A.F. (Environmental Aegis Frame) before leaving the suite."
+			
+		#endregion
 		
-		NS[$ SCENE.CITY_ST2] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ K.FLG] = V.SUIT
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ 0] = "the club is across this street..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ 1] = "someone should be there..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.TRG] = TRIGGER.START
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.INV+K.FLG] = V.SUIT
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.ACT+K.RHT] = ACTOR.SYLAS
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.ACT+K.LFT] = ACTOR.RANDOM
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 0] = "*Someone across the street notices you and starts shouting..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 1] = "Hey! What the fuck are you doing!?"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 2] = "Where the fuck is your suit?!"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 3] = "*An eager gruff voice in the distance shouts..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 4] = "I'LL FUCKING KILL YOU RIGHT NOW, HAHA!"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 5] = V.RIGHT
-		// This needs to be player... WIP TODO
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ K.OPT] = ["*How dare they?!\nFight the fuck back!","Get out of here..."]
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 0] = "Who the fuck are you!?"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 1] = "I'm not afraid of you?!"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 2] = "*You sweep a heavy metal canister off its perch from an electrical junction and it bangs violently across the Adamantine Street..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 3] = V.LEFT
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 4] = "*Several others close in on you."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 5] = "You better go back inside and get your suit on or we'll force you..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 6] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 6][$ K.OPT] = ["Swing at the one that just talked","Swing at the closest one","Throw another canister into one of them"]
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 0] = "*\"What the fuck...\" you think."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 1] = "*Carefully, you back up into the elevator and back to your suite..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 2] = "*\"Ok... We really need our suit...\""
-		// [$ 2]Scene -> [$ ACTOR.SPITFIRE]Actor -> [$ 0]Narrative Parent -> [$ 5]Narrative Branch -> [$ T|F]Narrative Dialogue -> [$ F:2]Narrative Selection -> [$ 0|1]Outcome
-		NS[$ SCENE.CITY_ST2] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.TRG] = TRIGGER.START // Activate when spitfire character is clicked at scene 2
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.LFT] = ACTOR.SYLAS // Character to draw on left of screen
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.RHT] = ACTOR.SPITFIRE // Character to draw on right of screen
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.REL+K.BR] = 0 // Atleast Neutral?
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 0] = V.RIGHT
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 1] = P.dia[$ K.NM]+"..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 2] = "We can go through the plaza to get to the Spaceport from here."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 3] = "But- it's a while before we need to be there..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 4] = V.FLIP_H
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 5] = "*Confidently, she turns to face you..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 6] = "We should try to see what we can find out about the other racers..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 7] = V.DONE
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F] = {}
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ K.REL+K.BR] = -2 // Atleast not disliked?
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T] = {} // Not disliked
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 0] = V.RIGHT
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 1] = "Hey- I'm going to the Spaceport. . . . . . \n\nThink about what I said..."
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 2] = "*Looking over her shoulder, She raises a hand and walks away down the street"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 3] = V.DONE_AND_LEAVE
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ F] = {} // Disliked
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ F][$ 0] = "*Spitefire walks away down the street"
-		NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ F][$ 1] = V.DONE_AND_LEAVE
+		#region Courtyard 1
+		
+		#endregion
+		
+		#region Courtyard 2
+		
+		#endregion
 		
 	#endregion
 	
-	#region Club 1
+	#region City
 		
-		// [$ 2]Scene -> [$ ACTOR.SPITFIRE]Actor -> [$ 0]Narrative Parent -> [$ 5]Narrative Branch -> [$ T|F]Narrative Dialogue -> [$ F:2]Narrative Selection -> [$ 0|1]Outcome
-		NS[$ SCENE.CLUB_BOOTH] = {}
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE] = {}
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0] = {}
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.TRG] = TRIGGER.CLICK // Activate when spitfire character is clicked at scene 2
-		//NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.RST] = V.SUIT // Activate when spitfire character is clicked at scene 2
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.LFT] = ACTOR.SPITFIRE // Character to draw on left of screen
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.RHT] = ACTOR.SYLAS // Character to draw on right of screen
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 0] = V.RIGHT // Switch to Right Character as Speaker (Sylas)
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 1] = "Hey you in the Spacer suit..." // Dialogue
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 2] = V.LEFT // Switch to Left Character as Speaker (Spitfire)
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 3] = V.BODY // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 4] = "*They turn around to face you" // Dialogue
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 5] = "Hmm? I guess you must be talking to me..."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 6] = "*They look you up and down" // Emote
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7] = {}
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ K.BR] = [V.SUIT,P] // True or False: Player Suited?
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T] = {} // Player is Suited:
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 0] = "*They turn towards you promptly"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 1] = "Wait- You're the one that flies Praey!"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 2] = "Your name's Sylas right?"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 3] = V.DONE_AND_CONTINUE // Mark this Narrative Parent as Done (NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0])
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F] = {} // Player is NOT Suited:
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 0] = "*They wave their hand at you dismissively"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 1] = "Not now I'm looking for someone..."
+		#region Plaza
+			
+			
+			
+		#endregion
 		
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2] = {}
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.RPT] = T // Even if this dialogue is done; return here...
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0] = {} // Option 0 == Array[0] == "Are you in the race too?"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ K.REL+K.ADJ] = -1 // Actor's Relation change. (- bad, + good)
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 0] = "Aren't you a pilot in the race?"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 1] = V.LEFT
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 2] = "Grghhh- I just said-"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 3] = V.RIGHT
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 4] = "I'm in the race too, My name's Sylas."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 5] = V.LEFT
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 6] = "Oh- I've been looking for you! You fly Praey right?"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 7] = "*Their head tilts to the side..."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 8] = "Where's your suit?"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 9] = V.RIGHT
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 10] = "Oh- I uh-"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 11] = V.LEFT
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 12] = "*They put their hand up towards you"
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 13] = "Stop- We don't have time, just go get it on and we'll talk more later."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 14] = "Come back here when you're suited..."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 15] = V.BODY_BACK // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 16] = "*They turn away from you impaitently..."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 17] = V.DONE_SOFT // Also marks this narrative parent as done
-		// Option 1 == Array[1] == ACTION.LEAVE; Just trigger action in this case, no additional dialogue set...
+		#region Street 1
+			
+			
+			
+		#endregion
+		
+		#region Street 2
+			
+			NS[$ SCENE.CITY_ST2] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ K.FLG] = V.SUIT
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ 0] = "the club is across this street..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SYLAS][$ 0][$ 1] = "someone should be there..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.TRG] = TRIGGER.START
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.INV+K.FLG] = V.SUIT
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.ACT+K.RHT] = ACTOR.SYLAS
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ K.ACT+K.LFT] = ACTOR.RANDOM
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 0] = "*Someone across the street notices you and starts shouting..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 1] = "Hey! What the fuck are you doing!?"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 2] = "Where the fuck is your suit?!"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 3] = "*An eager gruff voice in the distance shouts..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 4] = "I'LL FUCKING KILL YOU RIGHT NOW, HAHA!"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 5] = V.RIGHT
+			// This needs to be player... WIP TODO
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ K.OPT] = ["*How dare they?!\nFight the fuck back!","Get out of here..."]
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 0] = "Who the fuck are you!?"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 1] = "I'm not afraid of you?!"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 2] = "*You sweep a heavy metal canister off its perch from an electrical junction and it bangs violently across the Adamantine Street..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 3] = V.LEFT
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 4] = "*Several others close in on you."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 5] = "You better go back inside and get your suit on or we'll force you..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 6] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 0][$ 6][$ K.OPT] = ["Swing at the one that just talked","Swing at the closest one","Throw another canister into one of them"]
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 0] = "*\"What the fuck...\" you think."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 1] = "*Carefully, you back up into the elevator and back to your suite..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.UNKNOWN][$ 0][$ 6][$ 1][$ 2] = "*\"Ok... We really need our suit...\""
+			// [$ 2]Scene -> [$ ACTOR.SPITFIRE]Actor -> [$ 0]Narrative Parent -> [$ 5]Narrative Branch -> [$ T|F]Narrative Dialogue -> [$ F:2]Narrative Selection -> [$ 0|1]Outcome
+			NS[$ SCENE.CITY_ST2] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.TRG] = TRIGGER.START // Activate when spitfire character is clicked at scene 2
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.LFT] = ACTOR.SYLAS // Character to draw on left of screen
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.RHT] = ACTOR.SPITFIRE // Character to draw on right of screen
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ K.REL+K.BR] = 0 // Atleast Neutral?
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 0] = V.RIGHT
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 1] = P.dia[$ K.NM]+"..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 2] = "We can go through the plaza to get to the Spaceport from here."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 3] = "But- it's a while before we need to be there..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 4] = V.FLIP_H
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 5] = "*Confidently, she turns to face you..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 6] = "We should try to see what we can find out about the other racers..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ T][$ 7] = V.DONE
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F] = {}
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ K.REL+K.BR] = -2 // Atleast not disliked?
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T] = {} // Not disliked
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 0] = V.RIGHT
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 1] = "Hey- I'm going to the Spaceport. . . . . . \n\nThink about what I said..."
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 2] = "*Looking over her shoulder, She raises a hand and walks away down the street"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ T][$ 3] = V.DONE_AND_LEAVE
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ F] = {} // Disliked
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ F][$ 0] = "*Spitefire walks away down the street"
+			NS[$ SCENE.CITY_ST2][$ ACTOR.SPITFIRE][$ 0][$ F][$ F][$ 1] = V.DONE_AND_LEAVE
+			
+		#endregion
+		
+		#region Street 3
+			
+			
+			
+		#endregion
+		
+		#region Street 4
+			
+			
+			
+		#endregion
+		
+		#region Store
+			
+			
+			
+		#endregion
+		
+	#endregion
+	
+	#region Club
+		
+		#region Enterance
+			
+			
+			
+		#endregion
+		
+		#region Floor
+			
+			
+			
+		#endregion
+		
+		#region Bar
+			
+			
+			
+		#endregion
+		
+		#region Booth
+			
+			// [$ 2]Scene -> [$ ACTOR.SPITFIRE]Actor -> [$ 0]Narrative Parent -> [$ 5]Narrative Branch -> [$ T|F]Narrative Dialogue -> [$ F:2]Narrative Selection -> [$ 0|1]Outcome
+			NS[$ SCENE.CLUB_BOOTH] = {}
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE] = {}
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0] = {}
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.TRG] = TRIGGER.CLICK // Activate when spitfire character is clicked at scene 2
+			//NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.RST] = V.SUIT // Activate when spitfire character is clicked at scene 2
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.LFT] = ACTOR.SPITFIRE // Character to draw on left of screen
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ K.ACT+K.RHT] = ACTOR.SYLAS // Character to draw on right of screen
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 0] = V.RIGHT // Switch to Right Character as Speaker (Sylas)
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 1] = "Hey you in the Spacer suit..." // Dialogue
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 2] = V.LEFT // Switch to Left Character as Speaker (Spitfire)
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 3] = V.BODY // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 4] = "*They turn around to face you" // Dialogue
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 5] = "Hmm? I guess you must be talking to me..."
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 6] = "*They look you up and down" // Emote
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7] = {}
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ K.BR] = [V.SUIT,P] // True or False: Player Suited?
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T] = {} // Player is Suited:
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 0] = "*They turn towards you promptly"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 1] = "Wait- You're the one that flies Praey!"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 2] = "Your name's Sylas right?"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ T][$ 3] = V.DONE_AND_CONTINUE // Mark this Narrative Parent as Done (NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0])
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F] = {} // Player is NOT Suited:
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 0] = "*They wave their hand at you dismissively"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 1] = "Not now I'm looking for someone..."
+			
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2] = {}
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.OPT] = ["\"Are you in the race too?\"",ACTION.DIA_LEAVE] // Option Array -> Buttons/Choices for Players to pick...
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.BYP] = [V.PARENT_ALL,K.DN] // Even if this dialogue is done; return here...
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ K.RPT] = T // Even if this dialogue is done; return here...
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0] = {} // Option 0 == Array[0] == "Are you in the race too?"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ K.REL+K.ADJ] = -1 // Actor's Relation change. (- bad, + good)
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 0] = "Aren't you a pilot in the race?"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 1] = V.LEFT
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 2] = "Grghhh- I just said-"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 3] = V.RIGHT
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 4] = "I'm in the race too, My name's Sylas."
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 5] = V.LEFT
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 6] = "Oh- I've been looking for you! You fly Praey right?"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 7] = "*Their head tilts to the side..."
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 8] = "Where's your suit?"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 9] = V.RIGHT
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 10] = "Oh- I uh-"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 11] = V.LEFT
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 12] = "*They put their hand up towards you"
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 13] = "Stop- We don't have time, just go get it on and we'll talk more later."
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 14] = "Come back here when you're suited..."
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 15] = V.BODY_BACK // Switch Speaker's Sprite to Body Main (Spitfire turns around...)
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 16] = "*They turn away from you impaitently..."
+			NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 0][$ 7][$ F][$ 2][$ 0][$ 17] = V.DONE_SOFT // Also marks this narrative parent as done
+			// Option 1 == Array[1] == ACTION.LEAVE; Just trigger action in this case, no additional dialogue set...
+			
+		#endregion
 		
 	#endregion
 	
