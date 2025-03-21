@@ -238,7 +238,7 @@ if(D.game_state == GAME.PLAY
 										if(is_undefined(sndStp) or sndStp) {
 											
 											var snd = N
-											if(!audio_is_playing(v)) snd = audio_play_sound(v,3,T,0);
+											if(!audio_is_playing(v)) snd = audio_play_sound_on(mainEmt,v,T,3,0);
 											if(snd != N) audio_sound_gain(snd,2/3,1000);
 											
 										}

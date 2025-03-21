@@ -34,6 +34,37 @@ function actor_find(_uid) {
 	
 }
 
+function variable_instance_is_empty(inst) {
+	
+	return variable_instance_names_count(inst) <= 0
+	
+}
+
+// WIP
+function variable_instance_next_numKey(inst,stopAtEmpty) {
+	
+	// Init
+	var rtn = N
+	
+	for(var i = 0; i < variable_instance_names_count(inst); i++) {
+		
+		if(stopAtEmpty) {
+			
+			// Return deleted/broken entry
+			if(!variable_instance_exists(inst,string(i)) or !is(inst[$ i]) or variable_instance_is_empty(inst[$ i]))
+				rtn = i;
+			
+		} else {
+			
+			// Skip deleted/broken entries
+			if(!variable_instance_exists(inst,string(i)) or !is(inst[$ i]) or variable_instance_is_empty(inst[$ i])) continue;
+			
+		}
+			
+	}
+	
+}
+
 function bbox_sanity(inst) {
 	
 	try {
@@ -363,7 +394,7 @@ function fx_iter(struct) {
 						
 						// Subtract from Darkness...
 						gpu_set_blendmode(bm_subtract)
-							draw_sprite_ext(spr,0,xy[0],xy[1],1,1,rot,c.wht,.8)
+							draw_sprite_ext(sprCF2,0,xy[0],xy[1],1,1,rot,c.wht,.8)
 						gpu_set_blendmode(bm_normal)
 						
 						// Draw Surface
@@ -373,7 +404,7 @@ function fx_iter(struct) {
 						
 						// Add Color to below...
 						gpu_set_blendmode(bm_add)
-							draw_sprite_ext(spr,0,xy[0],xy[1],1,1,rot,blendc,.8)
+							draw_sprite_ext(sprCF2,0,xy[0],xy[1],1,1,rot,blendc,.8)
 						gpu_set_blendmode(bm_normal)
 						
 					}
@@ -439,7 +470,7 @@ function fx_pre(struct) {
 						
 						// Subtract from Darkness...
 						gpu_set_blendmode(bm_subtract)
-							draw_sprite_ext(spr,0,xy[0]*.6,xy[1]*.6,1,1,rot,c.wht,2/3)
+							draw_sprite_ext(sprCF2,0,xy[0]*.6,xy[1]*.6,1,1,rot,c.wht,2/3)
 						gpu_set_blendmode(bm_normal)
 						
 						// Draw Surface
@@ -449,7 +480,7 @@ function fx_pre(struct) {
 						
 						// Add Color to below...
 						gpu_set_blendmode(bm_add)
-							draw_sprite_ext(spr,0,xy[0]*.6,xy[1]*.6,1,1,rot,blendc,.1)
+							draw_sprite_ext(sprCF2,0,xy[0]*.6,xy[1]*.6,1,1,rot,blendc,.1)
 						gpu_set_blendmode(bm_normal)
 						
 					}

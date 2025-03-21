@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"msxSerpico",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":512,
+  "compression":0,
+  "conversionMode":0,
+  "duration":264.41144,
+  "name":"msxSerpico",
+  "parent":{
+    "name":"Expansion",
+    "path":"folders/Sounds/Music/Expansion.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"msxSerpico.mp3",
+  "type":1,
+  "volume":1.0,
+}

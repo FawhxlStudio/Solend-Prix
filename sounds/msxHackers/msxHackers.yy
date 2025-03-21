@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"msxHackers",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":512,
+  "compression":0,
+  "conversionMode":0,
+  "duration":205.24408,
+  "name":"msxHackers",
+  "parent":{
+    "name":"Expansion",
+    "path":"folders/Sounds/Music/Expansion.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"msxHackers.mp3",
+  "type":1,
+  "volume":1.0,
+}

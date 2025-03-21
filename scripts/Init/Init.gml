@@ -511,6 +511,71 @@ function _init() {
 		
 	#endregion Enums
 	
+	#region Music/SFX
+		
+		#region Volume Vars
+			
+			globalvar masterVol;
+			globalvar mainVol;
+			globalvar bgmVol;
+			globalvar sfxVol;
+			
+			masterVol = 2/3
+			mainVol = 2/3
+			bgmVol = 2/3
+			sfxVol = 2/3
+			
+			// Init Master Gain
+			audio_master_gain(masterVol)
+			
+		#endregion
+		
+		#region Listener Init
+			
+			audio_listener_position(0,0,0)
+			audio_listener_orientation(0,0,1,0,-1,0)
+			
+		#endregion
+		
+		#region Emitters
+			
+			globalvar mainEmt; // Static Central Emitter
+			globalvar lrEmt; // Emitter that goes left to right
+			globalvar rlEmt; // Emitter that for right to left
+			globalvar fbEmt; // Emitter that for front to back
+			globalvar bfEmt; // Emitter that for back to front
+			
+			mainEmt = audio_emitter_create()
+			lrEmt = audio_emitter_create()
+			rlEmt = audio_emitter_create()
+			fbEmt = audio_emitter_create()
+			bfEmt = audio_emitter_create()
+			
+			audio_emitter_position(mainEmt,0,0,0)
+			audio_emitter_position(lrEmt,-100,0,0)
+			audio_emitter_position(rlEmt,100,0,0)
+			audio_emitter_position(fbEmt,0,0,100)
+			audio_emitter_position(bfEmt,0,0,-100)
+			
+		#endregion
+		
+		#region Emitter Controls
+			
+			// Velocities are percent based on length of audio playing
+			globalvar lrEmtV;
+			globalvar rlEmtV;
+			globalvar fbEmtV;
+			globalvar bfEmtV;
+			
+			lrEmtV = 1
+			rlEmtV = 1
+			fbEmtV = 1
+			bfEmtV = 1
+			
+		#endregion
+		
+	#endregion
+	
 	#region Global Vars
 		
 		#region Text Globals

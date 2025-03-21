@@ -15,7 +15,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					var ao = draw_get_alpha()
 					
 					// Skip deleted entries
-					if(!is(CM[$ string(i)])) continue
+					if(!variable_instance_exists(CM,string(i))
+						or !is(CM[$ i]) or variable_instance_is_empty(CM[$ i])) continue;
 					
 					// Is it an actual entry yet? If K.SCN+K.IN ain'T set then it ain'T defined at all yet
 					if(variable_instance_exists(CM[$ string(i)],K.SCN+K.IN)) {

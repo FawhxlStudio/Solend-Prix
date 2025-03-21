@@ -61,6 +61,8 @@ Temporary Items
 **/GMLive*
 **/obj_gmlive
 **/*.png
+**/*.mp3
+**/*.wav
 /output
 
 ## Build files

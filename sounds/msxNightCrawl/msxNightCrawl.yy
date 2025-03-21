@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"msxNightCrawl",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":224,
+  "compression":0,
+  "conversionMode":0,
+  "duration":291.36978,
+  "name":"msxNightCrawl",
+  "parent":{
+    "name":"Expansion",
+    "path":"folders/Sounds/Music/Expansion.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"msxNightCrawl.mp3",
+  "type":1,
+  "volume":1.0,
+}

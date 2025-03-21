@@ -1,4 +1,4 @@
-// 2025-03-10 22:09:35
+// 2025-03-13 22:14:25
 function chance(pct) {
 	
 	var r = random_range(0,100)
@@ -32,6 +32,37 @@ function actor_find(_uid) {
 	}
 	
 	return N
+	
+}
+
+function variable_instance_is_empty(inst) {
+	
+	return variable_instance_names_count(inst) <= 0
+	
+}
+
+// WIP
+function variable_instance_next_numKey(inst,stopAtEmpty) {
+	
+	// Init
+	var rtn = N
+	
+	for(var i = 0; i < variable_instance_names_count(inst); i++) {
+		
+		if(stopAtEmpty) {
+			
+			// Return deleted/broken entry
+			if(!variable_instance_exists(inst,string(i)) or !is(inst[$ i]) or variable_instance_is_empty(inst[$ i]))
+				rtn = i;
+			
+		} else {
+			
+			// Skip deleted/broken entries
+			if(!variable_instance_exists(inst,string(i)) or !is(inst[$ i]) or variable_instance_is_empty(inst[$ i])) continue;
+			
+		}
+			
+	}
 	
 }
 

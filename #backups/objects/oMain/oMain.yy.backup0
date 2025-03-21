@@ -1,4 +1,4 @@
-// 2025-03-10 22:10:06
+// 2025-03-18 22:36:54
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -63,8 +63,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			#region Init
 				
 				// Play BGM
-				if(!audio_is_playing(msx007) and is(introInst))
-					msx = audio_play_sound(msx007,1,T,0);
+				if(!audio_is_playing(msxDefault) and is(introInst))
+					msx = audio_play_sound_on(mainEmt,msxDefault,T,0,0);
 				
 				// Clears all dialogue control variables to default
 				diaNar_reset()
@@ -287,7 +287,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Fade-In BGM
 			
-			if(audio_is_playing(msx007) and is(msx) and is(introInst)) {
+			if(audio_is_playing(msxDefault) and is(msx) and is(introInst)) {
 				
 				if(audio_sound_get_gain(msx) == 0 and introInst.del <= 0)
 					audio_sound_gain(msx,.1,10*1000);
@@ -620,7 +620,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					var ao = draw_get_alpha()
 					
 					// Skip deleted entries
-					if(!is(CM[$ string(i)])) continue
+					if(!variable_instance_exists(CM,string(i))
+						or !is(CM[$ i]) or variable_instance_is_empty(CM[$ i])) continue;
 					
 					// Is it an actual entry yet? If K.SCN+K.IN ain'T set then it ain'T defined at all yet
 					if(variable_instance_exists(CM[$ string(i)],K.SCN+K.IN)) {
