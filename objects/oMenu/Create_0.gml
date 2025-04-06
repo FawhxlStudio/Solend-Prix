@@ -1,23 +1,31 @@
 /// @description Init
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-expL = ds_list_create()
-expCnt = 3
-expDel = GSPD*random_range(1/3,3)
-voxd = F
-vox1 = F
-vox2 = F
-vox3 = F
-voxFade = 1
-voxi = 1/(GSPD*6)
-ashGain = 0
-ashid = N
-preDel = GSPD*2
-preDeli = 0//? That's what I usually do...
+// Fade in
+fade = 1
+fadei = 1/(GSPD*6)
+
+// BGM
+bgm = msxNightCrawl
+bgmID = N
+
+// Delays + Title Stuff
+preDel = GSPD*2 // These are Simple Delays, they deiterate themselves
 titDel = GSPD*3
-titDel2 = GSPD*5
-titDel3 = GSPD*8
-titDel4 = GSPD*1
-titDeli = 0//? That's what I usually do...
+titsfx = N
 titAngl = N
 titAngl2 = N
+titSurf = N
+tita = 0
+btnDel = GSPD*2
+
+// Menu Sprites
+bdspr = sprNewMenuBD
+bgspr = sprNewMenuBG
+mgspr = sprClubBoothBG
+mg2spr = sprSylasBod2
+
+// Settings
+settings = F
+setDel = GSPD/2
+setDeli = 0

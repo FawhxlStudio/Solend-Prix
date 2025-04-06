@@ -1,0 +1,121 @@
+// 2025-04-06 04:01:44
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = sprPix;
+uses_physics = false;
+
+#event create Insert description here
+// You can write your code in this editor
+
+// Basics
+par = N
+flickPct = random_range(0.9,1.1)
+pct = random(1)
+rot = random(360)
+rotv = random_range(-.05,05)
+scl = N
+if(pct >= 1 and chance(50)) sprite_index = sprStar;
+
+#event destroy Spawn/Respawn
+
+if(par != N and instance_exists(par)) {
+    
+    var _rep = 0
+    if(instance_number(object_index) < par.cnt) _rep = 1;
+    
+    if(x < -sprite_width and (par.dir > 90 or par.dir < 270)) {
+        
+        repeat(_rep) {
+            
+            var inst = instance_create_layer(WW+sprite_width,random(WH),layer,object_index)
+            inst.par = par
+            
+        }
+        
+    } else if(x > WW+sprite_width and (par.dir < 90 or par.dir > 270)) {
+        
+        repeat(_rep) {
+            
+            var inst = instance_create_layer(-sprite_width,random(WH),layer,object_index)
+            inst.par = par
+            
+        }
+        
+    } else if(y < -sprite_height and (par.dir > 0 and par.dir < 180)) {
+        
+        repeat(_rep) {
+            
+            var inst = instance_create_layer(random(WW),WH+sprite_height,layer,object_index)
+            inst.par = par
+            
+        }
+        
+    } else if(y > WH+sprite_height and (par.dir > 180 and par.dir < 360)) {
+        
+        repeat(_rep) {
+            
+            var inst = instance_create_layer(random(WW),-sprite_height,layer,object_index)
+            inst.par = par
+            
+        }
+        
+    }
+    
+}
+
+#event step Insert description here
+// You can write your code in this editor
+
+
+#event step_begin Updates
+
+// Rotation Iterate
+rot+=rotv
+if(rot < 0) rot+=360;
+else if(rot >= 360) rot-=360;
+
+// Velocity
+if(par != N and instance_exists(par)) {
+    
+    // Position Iterate
+    x += ( cos(degtorad(par.dir))*par.vel)*pct
+    y += (-sin(degtorad(par.dir))*par.vel)*pct
+    
+    // Respawn?
+    var _res = (par.cnt < instance_number(object_index))
+    if(x < -sprite_width and (par.dir > 90 or par.dir < 270)) instance_destroy(id,_res);
+    else if(x > WW+sprite_width and (par.dir < 90 or par.dir > 270)) instance_destroy(id,_res);
+    else if(y < -sprite_height and (par.dir > 0 and par.dir < 180)) instance_destroy(id,_res);
+    else if(y > WH+sprite_height and (par.dir > 180 and par.dir < 360)) instance_destroy(id,_res);
+    
+}
+
+#event step_end Insert description here
+// You can write your code in this editor
+
+
+#event draw Insert description here
+// You can write your code in this editor
+
+
+#event draw_begin Insert description here
+// You can write your code in this editor
+
+
+#event draw_end Insert description here
+// You can write your code in this editor
+draw_self()
+
+#event draw_pre Insert description here
+// You can write your code in this editor
+
+// Draw Updates
+if(par != N and instance_exists(par)) image_alpha = (pct*random(flickPct))*par.pct;
+else image_alpha = (pct*random(flickPct));
+if(sprite_index == sprStar and scl == N) scl = random_range(2/3,1+(1/3));
+else if(scl == N) scl = max(1,4*pct);
+image_xscale = scl
+image_yscale = scl
+
+#event draw_post Insert description here
+// You can write your code in this editor

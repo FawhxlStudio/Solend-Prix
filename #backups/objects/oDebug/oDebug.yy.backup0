@@ -1,4 +1,4 @@
-// 2025-03-13 03:16:49
+// 2025-03-22 02:06:01
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -10,7 +10,7 @@ active = T
 edit = F
 editHelp = T
 console = F
-introSkip = T
+introSkip = F
 resetControl = T
 unstuck = T
 muted = F
@@ -18,7 +18,7 @@ envInvert = T
 diaDebug = F
 diaShortcut = F
 scnJump = T
-nightSkip = T
+nightSkip = F
 
 // Variables...
 diaPrev = N // For previewing dialogue that is available...

@@ -74,9 +74,9 @@
 #region Gameplay Globals
 	
 	// Zoom
-	zmn = 1.2
+	zmn = 1.05
 	z   = zmn
-	zmx = 2.0
+	zmx = 1.15
 	zoomed = F
 	zo = zmn
 	
@@ -86,6 +86,8 @@
 	hvrDel = GSPD/2
 	hvrDeli = 0
 	hvrPct = 0
+	btnHvr = F
+	btnHvr2 = F
 	
 	// Overrides
 	ctrlOverride = F

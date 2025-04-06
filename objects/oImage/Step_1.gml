@@ -22,6 +22,13 @@ if(D.game_state == GAME.PLAY
 	// Image Scale
 	image_xscale = scl*D.z
 	image_yscale = scl*D.z
+	if(!is_undefined(sclW)) {
+		
+		image_xscale = sclW*D.z
+		image_yscale = sclW*D.z
+		
+	}
+	if(!is_undefined(sclH)) image_yscale = sclH*D.z;
 	
 	var _w = D.bgImg.sprite_width
 	var _h = D.bgImg.sprite_height

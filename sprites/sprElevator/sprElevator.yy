@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"Anims",
-    "path":"folders/Sprites/Scenes/Anims.yy",
+    "path":"folders/Sprites/Anims.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

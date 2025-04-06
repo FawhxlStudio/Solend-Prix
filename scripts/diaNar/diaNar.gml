@@ -3279,21 +3279,21 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 					if(strFull) {
 						
 						D.diaEnter = T
-						if(actr.uid == ACTOR.FOX and D.diaSpeaker == actr) strBld_ += "\n\n"; // FOX prints like a terminal
+						if(actr.uid == ACTOR.FOX and (variable_instance_exists(inst,string(i+1)) and is_string(inst[$ i+1]))) strBld_ += "\n\n"; // FOX prints like a terminal
 						else strBld_ = "";
 						strDeli_ = 0
 						stri_ = 0
 						D.diaTrigi = 0
 						
-					} else strBld_ += string_copy(inst[$ i],stri_+1,string_length(inst[$ i])); // Skip Printing (When Normal)
+					} else if(!string_starts_with(inst[$ i],strBld_) and actr.uid != ACTOR.FOX) strBld_ = string_copy(inst[$ i],stri_+1,string_length(inst[$ i]));
+					else strBld_ += string_copy(inst[$ i],stri_+1,string_length(inst[$ i])); // Skip Printing (When Normal)
 					
 				#endregion
 				
 			} else if(!isNotFX and n_fxdone) {
 				
 				D.diaEnter = T
-				if(actr.uid == ACTOR.FOX and D.diaSpeaker == actr) strBld_ += "\n\n"; // FOX prints like a terminal
-				else strBld_ = "";
+				strBld_ = ""
 				strDeli_ = 0
 				stri_ = 0
 				D.diaTrigi = 0

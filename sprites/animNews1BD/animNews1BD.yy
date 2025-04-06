@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"News1",
-    "path":"folders/Sprites/Scenes/Anims/News1.yy",
+    "path":"folders/Sprites/Anims/News1.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

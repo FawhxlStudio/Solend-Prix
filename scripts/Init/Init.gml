@@ -137,6 +137,9 @@ function _init() {
 		
 	#endregion
 	
+	// Set Vsync
+	display_reset(8,T)
+	
 	#region Enums
 		
 		enum GAME {
@@ -328,9 +331,15 @@ function _init() {
 			
 			FIRST,
 			PLAY,
+			SETTINGS,
 			EXIT,
 			DIA_LEAVE,
 			DIA_GOTO,
+			VOL_MASTER,
+			VOL_ENV,
+			VOL_SFX,
+			VOL_BGM,
+			VOL_GUI,
 			LAST
 			
 		}
@@ -486,6 +495,7 @@ function _init() {
 			SPR:"_sprite",
 			PMT:"_panMultiplier",
 			WMT:"_widthMultiplier",
+			HMT:"_heightMultiplier",
 			MT:"_multiplier",
 			XRG:"_xRange",
 			YRG:"_yRange",
@@ -516,14 +526,16 @@ function _init() {
 		#region Volume Vars
 			
 			globalvar masterVol;
-			globalvar mainVol;
-			globalvar bgmVol;
+			globalvar envVol;
 			globalvar sfxVol;
+			globalvar bgmVol;
+			globalvar guiVol;
 			
-			masterVol = 2/3
-			mainVol = 2/3
-			bgmVol = 2/3
+			masterVol = 1
+			envVol = 2/3
 			sfxVol = 2/3
+			bgmVol = 2/3
+			guiVol = 1/3
 			
 			// Init Master Gain
 			audio_master_gain(masterVol)
@@ -539,38 +551,20 @@ function _init() {
 		
 		#region Emitters
 			
-			globalvar mainEmt; // Static Central Emitter
-			globalvar lrEmt; // Emitter that goes left to right
-			globalvar rlEmt; // Emitter that for right to left
-			globalvar fbEmt; // Emitter that for front to back
-			globalvar bfEmt; // Emitter that for back to front
+			globalvar envEmt; // Static Central Emitter; Environment
+			globalvar sfxEmt; // Static Central Emitter; Sound FX
+			globalvar bgmEmt; // Static Central Emitter; Background Music
+			globalvar guiEmt; // Static Central Emitter; GUI/HUD
 			
-			mainEmt = audio_emitter_create()
-			lrEmt = audio_emitter_create()
-			rlEmt = audio_emitter_create()
-			fbEmt = audio_emitter_create()
-			bfEmt = audio_emitter_create()
+			envEmt = audio_emitter_create()
+			sfxEmt = audio_emitter_create()
+			bgmEmt = audio_emitter_create()
+			guiEmt = audio_emitter_create()
 			
-			audio_emitter_position(mainEmt,0,0,0)
-			audio_emitter_position(lrEmt,-100,0,0)
-			audio_emitter_position(rlEmt,100,0,0)
-			audio_emitter_position(fbEmt,0,0,100)
-			audio_emitter_position(bfEmt,0,0,-100)
-			
-		#endregion
-		
-		#region Emitter Controls
-			
-			// Velocities are percent based on length of audio playing
-			globalvar lrEmtV;
-			globalvar rlEmtV;
-			globalvar fbEmtV;
-			globalvar bfEmtV;
-			
-			lrEmtV = 1
-			rlEmtV = 1
-			fbEmtV = 1
-			bfEmtV = 1
+			audio_emitter_position(envEmt,0,0,0)
+			audio_emitter_position(sfxEmt,0,0,0)
+			audio_emitter_position(bgmEmt,0,0,0)
+			audio_emitter_position(guiEmt,0,0,0)
 			
 		#endregion
 		

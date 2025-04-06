@@ -4,6 +4,42 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 // Init
 var ao = draw_get_alpha()
 
+// Fade In...
+if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
+var _pctin = fadeIni/fadeIn
+
+// Delay...
+if(_pctin >= 1 and deli < del) deli = clamp(deli+1,0,del);
+var _pctdel = deli/del
+
+// Change Room (When Delay is Done)
+if(_pctdel >= 1 and room != rGame) {
+	
+	set_scni(SCENE.RESORT_BED)
+	room_goto(rGame)
+	
+}
+
+// Fade Out...
+if(_pctdel >= 1 and fadeOuti < fadeOut) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+var _pctout = fadeOuti/fadeOut
+
+// Draw Fade...
+if(_pctdel < 1) draw_set_alpha(_pctin);
+else draw_set_alpha(_pctin-_pctout);
+stars.pct = draw_get_alpha()
+draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+
+// Destroy after Fade Out...
+if(_pctout >= 1) {
+	
+	D.diaOverride = F
+	M.introInst = N
+	instance_destroy(id)
+	
+}
+
+/* Nightmare Intro Disabled: To use Nightmare for Sleep/Rest Event
 if(!is_undefined(nightmareInst) and instance_exists(nightmareInst)) {
 	
 	nightmare = nightmareInst.done
@@ -38,6 +74,7 @@ if(nightmare and is_undefined(nightmareInst)) {
 	#endregion
 	
 } else if(is_undefined(nightmareInst) and !nightmare) nightmareInst = instance_create_layer(0,0,layer,oNightmare1);
+*/
 
 // Reset Alpha
 draw_set_alpha(ao)

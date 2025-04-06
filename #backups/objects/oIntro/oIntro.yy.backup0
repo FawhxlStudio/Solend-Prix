@@ -1,0 +1,113 @@
+// 2025-04-06 04:04:51
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+persistent = true;
+uses_physics = false;
+
+#event create Weeks Earlier Fade-In
+
+nightmare = F
+nightmareInst = U
+del = GSPD*8
+deli = 0
+fadeIn = GSPD/3
+fadeIni = 0
+fadeOut = GSPD*2
+fadeOuti = 0
+D.diaOverride = T
+fetch = T
+
+// Intro Assets
+theia = sprPlanetTheia
+gas   = sprPlanetTheiaGas
+goth  = sprPlanetGothicaBR
+stars = instance_create_layer(0,0,"Logic",oStarControl)
+
+#event draw_gui Draw and Logix
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+// Init
+var ao = draw_get_alpha()
+
+// Fade In...
+if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
+var _pctin = fadeIni/fadeIn
+
+// Delay...
+if(_pctin >= 1 and deli < del) deli = clamp(deli+1,0,del);
+var _pctdel = deli/del
+
+// Change Room (When Delay is Done)
+if(_pctdel >= 1 and room != rGame) {
+	
+	set_scni(SCENE.RESORT_BED)
+	room_goto(rGame)
+	
+}
+
+// Fade Out...
+if(_pctdel >= 1 and fadeOuti < fadeOut) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+var _pctout = fadeOuti/fadeOut
+
+// Draw Fade...
+if(_pctdel < 1) draw_set_alpha(_pctin);
+else draw_set_alpha(_pctin-_pctout);
+stars.pct = draw_get_alpha()
+draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+
+// Destroy after Fade Out...
+if(_pctout >= 1) {
+	
+	D.diaOverride = F
+	M.introInst = N
+	instance_destroy(id)
+	
+}
+
+/* Nightmare Intro Disabled: To use Nightmare for Sleep/Rest Event
+if(!is_undefined(nightmareInst) and instance_exists(nightmareInst)) {
+	
+	nightmare = nightmareInst.done
+	if(nightmare) {
+		
+		instance_destroy(nightmareInst)
+		nightmareInst = U
+		
+	}
+	
+}
+if(nightmare and is_undefined(nightmareInst)) {
+	
+	draw_set_alpha(fade/(GSPD*2))
+	draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
+	draw_set_font(fTitle)
+	draw_set_hvalign([fa_center,fa_middle])
+	draw_text_transformed_color(WW/2,WH/2,"Weeks Earlier",(WW/string_width("Weeks Earlier"))*(2/3),(WW/string_width("Weeks Earlier"))*(2/3),0,c.wht,c.wht,c.lgry,c.lgry,fade/(GSPD*2))
+	
+	#region Iterate Intro Delay
+		
+		if(del > 0) del--;
+		if(fade > 0 and del <= 0) fade--;
+		if(fade <= 0) {
+		    
+		    D.fd = GSPD*2
+		    D.diaOverride = F
+		    instance_destroy(id)
+		    
+		}
+		
+	#endregion
+	
+} else if(is_undefined(nightmareInst) and !nightmare) nightmareInst = instance_create_layer(0,0,layer,oNightmare1);
+*/
+
+// Reset Alpha
+draw_set_alpha(ao)
+
+#event draw_post Fetch First Area Sprites...
+if(fetch) {
+	
+	//sprite_prefetch_multi(D.fetchArr)
+	fetch = F
+	
+}

@@ -1,0 +1,264 @@
+// 2025-03-31 22:39:04
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+sprite_index = sprNA;
+uses_physics = false;
+
+#event create Init
+// UPDATE IMAGE RESET SCRIPT ASWELL
+sprite_index = sprNA
+xx = WW/2
+yy = WH/2
+xxpct = xx/WW
+yypct = yy/WH
+xpct = U
+ypct = U
+dltx = 0
+dlty = 0
+scl = 1
+sclW = U
+sclH = U
+sclMult = 1
+sclMultW = U
+sclMultH = U
+panMult = 1
+isPlayer = F
+str = ""
+inScn = N
+interact = F
+sclBase = 1
+MXpcto = .5
+MYpcto = .5
+
+// IMAGE Blends
+LIGHTS_OFF = c.gry
+LIGHTS_DIM = c.lgry
+LIGHTS_ON = c.wht
+
+#event alarm0 Rescale
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+if(is_bg_img()) {
+	
+	scl = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMult
+	if(!is_undefined(sclMultW)) sclW = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultW;
+	else sclW = U;
+	if(!is_undefined(sclMultH)) sclH = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultH;
+	else sclH = U;
+	xx = WW*xxpct
+	yy = WH*yypct
+	
+} else {
+	
+	scl = (WW/sclBase)/sprite_get_width(sprite_index)
+	
+}
+
+#event step MG+ Look
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+if(D.game_state == GAME.PLAY
+	and is(sprite_index)) {
+	
+	if(!is_bg_img()) { 
+		
+		x = lerp(D.bgdltx,D.mwref,xxpct)
+		y = lerp(D.bgdlty,D.mhref,yypct)
+		
+	}
+	
+}
+
+#event step_begin Scale & BD/BG Look & Scene Sanity
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+if(D.game_state == GAME.PLAY
+	and is(sprite_index)) {
+	
+	#region Scene Sanity
+		
+		if(is(inScn)) {
+			
+			if(inScn != D.scni) {
+				
+				if(P.suitInst == id)
+					P.suitInst = N;
+				reset_image()
+				
+			}
+			
+		}
+		
+	#endregion
+	
+	// Image Scale
+	image_xscale = scl*D.z
+	image_yscale = scl*D.z
+	if(!is_undefined(sclW)) {
+		
+		image_xscale = sclW*D.z
+		image_yscale = sclW*D.z
+		
+	}
+	if(!is_undefined(sclH)) image_yscale = sclH*D.z;
+	
+	var _w = D.bgImg.sprite_width
+	var _h = D.bgImg.sprite_height
+	var _dw = _w-WW
+	var _dh = _h-WH
+	
+	if(is_bg_img() and mouse_in_window()) { 
+		
+		if(TRAN.delpct > 0 and is_array_ext(TRAN.zXYpct,2,"real")) {
+			
+			// Transition...
+			if(!TRAN.done) { 
+				
+				// Zooming into zXY...
+				dltx = -lerp(lerp(-_dw/2,_dw/2,MXpcto),lerp(-_dw/2,_dw/2,TRAN.zXYpct[0]),TRAN.delpct)*panMult
+				dlty = -lerp(lerp(-_dh/2,_dh/2,MYpcto),lerp(-_dh/2,_dh/2,TRAN.zXYpct[1]),TRAN.delpct)*panMult
+				
+			} else {
+				
+				// Zooming out to zXY...
+				dltx = -lerp(lerp(-_dw/2,_dw/2,TRAN.zXYpct[0]),lerp(-_dw/2,_dw/2,MXpcto),TRAN.delpct)*panMult
+				dlty = -lerp(lerp(-_dh/2,_dh/2,TRAN.zXYpct[1]),lerp(-_dh/2,_dh/2,MYpcto),TRAN.delpct)*panMult
+				
+			}
+			
+		} else {
+			
+			// Default
+			dltx = -lerp(lerp(-_dw/2,_dw/2,MXPCT),lerp(-_dw/2,_dw/2,.5),D.diaDelPct)*panMult
+			dlty = -lerp(lerp(-_dh/2,_dh/2,MYPCT),lerp(-_dh/2,_dh/2,4/5),D.diaDelPct)*panMult
+			MXpcto = MXPCT
+			MYpcto = MYPCT
+			
+		}
+		x = xx+dltx
+		y = yy+dlty
+		
+	}
+	
+}
+
+#event step_end Resize Trigger
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region Resize Trigger (If Main Triggered)
+	
+	if(M.alarm[0] > 0)
+		alarm[0] = 2
+	
+#endregion
+
+#event draw Draw & interact
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+if(D.game_state == GAME.PLAY
+	and is(sprite_index)) {
+	
+	image_blend = D.scnBlend3
+	draw_self()
+	
+	#region Interaction (To Make Universal)
+		
+		if(interact and !D.ctrlOverride and D.fd <= 0 and !TRAN.override) {
+			
+			if(bbox_sanity(id)) {
+				
+				if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
+					and is_hover(id)) {
+					
+					// Set Hover
+					D.isHvr = id
+					
+					#region Shader Draw
+						
+						shader_set(shWhite)
+							
+							if(MBL) {
+								
+								var _a = shader_get_uniform(shWhite,"alpha")
+								shader_set_uniform_f(_a,D.hvrPct/6)
+								
+							} else {
+								
+								var _a = shader_get_uniform(shWhite,"alpha")
+								shader_set_uniform_f(_a,D.hvrPct/5)
+								
+							}
+							draw_self()
+							
+						shader_reset()
+						
+					#endregion
+					
+					if(is_string(str) and str != "") {
+						
+						#region Draw Hover/Found Messages on Cursor
+							
+							// Init
+							draw_set_font(fNeu)
+							var _w = D.bgImg.sprite_width/6
+							var strw = string_width_ext(str,STRH,_w)
+							var strh = string_height_ext(str,STRH,_w)
+							var hvo = [draw_get_halign(),draw_get_valign()]
+							var ao = draw_get_alpha()
+							var hv = [fa_left,fa_top]
+							var xx = WMX+STRH
+							var yy = WMY+STRH
+							
+							// If Offscreen: Invert Text Alignment/Draw Origin
+							if(xx+strw > WW) {
+								
+								hv[0] = fa_right
+								xx = WMX-STRH
+								
+							}
+							
+							if(yy+strh > WH) {
+								
+								hv[1] = fa_bottom
+								yy = WMY-STRH
+								
+							}
+							
+							// Draw
+							draw_set_hvalign(hv)
+							draw_text_ext_color(xx,yy,str,STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
+							draw_set_hvalign(hvo)
+							draw_set_font(fNeu)
+							
+						#endregion
+						
+					}
+					
+					if(MBLP) {
+						
+						#region Pseudo-Destroy (Reset, hidden and defaulted)
+							
+							P.suited   = T
+							P.suitInst = N
+							reset_image()
+							
+						#endregion
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+	#endregion
+	
+}
+
+#event draw_end Debug
+
+/* RED CIRCLE @ X/Y DEBUG
+draw_set_alpha(.5)
+if(sprite_index == P.suitSpr)
+	draw_circle_color(x,y,50,c.r,c.r,F)
+draw_set_alpha(1)
+*/

@@ -11,7 +11,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				
 				// Play BGM
 				if(!audio_is_playing(msxDefault) and is(introInst))
-					msx = audio_play_sound_on(mainEmt,msxDefault,T,0,0);
+					msx = audio_play_sound_on(envEmt,msxDefault,T,0,0);
 				
 				// Clears all dialogue control variables to default
 				diaNar_reset()
@@ -31,9 +31,20 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						D.skyImg.panMult = S[$ string(D.scni)][$ K.SK0+K.PMT];
 						
 					// Scale
-					if(variable_instance_exists(S[$ string(D.scni)],K.SK0+K.WMT))
-						D.skyImg.sclMult = S[$ string(D.scni)][$ K.SK0+K.WMT];
 					D.skyImg.scl = ((WW*D.zmn)/sprite_get_width(D.skyImg.sprite_index))*D.skyImg.sclMult
+					if(variable_instance_exists(S[$ string(D.scni)],K.SK0+K.WMT))
+						D.skyImg.sclMultW = S[$ string(D.scni)][$ K.SK0+K.WMT];
+					if(variable_instance_exists(S[$ string(D.scni)],K.SK0+K.HMT))
+						D.skyImg.sclMultH = S[$ string(D.scni)][$ K.SK0+K.HMT];
+					with(D.skyImg) {
+						
+						if(!is_undefined(sclMultW)) sclW = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultW;
+						else sclW = U;
+						if(!is_undefined(sclMultH)) sclH = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultH;
+						else sclH = U;
+						
+					}
+					
 					
 				#endregion
 				
@@ -48,9 +59,20 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						D.bdImg.panMult = S[$ string(D.scni)][$ K.BD0+K.PMT];
 						
 					// Scale
-					if(variable_instance_exists(S[$ string(D.scni)],K.BD0+K.WMT))
-						D.bdImg.sclMult = S[$ string(D.scni)][$ K.BD0+K.WMT];
 					D.bdImg.scl = ((WW*D.zmn)/sprite_get_width(D.bdImg.sprite_index))*D.bdImg.sclMult
+					if(variable_instance_exists(S[$ string(D.scni)],K.BD0+K.WMT))
+						D.bdImg.sclMultW = S[$ string(D.scni)][$ K.BD0+K.WMT];
+					if(variable_instance_exists(S[$ string(D.scni)],K.BD0+K.HMT))
+						D.bdImg.sclMultH = S[$ string(D.scni)][$ K.BD0+K.HMT];
+					with(D.bdImg) {
+						
+						if(!is_undefined(sclMultW)) sclW = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultW;
+						else sclW = U;
+						if(!is_undefined(sclMultH)) sclH = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultH;
+						else sclH = U;
+						
+					}
+					
 					
 				#endregion
 				
@@ -65,9 +87,20 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						D.bgL2Img.panMult = S[$ string(D.scni)][$ K.BG0+K.L2+K.PMT];
 						
 					// Scale
-					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L2+K.WMT))
-						D.bgL2Img.sclMult = S[$ string(D.scni)][$ K.BG0+K.L2+K.WMT];
 					D.bgL2Img.scl = ((WW*D.zmn)/sprite_get_width(D.bgL2Img.sprite_index))*D.bgL2Img.sclMult
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L2+K.WMT))
+						D.bgL2Img.sclMultW = S[$ string(D.scni)][$ K.BG0+K.L2+K.WMT];
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L2+K.HMT))
+						D.bgL2Img.sclMultH = S[$ string(D.scni)][$ K.BG0+K.L2+K.HMT];
+					with(D.bgL2Img) {
+						
+						if(!is_undefined(sclMultW)) sclW = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultW;
+						else sclW = U;
+						if(!is_undefined(sclMultH)) sclH = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultH;
+						else sclH = U;
+						
+					}
+					
 					
 				#endregion
 				
@@ -82,9 +115,19 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						D.bgL1Img.panMult = S[$ string(D.scni)][$ K.BG0+K.L1+K.PMT];
 						
 					// Scale
-					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L1+K.WMT))
-						D.bgL1Img.sclMult = S[$ string(D.scni)][$ K.BG0+K.L1+K.WMT];
 					D.bgL1Img.scl = ((WW*D.zmn)/sprite_get_width(D.bgL1Img.sprite_index))*D.bgL1Img.sclMult
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L1+K.WMT))
+						D.bgL1Img.sclMultW = S[$ string(D.scni)][$ K.BG0+K.L1+K.WMT];
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.L1+K.HMT))
+						D.bgL1Img.sclMultH = S[$ string(D.scni)][$ K.BG0+K.L1+K.HMT];
+					with(D.bgL1Img) {
+						
+						if(!is_undefined(sclMultW)) sclW = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultW;
+						else sclW = U;
+						if(!is_undefined(sclMultH)) sclH = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultH;
+						else sclH = U;
+						
+					}
 					
 				#endregion
 				
@@ -99,9 +142,19 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						D.bgImg.panMult = S[$ string(D.scni)][$ K.BG0+K.PMT];
 						
 					// Scale
-					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.WMT))
-						D.bgImg.sclMult = S[$ string(D.scni)][$ K.BG0+K.WMT];
 					D.bgImg.scl = ((WW*D.zmn)/sprite_get_width(D.bgImg.sprite_index))*D.bgImg.sclMult
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.WMT))
+						D.bgImg.sclMultW = S[$ string(D.scni)][$ K.BG0+K.WMT];
+					if(variable_instance_exists(S[$ string(D.scni)],K.BG0+K.HMT))
+						D.bgImg.sclMultH = S[$ string(D.scni)][$ K.BG0+K.HMT];
+					with(D.bgImg) {
+						
+						if(!is_undefined(sclMultW)) sclW = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultW;
+						else sclW = U;
+						if(!is_undefined(sclMultH)) sclH = ((WW*D.zmn)/sprite_get_width(sprite_index))*sclMultH;
+						else sclH = U;
+						
+					}
 					
 				#endregion
 				

@@ -1,4 +1,4 @@
-// 2025-03-13 03:17:15
+// 2025-04-05 02:34:21
 function db_diaNar() {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
@@ -35,8 +35,8 @@ function db_diaNar() {
 				NS[$ global.tutnm][$ 3] = "By processing, encrypting and decrypting Neural Cybernetic signals between organic and inorganic systems I facilitate Neuro-Augmented analytics, diagnosis, and operative interfaces."
 				NS[$ global.tutnm][$ 4] = "[OPID PROTOCOL INITIATED] @Sylas.Praey   ]   ]   ]   ]   ]"
 				NS[$ global.tutnm][$ 5] = "[OPID PROTOCOL EXCEPTION] @Anomalous.Yield"
-				NS[$ global.tutnm][$ 6] = "You are... not Sylas Praey...\nBut... you are within him...\nYour neural imprint is anomalous... unrecognized..."
-				NS[$ global.tutnm][$ 7] = "Who are you..." // TODO Get Name Input; To use to make Profile for saves?
+				NS[$ global.tutnm][$ 6] = "\"You are... not Sylas Praey...\nBut... you are within him...\nYour neural imprint is anomalous... unrecognized...\""
+				NS[$ global.tutnm][$ 7] = "\"Who are you...\"" // TODO Get Name Input; To use to make Profile for saves?
 				NS[$ global.tutnm][$ 8] = "[L.I.N.I. INJECTION PROTOCOL TERMINATED]"
 				/* Scrapped?
 				NS[$ global.tutnm][$ 8] = "..."
@@ -52,7 +52,7 @@ function db_diaNar() {
 				
 			#endregion
 			
-			#region Radio In
+			#region Radio In (BECKONING DISABLED, NOW DOES NOT PLAY beknm NEXT SEE K.ANM+K.NXT)
 				
 				NS[$ global.radnm] = {}
 				NS[$ global.radnm][$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
@@ -61,17 +61,16 @@ function db_diaNar() {
 				NS[$ global.radnm][$ K.BG0+K.SPR] = sprSylasOlderDark
 				NS[$ global.radnm][$ K.BG0+K.PMT] = 1/20
 				NS[$ global.radnm][$ K.BG0+K.WMT] = 1.3
-				NS[$ global.radnm][$ K.ANM+K.NXT] = global.beknm
+				NS[$ global.radnm][$ K.ANM+K.NXT] = global.visnm
 				NS[$ global.radnm][$ K.SND+K.PLY] = msxDarkCool
 				NS[$ global.radnm][$ K.SND+K.STP+K.END] = msxDarkCool
-				NS[$ global.radnm][$ 0] = "..."
-				NS[$ global.radnm][$ 1] = "this is silent 1..."
-				NS[$ global.radnm][$ 2] = "unwarped, scanning..."
-				NS[$ global.radnm][$ 3] = "..."
-				NS[$ global.radnm][$ 4] = "unreal..."
-				NS[$ global.radnm][$ 5] = "it's ancient..."
-				NS[$ global.radnm][$ 6] = "and- fucking massive..."
-				NS[$ global.radnm][$ 7] = "who built this..."
+				NS[$ global.radnm][$ 0] = "\"...\""
+				NS[$ global.radnm][$ 1] = "\"this is silent 1...\""
+				NS[$ global.radnm][$ 2] = "\"unwarped, scanning...\""
+				NS[$ global.radnm][$ 3] = "\"...\""
+				NS[$ global.radnm][$ 4] = "\"unreal...\""
+				NS[$ global.radnm][$ 5] = "\"it's ancient...\""
+				NS[$ global.radnm][$ 6] = "\"and- fucking massive...\""
 				
 			#endregion
 			
@@ -84,8 +83,8 @@ function db_diaNar() {
 				NS[$ global.beknm][$ K.BG0+K.SPR] = sprApproach
 				NS[$ global.beknm][$ K.ANM+K.NXT] = global.visnm
 				NS[$ global.beknm][$ K.SND+K.PLY] = msxDarkMid
-				NS[$ global.beknm][$ 0] = "Come"
-				NS[$ global.beknm][$ 1] = "Help us"
+				NS[$ global.beknm][$ 0] = "\'Come\'"
+				NS[$ global.beknm][$ 1] = "\'Help us\'"
 				
 			#endregion
 			
@@ -121,23 +120,23 @@ function db_diaNar() {
 			// The TV cuts into the news through from static as the broadcast is started
 			NS[$ global.nw1nm][$ K.NM] = "Hostess Alexandria"
 			NS[$ global.nw1nm][$ K.ACT] = ACTOR.ALEXANDRIA
-			NS[$ global.nw1nm][$ 0] = "I'm Alexandria, your hostess, from Sol's Nebula Relay."
-			NS[$ global.nw1nm][$ 1] = "The \"Solend's Prix\", is going to start soon."
-			NS[$ global.nw1nm][$ 2] = "A pool of the best pilots from various systems are gathering in the Solend system flight of their lives..."
-			NS[$ global.nw1nm][$ 3] = "*She pauses as if listening to a hidden voice and she gently clears her throat"
-			NS[$ global.nw1nm][$ 4] = "I just got word from my crew that the officials have finalized the course..."
-			NS[$ global.nw1nm][$ 5] = "The race, as the name suggests, will be start at the Solend System from the system's capital \"Gothica\"..."
-			NS[$ global.nw1nm][$ 6] = "From the furthest habitable system on the very edges of our Milkyway's Quandrant, back to humanity's cradle, here at Sol..." 
-			NS[$ global.nw1nm][$ 7] = "Racing through both known and unknown space the veteran pilots will be forced to navigate dangerous and hostile environments..."
-			NS[$ global.nw1nm][$ 8] = "It will be a long race with many challenges and while some of the competitors might have their eyes set on the one billion credit prize pool at the end..."
-			NS[$ global.nw1nm][$ 9] = "Many tune in throughout the galaxy in hopes that their system's pilot will win, and... Well..."
+			NS[$ global.nw1nm][$ 0] = "\"I'm Alexandria, your hostess, from Sol's Nebula Relay.\""
+			NS[$ global.nw1nm][$ 1] = "\"The \'Solend's Prix\', is going to start soon.\""
+			NS[$ global.nw1nm][$ 2] = "\"A pool of the best pilots from various systems are gathering in the Solend system for the flight of their lives...\""
+			NS[$ global.nw1nm][$ 3] = "*She pauses for a moment"
+			NS[$ global.nw1nm][$ 4] = "\"I just got word from my crew that the officials have finalized the course...\""
+			NS[$ global.nw1nm][$ 5] = "\"The race, as the name suggests, will be starting at the Solend System from the system's major city \'Gothica\'...\""
+			NS[$ global.nw1nm][$ 6] = "\"From the furthest habitable system on the very edges of our Milkyway's Quandrant, back to humanity's cradle, Sol...\"" 
+			NS[$ global.nw1nm][$ 7] = "\"Racing through both known and unknown space the veteran pilots will be forced to navigate dangerous and hostile environments...\""
+			NS[$ global.nw1nm][$ 8] = "\"It will be a long race with many challenges and while some of the competitors might have their eyes set on the one billion credit prize pool at the end...\""
+			NS[$ global.nw1nm][$ 9] = "\"Many tune in throughout the galaxy in hopes that their system's pilot will win, and... Well...\""
 			NS[$ global.nw1nm][$ 10] = "*She clears her throat quietly"
-			NS[$ global.nw1nm][$ 11] = "Secure the chance for their own system to recieve crucial aide and attention from Sol..."
-			NS[$ global.nw1nm][$ 12] = "Knowing this, each pilot, certainly feels the gravity of the stakes at play..."
-			NS[$ global.nw1nm][$ 13] = "It's a once in a lifetime oppurtunity, not only for the pilots, but the countless souls they represent..."
-			NS[$ global.nw1nm][$ 14] = "That is all for now, and we'd like to thank the sponsor of this event, \"Angel Investments\"..."
-			NS[$ global.nw1nm][$ 15] = "The best in helping humanity, safely, find new homes throughout the stars..."
-			NS[$ global.nw1nm][$ 16] =  "*She touches an interface in her desk and the stream ends..."
+			NS[$ global.nw1nm][$ 11] = "\"Secure the chance for their own system to recieve crucial aide and attention from the heart systems...\""
+			NS[$ global.nw1nm][$ 12] = "\"Knowing this, each pilot, certainly feels the gravity of the stakes at play...\""
+			NS[$ global.nw1nm][$ 13] = "\"It's a once in a lifetime oppurtunity, not only for the pilots, but the countless souls they represent...\""
+			NS[$ global.nw1nm][$ 14] = "\"That is all for now, and we'd like to thank the sponsor of this event, \'Angel Investments\'...\""
+			NS[$ global.nw1nm][$ 15] = "\"The best in helping humanity, safely, find new homes throughout the stars...\""
+			NS[$ global.nw1nm][$ 16] =  "*She waves a hand over her desk and the stream ends..."
 			
 		#endregion
 		
@@ -172,9 +171,9 @@ function db_diaNar() {
 			NS[$ global.amctr][$ K.BG0+K.SPR] = sprNA
 			NS[$ global.amctr][$ K.ACT] = ACTOR.FOX
 			NS[$ global.amctr][$ 0] = "[L.I.N.I Alert]\n\nNegative Feedback from the controller, terminating connection."
-			NS[$ global.amctr][$ 1] = "\"Careful, the controller sent an unexpected signal when we touched it so I disabled it."
-			NS[$ global.amctr][$ 2] = "Most devices are connected to the neb by default so are vulnerable to exploits from unknown actors"
-			NS[$ global.amctr][$ 2] = "If that's the case someone is already tracking us...\""
+			NS[$ global.amctr][$ 1] = "\"Careful, the controller sent an unexpected signal when we touched it so I disabled it.\""
+			NS[$ global.amctr][$ 2] = "\"Most devices are connected to the neb by default so are vulnerable to exploits from unknown actors.\""
+			NS[$ global.amctr][$ 3] = "\"If that's the case someone is already tracking us...\""
 			
 		#endregion
 		
@@ -254,16 +253,14 @@ function db_diaNar() {
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ K.TRG] = TRIGGER.START
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ K.ACT+K.LFT] = ACTOR.SYLAS
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ K.ACT+K.RHT] = ACTOR.FOX
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 0] = "*Jolting awake; felt like suddenly falling"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 0] = "*You jolt awake, it felt like you were suddenly falling"
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 1] = "\"fuck!\""
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 2] = "*Realizing you're in your assigned suite"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 2] = "*You remember you're in your assigned suite"
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 3] = "\"ugh... what the hell was that...\""
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 4] = "*Shaking off anxiety"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 4] = "*You mostly shake off the nightmare"
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 5] = V.RIGHT
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 6] = "[ L.I.N.I Prompt ]"
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 7] = "Look around the environment to find points of interest."
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 8] = "\"By the way,\n\nSylas is shaking off the nightmare and his state affects our ability to guide him."
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 9] = "Fortunately, our operator is exceptionally stable during critical moments.\""
 			
 		#endregion
 		
@@ -280,8 +277,6 @@ function db_diaNar() {
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 1] = "[ L.I.N.I Prompt ]"
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 2] = "Without wearing your E.A.F. you're missing several augmentations that aide in navigation."
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 3] = "Put on the E.A.F."
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 4] = "\"Also,\n\nI'm dependant on him, what happens to him happens to us..."
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 0][$ 5] = "So don't even think about sabotaging us...\""
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1] = {}
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.TRG] = TRIGGER.SUIT
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ K.ACT+K.LFT] = ACTOR.SYLAS
@@ -295,19 +290,18 @@ function db_diaNar() {
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6] = {}
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ K.INV+K.FLG] = [V.ANIM,global.nw1nm] // Must be false (this is a check whether it is done or not)
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 0] =  V.LEFT
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 1] = "*You refamiliarize yourself with the suit's systems despite knowing every part of it already..."
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 2] = "\"i should check to see if the neb has anything about the race tonight...\""
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 1] = "*You refamiliarize yourself with the suit's systems despite knowing every part of it."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 1][$ 6][$ 2] = "\"i should check to see if the neb has anything about the race.\""
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2] = {}
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.TRG] = TRIGGER.ANIM
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.LFT] = ACTOR.SYLAS
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ACT+K.RHT] = ACTOR.FOX
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ K.ANM] = global.nw1nm
 			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 0] = "\"there's plenty of time until the race...\""
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1] = "\"i need to get out of here before i lose my mind...\""
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2] = {}
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ K.INV+K.FLG] = V.SUIT // If the player isn't suited...
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ 0] = V.RIGHT
-			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 2][$ 1] = "[ L.I.N.I. Prompt ]\n\nOperator, please don your E.A.F. (Environmental Aegis Frame) before leaving the suite."
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1] = {}
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1][$ K.INV+K.FLG] = V.SUIT // If the player isn't suited...
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1][$ 0] = V.RIGHT
+			NS[$ SCENE.RESORT_SUITE][$ ACTOR.SYLAS][$ 2][$ 1][$ 1] = "[ L.I.N.I. Prompt ]\n\nOperator, please don your E.A.F. (Environmental Aegis Frame) before leaving the suite."
 			
 		#endregion
 		
@@ -533,11 +527,11 @@ function db_diaNar() {
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ K.ACT+K.RHT] = ACTOR.SYLAS
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 0] = V.NARRATOR_NONE // All Actors Inactive (For stuff like meta narrations...)
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 1] = "*You hear distant shouting, \"GET BACK!\""
-		  NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 2] = V.RIGHT
+		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 2] = V.RIGHT
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 3] = "Sounds like a fight outside..."
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 4] = V.LEFT
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 5] = "We should get going..."
-		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 6] = "A couple racers have already gotten targeted by local gangs already..."
+		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 6] = "A couple racers have gotten attacked by unknown assailants already..."
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 2][$ 7] = V.LINK_B
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 3] = {}
 		NS[$ SCENE.CLUB_BOOTH][$ ACTOR.SPITFIRE][$ 3][$ K.LNK] = V.LINK_B
@@ -797,7 +791,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.SPR] = sprBrothEnt
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.BROTH_ENT][$ K.ENV] = T
-			S[$ SCENE.BROTH_ENT][$ K.SCN+K.BLD] = color_make_rgb([192,192,192])
+			S[$ SCENE.BROTH_ENT][$ K.SCN+K.BLD] = color_make_rgb([255,160,160])
 			
 		#endregion
 		
@@ -811,7 +805,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_L1][$ K.BG0+K.SPR] = sprBrothL1
 			S[$ SCENE.BROTH_L1][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.BROTH_L1][$ K.ENV] = T
-			S[$ SCENE.BROTH_L1][$ K.SCN+K.BLD] = color_make_rgb([192,192,192])
+			S[$ SCENE.BROTH_L1][$ K.SCN+K.BLD] = color_make_rgb([255,160,160])
 			
 		#endregion
 		
@@ -825,7 +819,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_L2][$ K.BG0+K.SPR] = sprBrothL2
 			S[$ SCENE.BROTH_L2][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.BROTH_L2][$ K.ENV] = T
-			S[$ SCENE.BROTH_L2][$ K.SCN+K.BLD] = color_make_rgb([192,192,192])
+			S[$ SCENE.BROTH_L2][$ K.SCN+K.BLD] = color_make_rgb([255,160,160])
 			
 		#endregion
 		
@@ -906,16 +900,18 @@ function db_scn() {
 		#region Overlook
 			
 			S[$ SCENE.SPACEPORT_OVERLOOK] = {}
-			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BD0+K.SPR] = sprNA
-			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BD0+K.PMT] = 1
+			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BD0+K.SPR] = sprCitySky
+			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BD0+K.PMT] = 1/5
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.SPR] = sprPortOverlook
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L2+K.SPR] = sprScrapersFar
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L2+K.PMT] = 1/2
-			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L2+K.WMT] = 1.1
+			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L2+K.WMT] = -1.1
+			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L2+K.HMT] = 1.1
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L1+K.SPR] = sprScrapersClose
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L1+K.PMT] = 2/3
-			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L1+K.WMT] = 1.2
+			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L1+K.WMT] = -1.2
+			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.BG0+K.L1+K.HMT] = 1.2
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.ENV] = T
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.TRA+K.CNT] = 2
 			S[$ SCENE.SPACEPORT_OVERLOOK][$ K.TRA+K.XRG] = [-.2,1.2]

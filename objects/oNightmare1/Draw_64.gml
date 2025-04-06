@@ -10,6 +10,6 @@ if(!DBG.active or !DBG.nightSkip) {
 		
 	}
 	// diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and 
-	done = (diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and diaNar_done(NS[$ global.visnm]))
+	done = (diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.visnm]))
 
 } else done = T;

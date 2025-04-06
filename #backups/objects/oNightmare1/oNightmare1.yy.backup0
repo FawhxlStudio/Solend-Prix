@@ -1,4 +1,4 @@
-// 2025-03-10 23:06:21
+// 2025-04-05 02:35:11
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -34,7 +34,7 @@ if(!DBG.active or !DBG.nightSkip) {
 		
 	}
 	// diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and 
-	done = (diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.beknm]) and diaNar_done(NS[$ global.visnm]))
+	done = (diaNar_done(NS[$ global.tutnm]) and diaNar_done(NS[$ global.radnm]) and diaNar_done(NS[$ global.visnm]))
 
 } else done = T;
 

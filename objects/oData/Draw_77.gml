@@ -31,6 +31,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	isHvro = isHvr
 	isHvr = N
 	
+	// Button Hover (For UI SFX)
+	if(btnHvr and !btnHvr2) btnHvr = F;
+	btnHvr2 = F
+	
 #endregion
 
 #region Timers

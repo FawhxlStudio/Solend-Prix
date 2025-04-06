@@ -5,7 +5,7 @@ active = T
 edit = F
 editHelp = T
 console = F
-introSkip = T
+introSkip = F
 resetControl = T
 unstuck = T
 muted = F
@@ -13,7 +13,7 @@ envInvert = T
 diaDebug = F
 diaShortcut = F
 scnJump = T
-nightSkip = T
+nightSkip = F
 
 // Variables...
 diaPrev = N // For previewing dialogue that is available...

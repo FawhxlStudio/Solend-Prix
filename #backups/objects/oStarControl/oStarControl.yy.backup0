@@ -1,0 +1,64 @@
+// 2025-04-06 04:02:59
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Insert description here
+
+// Controls
+vel = 5
+dir = 180
+acc = 0.02
+pct = 0
+
+// Count Modulation
+baseCnt = 500*max(.8,WW/1920) // Based on 1920x1080/1200, Scales
+cntSini = random(360)
+cntSinv = 0.05
+cntSin  = -sin(degtorad(cntSini))
+cnt = round(baseCnt+(baseCnt*(cntSin/4)))
+
+// Init Star List
+for(var i = 0; i < cnt; i++) {
+    
+    var inst = instance_create_layer(random(WW),random(WH),"MG",oStar)
+    inst.par = id
+    
+}
+
+#event step Insert description here
+// You can write your code in this editor
+
+
+#event step_begin Insert description here
+// You can write your code in this editor
+
+baseCnt = 500*max(.8,WW/1920)
+cntSini+=cntSinv
+if(cntSini < 0) cntSini += 360;
+else if(cntSini >= 360) cntSini -= 360;
+cntSin  = -sin(degtorad(cntSini))
+cnt = round(baseCnt+(baseCnt*(cntSin/4)))
+
+#event step_end Insert description here
+// You can write your code in this editor
+
+
+#event draw Insert description here
+// You can write your code in this editor
+
+
+#event draw_begin Insert description here
+// You can write your code in this editor
+
+
+#event draw_end Insert description here
+// You can write your code in this editor
+
+
+#event draw_pre Insert description here
+// You can write your code in this editor
+
+
+#event draw_post Insert description here
+// You can write your code in this editor

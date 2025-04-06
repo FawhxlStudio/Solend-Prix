@@ -364,7 +364,7 @@ function fx_iter(struct) {
 					
 					if(lpct >= 1) {
 						
-						struct[$ "blendc"] = c.nr
+						blendc = c.nr
 						
 					}
 					if(li >= ld) li = 0;
@@ -386,25 +386,29 @@ function fx_iter(struct) {
 						// Init Surface
 						var surf = surface_create(WW,WH)
 						surface_set_target(surf)
-						
-						// Draw Darkness
-						shader_set(shTranGradientBlk)
-							draw_rectangle_color(0,0,WW,WH,c.nr,c.lr,c.nr,c.lr,F)
-						shader_reset()
-						
-						// Subtract from Darkness...
-						gpu_set_blendmode(bm_subtract)
-							draw_sprite_ext(sprCF2,0,xy[0],xy[1],1,1,rot,c.wht,.8)
-						gpu_set_blendmode(bm_normal)
-						
-						// Draw Surface
+							
+							#region Draw on Surface
+								
+								// Draw Darkness
+								shader_set(shTranGradientBlk)
+									draw_rectangle_color(0,0,WW,WH,c.nr,c.lr,c.nr,c.lr,F)
+								shader_reset()
+								
+								// Subtract from Darkness...
+								gpu_set_blendmode(bm_subtract)
+									draw_sprite_ext(spr,0,xy[0],xy[1],1,1,rot,c.wht,.8)
+								gpu_set_blendmode(bm_normal)
+								
+							#endregion
+							
+						// Close & Draw Surface
 						surface_reset_target()
 						draw_surface(surf,0,0)
 						surface_free(surf)
 						
 						// Add Color to below...
 						gpu_set_blendmode(bm_add)
-							draw_sprite_ext(sprCF2,0,xy[0],xy[1],1,1,rot,blendc,.8)
+							draw_sprite_ext(spr,0,xy[0],xy[1],1,1,rot,blendc,.8)
 						gpu_set_blendmode(bm_normal)
 						
 					}
@@ -462,25 +466,29 @@ function fx_pre(struct) {
 						// Init Surface
 						var surf = surface_create(WW,WH)
 						surface_set_target(surf)
-						
-						// Draw Darkness
-						shader_set(shTranGradientBlk)
-							draw_rectangle_color(0,0,WW,WH,c.lr,c.nr,c.lr,c.nr,F)
-						shader_reset()
-						
-						// Subtract from Darkness...
-						gpu_set_blendmode(bm_subtract)
-							draw_sprite_ext(sprCF2,0,xy[0]*.6,xy[1]*.6,1,1,rot,c.wht,2/3)
-						gpu_set_blendmode(bm_normal)
-						
-						// Draw Surface
+							
+							#region Surface Drawing
+								
+								// Draw Darkness
+								shader_set(shTranGradientBlk)
+									draw_rectangle_color(0,0,WW,WH,c.lr,c.nr,c.lr,c.nr,F)
+								shader_reset()
+								
+								// Subtract from Darkness...
+								gpu_set_blendmode(bm_subtract)
+									draw_sprite_ext(spr,0,xy[0]*.6,xy[1]*.6,1,1,rot,c.wht,2/3)
+								gpu_set_blendmode(bm_normal)
+								
+							#endregion
+							
+						// Closed & Draw Surface
 						surface_reset_target()
 						draw_surface(surf,0,0)
 						surface_free(surf)
 						
 						// Add Color to below...
 						gpu_set_blendmode(bm_add)
-							draw_sprite_ext(sprCF2,0,xy[0]*.6,xy[1]*.6,1,1,rot,blendc,.1)
+							draw_sprite_ext(spr,0,xy[0]*.6,xy[1]*.6,1,1,rot,blendc,.1)
 						gpu_set_blendmode(bm_normal)
 						
 					}
@@ -690,5 +698,16 @@ function set_scni(scni) {
 	}
 	
 	return F
+	
+}
+
+function round2(num,dec) {
+	
+	// Prepare Calc
+	var base = 1
+	repeat(dec) base = base*10
+	
+	// Return result
+	return round(num*base)/base
 	
 }

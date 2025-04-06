@@ -1,0 +1,367 @@
+// 2025-04-05 02:07:40
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create
+#region Global Variables
+	
+	// Init
+	game_state = GAME.INIT
+	diaParLst = ds_list_create()
+	diai = 0
+	animPlay = N
+	focus = N
+	focusL = N
+	focusR = N
+	focusM = N
+	fd = 4 // Frame Delay
+	
+	// Actor List
+	actorLst = ds_list_create()
+	
+	// Init Draw Olds; HVO,FO,AO,CO
+	draw_reset()
+	
+	// Images
+	// Sky
+	skyImg = instance_create_layer(0,0,"BG",oImage)
+	skyImg.persistent = T
+	
+	// Backdrop
+	bdImg = instance_create_layer(0,0,"BG",oImage)
+	bdImg.persistent = T
+	
+	// Background Layer 2
+	bgL2Img = instance_create_layer(0,0,"BG",oImage)
+	bgL2Img.persistent = T
+	
+	// Background Layer 1
+	bgL1Img = instance_create_layer(0,0,"BG",oImage)
+	bgL1Img.persistent = T
+	
+	// Background
+	bgImg = instance_create_layer(0,0,"BG",oImage)
+	bgImg.persistent = T
+	
+	// Middleground
+	mgImg = instance_create_layer(0,0,"MG",oImage)
+	mgImg.persistent = T
+	
+	// Char L
+	actorLeft = N
+	// Char R
+	actorRight = N
+	
+	// Foreground
+	fgImg = instance_create_layer(0,0,"FG",oImage)
+	fgImg.persistent = T
+	
+	// Global Factors
+	wref = max(1,bgImg.sprite_width)
+	href = max(1,bgImg.sprite_height)
+	bgmxpct = MX/wref
+	bgmypct = MY/href
+	mwref = 1
+	mhref = 1
+	bgdltx = 1
+	bgdlty = 1
+	if(bbox_sanity(bgImg)) {
+		
+		mwref = max(1,bgImg.bbox_right)
+		mhref = max(1,bgImg.bbox_bottom)
+		bgdltx = bgImg.bbox_left
+		bgdlty = bgImg.bbox_top
+		
+	}
+	
+#endregion
+
+#region Gameplay Globals
+	
+	// Zoom
+	zmn = 1.05
+	z   = zmn
+	zmx = 1.15
+	zoomed = F
+	zo = zmn
+	
+	// Hover
+	isHvr = N
+	isHvro = N
+	hvrDel = GSPD/2
+	hvrDeli = 0
+	hvrPct = 0
+	btnHvr = F
+	btnHvr2 = F
+	
+	// Overrides
+	ctrlOverride = F
+	
+	// circs
+	circ1 = 0
+	circ1i = 0
+	circ1iv = 0
+	circ2 = 0
+	circ2i = 0
+	circ2iv = 0
+	circ3 = 0
+	circ3i = 0
+	circ3iv = 0
+	
+	// Timers
+	// Normal ( -> Runtime)
+	fr = 0
+	sc = 0
+	mn = 0
+	hr = 0
+	// States; Randomized Start
+	frs = chance(50)
+	scs = chance(50)
+	mns = chance(50)
+	hrs = chance(50)
+	
+#endregion
+
+#region Dialogue Globals
+	
+	diaOverride = F
+	diaZmn = 1
+	diaZmx = 1.2
+	diaDel = GSPD
+	diaDeli = 0
+	diaDelPct = 0
+	diaDeli2 = 0
+	diaDelPct2 = 0
+	diaSpeaker = N
+	diaNestLst = ds_list_create()
+	diaTranDel = GSPD*(2/3)
+	diaTranDeli = 0
+	diaTranPct = 0
+	diaSoftClose = F
+	diad = 0
+	diaNestDir = T // T == Into Nest, F == Out of Nest
+	diaContinue = F
+	diaLnkA = N
+	diaLnkB = N
+	diaLnkC = N
+	diaLnkD = N
+	diaLnkE = N
+	diaAnimTo = N
+	diaTrigi = 0
+	diaEnter = F
+	diaDone = F
+	diaDly = GSPD*2
+	diaI = 0
+	diaPct = 0
+	diaInstArr = N // Array to hold instance vars (i.e. [actor id, image] to transition to) ([Inst]ance [Arr]ay)
+	diaImn = 0
+	diaImx = diaDly
+	diaInstRpt = N
+	diaLBDrawn = F
+	
+#endregion
+
+#region Scene Globals
+	
+	scni         = -1
+	scene_state  = GAME.INIT
+	scnBlend1    = c.wht
+	scnBlend2    = c.wht
+	scnBlend3    = c.wht
+	scnLight     = N
+	scnBlendDel  = GSPD/4
+	scnBlendDeli = 0
+	scnBlendPct  = 0
+	
+#endregion
+
+#region Scene Struct
+	
+	#macro S global.scene_struct
+	S = {}
+	
+	// Array to Fetch Sprites w/
+	fetchArr = [sprSylas1,sprSylas2,sprSylas3,sprSylas4,sprSylasBod,sprSylasBod2,sprSpitfire1,sprSpitfire2,sprSpitfireBod]
+	
+	// Init Scene Struct
+	db_scn()
+	
+#endregion
+
+#region Narrative Struct WIP
+	
+	#region Init
+		
+		#macro NS global.narrative_struct
+		NS = {}
+		NS[$ K.I] = 0
+		NS[$ K.CAR] = 0
+		NS[$ K.CAR+K.DL] = GSPD*.2
+		NS[$ K.CAR+K.DLI] = 0
+		
+	#endregion
+	
+	// Init Narrative Struct
+	db_diaNar()
+	
+#endregion
+
+#region Contextuals Map
+	
+	#macro CM global.contextuals_map
+	CM = U
+	db_context()
+	cmHvr = F
+	
+#endregion
+
+#region Init Char List
+	
+	db_act()
+	
+#endregion
+
+#event step Live Update
+
+
+#event step_begin Factor Updates
+try {
+	
+	// GMLive Call
+	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
+} catch(_ex) { /* GMLive not available? */ }
+#region Other Updates
+	
+	#region Scene Blend
+		
+		// Init
+		var rgb1 = color_get_rgb(scnBlend1)
+		var rgb2 = color_get_rgb(scnBlend2)
+		var rgb3 = rgb1
+		
+		// Do blend changing?
+		if(scnBlend1 != scnBlend2 and scnBlendDeli < scnBlendDel) {
+			
+			// Color Calc...
+			rgb3[0] = lerp(rgb1[0],rgb2[0],scnBlendPct)
+			rgb3[1] = lerp(rgb1[1],rgb2[1],scnBlendPct)
+			rgb3[2] = lerp(rgb1[2],rgb2[2],scnBlendPct)
+			scnBlend3 = color_make_rgb(rgb3)
+			
+			// Iterate Scene Blend Change...
+			scnBlendDeli = clamp(scnBlendDeli+1,0,scnBlendDel)
+			scnBlendPct = scnBlendDeli/scnBlendDel
+			
+			
+		} else {
+			
+			// Finalize/Reset
+			scene_set_blend(scnBlend2)
+			scnBlendDeli = 0
+			scnBlendPct = 0
+			
+		}
+		
+	#endregion
+	
+	#region Global Relative Draw Vars
+		
+		wref = max(1,bgImg.sprite_width)
+		href = max(1,bgImg.sprite_height)
+		mwref = 1
+		mhref = 1
+		if(bbox_sanity(bgImg)) {
+			
+			mwref = max(1,bgImg.bbox_right)
+			mhref = max(1,bgImg.bbox_bottom)
+			bgmxpct = MX/mwref
+			bgmypct = MY/mhref
+			bgdltx = bgImg.bbox_left
+			bgdlty = bgImg.bbox_top
+			
+		}
+		
+	#endregion
+	
+#endregion
+
+#event step_end Insert description here
+// You can write your code in this editor
+
+
+#event draw_pre Insert description here
+// You can write your code in this editor
+
+
+#event draw_post Global Logic Updates Updates
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+#region Control Override
+	
+	if(!ds_list_empty(diaParLst) or animPlay != N or focus != N) ctrlOverride = T;
+	else ctrlOverride = F;
+	
+#endregion
+
+#region Frame Delay
+	
+	if(fd > 0) fd = clamp(fd-1,0,GSPD);
+	
+#endregion
+
+#region Hover Iteration
+	
+	if(isHvr) {
+		
+		// Iterate
+		if(hvrDeli < hvrDel) hvrDeli = clamp(hvrDeli+1,0,hvrDel);
+		hvrPct = hvrDeli/hvrDel
+		
+	} else {
+		
+		// De-Iterate
+		if(hvrDeli > 0) max(0,hvrDeli--)
+		hvrPct = hvrDeli/hvrDel
+		
+	}
+	isHvro = isHvr
+	isHvr = N
+	
+	// Button Hover (For UI SFX)
+	if(btnHvr and !btnHvr2) btnHvr = F;
+	btnHvr2 = F
+	
+#endregion
+
+#region Timers
+	
+	// Frame
+	fr++
+	frs = !frs
+	if(fr >= GSPD) {
+		
+		// Second
+		fr = 0
+		sc++
+		scs = !scs
+		if(sc >= 60) {
+			
+			// Minute
+			sc = 0
+			mn++
+			mns = !mns
+			if(mn >= 60) {
+				
+				// Hour
+				mn = 0
+				hr++
+				hrs = !hrs
+				
+			}
+			
+		}
+		
+	}
+	
+#endregion
