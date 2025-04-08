@@ -23,7 +23,7 @@
   ],
   "name":"sprPix",
   "nineSlice":null,
-  "origin":0,
+  "origin":4,
   "parent":{
     "name":"FX",
     "path":"folders/Sprites/FX.yy",

@@ -1,29 +1,51 @@
-// 2025-04-06 04:02:59
+// 2025-04-08 05:13:04
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
+persistent = true;
 uses_physics = false;
 
 #event create Insert description here
 
 // Controls
-vel = 5
-dir = 180
-acc = 0.02
+velTgt = 0
+vel = 0
+dir = 0
+acc = 0.001
 pct = 0
 
 // Count Modulation
 baseCnt = 500*max(.8,WW/1920) // Based on 1920x1080/1200, Scales
 cntSini = random(360)
 cntSinv = 0.05
-cntSin  = -sin(degtorad(cntSini))
+cntSin  = cos(degtorad(cntSini))
 cnt = round(baseCnt+(baseCnt*(cntSin/4)))
+
+// Asset Lists
+novL = ds_list_create()
+novCnt = irandom(2)
+galL = ds_list_create()
+galCnt = irandom_range(1,7)
 
 // Init Star List
 for(var i = 0; i < cnt; i++) {
     
+    // Create Inst
     var inst = instance_create_layer(random(WW),random(WH),"MG",oStar)
     inst.par = id
     
+    if(ds_list_size(galL) < galCnt) {
+        
+        // Galaxy Asset
+        ds_list_add(galL,inst)
+        with(inst) pick_galaxy_asset();
+        
+    } else if(ds_list_size(novL) < novCnt) {
+        
+        // Nova Asset
+        ds_list_add(novL,inst)
+        with(inst) pick_nova_asset();
+        
+    }
 }
 
 #event step Insert description here
@@ -33,11 +55,16 @@ for(var i = 0; i < cnt; i++) {
 #event step_begin Insert description here
 // You can write your code in this editor
 
+// Velocity Change
+if(vel < velTgt) vel = clamp(vel+acc,0,velTgt);
+else if(vel > velTgt) vel = clamp(vel-acc,velTgt,vel);
+
+// Count + Modulation
 baseCnt = 500*max(.8,WW/1920)
 cntSini+=cntSinv
 if(cntSini < 0) cntSini += 360;
 else if(cntSini >= 360) cntSini -= 360;
-cntSin  = -sin(degtorad(cntSini))
+cntSin  = cos(degtorad(cntSini))
 cnt = round(baseCnt+(baseCnt*(cntSin/4)))
 
 #event step_end Insert description here

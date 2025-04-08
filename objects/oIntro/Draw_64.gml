@@ -8,12 +8,58 @@ var ao = draw_get_alpha()
 if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
 var _pctin = fadeIni/fadeIn
 
+// Planet
+if(_pctin >= 1 and objTheia == N) {
+	
+	objTheia = instance_create_layer(WW,WH/2,"FG",oStar)
+	objTheia.sprite_index = theia
+	objTheia.scl = (WH*(2/3))/sprite_get_height(theia)
+	objTheia.flick = F
+	objTheia.par = stars
+	objTheia.pct = 1
+	objTheia.rot = 0
+	objTheia.x = WW+((sprite_get_width(theia)*objTheia.scl)/1)
+	
+	objGas = instance_create_layer(WW,WH/3,"FG",oStar)
+	objGas.sprite_index = gas
+	objGas.scl = (WH*(1+(1/2)))/sprite_get_height(gas)
+	objGas.flick = F
+	objGas.par = stars
+	objGas.pct = 1
+	objGas.rot = 0
+	objGas.x = WW+((sprite_get_width(gas)*objGas.scl)/1.8)
+	objGas.sprHFlip = T
+	
+	objsInit = T
+	
+	stars.velTgt = .2
+	
+}
+
+if(instance_exists(objTheia) and objTheia.x < WW*2/3 and objsInit and stars.velTgt != .02) stars.velTgt = .01;
+if(instance_exists(objTheia) and objTheia.x < WW*1/2 and objsInit and stars.velTgt != .3 ) stars.velTgt = .3;
+if(!instance_exists(objTheia) and !instance_exists(objGas) and objsInit and stars.velTgt != 10) {
+	
+	stars.acc = .01
+	stars.velTgt = 10
+	theiaDone = T
+	
+}
+
+if(theiaDone and !instance_exists(objTheia) and !instance_exists(objGas)) {
+	
+	if(gothDel1i < gothDel1) gothDel1i = clamp(gothDel1i+1,0,gothDel1);
+	var _goth1 = gothDel1i/gothDel1
+	stars.dir = lerp(180,100,_goth1)
+	
+}
+
 // Delay...
 if(_pctin >= 1 and deli < del) deli = clamp(deli+1,0,del);
 var _pctdel = deli/del
 
 // Change Room (When Delay is Done)
-if(_pctdel >= 1 and room != rGame) {
+if(_pctin >= 1 and room != rGame) {
 	
 	set_scni(SCENE.RESORT_BED)
 	room_goto(rGame)

@@ -10,8 +10,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			#region Init
 				
 				// Play BGM
-				if(!audio_is_playing(msxDefault) and is(introInst))
-					msx = audio_play_sound_on(envEmt,msxDefault,T,0,0);
+				if(!audio_is_playing(msxDefault))
+					msx = audio_play_sound_on(bgmEmt,msxDefault,T,0,0);
 				
 				// Clears all dialogue control variables to default
 				diaNar_reset()
@@ -287,12 +287,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Fade-In BGM
 			
-			if(audio_is_playing(msxDefault) and is(msx) and is(introInst)) {
-				
-				if(audio_sound_get_gain(msx) == 0 and introInst.del <= 0)
-					audio_sound_gain(msx,.1,10*1000);
-				
-			}
+			if(audio_is_playing(msxDefault) and audio_sound_get_gain(msx) == 0) audio_sound_gain(msx,audio_emitter_get_gain(bgmEmt),10*1000);
 			
 		#endregion
 		

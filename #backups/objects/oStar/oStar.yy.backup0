@@ -1,60 +1,97 @@
-// 2025-04-06 04:01:44
+// 2025-04-08 05:12:56
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = sprPix;
+persistent = true;
 uses_physics = false;
 
-#event create Insert description here
-// You can write your code in this editor
+#event create Init
 
 // Basics
+draw = F
 par = N
+flick = F
 flickPct = random_range(0.9,1.1)
 pct = random(1)
 rot = random(360)
-rotv = random_range(-.05,05)
 scl = N
-if(pct >= 1 and chance(50)) sprite_index = sprStar;
+nova = random_range(1/3,2/3)
+isChild = F
+isNova = N
+isGalaxy = N
+isStar = N
+if(chance(1)) flick = T;
+sprHFlip = F
+if(pct >= .99 and chance(50)) pick_star_asset();
+else if(pct >= 1/3 and pct <= 2/3 and chance(1)) pick_nova_asset();
+else if(pct <= .1 and chance(.1)) pick_galaxy_asset();
+vmlt = random_range(2,4)
 
 #event destroy Spawn/Respawn
 
 if(par != N and instance_exists(par)) {
     
-    var _rep = 0
-    if(instance_number(object_index) < par.cnt) _rep = 1;
+    // Remove Galaxy from Parent's List
+    if(isGalaxy) {
+        
+        for(var i = 0; i < ds_list_size(par.galL); i++) {
+            
+            if(par.galL[|i] == id) ds_list_delete(par.galL,i);
+            
+        }
+        
+    }
     
-    if(x < -sprite_width and (par.dir > 90 or par.dir < 270)) {
+    // Remove Nova from Parent's List
+    if(isNova) {
+        
+        for(var i = 0; i < ds_list_size(par.novL); i++) {
+            
+            if(par.novL[|i] == id) ds_list_delete(par.novL,i);
+            
+        }
+        
+    }
+    
+    var _rep = 1
+    var _aw = abs(sprite_width)
+    var _ah = abs(sprite_height)
+    if(instance_number(oStar) < par.cnt) _rep = 2;
+    
+    if(x < -_aw and (par.dir >= 90 or par.dir <= 270)) {
         
         repeat(_rep) {
             
-            var inst = instance_create_layer(WW+sprite_width,random(WH),layer,object_index)
+            var inst = instance_create_layer(WW+_aw,random(WH),"MG",oStar)
             inst.par = par
             
         }
         
-    } else if(x > WW+sprite_width and (par.dir < 90 or par.dir > 270)) {
+    } else if(x > WW+_aw and (par.dir <= 90 or par.dir >= 270)) {
         
         repeat(_rep) {
             
-            var inst = instance_create_layer(-sprite_width,random(WH),layer,object_index)
+            var inst = instance_create_layer(-_aw,random(WH),"MG",oStar)
             inst.par = par
             
         }
         
-    } else if(y < -sprite_height and (par.dir > 0 and par.dir < 180)) {
+    }
+    
+    if(y < -_ah and (par.dir >= 0 and par.dir <= 180)) {
         
         repeat(_rep) {
             
-            var inst = instance_create_layer(random(WW),WH+sprite_height,layer,object_index)
+            var inst = instance_create_layer(random(WW),WH+_ah,"MG",oStar)
             inst.par = par
             
         }
         
-    } else if(y > WH+sprite_height and (par.dir > 180 and par.dir < 360)) {
+    } else if(y > WH+_ah and (par.dir >= 180 and par.dir <= 360)) {
         
         repeat(_rep) {
             
-            var inst = instance_create_layer(random(WW),-sprite_height,layer,object_index)
+            var inst = instance_create_layer(random(WW),-_ah,"MG",oStar)
             inst.par = par
             
         }
@@ -67,28 +104,90 @@ if(par != N and instance_exists(par)) {
 // You can write your code in this editor
 
 
-#event step_begin Updates
+#event step_begin Position Updates
 
-// Rotation Iterate
-rot+=rotv
-if(rot < 0) rot+=360;
-else if(rot >= 360) rot-=360;
+// Rotation
+image_angle = rot
+
+// Alpha/Flicker
+if(flick) {
+    
+    if(par != N and instance_exists(par)) image_alpha = (lerp(.8,1,pct)*random(flickPct))*par.pct;
+    else image_alpha = (lerp(.8,1,pct)*random(flickPct));
+    
+} else {
+    
+    if(par != N and instance_exists(par)) image_alpha = (lerp(.8,1,pct))*par.pct;
+    else image_alpha = lerp(.8,1,pct);
+    if(isGalaxy or isNova) image_alpha = nova;
+    
+}
+
+// Scale
+if(scl == N) {
+    
+    if(isStar) scl = random_range(((WH*.01)/sprite_get_height(sprite_index))*2/3,((WH*.01)/sprite_get_height(sprite_index))*(1+(1/3)));
+    else if(isNova) scl = random_range(((WW)/sprite_get_width(sprite_index))*(1+(1/3)),((WW)/sprite_get_width(sprite_index))*(1+(2/3)));
+    else if(isGalaxy) scl = random_range(((WW*0.05)/sprite_get_width(sprite_index))*2/3,((WW*0.2)/sprite_get_width(sprite_index))*(1+(1/3)));
+    else scl = max(1,4*pct);
+    if(isStar or isNova or isGalaxy) depth*=2-scl;
+    image_xscale = scl
+    if(sprHFlip) image_xscale*=-1;
+    image_yscale = scl
+    var _pad = max(sprite_width,sprite_height)
+    if(x > WW) x = WW+_pad;
+    else if(x < 0) x = -_pad;
+    if(y > WH) y = WH+_pad;
+    else if(y < 0) y = -_pad;
+    
+    // Track or Destroy Nova (Full?)
+    if(isNova and is(par) and ds_list_size(par.novL) < 2) ds_list_add(par.novL,id);
+    else if(isNova and is(par)) instance_destroy(id,F);
+    
+    // Track or Destroy Galaxy (Full?)
+    if(isGalaxy and is(par) and ds_list_size(par.galL) < 7) ds_list_add(par.galL,id);
+    else if(isGalaxy and is(par)) instance_destroy(id,F);
+    
+} else {
+    
+    image_xscale = scl
+    if(sprHFlip) image_xscale*=-1;
+    image_yscale = scl
+    
+}
 
 // Velocity
 if(par != N and instance_exists(par)) {
     
+    // Set Child Flag
+    isChild = T
+    
+    var _vel = par.vel
+    if(isStar) _vel*=vmlt;
+    if(sprite_index == sprPlanetTheiaGas) _vel*=6+vmlt
+    if(sprite_index == sprPlanetTheia) _vel*=10+vmlt
+    if(isGalaxy) _vel*=scl;
+    
     // Position Iterate
-    x += ( cos(degtorad(par.dir))*par.vel)*pct
-    y += (-sin(degtorad(par.dir))*par.vel)*pct
+    if(draw) {
+        
+        x += ( cos(degtorad(par.dir))*_vel)*pct
+        y += (-sin(degtorad(par.dir))*_vel)*pct
+        
+    }
     
     // Respawn?
-    var _res = (par.cnt < instance_number(object_index))
-    if(x < -sprite_width and (par.dir > 90 or par.dir < 270)) instance_destroy(id,_res);
-    else if(x > WW+sprite_width and (par.dir < 90 or par.dir > 270)) instance_destroy(id,_res);
-    else if(y < -sprite_height and (par.dir > 0 and par.dir < 180)) instance_destroy(id,_res);
-    else if(y > WH+sprite_height and (par.dir > 180 and par.dir < 360)) instance_destroy(id,_res);
+    var _res = (par.cnt > instance_number(oStar) and sprite_index == sprPix)
+    var _aw = abs(sprite_width)
+    var _ah = abs(sprite_height)
+    if(x < -_aw and (par.dir >= 90 or par.dir <= 270)) instance_destroy(id,_res or isGalaxy or isNova);
+    else if(x > WW+_aw and (par.dir <= 90 or par.dir >= 270)) instance_destroy(id,_res or isGalaxy or isNova);
+    if(y < -_ah and (par.dir >= 0 and par.dir <= 180)) instance_destroy(id,_res or isGalaxy or isNova);
+    else if(y > WH+_ah and (par.dir >= 180 and par.dir <= 360)) instance_destroy(id,_res or isGalaxy or isNova);
     
-}
+} else if(isChild) instance_destroy(id,F); // Destroy cause the parent is gone now
+
+draw = T
 
 #event step_end Insert description here
 // You can write your code in this editor
@@ -102,20 +201,17 @@ if(par != N and instance_exists(par)) {
 // You can write your code in this editor
 
 
-#event draw_end Insert description here
-// You can write your code in this editor
-draw_self()
+#event draw_gui_end Draw
+if(draw) {
+    
+    if(isStar or isNova or isGalaxy) shader_set(shDiscardBlk);
+    draw_self()
+    shader_reset()
+    
+}
 
-#event draw_pre Insert description here
-// You can write your code in this editor
+#event draw_pre Unused
 
-// Draw Updates
-if(par != N and instance_exists(par)) image_alpha = (pct*random(flickPct))*par.pct;
-else image_alpha = (pct*random(flickPct));
-if(sprite_index == sprStar and scl == N) scl = random_range(2/3,1+(1/3));
-else if(scl == N) scl = max(1,4*pct);
-image_xscale = scl
-image_yscale = scl
 
 #event draw_post Insert description here
 // You can write your code in this editor
