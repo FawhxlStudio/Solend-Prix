@@ -207,6 +207,9 @@ function _init() {
 			VIRAL,
 			RANDOM,
 			ROSNA,
+			STATIC,
+			UNKNOWN_MALE,
+			UNKNOWN_FEMALE,
 			LAST
 			
 		}
@@ -221,8 +224,11 @@ function _init() {
 			"UNKNOWN",
 			"UNKNOWN",
 			"UNKNOWN",
-			"UNKNOWN",
+			"RANDOM",
 			"ROSNA",
+			"STATIC",
+			"UNKNOWN",
+			"UNKNOWN",
 			"LAST"
 			
 		]
@@ -439,10 +445,11 @@ function _init() {
 			INV:"!",
 			// Parent
 			NM:"name",
+			FNM:"firstName",
+			LNM:"lastName",
 			SX:"sex",
 			ACT:"actor",
 			ATN:"action",
-			KNW:"know",
 			BR:"branch",
 			OPT:"option",
 			FLG:"flag",
@@ -486,6 +493,7 @@ function _init() {
 			// Hybrid Child
 			I:"_iterator",
 			IO:"_iteratorOld",
+			KNW:"_known",
 			// Child
 			L1:"_layer1",
 			L2:"_layer2",
@@ -535,7 +543,7 @@ function _init() {
 			envVol = 2/3
 			sfxVol = 2/3
 			bgmVol = 2/3
-			guiVol = 1/3
+			guiVol = 1/2
 			
 			// Init Master Gain
 			audio_master_gain(masterVol)

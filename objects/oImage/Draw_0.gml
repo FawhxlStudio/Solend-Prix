@@ -85,7 +85,7 @@ if(D.game_state == GAME.PLAY
 						#region Pseudo-Destroy (Reset, hidden and defaulted)
 							
 							P.suited   = T
-							P.suitInst = N
+							P.suitCrateInst = N
 							reset_image()
 							
 						#endregion

@@ -61,7 +61,7 @@
 						draw_set_alpha(ao)
 						var rtn = button_action(actn)
 						// Confirm SFX
-						if(rtn and !audio_is_playing(sfxUIConfirm)) audio_play_sound_on(guiEmt,sfxUIConfirm,F,2,1,0,random_range(.95,1.05));
+						if(rtn and !audio_is_playing(sfxUIConfirm)) audio_play_sound_on(guiEmt,sfxUIConfirm,F,2,2,0,random_range(.95,1.05));
 						return rtn
 						
 					}
@@ -97,7 +97,7 @@
 						
 						if(D.game_state == GAME.MENU) {
 							
-							audio_stop_all()
+							if(!audio_is_playing(msxDefault)) audio_stop_all();
 							if(!audio_is_playing(sfxCinemaBoom)) audio_play_sound_on(sfxEmt,sfxCinemaBoom,F,1,1);
 							M.introInst = instance_create_layer(0,0,"GUI",oIntro)
 							
@@ -173,19 +173,26 @@
 						and WMY > xy[1]-5 and WMY < xy[3]+5
 						and enabled) {
 						
+						D.btnHvr2 = T
+						// Hover SFX
+						if(!D.btnHvr and !audio_is_playing(sfxUIHover)) {
+							
+							D.btnHvr = T
+							audio_play_sound_on(guiEmt,sfxUIHover,F,2,1,0,random_range(.95,1.05))
+							
+						}
+						
 						// Draw
 						if(MBL) draw_set_alpha(fgc[0]*(1/2))
 						else draw_set_alpha(fgc[0])
 						draw_rectangle_color(xy[0],xy[1],x2,xy[3],fgc[1],fgc[2],fgc[3],fgc[4],false)
 						
+						var vo = v
 						// Update Val
 						if(MBL) {
 							
 							var xpct = round2((WMX-xy[0]+adj)/(xy[2]-xy[0]+adj),dec)
-							var vo = v
 							v = clamp(round2(vmx*xpct,dec),vmn,vmx)
-							// Slider Click SFX
-							if(v != vo and !audio_is_playing(sfxUIClick)) audio_play_sound_on(guiEmt,sfxUIClick,F,2,1,0,random_range(.95,1.05));
 							if(abs(v - round(v)) <= 0.05) v = clamp(round(v),vmn,vmx)
 							
 						}
@@ -197,6 +204,8 @@
 						draw_set_valign(fa_top)
 						if(sym == "%") draw_text_color(x2,xy[3],string("{0}{1}",v*100,sym),fgc[1],fgc[2],fgc[3],fgc[4],a);
 						else draw_text_color(x2,xy[3],string("{0}{1}",v,sym),fgc[1],fgc[2],fgc[3],fgc[4],a);
+						// Slider Click SFX
+						if(v != vo and !audio_is_playing(sfxUIClick)) audio_play_sound_on(guiEmt,sfxUIClick,F,2,1,0,random_range(.95,1.05));
 						
 					} else {
 						

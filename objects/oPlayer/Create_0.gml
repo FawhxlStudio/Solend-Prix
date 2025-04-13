@@ -1,37 +1,85 @@
 /// @description Init
 
-// Vars
-suited = F
-suitedo = F
-head = sprSylas4
-headPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
-body = sprSylasBod2
-bodyPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
-suitSpr = sprContainer
-suitInst = N
-diaSpr = N
-diaSprPol = 1
-sprFlipH = F
-sprFlipV = F
-flipDel = GSPD
-flipHi = 0
-flipVi = 0
-font1 = fSylas
-font2 = fEmoteMale
-col = [1,c.nb,c.nb,c.lb,c.lb]
-party = ds_list_create()
-uid = ACTOR.SYLAS
-spkr = F
-spkro = F
-sprPolo = N
+#region Essential & Flags
+	
+	// Essential
+	uid = ACTOR.SYLAS
+	col = [1,c.nb,c.nb,c.lb,c.lb]
+	
+	// Suit
+	suited = F
+	suitedo = F
+	
+	// Dialogue Speaker
+	spkr = F
+	spkro = F
+	
+#endregion
 
-#region Dialogue
+#region Asset Vars
+	
+	// Face
+	imgFace = sprSylas
+	imgFacePol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+	
+	// Suit
+	imgSuit = sprSylasSuit
+	imgSuitPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+	
+	// Suit (Back)
+	imgSuitBack = sprNA
+	imgSuitBackPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+	
+	// Suit (Crate)
+	imgSuitCrate = sprSuitCrate
+	suitCrateInst = N // Instance for Suit Crate
+	
+	// Dialogue
+	imgDia = N
+	imgDiaPol = 1
+	
+#endregion
+
+#region Flip Vars
+	
+	// Flags
+	sprFlipH = F
+	sprFlipV = F
+	
+	// Iterator
+	flipDel = GSPD
+	flipHi = 0
+	flipVi = 0
+	
+	// Old Polarity
+	imgPolOld = N // Need to know the old polarity while flipping
+	
+#endregion
+
+#region Char Fonts
+	
+	font1 = fSylas // Dialogue
+	font2 = fEmoteMale // Emote
+	
+#endregion
+
+#region Party List (List of Actors in Player's Party, Includes Player)
+	
+	party = ds_list_create()
+	
+#endregion
+
+#region Dialogue Info
 	
 	diai = 0
 	dia = {}
-	dia[$ K.NM] = "Sylas"
+	dia[$ K.NM] = "Pilot"
+	dia[$ K.FNM] = "Sylas"
+	dia[$ K.LNM] = "Praey"
 	dia[$ K.SX] = SEX.MALE
-	dia[$ K.KNW] = F
+	dia[$ K.KNW] = T
+	dia[$ K.FNM+K.KNW] = T
+	dia[$ K.LNM+K.KNW] = T
 	dia[$ K.I] = 0
 	dia[$ K.CAR] = 0
 	dia[$ K.CAR+K.DL] = GSPD*.2

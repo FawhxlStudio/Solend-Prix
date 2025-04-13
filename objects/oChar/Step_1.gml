@@ -13,16 +13,16 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				if(flipHi == 0) {
 					
 					// Set Polairty Old
-					if is(diaSpr) sprPolo = diaSprPol;
-					else if(suited) sprPolo = bodyPol;
-					else sprPolo = headPol;
+					if is(imgDia) imgPolOld = imgDiaPol;
+					else if(suited) imgPolOld = imgSuitPol;
+					else imgPolOld = imgFacePol;
 					
-				} else if(sprPolo != N) {
+				} else if(imgPolOld != N) {
 					
 					// Apply Transistion
-					if is(diaSpr) diaSprPol = lerp(sprPolo*-1,sprPolo,cos(degtorad(180*(flipHi/flipDel))/2));
-					else if(suited) bodyPol = lerp(sprPolo*-1,sprPolo,cos(degtorad(180*(flipHi/flipDel))/2));
-					else headPol = lerp(sprPolo*-1,sprPolo,cos(degtorad(180*(flipHi/flipDel))/2));
+					if is(imgDia) imgDiaPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+					else if(suited) imgSuitPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+					else imgFacePol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
 					
 				}
 				

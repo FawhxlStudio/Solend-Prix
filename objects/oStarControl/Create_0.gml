@@ -6,6 +6,7 @@ vel = 0
 dir = 0
 acc = 0.001
 pct = 0
+velOverride = F
 
 // Count Modulation
 baseCnt = 500*max(.8,WW/1920) // Based on 1920x1080/1200, Scales
@@ -16,7 +17,7 @@ cnt = round(baseCnt+(baseCnt*(cntSin/4)))
 
 // Asset Lists
 novL = ds_list_create()
-novCnt = irandom(2)
+novCnt = irandom(4)
 galL = ds_list_create()
 galCnt = irandom_range(1,7)
 

@@ -6,7 +6,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	if(D.game_state == GAME.MENU and DBG.introSkip) {
 		
 		set_scni(SCENE.RESORT_BED)
-		audio_stop_all()
+		if(!audio_is_playing(msxDefault)) audio_stop_all();
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
 		room_goto(rGame)
@@ -17,7 +17,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #region Dialogue Logic
 	
-	if(!ds_list_empty(D.diaParLst) and !D.diaOverride
+	if(!ds_list_empty(D.diaParL) and !D.diaOverride
 		and D.fd <= 0 and !TRAN.override) {
 		
 		#region Init Parent Dialogue if we haven't (Based on Focuses being noone or not)
@@ -25,7 +25,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			#region Init
 				
 				// Get Dialogue Array [ 0:actor_uid , 1:dia_instance ]..
-				var e = D.diaParLst[|0]
+				var e = D.diaParL[|0]
 				
 				// Set Control Override
 				D.ctrlOverride = T
@@ -69,14 +69,14 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							} else {
 								
 								if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-								ds_list_delete(D.diaParLst,0); // Cancel
+								ds_list_delete(D.diaParL,0); // Cancel
 								
 							}
 							
 						} else {
 							
 							if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-							ds_list_delete(D.diaParLst,0); // Cancel
+							ds_list_delete(D.diaParL,0); // Cancel
 							
 						}
 						
@@ -84,7 +84,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					} else {
 						
 						if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-						ds_list_delete(D.diaParLst,0); // Cancel
+						ds_list_delete(D.diaParL,0); // Cancel
 						
 					}
 					
@@ -92,7 +92,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				} else {
 					
 					if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-					ds_list_delete(D.diaParLst,0); // Cancel
+					ds_list_delete(D.diaParL,0); // Cancel
 					
 				}
 				
@@ -111,7 +111,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Draw & Iterate Transitions...
 			
-			if(e == D.diaParLst[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestLst)) {
+			if(e == D.diaParL[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestL)) {
 				
 				#region Un-Nested Dialogue (There is no Nested Dialogue (yet))
 					
@@ -133,16 +133,16 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 				#endregion
 				
-			} else if(e == D.diaParLst[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestLst)) {
+			} else if(e == D.diaParL[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestL)) {
 				
-				#region Nested Dialogue (We are currently in a nested diaParLst instance)
+				#region Nested Dialogue (We are currently in a nested diaParL instance)
 					
 					#region Do Nested Dialogue Draw Calls & Recursion...
 						
-						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
+						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
+						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
+						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
 						
 					#endregion
 					
@@ -161,7 +161,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	} else {
 		
-		#region No more diaParLst?
+		#region No more diaParL?
 			
 			diaNar_focus_reset() // Focus Sanity...
 			// De-Iterate
@@ -186,17 +186,17 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	#endregion
 	
-	#region Parent Dialogue Checks; This is where diaParLst is initiated!
+	#region Parent Dialogue Checks; This is where diaParL is initiated!
 		
-		for(var i = 0; i < ds_list_size(D.actorLst); i++) {
+		for(var i = 0; i < ds_list_size(D.actorL); i++) {
 			
-			var act = D.actorLst[|i]
-			// var started = ds_list_empty(D.diaParLst) // Is the parent dialogue list empty?
+			var act = D.actorL[|i]
+			// var started = ds_list_empty(D.diaParL) // Is the parent dialogue list empty?
 			diaNar_iterate_level(NS,act.uid,0)
 			/* Redundant?
-			if(started and ds_list_empty(D.diaParLst)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
+			if(started and ds_list_empty(D.diaParL)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
 			// No Else Needed; Since if it wasn't empty already, then started is already false.
-			if(started and D.diaParLst[|0][0] == act.uid) D.diaSpeaker = act; // Set whose dialogue it belongs to, to be initial focus/speaker...
+			if(started and D.diaParL[|0][0] == act.uid) D.diaSpeaker = act; // Set whose dialogue it belongs to, to be initial focus/speaker...
 			*/
 			
 		}
@@ -207,9 +207,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		if(!D.diaLBDrawn) {
 			
-			#region Scene Darken (If no diaParLst)
+			#region Scene Darken (If no diaParL)
 				
-				if(ds_list_empty(D.diaParLst)) {
+				if(ds_list_empty(D.diaParL)) {
 					
 					var ao = draw_get_alpha()
 					draw_set_alpha((1/3)*(D.diaDelPct))
@@ -244,8 +244,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			
 			var _e = P.party[|i]
 			var _spr = sprNA
-			if(_e.dia[$ K.KNW]) _spr = _e.body;
-			else _spr = _e.head;
+			if(_e.dia[$ K.KNW]) _spr = _e.imgSuit;
+			else _spr = _e.imgFace;
 			var _w = WW*.1
 			var _scl = _w/sprite_get_width(_spr)
 			draw_sprite_ext(_spr,0,(sprite_get_xoffset(_spr)*_scl)+((sprite_get_width(_spr)*_scl)*i),sprite_get_yoffset(_spr)*_scl,_scl,_scl,0,c.gry,2/3)

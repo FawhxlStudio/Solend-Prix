@@ -81,7 +81,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						
 					#region XY Marker... (Idk why xy is mouse is drifted... FIXED but still used...)
 						
-						if(ds_list_empty(D.diaParLst)) {
+						if(ds_list_empty(D.diaParL)) {
 							
 							var _dw2 = (D.bgImg.sprite_width-WW)/2
 							var _dh2 = (D.bgImg.sprite_height-WH)/2
@@ -99,7 +99,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 					#region Rectangle Entry (Left Click 2x for opposite corners to set)
 						
-						if(MBLP and ds_list_empty(D.diaParLst)) {
+						if(MBLP and ds_list_empty(D.diaParL)) {
 							
 							#region Init Rectangle Entry (If New)
 								
@@ -148,7 +148,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 					#region Circle Entry (Right Click + Drag to set w/ size) (Like a Node)
 						
-						if(MBR and ds_list_empty(D.diaParLst)) {
+						if(MBR and ds_list_empty(D.diaParL)) {
 							
 							if(MBRP) {
 								

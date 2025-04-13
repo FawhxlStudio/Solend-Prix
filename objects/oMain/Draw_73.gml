@@ -463,32 +463,47 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 													
 													if(CM[$ string(i)][$ K.ENT] == ACTOR.SYLAS) {
 														
-														// Init
-														var _w = (D.bgImg.sprite_width)
-														var _h = (D.bgImg.sprite_height)
-														var _img = D.mgImg
-														
-														if(!P.suited and P.suitInst == N) {
+														#region Sylas (Suit Storage Location)
 															
-															#region Create/Show Suit Instance
-																
-																_img.sprite_index = P.suitSpr
-																_img.sclBase = 8
-																_img.scl = (WW/_img.sclBase)/sprite_get_width(P.suitSpr)
-																_img.xxpct = CM[$ string(i)][$ K.XY2][0]
-																_img.yypct = CM[$ string(i)][$ K.XY2][1]
-																_img.interact = T
-																if(variable_instance_exists(CM[$ string(i)],K.STR))
-																	_img.str = CM[$ string(i)][$ K.STR];
-																P.suitInst = _img
-																_img.inScn = D.scni
-																
-															#endregion
+															// Init
+															var _w = (D.bgImg.sprite_width)
+															var _h = (D.bgImg.sprite_height)
+															var _img = D.mgImg
 															
-														} else if(P.suitInst != N and alarm[0] >= 0)
-															P.suitInst.alarm[0] = 2;
+															// TODO-4/10/25: Can we modify this suit instance to put the suit back down too?
+															// We don't really need this feature...
+															
+															if(!P.suited and P.suitCrateInst == N) {
+																
+																#region Create/Show Suit Instance
+																	
+																	_img.sprite_index = P.imgSuitCrate
+																	_img.sclBase = 8
+																	_img.scl = (WW/_img.sclBase)/sprite_get_width(P.imgSuitCrate)
+																	_img.xxpct = CM[$ string(i)][$ K.XY2][0]
+																	_img.yypct = CM[$ string(i)][$ K.XY2][1]
+																	_img.interact = T
+																	if(variable_instance_exists(CM[$ string(i)],K.STR))
+																		_img.str = CM[$ string(i)][$ K.STR];
+																	P.suitCrateInst = _img
+																	_img.inScn = D.scni
+																	
+																#endregion
+																
+															} else if(P.suitCrateInst != N and alarm[0] >= 0)
+																P.suitCrateInst.alarm[0] = 2;
+																
+														#endregion
 														
-													} else if(CM[$ string(i)][$ K.ENT] == V.STATIC
+													} else if(CM[$ string(i)][$ K.ENT] == ACTOR.RANDOM) {
+														
+														#region Spawn/Host Random Actor
+															
+															
+															
+														#endregion
+														
+													} else if(CM[$ string(i)][$ K.ENT] == ACTOR.STATIC
 														and variable_instance_exists(CM[$ string(i)],K.SPR)) {
 														
 														#region Static - FG - Sprite

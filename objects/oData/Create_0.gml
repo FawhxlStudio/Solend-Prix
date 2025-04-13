@@ -2,7 +2,7 @@
 	
 	// Init
 	game_state = GAME.INIT
-	diaParLst = ds_list_create()
+	diaParL = ds_list_create()
 	diai = 0
 	animPlay = N
 	focus = N
@@ -11,8 +11,43 @@
 	focusM = N
 	fd = 4 // Frame Delay
 	
-	// Actor List
-	actorLst = ds_list_create()
+	// Actor Lists
+	actorL = ds_list_create()
+	randActorL = ds_list_create()
+	
+	#region Random Actor Asset Arrays
+		
+		cfArr = [sprCF1,sprCF2,
+			sprCF3,sprCF4,sprCF5,
+			sprCF6,sprCF7,sprCF8,
+			sprCF9,sprCF10,sprCF11,
+			sprCF12,sprCF13,sprCF14]
+		fArr = [sprF1,sprF2,
+			sprF3,sprF4,sprF5,
+			sprF6,sprF7,sprF8,
+			sprF9,sprF10,sprF11,
+			sprF12,sprF13,sprF14,
+			sprF15,sprF16,sprF17,
+			sprF18,sprF19,sprF20,
+			sprF21,sprF22,sprF23,
+			sprF24,sprF25,sprF26]
+		cmArr = [sprCM1,sprCM2,
+			sprCM3,sprCM4,sprCM5,
+			sprCM6,sprCM7,sprCM8,
+			sprCM9,sprCM10,sprCM11,
+			sprCM12,sprCM13,sprCM14,
+			sprCM15,sprCM16,sprCM17,
+			sprCM18,sprCM19,sprCM20,
+			sprCM21,sprCM22,sprCM23,
+			sprCM24,sprCM25]
+		mArr = [sprM1,sprM2,
+			sprM3,sprM4,sprM5,
+			sprM6,sprM7,sprM8,
+			sprM9,sprM10,sprM11,
+			sprM12,sprM13,sprM14,
+			sprM15]
+		
+	#endregion
 	
 	// Init Draw Olds; HVO,FO,AO,CO
 	draw_reset()
@@ -128,7 +163,7 @@
 	diaDeli2 = 0
 	diaDelPct2 = 0
 	diaSpeaker = N
-	diaNestLst = ds_list_create()
+	diaNestL = ds_list_create()
 	diaTranDel = GSPD*(2/3)
 	diaTranDeli = 0
 	diaTranPct = 0
@@ -176,7 +211,7 @@
 	S = {}
 	
 	// Array to Fetch Sprites w/
-	fetchArr = [sprSylas1,sprSylas2,sprSylas3,sprSylas4,sprSylasBod,sprSylasBod2,sprSpitfire1,sprSpitfire2,sprSpitfireBod]
+	fetchArr = [sprSylas1,sprSylas2,sprSylas3,sprSylas,sprSylasBod,sprSylasSuit,sprSpitfire1,sprSpitfire2,sprSpitfireBod]
 	
 	// Init Scene Struct
 	db_scn()
@@ -213,5 +248,11 @@
 #region Init Char List
 	
 	db_act()
+	
+#endregion
+
+#region Global Surfaces
+	
+	loadSurf = U
 	
 #endregion

@@ -9,8 +9,8 @@ if(D.game_state == GAME.PLAY
 			
 			if(inScn != D.scni) {
 				
-				if(P.suitInst == id)
-					P.suitInst = N;
+				if(P.suitCrateInst == id)
+					P.suitCrateInst = N;
 				reset_image()
 				
 			}

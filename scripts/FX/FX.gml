@@ -28,6 +28,7 @@ function pick_star_asset() {
         flick = F
         draw = F
         depth = layer_get_depth(layer_get_id("FG"))
+        deptho = depth
         
     #endregion
     
@@ -36,18 +37,18 @@ function pick_nova_asset() {
     
     #region Pick Nova Sprite
         
-        var _p = irandom(8)
+        var _p = irandom(6)
         switch(_p) {
             
-            case 0: sprite_index = sprNova1; break;
-            case 1: sprite_index = sprNova2; break;
-            case 2: sprite_index = sprNova3; break;
-            case 3: sprite_index = sprNova4; break;
+            //case 0: sprite_index = sprNova1; break;
+            //case 1: sprite_index = sprNova2; break;
+            case 0: sprite_index = sprNova3; break;
+            case 1: sprite_index = sprNova4; break;
+            case 2: sprite_index = sprNova9; break;
+            case 3: sprite_index = sprNova8; break;
             case 4: sprite_index = sprNova5; break;
             case 5: sprite_index = sprNova6; break;
             case 6: sprite_index = sprNova7; break;
-            case 7: sprite_index = sprNova8; break;
-            case 8: sprite_index = sprNova9; break;
             
         }
         scl = N
@@ -56,6 +57,7 @@ function pick_nova_asset() {
         draw = F
         sprHFlip = chance(50)
         depth = layer_get_depth(layer_get_id("MG"))
+        deptho = depth
         /*
         if(is(par)) {
             
@@ -99,6 +101,7 @@ function pick_galaxy_asset() {
         draw = F
         sprHFlip = chance(50)
         depth = layer_get_depth(layer_get_id("BG"))
+        deptho = depth
         /*
         if(is(par)) {
             

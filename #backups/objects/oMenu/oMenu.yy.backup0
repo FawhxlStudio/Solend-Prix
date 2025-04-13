@@ -1,4 +1,4 @@
-// 2025-04-05 03:18:44
+// 2025-04-12 02:33:55
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -24,6 +24,7 @@ titAngl2 = N
 titSurf = N
 tita = 0
 btnDel = GSPD*2
+btnDeli = 0
 
 // Menu Sprites
 bdspr = sprNewMenuBD
@@ -127,8 +128,17 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 		// Play Voxes
 		if((bgmID == N or !audio_is_playing(bgm)) and preDel <= 0 and M.introInst == N) {
 			
-			bgmID = audio_play_sound_on(bgmEmt,bgm,F,0,0)
-			audio_sound_gain(bgmID,bgmVol,4000)
+			if(bgmID == N) {
+				
+				bgmID = audio_play_sound_on(bgmEmt,bgm,F,0,0)
+				audio_sound_gain(bgmID,1,4000)
+				
+			} else if(M.msx == N or !audio_is_playing(msxDefault)) {
+				
+				M.msx = audio_play_sound_on(bgmEmt,msxDefault,T,0,0)
+				audio_sound_gain(M.msx,1,4000)
+				
+			}
 			
 		} else if(preDel > 0 ) preDel--;
 		
@@ -155,7 +165,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			var _str = "Solend Prix"
 			var _strw = string_width(_str)
 			if(titAngl == N) titAngl = random_range(-3,3);
-			draw_text_transformed_color(WW/1.95,WH*.19,_str,(WW/1.9)/_strw,(WW/1.9)/_strw,titAngl,c.gry,c.gry,c.dgry,c.dgry,2/3)
+			draw_text_transformed_color(WW/1.9,WH*.18,_str,(WW/2)/_strw,(WW/2)/_strw,titAngl,c.gry,c.gry,c.dgry,c.dgry,2/3)
 			draw_text_transformed_color(WW/2,WH*.2,_str,(WW/2)/_strw,(WW/2)/_strw,titAngl,c.wht,c.wht,c.gry,c.gry,1)
 			
 			surface_reset_target()
@@ -181,7 +191,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 		if(fade <= 0 and M.introInst == N) {
 			
 			if(titDel > 0) titDel--;
-			if(btnDel > 0 and titDel == 0) btnDel--;
+			if(btnDeli < btnDel and titDel == 0) btnDeli = clamp(btnDeli+1,0,btnDel);
 			if(titDel > 0 and titDel < GSPD*2.9 and !audio_is_playing(sfxFlyBy)) titsfx = audio_play_sound_on(sfxEmt,sfxFlyBy,F,1,1);
 			if(titDel > 0 and titDel < GSPD*2.8) titDel = 0;
 			if(btnDel > 0 and btnDel < GSPD*(1/3)) btnDel = 0;
@@ -189,7 +199,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			// Init Play + Button Draws
 			draw_set_hvalign([fa_center,fa_middle])
 			draw_set_font(fHUD)
-			var _bpct = 1-(btnDel/(GSPD*2))
+			var _bpct = btnDeli/btnDel
 			var _bx1 = lerp(WW*.785,WW*.67,_bpct)
 			var _bx2 = lerp(WW*.785,WW*.9,_bpct)
 			var _pxy = [_bx1,WH*.75,_bx2,WH*.8]

@@ -7,9 +7,9 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 		
 		#region Init/Draw
 			
-			if(diaSpr) sprite_index = diaSpr;
-			else if(suited) sprite_index = body;
-			else sprite_index = head;
+			if(imgDia) sprite_index = imgDia;
+			else if(suited) sprite_index = imgSuit;
+			else sprite_index = imgFace;
 			image_alpha = 1
 			var scl = (D.href)/sprite_get_height(sprite_index)
 			image_xscale = scl

@@ -2,7 +2,7 @@
 
 nightmare = F
 nightmareInst = U
-del = GSPD*(60*60)
+del = (GSPD*60)*60
 deli = 0
 fadeIn = GSPD/3
 fadeIni = 0
@@ -10,10 +10,13 @@ fadeOut = GSPD*2
 fadeOuti = 0
 D.diaOverride = T
 fetch = T
-gothDel1 = GSPD*20
+alarm[0] = round(GSPD*.5)
+gothDel1 = GSPD*14
 gothDel1i = 0
-gothDel2 = GSPD*5
+gothDel2 = GSPD*21
 gothDel2i = 0
+gothDel3 = GSPD*14
+gothDel3i = 0
 
 // Intro Assets
 theia = sprPlanetTheia
@@ -28,3 +31,14 @@ objGas = N
 objGoth = N
 objsInit = F
 theiaDone = F
+
+#region Intro Asset Array
+	
+	assArr = [sprPlanetTheia,sprPlanetTheiaGas,
+		sprPlanetGothicaBR,sprPix,sprGal1,sprGal2,
+		sprGal3,sprGal4,sprGal5,sprGal6,sprGal7,
+		sprGal8,sprGal9,sprNova1,sprNova2,sprNova3,
+		sprNova4,sprNova5,sprNova6,sprNova7,sprNova8,
+		sprNova9,sprStar1,sprStar2,sprStar3,sprStar4]
+	
+#endregion

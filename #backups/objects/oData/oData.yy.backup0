@@ -1,4 +1,4 @@
-// 2025-04-05 02:07:40
+// 2025-04-13 16:20:15
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -8,7 +8,7 @@ uses_physics = false;
 	
 	// Init
 	game_state = GAME.INIT
-	diaParLst = ds_list_create()
+	diaParL = ds_list_create()
 	diai = 0
 	animPlay = N
 	focus = N
@@ -17,8 +17,43 @@ uses_physics = false;
 	focusM = N
 	fd = 4 // Frame Delay
 	
-	// Actor List
-	actorLst = ds_list_create()
+	// Actor Lists
+	actorL = ds_list_create()
+	randActorL = ds_list_create()
+	
+	#region Random Actor Asset Arrays
+		
+		cfArr = [sprCF1,sprCF2,
+			sprCF3,sprCF4,sprCF5,
+			sprCF6,sprCF7,sprCF8,
+			sprCF9,sprCF10,sprCF11,
+			sprCF12,sprCF13,sprCF14]
+		fArr = [sprF1,sprF2,
+			sprF3,sprF4,sprF5,
+			sprF6,sprF7,sprF8,
+			sprF9,sprF10,sprF11,
+			sprF12,sprF13,sprF14,
+			sprF15,sprF16,sprF17,
+			sprF18,sprF19,sprF20,
+			sprF21,sprF22,sprF23,
+			sprF24,sprF25,sprF26]
+		cmArr = [sprCM1,sprCM2,
+			sprCM3,sprCM4,sprCM5,
+			sprCM6,sprCM7,sprCM8,
+			sprCM9,sprCM10,sprCM11,
+			sprCM12,sprCM13,sprCM14,
+			sprCM15,sprCM16,sprCM17,
+			sprCM18,sprCM19,sprCM20,
+			sprCM21,sprCM22,sprCM23,
+			sprCM24,sprCM25]
+		mArr = [sprM1,sprM2,
+			sprM3,sprM4,sprM5,
+			sprM6,sprM7,sprM8,
+			sprM9,sprM10,sprM11,
+			sprM12,sprM13,sprM14,
+			sprM15]
+		
+	#endregion
 	
 	// Init Draw Olds; HVO,FO,AO,CO
 	draw_reset()
@@ -134,7 +169,7 @@ uses_physics = false;
 	diaDeli2 = 0
 	diaDelPct2 = 0
 	diaSpeaker = N
-	diaNestLst = ds_list_create()
+	diaNestL = ds_list_create()
 	diaTranDel = GSPD*(2/3)
 	diaTranDeli = 0
 	diaTranPct = 0
@@ -222,16 +257,17 @@ uses_physics = false;
 	
 #endregion
 
+#region Global Surfaces
+	
+	loadSurf = U
+	
+#endregion
+
 #event step Live Update
 
 
 #event step_begin Factor Updates
-try {
-	
-	// GMLive Call
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
-	
-} catch(_ex) { /* GMLive not available? */ }
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 #region Other Updates
 	
 	#region Scene Blend
@@ -291,6 +327,39 @@ try {
 // You can write your code in this editor
 
 
+#event draw_gui Surface Inits
+
+#region Init/Draw Load Surface
+	
+	if(is_undefined(loadSurf)) {
+		
+		// Create Surface...
+		loadSurf = surface_create(WW,WH)
+		surface_set_target(loadSurf)
+		
+		#region Draw Loading Surface
+			
+			// Draw BG Fade
+			draw_rectangle_ext_color([0,0,WW,WH],0,[.8,c.blk,c.blk,c.blk,c.blk],F)
+			
+			// Init Text
+			draw_set_font(fTitle)
+			draw_set_hvalign([fa_center,fa_middle])
+			var _str = "LOADING"
+			var _w = WW/2
+			
+			// Draw Text
+			draw_text_transformed_color(WW/2,WH/2,_str,.5,.5,0,c.wht,c.wht,c.gry,c.gry,1)
+			
+		#endregion
+		
+		// Reset Surface Target
+		surface_reset_target()
+		
+	}
+	
+#endregion
+
 #event draw_pre Insert description here
 // You can write your code in this editor
 
@@ -299,7 +368,7 @@ try {
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 #region Control Override
 	
-	if(!ds_list_empty(diaParLst) or animPlay != N or focus != N) ctrlOverride = T;
+	if(!ds_list_empty(diaParL) or animPlay != N or focus != N) ctrlOverride = T;
 	else ctrlOverride = F;
 	
 #endregion

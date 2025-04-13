@@ -16,6 +16,7 @@ isStar = N
 if(chance(1)) flick = T;
 sprHFlip = F
 if(pct >= .99 and chance(50)) pick_star_asset();
-else if(pct >= 1/3 and pct <= 2/3 and chance(1)) pick_nova_asset();
-else if(pct <= .1 and chance(.1)) pick_galaxy_asset();
+else if(pct >= 1/3 and pct <= 2/3 and chance(2)) pick_nova_asset();
+else if(pct <= .1 and chance(1/3)) pick_galaxy_asset();
 vmlt = random_range(2,4)
+deptho = depth

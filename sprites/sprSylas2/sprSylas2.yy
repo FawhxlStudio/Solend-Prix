@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":8,
   "parent":{
-    "name":"Sylas",
-    "path":"folders/Sprites/Actors/Sylas.yy",
+    "name":"Unused",
+    "path":"folders/Sprites/Actors/Sylas/Unused.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

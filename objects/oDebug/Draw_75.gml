@@ -46,13 +46,13 @@ if(active and edit and !console) {
 			
 			#region Toggle Dia Prev 2
 				
-				if(keyboard_check_pressed(vk_divide) or ds_list_empty(D.diaParLst)) {
+				if(keyboard_check_pressed(vk_divide) or ds_list_empty(D.diaParL)) {
 					
-					if(!diaPrev2 and !ds_list_empty(D.diaParLst)) {
+					if(!diaPrev2 and !ds_list_empty(D.diaParL)) {
 						
 						// If diaPrev2 not set and we are in dialogue...
 						diaPrev2 = diaNar_get_top()
-						diaPrev2i = ds_list_size(D.diaNestLst)
+						diaPrev2i = ds_list_size(D.diaNestL)
 						
 					} else {
 						
@@ -71,7 +71,7 @@ if(active and edit and !console) {
 				
 				if(keyboard_check_pressed(vk_add) and diaPrev2) {
 					
-					if(diaPrev2i < ds_list_size(D.diaNestLst))
+					if(diaPrev2i < ds_list_size(D.diaNestL))
 						diaPrev2i++;
 					
 				}
@@ -196,8 +196,8 @@ if(active and edit and !console) {
 				
 				#region Dialogue Pre-Vars
 					
-					dbgStr1 += "\nPar Dia List Count: "+string(ds_list_size(D.diaParLst))
-					dbgStr1 += "\nNest Dia List Count: "+string(ds_list_size(D.diaNestLst))
+					dbgStr1 += "\nPar Dia List Count: "+string(ds_list_size(D.diaParL))
+					dbgStr1 += "\nNest Dia List Count: "+string(ds_list_size(D.diaNestL))
 					dbgStr1 += "\nDia Inst: "+string(D.diaInstArr);
 					if(D.diaContinue) dbgStr1 += "\nDia Continue...";
 					if(D.diaDone) dbgStr1 += "\nDia Done...";
@@ -220,7 +220,7 @@ if(active and edit and !console) {
 					
 					try {
 						
-						if(!ds_list_empty(D.diaParLst)) {
+						if(!ds_list_empty(D.diaParL)) {
 							
 							// In Dialogue?
 							if(diaPrev2) {
@@ -236,7 +236,7 @@ if(active and edit and !console) {
 												
 												#region Focus
 													
-													diaPrev2Str = "\nFocus: "+string(D.focus)+"("+D.focus.dia[$ K.NM]+")";
+													diaPrev2Str = "\nFocus: "+string(D.focus)+"("+D.focus.dia[$ K.FNM]+")";
 													
 													if(D.focus != P) {
 														
@@ -256,7 +256,7 @@ if(active and edit and !console) {
 												
 												#region Focus Left
 													
-													diaPrev2Str += "\nFocus L: "+string(D.focusL)+"("+D.focusL.dia[$ K.NM]+")";
+													diaPrev2Str += "\nFocus L: "+string(D.focusL)+"("+D.focusL.dia[$ K.FNM]+")";
 													
 													if(D.focusL != P) {
 														
@@ -276,7 +276,7 @@ if(active and edit and !console) {
 												
 												#region Focus Middle
 													
-													diaPrev2Str += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.NM]+")";
+													diaPrev2Str += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.FNM]+")";
 													
 													if(D.focusM != P) {
 														
@@ -296,7 +296,7 @@ if(active and edit and !console) {
 												
 												#region Focus Right
 													
-													diaPrev2Str += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.NM]+")";
+													diaPrev2Str += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.FNM]+")";
 													
 													if(D.focusR != P) {
 														
@@ -313,10 +313,10 @@ if(active and edit and !console) {
 											} else diaPrev2Str += "\nFocus R: None";
 											
 										#endregion
-										if(D.diaSpeaker) diaPrev2Str += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
+										if(D.diaSpeaker) diaPrev2Str += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.FNM]+")";
 										else diaPrev2Str += "\nSpeaker: None";
 										diaPrev2Str += "\nDia Delay sec/frame: "+string(D.diad/GSPD)+"/"+string(D.diad)
-										diaPrev2Str += "\nLevel/Layer: "+string(ds_list_size(D.diaNestLst))
+										diaPrev2Str += "\nLevel/Layer: "+string(ds_list_size(D.diaNestL))
 										if(D.diaSoftClose) diaPrev2Str += "\nSoft Close: True/Not Done";
 										else diaPrev2Str += "\nSoft Close: False/Is Done";
 										if(D.diaNestDir) diaPrev2Str += "\nNesting Direction: In/Open";
@@ -332,8 +332,8 @@ if(active and edit and !console) {
 									#region Show Selected Nest/Parent...
 										
 										var _e = N
-										if(diaPrev2i > ds_list_size(D.diaNestLst)) diaPrev2i = ds_list_size(D.diaNestLst);
-										if(diaPrev2i > 0) _e = D.diaNestLst[|diaPrev2i-1];
+										if(diaPrev2i > ds_list_size(D.diaNestL)) diaPrev2i = ds_list_size(D.diaNestL);
+										if(diaPrev2i > 0) _e = D.diaNestL[|diaPrev2i-1];
 										else _e = diaNar_get_par();
 										var sks = diaNar_get_string_keys(_e)
 										var rks = diaNar_get_real_keys(_e)
@@ -382,7 +382,7 @@ if(active and edit and !console) {
 												
 												#region Focus
 													
-													dbgStr2 = "\nFocus: "+string(D.focus)+"("+D.focus.dia[$ K.NM]+")";
+													dbgStr2 = "\nFocus: "+string(D.focus)+"("+D.focus.dia[$ K.FNM]+")";
 													
 													if(D.focus != P) {
 														
@@ -402,7 +402,7 @@ if(active and edit and !console) {
 												
 												#region Focus Left
 													
-													dbgStr2 += "\nFocus L: "+string(D.focusL)+"("+D.focusL.dia[$ K.NM]+")";
+													dbgStr2 += "\nFocus L: "+string(D.focusL)+"("+D.focusL.dia[$ K.FNM]+")";
 													
 													if(D.focusL != P) {
 														
@@ -422,7 +422,7 @@ if(active and edit and !console) {
 												
 												#region Focus Middle
 													
-													dbgStr2 += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.NM]+")";
+													dbgStr2 += "\nFocus M: "+string(D.focusM)+"("+D.focusM.dia[$ K.FNM]+")";
 													
 													if(D.focusM != P) {
 														
@@ -442,7 +442,7 @@ if(active and edit and !console) {
 												
 												#region Focus Right
 													
-													dbgStr2 += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.NM]+")";
+													dbgStr2 += "\nFocus R: "+string(D.focusR)+"("+D.focusR.dia[$ K.FNM]+")";
 													
 													if(D.focusR != P) {
 														
@@ -459,10 +459,10 @@ if(active and edit and !console) {
 											} else dbgStr2 += "\nFocus R: None";
 											
 										#endregion
-										if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.NM]+")";
+										if(D.diaSpeaker) dbgStr2 += "\nSpeaker: "+string(D.diaSpeaker)+"("+D.diaSpeaker.dia[$ K.FNM]+")";
 										else dbgStr2 += "\nSpeaker: None";
 										dbgStr2 += "\nDia Delay sec/frame: "+string(D.diad/GSPD)+"/"+string(D.diad)
-										dbgStr2 += "\nLevel/Layer: "+string(ds_list_size(D.diaNestLst))
+										dbgStr2 += "\nLevel/Layer: "+string(ds_list_size(D.diaNestL))
 										if(D.diaSoftClose) dbgStr2 += "\nSoft Close: Don't Mark as Done (True)";
 										else dbgStr2 += "\nSoft Close: Mark as Done (False)";
 										if(D.diaNestDir) dbgStr2 += "\nNesting Direction: In/Open (True)";
@@ -485,9 +485,9 @@ if(active and edit and !console) {
 												var inst = N
 												
 												// Get Current Dialogue and Return...
-												if(!ds_list_empty(D.diaNestLst)) {
+												if(!ds_list_empty(D.diaNestL)) {
 													
-													inst = ds_list_top(D.diaNestLst)
+													inst = ds_list_top(D.diaNestL)
 													rtn = diaNar_iterate_level(inst,D.diaSpeaker.uid,4)
 													
 												} else {
@@ -518,7 +518,7 @@ if(active and edit and !console) {
 												var inst = N
 												
 												// Get Nested Dialogue and Return...
-												if(!ds_list_empty(D.diaNestLst)) inst = ds_list_top(D.diaNestLst)[$ diaNarI()];
+												if(!ds_list_empty(D.diaNestL)) inst = ds_list_top(D.diaNestL)[$ diaNarI()];
 												else inst = diaNar_get_par()[$ diaNarI()];
 												
 												if(is_struct(inst)) {
@@ -552,11 +552,11 @@ if(active and edit and !console) {
 											
 											#region Up/Open
 												
-												if(!ds_list_empty(D.diaNestLst)) {
+												if(!ds_list_empty(D.diaNestL)) {
 													
 													#region Nested
 														
-														var _e = ds_list_top(D.diaNestLst)
+														var _e = ds_list_top(D.diaNestL)
 														var sks = diaNar_get_string_keys(_e)
 														var rks = diaNar_get_real_keys(_e)
 														for(var i = 0; i < array_length(rks); i++) rks[i] = real(rks[i]);

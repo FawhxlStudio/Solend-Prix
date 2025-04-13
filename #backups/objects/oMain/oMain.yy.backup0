@@ -1,4 +1,4 @@
-// 2025-04-06 08:54:26
+// 2025-04-13 14:16:29
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -340,7 +340,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Fade-In BGM
 			
-			if(audio_is_playing(msxDefault) and audio_sound_get_gain(msx) == 0) audio_sound_gain(msx,audio_emitter_get_gain(bgmEmt),10*1000);
+			if(audio_is_playing(msxDefault) and audio_sound_get_gain(msx) == 0) audio_sound_gain(msx,1,10*1000);
 			
 		#endregion
 		
@@ -393,7 +393,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	if(D.game_state == GAME.MENU and DBG.introSkip) {
 		
 		set_scni(SCENE.RESORT_BED)
-		audio_stop_all()
+		if(!audio_is_playing(msxDefault)) audio_stop_all();
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
 		room_goto(rGame)
@@ -1116,32 +1116,47 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 													
 													if(CM[$ string(i)][$ K.ENT] == ACTOR.SYLAS) {
 														
-														// Init
-														var _w = (D.bgImg.sprite_width)
-														var _h = (D.bgImg.sprite_height)
-														var _img = D.mgImg
-														
-														if(!P.suited and P.suitInst == N) {
+														#region Sylas (Suit Storage Location)
 															
-															#region Create/Show Suit Instance
-																
-																_img.sprite_index = P.suitSpr
-																_img.sclBase = 8
-																_img.scl = (WW/_img.sclBase)/sprite_get_width(P.suitSpr)
-																_img.xxpct = CM[$ string(i)][$ K.XY2][0]
-																_img.yypct = CM[$ string(i)][$ K.XY2][1]
-																_img.interact = T
-																if(variable_instance_exists(CM[$ string(i)],K.STR))
-																	_img.str = CM[$ string(i)][$ K.STR];
-																P.suitInst = _img
-																_img.inScn = D.scni
-																
-															#endregion
+															// Init
+															var _w = (D.bgImg.sprite_width)
+															var _h = (D.bgImg.sprite_height)
+															var _img = D.mgImg
 															
-														} else if(P.suitInst != N and alarm[0] >= 0)
-															P.suitInst.alarm[0] = 2;
+															// TODO-4/10/25: Can we modify this suit instance to put the suit back down too?
+															// We don't really need this feature...
+															
+															if(!P.suited and P.suitInst == N) {
+																
+																#region Create/Show Suit Instance
+																	
+																	_img.sprite_index = P.suitSpr
+																	_img.sclBase = 8
+																	_img.scl = (WW/_img.sclBase)/sprite_get_width(P.suitSpr)
+																	_img.xxpct = CM[$ string(i)][$ K.XY2][0]
+																	_img.yypct = CM[$ string(i)][$ K.XY2][1]
+																	_img.interact = T
+																	if(variable_instance_exists(CM[$ string(i)],K.STR))
+																		_img.str = CM[$ string(i)][$ K.STR];
+																	P.suitInst = _img
+																	_img.inScn = D.scni
+																	
+																#endregion
+																
+															} else if(P.suitInst != N and alarm[0] >= 0)
+																P.suitInst.alarm[0] = 2;
+																
+														#endregion
 														
-													} else if(CM[$ string(i)][$ K.ENT] == V.STATIC
+													} else if(CM[$ string(i)][$ K.ENT] == ACTOR.RANDOM) {
+														
+														#region Spawn/Host Random Actor
+															
+															
+															
+														#endregion
+														
+													} else if(CM[$ string(i)][$ K.ENT] == ACTOR.STATIC
 														and variable_instance_exists(CM[$ string(i)],K.SPR)) {
 														
 														#region Static - FG - Sprite

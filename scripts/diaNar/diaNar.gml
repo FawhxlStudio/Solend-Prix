@@ -205,30 +205,30 @@ function diaNar_close(isDone) {
 		
 		if(!isDone) D.diaSoftClose = T;
 		
-		if(!ds_list_empty(D.diaNestLst)) {
+		if(!ds_list_empty(D.diaNestL)) {
 			
 			#region Finish the current nest...
 				
 				if(!diaNar_at_choice()) diaNar_focus_switch(D.focus);
-				var _t = ds_list_top(D.diaNestLst)
+				var _t = ds_list_top(D.diaNestL)
 				if(_t == D.diaInstRpt) _t[$ K.DN] = F;
-				else if(ds_list_size(D.diaNestLst) > 1 and diaNar_is_choice(D.diaNestLst[|ds_list_size(D.diaNestLst)-2])) _t[$ K.DN] = T;
+				else if(ds_list_size(D.diaNestL) > 1 and diaNar_is_choice(D.diaNestL[|ds_list_size(D.diaNestL)-2])) _t[$ K.DN] = T;
 				else if(diaNar_is_choice(_t)) _t[$ K.DN] = F;
 				else _t[$ K.DN] = isDone;
 				diaNar_is_link(_t,T)
-				ds_list_del_top(D.diaNestLst)
+				ds_list_del_top(D.diaNestL)
 				D.diaNestDir = F
 				
 			#endregion
 			
-		} else if(!ds_list_empty(D.diaParLst)) {
+		} else if(!ds_list_empty(D.diaParL)) {
 			
 			#region Finish parent...
 				
 				var _t = diaNar_get_par()
 				_t[$ K.DN] = isDone
 				diaNar_is_link(_t,T)
-				ds_list_delete(D.diaParLst,0)
+				ds_list_delete(D.diaParL,0)
 				D.focus.dia[$ K.I] = 0
 				diaNar_focus_reset()
 				D.diaNestDir = T // Since this is finishing the parent, we reset this...
@@ -242,13 +242,13 @@ function diaNar_close(isDone) {
 	
 	#region Return to Previous...
 		
-		if(!ds_list_empty(D.diaNestLst)) {
+		if(!ds_list_empty(D.diaNestL)) {
 			
 			#region Back to Previous Nest Level... (Nest to Nest)
 				
 				#region Init  Returning to previous nest...
 					
-					var _t = ds_list_top(D.diaNestLst)
+					var _t = ds_list_top(D.diaNestL)
 					var rcnt = diaNar_get_real_keys_count(_t)
 					var _fork = diaNar_is_fork(_t)
 					var _choice = diaNar_is_choice(_t)
@@ -305,7 +305,7 @@ function diaNar_close(isDone) {
 			
 			return isDone
 			
-		} else if(!ds_list_empty(D.diaParLst)) {
+		} else if(!ds_list_empty(D.diaParL)) {
 			
 			#region Back to Parent Dialogue... (Nest to Parent)
 				
@@ -346,7 +346,7 @@ function diaNar_close(isDone) {
 function diaNar_open_nest(actr,diaInst,diaLyr) {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
-	#region Start a Nest diaParLst here...
+	#region Start a Nest diaParL here...
 		
 		// Init; If it diaNarI() isn't a struct then we assume it is a link and we want to open itself...
 		var _dia = N
@@ -365,12 +365,12 @@ function diaNar_open_nest(actr,diaInst,diaLyr) {
 					
 					#region Pass(Fork); Check and Add to Nested Dialogue List to run...
 						
-						if(!ds_list_has(D.diaNestLst,_rtn[1])) {
+						if(!ds_list_has(D.diaNestL,_rtn[1])) {
 							
 							// Add nested to nest list...
 							if(!diaNar_at_choice()) diaNar_focus_switch(D.focus);
-							ds_list_add(D.diaNestLst,_dia) // Add Fork to Nest List...
-							ds_list_add(D.diaNestLst,_rtn[1]) // Add Results from Fork to Nest List...
+							ds_list_add(D.diaNestL,_dia) // Add Fork to Nest List...
+							ds_list_add(D.diaNestL,_rtn[1]) // Add Results from Fork to Nest List...
 							D.focus.dia[$ K.I] = 0 // Reset Iter for New Nest...
 							D.diaNestDir = T
 							return T
@@ -383,10 +383,10 @@ function diaNar_open_nest(actr,diaInst,diaLyr) {
 					
 					#region Pass; Check and Add to Nested Dialogue List to run...
 						
-						if(!ds_list_has(D.diaNestLst,_rtn[1])) {
+						if(!ds_list_has(D.diaNestL,_rtn[1])) {
 							
 							// Add nested to nest list...
-							ds_list_add(D.diaNestLst,_rtn[1]); // New Nest
+							ds_list_add(D.diaNestL,_rtn[1]); // New Nest
 							D.focus.dia[$ K.I] = 0 // Reset Iter for New Nest...
 							D.diaNestDir = T
 							return T
@@ -484,15 +484,15 @@ function diaNar_next_dia(close) {
 	if(D.diaNestDir) {
 		
 		// Up/Open
-		if(!ds_list_empty(D.diaNestLst)) return diaNar_get_top(); // Gonna be a lil weird iteration
+		if(!ds_list_empty(D.diaNestL)) return diaNar_get_top(); // Gonna be a lil weird iteration
 		else return diaNar_get_par();
 		
 	} else {
 		
 		// Down/Close
-		for(var i = ds_list_size(D.diaNestLst)-1; i >= 0; i--) {
+		for(var i = ds_list_size(D.diaNestL)-1; i >= 0; i--) {
 			
-			var _dia = D.diaNestLst[|i]
+			var _dia = D.diaNestL[|i]
 			if(!diaNar_is_fork(_dia) and !diaNar_is_choice(_dia) and _dia != diaNar_get_top()) return _dia; // Got one...
 			
 		}
@@ -622,9 +622,9 @@ function diaNar_is_open(diaInst) {
 	#region Search Parent List for Instance...
 		
 		var found = F
-		for(var i = 0; i < ds_list_size(D.diaParLst); i++) {
+		for(var i = 0; i < ds_list_size(D.diaParL); i++) {
 			
-			if(D.diaParLst[|i][1] == diaInst) {
+			if(D.diaParL[|i][1] == diaInst) {
 				
 				found = T
 				break
@@ -636,13 +636,13 @@ function diaNar_is_open(diaInst) {
 	#endregion
 	
 	// Search Nest list and return whether or not was found in parent...
-	return (ds_list_has(D.diaNestLst,diaInst) or found)
+	return (ds_list_has(D.diaNestL,diaInst) or found)
 	
 }
 
 function diaNar_get_top() {
 	
-	if(!ds_list_empty(D.diaNestLst)) return ds_list_top(D.diaNestLst);
+	if(!ds_list_empty(D.diaNestL)) return ds_list_top(D.diaNestL);
 	else return diaNar_get_par();
 	
 }
@@ -754,8 +754,8 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 								if(_rtn[0]) {
 									
 									// If is Proceed and is valid Dialogue, add it.
-									if(is_struct(_rtn[1]) and !ds_list_has(D.diaParLst,[uid,_rtn[1]]))
-										ds_list_add(D.diaParLst,[uid,_rtn[1]]);
+									if(is_struct(_rtn[1]) and !ds_list_has(D.diaParL,[uid,_rtn[1]]))
+										ds_list_add(D.diaParL,[uid,_rtn[1]]);
 									
 								}
 								
@@ -840,9 +840,9 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 								
 								if(_awaiting and !D.diaLBDrawn) {
 									
-									#region Scene Darken (If no diaParLst)
+									#region Scene Darken (If no diaParL)
 										
-										if(ds_list_empty(D.diaParLst)) {
+										if(ds_list_empty(D.diaParL)) {
 											
 											var ao = draw_get_alpha()
 											draw_set_alpha((1/3)*(D.diaDelPct))
@@ -1450,7 +1450,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 															
 															case V.SUIT: {
 																
-																if(ds_list_has(D.actorLst,_e)) {
+																if(ds_list_has(D.actorL,_e)) {
 																	
 																	if(variable_instance_exists(diaInst,string(_e.suited))) _rtn = diaInst[$ _e.suited];
 																	else {
@@ -1804,7 +1804,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 function diaNar_get_par() {
 	
 	// Return Struct or None
-	if(!ds_list_empty(D.diaParLst)) return D.diaParLst[|0][1];
+	if(!ds_list_empty(D.diaParL)) return D.diaParL[|0][1];
 	else return N;
 	
 }
@@ -1978,10 +1978,10 @@ function diaNar_draw(actr,diaInst,diaLyr){
 	
 	// Init
 	var _spr = sprNA
-	if(actr.suited) _spr = actr.body;
-	else _spr = actr.head;
+	if(actr.suited) _spr = actr.imgSuit;
+	else _spr = actr.imgFace;
 	var _scl = WH/sprite_get_height(_spr)
-	var _scl2 = WH/sprite_get_height(actr.head)
+	var _scl2 = WH/sprite_get_height(actr.imgFace)
 	
 	#region Instarr Logic
 		
@@ -2003,7 +2003,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						
 						#region Dialogue Sprite Set
 							
-							actr.diaSpr = D.diaInstArr[1];
+							actr.imgDia = D.diaInstArr[1];
 							D.diaInstArr = N
 							
 						#endregion
@@ -2047,9 +2047,9 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 					if(actr.suited) {
 						
-						var _sprw = sprite_get_width(actr.head)
-						if(_sprw <= sprite_get_height(actr.head)) draw_sprite_ext(actr.head,0,-_sprw*.2,WH,_scl2*actr.headPol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
-						else draw_sprite_ext(actr.head,0,0,WH,_scl2*actr.headPol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
+						var _sprw = sprite_get_width(actr.imgFace)
+						if(_sprw <= sprite_get_height(actr.imgFace)) draw_sprite_ext(actr.imgFace,0,-_sprw*.2,WH,_scl2*actr.imgFacePol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
+						else draw_sprite_ext(actr.imgFace,0,0,WH,_scl2*actr.imgFacePol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
 						
 					}
 					
@@ -2057,21 +2057,21 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				
 				#region 1st focusL/Left Side
 					
-					if(actr.diaSpr == N) {
+					if(actr.imgDia == N) {
 						
 						#region Default (Suited/Unsuited)
 							
 							if(D.diaSpeaker == actr) {
 								
 								// Is Speaking...
-								if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH,clamp((_scl*.9)+((_scl*.1)*D.diaTranPct),0,1)*actr.headPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
-								else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.1,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.bodyPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+								if(actr.imgFace == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH,clamp((_scl*.9)+((_scl*.1)*D.diaTranPct),0,1)*actr.imgFacePol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+								else if(actr.imgSuit == _spr) draw_sprite_ext(_spr,0,WW*.1,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.imgSuitPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
 								
 							} else {
 								
 								// isn't Speaking...
-								if(actr.head == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.headPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
-								else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.1,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.bodyPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+								if(actr.imgFace == _spr) draw_sprite_ext(_spr,0,-WW*.1,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgFacePol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+								else if(actr.imgSuit == _spr) draw_sprite_ext(_spr,0,WW*.1,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgSuitPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
 								
 							}
 							
@@ -2081,8 +2081,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						
 						#region Dia Spr Set...
 							
-							if(D.diaSpeaker == actr) draw_sprite_ext(actr.diaSpr,0,WW*.1,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.diaSprPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),1-D.diaPct);
-							else draw_sprite_ext(actr.diaSpr,0,WW*.1,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.diaSprPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),1-D.diaPct);
+							if(D.diaSpeaker == actr) draw_sprite_ext(actr.imgDia,0,WW*.1,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.imgDiaPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),1-D.diaPct);
+							else draw_sprite_ext(actr.imgDia,0,WW*.1,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgDiaPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),1-D.diaPct);
 							
 						#endregion
 						
@@ -2096,8 +2096,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 					if(actr.suited) {
 						
-						var _sprw = sprite_get_width(actr.head)
-						draw_sprite_ext(actr.head,0,WW*.5-(_sprw/2),WH,_scl2*actr.headPol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
+						var _sprw = sprite_get_width(actr.imgFace)
+						draw_sprite_ext(actr.imgFace,0,WW*.5-(_sprw/2),WH,_scl2*actr.imgFacePol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
 						
 						
 					}
@@ -2106,21 +2106,21 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				
 				#region 3rd focusM/Middle (Flip x axis to face currently speaking focusL? Currently Treated like 2nd Focus only)
 					
-					if(actr.diaSpr == N) {
+					if(actr.imgDia == N) {
 						
 						#region Default (Suited/Unsuited)
 							
 							if(D.diaSpeaker == actr) {
 								
 								// Is Speaking...
-								if(actr.head == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.headPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
-								else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.bodyPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+								if(actr.imgFace == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.imgFacePol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+								else if(actr.imgSuit == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.imgSuitPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
 								
 							} else {
 								
 								// isn't Speaking...
-								if(actr.head == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.headPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
-								else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.bodyPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+								if(actr.imgFace == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgFacePol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+								else if(actr.imgSuit == _spr) draw_sprite_ext(_spr,0,WW*.5,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgSuitPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
 								
 							}
 							
@@ -2130,8 +2130,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						
 						#region Dia Spr Set...
 							
-							if(D.diaSpeaker == actr) draw_sprite_ext(actr.diaSpr,0,WW*.5,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.diaSprPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),1-D.diaPct);
-							else draw_sprite_ext(actr.diaSpr,0,-WW*.5,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.diaSprPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),1-D.diaPct);
+							if(D.diaSpeaker == actr) draw_sprite_ext(actr.imgDia,0,WW*.5,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.imgDiaPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),1-D.diaPct);
+							else draw_sprite_ext(actr.imgDia,0,-WW*.5,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgDiaPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),1-D.diaPct);
 							
 						#endregion
 						
@@ -2145,9 +2145,9 @@ function diaNar_draw(actr,diaInst,diaLyr){
 					
 					if(actr.suited) {
 						
-						var _sprw = sprite_get_width(actr.head)
-						if(_sprw <= sprite_get_height(actr.head)) draw_sprite_ext(actr.head,0,WW+(_sprw*.2),WH,_scl2*-actr.headPol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
-						else draw_sprite_ext(actr.head,0,WW,WH,_scl2*-actr.headPol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
+						var _sprw = sprite_get_width(actr.imgFace)
+						if(_sprw <= sprite_get_height(actr.imgFace)) draw_sprite_ext(actr.imgFace,0,WW+(_sprw*.2),WH,_scl2*-actr.imgFacePol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
+						else draw_sprite_ext(actr.imgFace,0,WW,WH,_scl2*-actr.imgFacePol,_scl2,0,color_brightness(D.scnBlend3,lerp(1,1/5,1)),D.diaDelPct2/2);
 						
 					}
 					
@@ -2155,7 +2155,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				
 				#region 2nd focusR/Right Side
 					
-					if(actr.diaSpr == N) {
+					if(actr.imgDia == N) {
 						
 						#region Default (Suited/Unsuited)
 							
@@ -2163,14 +2163,14 @@ function diaNar_draw(actr,diaInst,diaLyr){
 							if(D.diaSpeaker == actr) {
 								
 								// Is Speaking...
-								if(actr.head == _spr) draw_sprite_ext(_spr,0,WW+(WW*.1),WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*-actr.headPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
-								else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.9,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*-actr.bodyPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+								if(actr.imgFace == _spr) draw_sprite_ext(_spr,0,WW+(WW*.1),WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*-actr.imgFacePol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
+								else if(actr.imgSuit == _spr) draw_sprite_ext(_spr,0,WW*.9,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*-actr.imgSuitPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaDelPct2);
 								
 							} else {
 								
 								// isn't Speaking...
-								if(actr.head == _spr) draw_sprite_ext(_spr,0,WW+(WW*.1),WH,(_scl-((_scl*.1)*D.diaTranPct))*-actr.headPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
-								else if(actr.body == _spr) draw_sprite_ext(_spr,0,WW*.9,WH,(_scl-((_scl*.1)*D.diaTranPct))*-actr.bodyPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+								if(actr.imgFace == _spr) draw_sprite_ext(_spr,0,WW+(WW*.1),WH,(_scl-((_scl*.1)*D.diaTranPct))*-actr.imgFacePol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
+								else if(actr.imgSuit == _spr) draw_sprite_ext(_spr,0,WW*.9,WH,(_scl-((_scl*.1)*D.diaTranPct))*-actr.imgSuitPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),D.diaDelPct2);
 								
 							}
 							
@@ -2180,8 +2180,8 @@ function diaNar_draw(actr,diaInst,diaLyr){
 						
 						#region Dia Spr Set...
 							
-							if(D.diaSpeaker == actr) draw_sprite_ext(actr.diaSpr,0,WW*.9,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.diaSprPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),1-D.diaPct);
-							else draw_sprite_ext(actr.diaSpr,0,-WW*.9,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.diaSprPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),1-D.diaPct);
+							if(D.diaSpeaker == actr) draw_sprite_ext(actr.imgDia,0,WW*.9,WH,((_scl*.9)+((_scl*.1)*D.diaTranPct))*actr.imgDiaPol,(_scl*.9)+((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),1-D.diaPct);
+							else draw_sprite_ext(actr.imgDia,0,-WW*.9,WH,(_scl-((_scl*.1)*D.diaTranPct))*actr.imgDiaPol,_scl-((_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1,1/3,D.diaTranPct)),1-D.diaPct);
 							
 						#endregion
 						
@@ -2196,7 +2196,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 				if(D.diaInstArr != N) {
 					
 					if(D.diaInstArr[0] == actr and sprite_exists(D.diaInstArr[1]))
-						draw_sprite_ext(D.diaInstArr[1],0,WW*.1,WH,((n_scl*.9)+((n_scl*.1)*D.diaTranPct))*actr.diaSprPol,(n_scl*.9)+((n_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaPct);
+						draw_sprite_ext(D.diaInstArr[1],0,WW*.1,WH,((n_scl*.9)+((n_scl*.1)*D.diaTranPct))*actr.imgDiaPol,(n_scl*.9)+((n_scl*.1)*D.diaTranPct),0,color_brightness(D.scnBlend3,lerp(1/3,1,D.diaTranPct)),D.diaPct);
 					
 				}
 				
@@ -2481,7 +2481,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 														/* OLD
 														#region Text Box
 															
-															if(diaLyr == ds_list_size(D.diaNestLst)) {
+															if(diaLyr == ds_list_size(D.diaNestL)) {
 																
 																#region Init
 																	
@@ -2741,16 +2741,16 @@ function diaNar_draw(actr,diaInst,diaLyr){
 																	
 																	case V.BODY: {
 																		
-																		if(D.diaSpeaker.diaSpr != D.diaSpeaker.body)
-																			D.diaInstArr = [D.diaSpeaker,D.diaSpeaker.body];
+																		if(D.diaSpeaker.imgDia != D.diaSpeaker.imgSuit)
+																			D.diaInstArr = [D.diaSpeaker,D.diaSpeaker.imgSuit];
 																		break
 																		
 																	}
 																	
 																	case V.BODY_BACK: {
 																		
-																		if(D.diaSpeaker.diaSpr != D.diaSpeaker.bodyBack)
-																			D.diaInstArr = [D.diaSpeaker,D.diaSpeaker.bodyBack];
+																		if(D.diaSpeaker.imgDia != D.diaSpeaker.imgSuitBack)
+																			D.diaInstArr = [D.diaSpeaker,D.diaSpeaker.imgSuitBack];
 																		break
 																		
 																	}
@@ -2879,9 +2879,9 @@ function diaNar_draw(actr,diaInst,diaLyr){
 											
 											if(!D.diaLBDrawn) {
 												
-												#region Scene Darken (If no diaParLst)
+												#region Scene Darken (If no diaParL)
 													
-													if(ds_list_empty(D.diaParLst)) {
+													if(ds_list_empty(D.diaParL)) {
 														
 														var ao = draw_get_alpha()
 														draw_set_alpha((1/3)*(D.diaDelPct))
@@ -3035,9 +3035,9 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 	
 	if(letterbox and !D.diaLBDrawn) {
 		
-		#region Scene Darken (If no diaParLst)
+		#region Scene Darken (If no diaParL)
 			
-			if(ds_list_empty(D.diaParLst)) {
+			if(ds_list_empty(D.diaParL)) {
 				
 				var ao = draw_get_alpha()
 				draw_set_alpha((1/3)*(D.diaDelPct))

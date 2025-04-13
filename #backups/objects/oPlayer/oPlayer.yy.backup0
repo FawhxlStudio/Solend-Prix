@@ -1,0 +1,281 @@
+// 2025-04-13 18:09:09
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+uses_physics = false;
+
+#event create Init
+
+#region Essential & Flags
+	
+	// Essential
+	uid = ACTOR.SYLAS
+	col = [1,c.nb,c.nb,c.lb,c.lb]
+	
+	// Suit
+	suited = F
+	suitedo = F
+	
+	// Dialogue Speaker
+	spkr = F
+	spkro = F
+	
+#endregion
+
+#region Asset Vars
+	
+	// Face
+	imgFace = sprSylas
+	imgFacePol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+	
+	// Suit
+	imgSuit = sprSylasSuit
+	imgSuitPol = -1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+	
+	// Suit (Back)
+	imgSuitBack = sprNA
+	imgSuitBackPol = 1 // Based on being in 1st/Left Focus Position in Dialogue; see Main GUI Draw
+	
+	// Suit (Crate)
+	imgSuitCrate = sprSuitCrate
+	suitCrateInst = N // Instance for Suit Crate
+	
+	// Dialogue
+	imgDia = N
+	imgDiaPol = 1
+	
+#endregion
+
+#region Flip Vars
+	
+	// Flags
+	sprFlipH = F
+	sprFlipV = F
+	
+	// Iterator
+	flipDel = GSPD
+	flipHi = 0
+	flipVi = 0
+	
+	// Old Polarity
+	imgPolOld = N // Need to know the old polarity while flipping
+	
+#endregion
+
+#region Char Fonts
+	
+	font1 = fSylas // Dialogue
+	font2 = fEmoteMale // Emote
+	
+#endregion
+
+#region Party List (List of Actors in Player's Party, Includes Player)
+	
+	party = ds_list_create()
+	
+#endregion
+
+#region Dialogue Info
+	
+	diai = 0
+	dia = {}
+	dia[$ K.NM] = "Pilot"
+	dia[$ K.FNM] = "Sylas"
+	dia[$ K.LNM] = "Praey"
+	dia[$ K.SX] = SEX.MALE
+	dia[$ K.KNW] = T
+	dia[$ K.FNM+K.KNW] = T
+	dia[$ K.LNM+K.KNW] = T
+	dia[$ K.I] = 0
+	dia[$ K.CAR] = 0
+	dia[$ K.CAR+K.DL] = GSPD*.2
+	dia[$ K.CAR+K.DLI] = 0
+	
+#endregion
+
+#event step Logic Updates & Dialogue Triggers
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region Dialogue
+	
+	if(D.diaSpeaker == id) spkr = T
+	
+	/*
+	
+	if(variable_instance_exists(dia,string(D.scni)) and D.focusL == N and !TRAN.override) {
+		
+		var diaCnt = variable_instance_names_count(dia[$ D.scni])
+		for(var i = 0; i < diaCnt; i++) {
+			
+			if(variable_instance_exists(dia[$ string(D.scni)],string(i))) {
+				
+				if(!dia[$ string(D.scni)][$ string(i)][$ K.DN]
+					and dia[$ string(D.scni)][$ string(i)][$ K.TRG] == TRIGGER.START) {
+					
+					#region Start Trigger (Immediate/ASAP)
+						
+						var found = F
+						for(var i2 = 0; i2 < ds_list_size(D.dialogue); i2++)
+							found = (D.dialogue[|i2] == dia[$ string(D.scni)][$ string(i)]);
+						if(!found) ds_list_add(D.dialogue,dia[$ D.scni][$ string(i)]);
+						if(D.focusL == N) {
+							
+							D.focusL = id
+							diai = i
+							
+						}
+						
+					#endregion
+					
+				} else if(!dia[$ string(D.scni)][$ string(i)][$ K.DN]
+					and dia[$ string(D.scni)][$ string(i)][$ K.TRG] == TRIGGER.SUIT
+					and suitedo != suited) {
+					
+					#region Suit Trigger
+						
+						var found = F
+						for(var i2 = 0; i2 < ds_list_size(D.dialogue); i2++)
+							found = (D.dialogue[|i2] == dia[$ string(D.scni)][$ string(i)]);
+						if(!found) ds_list_add(D.dialogue,dia[$ D.scni][$ string(i)]);
+						if(D.focusL == N) {
+							
+							D.focusL = id
+							diai = i
+							
+						}
+						
+					#endregion
+					
+				} else if(!dia[$ string(D.scni)][$ string(i)][$ K.DN]
+					and dia[$ string(D.scni)][$ string(i)][$ K.TRG] == TRIGGER.ANIM) {
+					
+					#region Check Anim Trigger for Done
+						
+						var _trig = F
+						if(variable_instance_exists(dia[$ string(D.scni)][$ string(i)],K.ANM)) {
+							
+							// DEBUG HERE LIKELY IF ISSUES WITH TRIGGERING POST-ANIM DIALOGUE
+							var _anim = dia[$ string(D.scni)][$ string(i)][$ K.ANM]
+							if(variable_instance_exists(NS,_anim))
+								if(variable_instance_exists(NS[$ _anim],K.DN))
+									if(NS[$ _anim][$ K.DN])
+										_trig = T;
+							
+						}
+						
+					#endregion
+					
+					#region If Anim Trigger is Good, Queue Dialogue if not already
+						
+						if(_trig) {
+							
+							var found = F
+							for(var i2 = 0; i2 < ds_list_size(D.dialogue); i2++)
+								found = (D.dialogue[|i2] == dia[$ string(D.scni)][$ string(i)]);
+							if(!found) ds_list_add(D.dialogue,dia[$ D.scni][$ string(i)]);
+							if(D.focusL == N) {
+								
+								D.focusL = id
+								diai = i
+								
+							}
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	*/
+	
+#endregion Dialogue
+
+#event step_begin Controls
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
+#region FX Updates
+	
+	#region Sprite Polarity Flip
+		
+		#region Horizontal
+			
+			if(sprFlipH) {
+				
+				// First? Set Old...
+				if(flipHi == 0) {
+					
+					// Set Polairty Old
+					if is(imgDia) imgPolOld = imgDiaPol;
+					else if(suited) imgPolOld = imgSuitPol;
+					else imgPolOld = imgFacePol;
+					
+				} else if(imgPolOld != N) {
+					
+					// Apply Transistion
+					if is(imgDia) imgDiaPol = lerp(imgPolOld,imgPolOld*-1,cos(degtorad(180*(flipHi/flipDel))/2));
+					else if(suited) imgSuitPol = lerp(imgPolOld,imgPolOld*-1,cos(degtorad(180*(flipHi/flipDel))/2));
+					else imgFacePol = lerp(imgPolOld,imgPolOld*-1,cos(degtorad(180*(flipHi/flipDel))/2));
+					
+				}
+				
+				// Iterate
+				flipHi++
+				if(flipHi > flipDel) {
+					
+					// Done?
+					flipHi = 0
+					sprFlipH = F
+					
+					// CHECKLIST:
+					// I think this is done?
+					// Delay Dialogue From Continuing until sprFlipH or sprFlipV is no longer true?
+					// Doesn't cos(0) == 2 or 1? We wan't sin right? 1 -> -1 in lerp???
+					
+				}
+				
+			}
+			
+		#endregion
+		
+	#endregion
+	
+#endregion
+
+#region Meta Updates
+	
+	#region Olds
+		
+		suitedo = suited
+		
+	#endregion
+	
+#endregion
+
+if(D.scene_state == GAME.PLAY) {
+	
+	#region Zoom Toggle
+		
+		if(TRAN.delpct <= 0) {
+			
+			//if(MBRP and !D.ctrlOverride) D.zoomed = !D.zoomed;
+			if(MBRP and !DBG.edit and !D.ctrlOverride) D.zoomed = !D.zoomed;
+			
+			if(D.zoomed) D.z = D.zmx-(D.zmx*lerp(D.diaZmn-1,D.diaZmx-1,D.diaDelPct));
+			else D.z = D.zmn*lerp(D.diaZmn,D.diaZmx,D.diaDelPct);
+			
+			// Zoom Old (Used to return to zoom after transitions)
+			D.zo = D.z
+			
+		}
+		
+	#endregion
+	
+}
+
+#event draw_pre
+try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }

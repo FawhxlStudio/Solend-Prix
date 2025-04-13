@@ -18,12 +18,13 @@ titAngl2 = N
 titSurf = N
 tita = 0
 btnDel = GSPD*2
+btnDeli = 0
 
 // Menu Sprites
 bdspr = sprNewMenuBD
 bgspr = sprNewMenuBG
 mgspr = sprClubBoothBG
-mg2spr = sprSylasBod2
+mg2spr = sprSylasSuit
 
 // Settings
 settings = F

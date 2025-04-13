@@ -1138,75 +1138,455 @@ function db_act() {
     
     #region Actor List Reset
         
-        for(var i = 0; i < ds_list_size(actorLst); i++) {
+        for(var i = 0; i < ds_list_size(actorL); i++) {
             
-            var e = actorLst[|i]
+            var e = actorL[|i]
             if(e != P) instance_destroy(e);
             else ds_list_clear(P.party);
             
         }
         
         // Clear Actor List...
-        ds_list_clear(actorLst)
+        ds_list_clear(actorL)
         
     #endregion
     
 	#region Sylas (You)/Player
 		
-		ds_list_add(actorLst,P)
+		ds_list_add(actorL,P)
 		
 	#endregion
 	
 	#region Narrator
 		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
-		_char.dia[$ K.NM] = "Narrator"
-		_char.dia[$ K.SX]  = SEX.MALE
-		_char.body = sprNA
-		_char.bodyPol = 1
-		_char.bodyBack = sprNA
-		_char.bodyBackPol = 1
-		_char.diaSpr = _char.bodyBack
-		_char.diaSprPol = _char.bodyBackPol
-		_char.head = sprNA
-		_char.headPol = 1
-		_char.uid = ACTOR.NARRATOR
-		_char.font1 = fNeu
-		_char.font2 = fNeuB
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.NARRATOR
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = c.gry
+			_char.col[4] = c.gry
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "Narrator"
+			_char.dia[$ K.FNM] = N
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW] = F
+			_char.dia[$ K.LNM+K.KNW] = F
+			_char.dia[$ K.SX]  = N
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fNeu	// Dialogue
+			_char.font2 = fNeuB // Emote
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+			// Suit (Back)
+			_char.imgSuitBack = sprNA
+			_char.imgSuitBackPol = 1
+			
+			// Dialogue
+			_char.imgDia = sprNA
+			_char.imgDiaPol = 1
+			
+		#endregion
 		
 	#endregion
 	
-	#region Spitfire
+	#region Pilot Siena Spitfire
 		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
-		_char.dia[$ K.NM] = "Spitfire"
-		_char.dia[$ K.SX]  = SEX.FEMALE
-		_char.body = sprSpitfireBod
-		_char.bodyPol = 1
-		_char.bodyBack = sprSpitfireBack
-		_char.bodyBackPol = 1
-		_char.diaSpr = _char.bodyBack
-		_char.diaSprPol = _char.bodyBackPol
-		_char.head = sprSpitfire1
-		_char.headPol = 1
-		_char.uid = ACTOR.SPITFIRE
-		_char.font1 = fSpitfire
-		_char.font2 = fSpitfireB
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.SPITFIRE
+			_char.col[1] = c.nr
+			_char.col[2] = c.nr
+			_char.col[3] = c.ny
+			_char.col[4] = c.ny
+			
+		#endregion
+		
+		#region (Dia)logue
+		
+			_char.dia[$ K.NM] = "Pilot"
+			_char.dia[$ K.FNM] = "Siena"
+			_char.dia[$ K.LNM] = "Spitfire"
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fSpitfire  // Dialogue
+			_char.font2 = fSpitfireB // Emote
+			
+			// Face
+			_char.imgFace = sprSpitfire1
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprSpitfireBod
+			_char.imgSuitPol = 1
+			
+			// Suit Back
+			_char.imgSuitBack = sprSpitfireBack
+			_char.imgSuitBackPol = 1
+			
+			// Dialogue
+			_char.imgDia = _char.imgSuitBack
+			_char.imgDiaPol = _char.imgSuitBackPol
+			
+			
+		#endregion
 		
 	#endregion
+	
+	#region Veil Alexandria Vesper
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.ALEXANDRIA
+			_char.col[1] = make_color_rgb(192,0,192)
+			_char.col[2] = make_color_rgb(192,0,192)
+			_char.col[3] = make_color_rgb(128,0,128)
+			_char.col[4] = make_color_rgb(128,0,128)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "Veil"
+			_char.dia[$ K.FNM] = "Alexandria"
+			_char.dia[$ K.LNM] = "Vesper"
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW]  = T
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fAlexandria1
+			_char.font2 = fAlexandria2
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region LINI FOX
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.FOX
+			_char.col[1] = make_color_rgb(0,255,0)
+			_char.col[2] = make_color_rgb(0,255,0)
+			_char.col[3] = make_color_rgb(0,192,0)
+			_char.col[4] = make_color_rgb(0,192,0)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "F.O.X."
+			_char.dia[$ K.FNM] = N
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.MALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fTransmit
+			_char.font2 = fHUD
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region Older Sylas
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.OLDERSYLAS
+			_char.col[1] = make_color_rgb(96,96,192)
+			_char.col[2] = make_color_rgb(96,96,192)
+			_char.col[3] = make_color_rgb(32,32,160)
+			_char.col[4] = make_color_rgb(32,32,192)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "Pilot"
+			_char.dia[$ K.FNM] = "Sylas"
+			_char.dia[$ K.LNM] = "Praey"
+			_char.dia[$ K.KNW]  = F
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.MALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fBrave
+			_char.font2 = fTransmit
+			
+			// Face
+			_char.imgFace = sprSylasOlder
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region Unknown
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.UNKNOWN
+			_char.col[1] = c.lgry
+			_char.col[2] = c.lgry
+			_char.col[3] = c.dgry
+			_char.col[4] = c.dgry
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = N
+			_char.dia[$ K.FNM] = N
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = F
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = N
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fNeu
+			_char.font2 = fNeuB
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region Unknown Male
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.UNKNOWN_MALE
+			_char.col[1] = c.lgry
+			_char.col[2] = c.lgry
+			_char.col[3] = make_color_rgb(160,160,255)
+			_char.col[4] = make_color_rgb(160,160,255)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "Unknown Male"
+			_char.dia[$ K.FNM] = N
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.MALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fNeu
+			_char.font2 = fNeuB
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region Unknown Female
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.UNKNOWN_FEMALE
+			_char.col[1] = c.lgry
+			_char.col[2] = c.lgry
+			_char.col[3] = make_color_rgb(255,160,160)
+			_char.col[4] = make_color_rgb(255,160,160)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "Unknown Female"
+			_char.dia[$ K.FNM] = N
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fNeu
+			_char.font2 = fNeuB
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region Viral
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.VIRAL
+			_char.col[1] = make_color_rgb(255,128,128)
+			_char.col[2] = make_color_rgb(255,128,128)
+			_char.col[3] = make_color_rgb(160,32,32)
+			_char.col[4] = make_color_rgb(160,32,32)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = ACTORn[ACTOR.VIRAL]
+			_char.dia[$ K.FNM] = N
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = F
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fFakeLove
+			_char.font2 = fInfect
+			
+			// Face
+			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+    
+}
+
+function db_act_rnd() {
+	
+    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	
 	#region Alexandria
 		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
-		_char.dia[$ K.NM] = "Alexandria"
+		ds_list_add(randActorL,instance_create_layer(0,0,"MG",oChar))
+		var _char = randActorL[|ds_list_size(randActorL)-1]
+		_char.dia[$ K.NM] = "UNKNOWN"
 		_char.dia[$ K.SX]  = SEX.FEMALE
-		_char.body = sprNA
-		_char.bodyPol = 1
-		_char.head = sprNA
-		_char.headPol = 1
+		if(chance(50)) _char.dia[$ K.SX] = SEX.MALE;
+		_char.imgSuit = sprNA
+		_char.imgSuitPol = 1
+		_char.imgFace = sprNA
+		_char.imgFacePol = 1
 		_char.uid = ACTOR.ALEXANDRIA
 		_char.font1 = fAlexandria1
 		_char.font2 = fAlexandria2
@@ -1217,36 +1597,16 @@ function db_act() {
 		
 	#endregion
 	
-	#region FOX
-		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
-		_char.dia[$ K.NM] = "F.O.X."
-		_char.dia[$ K.SX]  = SEX.FEMALE
-		_char.body = sprNA
-		_char.bodyPol = 1
-		_char.head = sprNA
-		_char.headPol = 1
-		_char.uid = ACTOR.FOX
-		_char.font1 = fTransmit
-		_char.font2 = fHUD
-		_char.col[1] = make_color_rgb(0,255,0)
-		_char.col[2] = make_color_rgb(0,255,0)
-		_char.col[3] = make_color_rgb(0,192,0)
-		_char.col[4] = make_color_rgb(0,192,0)
-		
-	#endregion
-	
 	#region Older Sylas
 		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
+		ds_list_add(randActorL,instance_create_layer(0,0,"MG",oChar))
+		var _char = randActorL[|ds_list_size(actorL)-1]
 		_char.dia[$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
 		_char.dia[$ K.SX]  = SEX.MALE
-		_char.body = sprNA
-		_char.bodyPol = 1
-		_char.head = sprSylasOlder
-		_char.headPol = 1
+		_char.imgSuit = sprNA
+		_char.imgSuitPol = 1
+		_char.imgFace = sprSylasOlder
+		_char.imgFacePol = 1
 		_char.uid = ACTOR.OLDERSYLAS
 		_char.font1 = fBrave
 		_char.font2 = fTransmit
@@ -1254,46 +1614,6 @@ function db_act() {
 		_char.col[2] = make_color_rgb(96,96,192)
 		_char.col[3] = make_color_rgb(32,32,160)
 		_char.col[4] = make_color_rgb(32,32,192)
-		
-	#endregion
-	
-	#region Unknown
-		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
-		_char.dia[$ K.NM] = ACTORn[ACTOR.UNKNOWN]
-		_char.dia[$ K.SX]  = SEX.MALE
-		_char.body = sprNA
-		_char.bodyPol = 1
-		_char.head = sprNA
-		_char.headPol = 1
-		_char.uid = ACTOR.UNKNOWN
-		_char.font1 = fNeu
-		_char.font2 = fTransmit
-		_char.col[1] = c.lgry
-		_char.col[2] = c.lgry
-		_char.col[3] = c.dgry
-		_char.col[4] = c.dgry
-		
-	#endregion
-	
-	#region Viral
-		
-		ds_list_add(actorLst,instance_create_layer(0,0,"MG",oChar))
-		var _char = actorLst[|ds_list_size(actorLst)-1]
-		_char.dia[$ K.NM] = ACTORn[ACTOR.VIRAL]
-		_char.dia[$ K.SX]  = SEX.FEMALE
-		_char.body = sprNA
-		_char.bodyPol = 1
-		_char.head = sprNA
-		_char.headPol = 1
-		_char.uid = ACTOR.VIRAL
-		_char.font1 = fFakeLove
-		_char.font2 = fInfect
-		_char.col[1] = make_color_rgb(255,192,255)
-		_char.col[2] = make_color_rgb(192,128,192)
-		_char.col[3] = make_color_rgb(255,192,255)
-		_char.col[4] = make_color_rgb(192,128,192)
 		
 	#endregion
     

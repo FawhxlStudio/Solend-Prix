@@ -239,7 +239,7 @@ if(D.game_state == GAME.PLAY
 											
 											var snd = N
 											if(!audio_is_playing(v)) snd = audio_play_sound_on(envEmt,v,T,3,0);
-											if(snd != N) audio_sound_gain(snd,2/3,1000);
+											if(snd != N) audio_sound_gain(snd,1,1000);
 											
 										}
 										

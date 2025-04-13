@@ -26,6 +26,6 @@ function ds_list_top(list) {
 function ds_list_del_top(list) {
     
 	if(ds_list_empty(list)) return F;
-	else return ds_list_delete(D.diaNestLst,ds_list_size(list)-1);
+	else return ds_list_delete(D.diaNestL,ds_list_size(list)-1);
 	
 }

@@ -23,10 +23,10 @@ function flipr() {
 
 function actor_find(_uid) {
 	
-	for(var i = 0; i < ds_list_size(D.actorLst); i++) {
+	for(var i = 0; i < ds_list_size(D.actorL); i++) {
 		
-		if(_uid == D.actorLst[|i].uid)
-			return D.actorLst[|i];
+		if(_uid == D.actorL[|i].uid)
+			return D.actorL[|i];
 		
 	}
 	
