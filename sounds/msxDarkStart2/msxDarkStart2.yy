@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":256,
-  "compression":0,
+  "compression":2,
   "conversionMode":0,
   "duration":47.995647,
   "name":"msxDarkStart2",

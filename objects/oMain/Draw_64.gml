@@ -6,7 +6,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	if(D.game_state == GAME.MENU and DBG.introSkip) {
 		
 		set_scni(SCENE.RESORT_BED)
-		if(!audio_is_playing(msxDefault)) audio_stop_all();
+		if(!audio_is_playing(bgm)) bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
 		room_goto(rGame)

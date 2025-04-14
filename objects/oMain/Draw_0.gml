@@ -1,4 +1,5 @@
 /// @description Game
+/// @description Game
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
 #region Game
@@ -8,10 +9,6 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		if(D.scene_state == GAME.INIT) {
 			
 			#region Init
-				
-				// Play BGM
-				if(!audio_is_playing(msxDefault))
-					msx = audio_play_sound_on(bgmEmt,msxDefault,T,0,0);
 				
 				// Clears all dialogue control variables to default
 				diaNar_reset()
@@ -287,14 +284,56 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Fade-In BGM
 			
-			if(audio_is_playing(msxDefault) and audio_sound_get_gain(msx) == 0) audio_sound_gain(msx,1,10*1000);
+			// D.bgm = Scene Music
+			// bgm   = Default Music
+			if(audio_is_playing(D.bgm)) {
+				
+				#region Stop Previous Scene Music and start new One
+					
+					if(variable_instance_exists(S[$string(D.scni)],K.PLY) and is(S[$ D.scni][$ K.PLY])) {
+						
+						if(audio_exists(S[$ D.scni][$ K.PLY]) and S[$ D.scni][$ K.PLY] != D.bgm and audio_sound_get_gain(D.bgmID) <= 0) {
+							
+							audio_stop_sound(D.bgm)
+							D.bgm = S[$ D.scni][$ K.PLY]
+							D.bgmID = audio_play_sound_on(bgmEmt,D.bgm,F,0,0)
+							if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) > 0) audio_sound_gain(bgmID,0,4000);
+							audio_sound_gain(D.bgmID,2/3,4000)
+							S[$ D.scni][$ K.PLY] = N
+							
+						} else if(audio_sound_get_gain(D.bgmID) >= 2/3) audio_sound_gain(D.bgmID,0,4000);
+						
+					}
+					
+				#endregion
+				
+			} else if(audio_is_playing(bgm)) {
+				
+				#region Start/Stop Default Retrowave and Play Scene Music
+					
+					if(variable_instance_exists(S[$string(D.scni)],K.PLY) and is(S[$ D.scni][$ K.PLY])) {
+						
+						if(audio_exists(S[$ D.scni][$ K.PLY]) and S[$ D.scni][$ K.PLY] != D.bgm) {
+							
+							D.bgm = S[$ D.scni][$ K.PLY]
+							D.bgmID = audio_play_sound_on(bgmEmt,D.bgm,F,0,0)
+							if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) > 0) audio_sound_gain(bgmID,0,4000);
+							audio_sound_gain(D.bgmID,2/3,4000)
+							
+						}
+						S[$ D.scni][$ K.PLY] = N
+						
+					} else if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) <= 0) audio_sound_gain(bgmID,1/3,4000);
+					
+				#endregion
+				
+			} else bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
 			
 		#endregion
 		
 	}
 	
 #endregion
-
 
 #region Application Surface Draw (Shaders)
 	

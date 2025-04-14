@@ -185,60 +185,6 @@ function db_diaNar() {
 			
 		#endregion
 		
-		#region Fetch Anim Sprites
-			
-			// Init Anim Level Keys...
-			var sks = variable_instance_get_sorted_strKeys(NS,T)
-			
-			if(is_array(sks)) {
-				
-				#region Iterate Anim Level...
-					
-					for(var i = 0; i < array_length(sks); i++) {
-						
-						// Init Instance Level Keys...
-						var ks = variable_instance_get_names(NS[$ sks[i]])
-						
-						#region Iterate Instance Level...
-							
-							for(var i2 = 0; i2 < array_length(ks); i2++) {
-								
-								try {
-									
-									// Get Key...
-									var k = ks[i2]
-									
-									// Is Sprite Key?
-									if(string_ends_with(k,K.SPR)) {
-										
-										// Get Sprite Value
-										var e = S[$ i][$ k]
-										
-										// Verify Sprite...
-										if(sprite_exists(e)) {
-											
-											// Add Sprite to Fetch Array if missing...
-											if(!array_contains(fetchArr,e)) 
-												fetchArr[array_length(fetchArr)] = e;
-											
-										}
-										
-									}
-									
-								} catch(_ex) {}
-								
-							}
-							
-						#endregion
-						
-					}
-					
-				#endregion
-				
-			}
-			
-		#endregion
-		
 	#endregion
 	
 	#region Resort
@@ -578,6 +524,7 @@ function db_scn() {
 		#region Suite
 			
 			S[$ SCENE.RESORT_SUITE] = {}
+			S[$ SCENE.RESORT_SUITE][$ K.PLY] = msxBellhop
 			S[$ SCENE.RESORT_SUITE][$ K.SK0+K.SPR] = sprCitySky
 			S[$ SCENE.RESORT_SUITE][$ K.SK0+K.PMT] = 1/40
 			S[$ SCENE.RESORT_SUITE][$ K.BD0+K.SPR] = sprApartBD
@@ -723,6 +670,7 @@ function db_scn() {
 		#region Entrance
 			
 			S[$ SCENE.CLUB_ENT] = {}
+			S[$ SCENE.CLUB_ENT][$ K.PLY] = msxSlickBandit
 			S[$ SCENE.CLUB_ENT][$ K.SK0+K.SPR] = sprNA
 			S[$ SCENE.CLUB_ENT][$ K.BD0+K.SPR] = sprNA
 			S[$ SCENE.CLUB_ENT][$ K.BG0+K.L2+K.SPR] = sprNA
@@ -783,6 +731,7 @@ function db_scn() {
 		#region Entrance
 			
 			S[$ SCENE.BROTH_ENT] = {}
+			S[$ SCENE.BROTH_ENT][$ K.PLY] = msxSporkbomb
 			S[$ SCENE.BROTH_ENT][$ K.SK0+K.SPR] = sprNA
 			S[$ SCENE.BROTH_ENT][$ K.BD0+K.SPR] = sprNA
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.L2+K.SPR] = sprNA
@@ -885,6 +834,7 @@ function db_scn() {
 		#region Entrance
 			
 			S[$ SCENE.SPACEPORT_ENT] = {}
+			S[$ SCENE.SPACEPORT_ENT][$ K.PLY] = msxDubnai
 			S[$ SCENE.SPACEPORT_ENT][$ K.SK0+K.SPR] = sprNA
 			S[$ SCENE.SPACEPORT_ENT][$ K.BD0+K.SPR] = sprNA
 			S[$ SCENE.SPACEPORT_ENT][$ K.BG0+K.L2+K.SPR] = sprNA
@@ -997,6 +947,7 @@ function db_scn() {
 		#region Alley 1
 			
 			S[$ SCENE.SLUM_A1] = {}
+			S[$ SCENE.SLUM_A1][$ K.PLY] = msxCrank
 			S[$ SCENE.SLUM_A1][$ K.SK0+K.SPR] = sprNA
 			S[$ SCENE.SLUM_A1][$ K.BD0+K.SPR] = sprNA
 			S[$ SCENE.SLUM_A1][$ K.BG0+K.L2+K.SPR] = sprNA
@@ -1076,6 +1027,7 @@ function db_scn() {
 		
 	#endregion
 	
+	/*
 	#region Fetch Scene Sprites
 		
 		// Init Scene Level Keys...
@@ -1129,6 +1081,7 @@ function db_scn() {
 		}
 		
 	#endregion
+    */
     
 }
 

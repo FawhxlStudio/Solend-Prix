@@ -244,7 +244,7 @@ if(!fetch) {
 	#region Pre-Fetch Logic
 		
 		// Draw Load Surface
-		if(is(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
+		if(is(D.loadSurf) and surface_exists(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
 		
 	#endregion
 	

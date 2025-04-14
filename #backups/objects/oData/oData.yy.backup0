@@ -1,4 +1,4 @@
-// 2025-04-13 16:20:15
+// 2025-04-14 03:14:36
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -16,6 +16,8 @@ uses_physics = false;
 	focusR = N
 	focusM = N
 	fd = 4 // Frame Delay
+	bgm = N
+	bgmID = N
 	
 	// Actor Lists
 	actorL = ds_list_create()
@@ -216,9 +218,6 @@ uses_physics = false;
 	#macro S global.scene_struct
 	S = {}
 	
-	// Array to Fetch Sprites w/
-	fetchArr = [sprSylas1,sprSylas2,sprSylas3,sprSylas4,sprSylasBod,sprSylasBod2,sprSpitfire1,sprSpitfire2,sprSpitfireBod]
-	
 	// Init Scene Struct
 	db_scn()
 	
@@ -329,9 +328,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #event draw_gui Surface Inits
 
+
+#event draw_pre Surface Inits?
+
 #region Init/Draw Load Surface
 	
-	if(is_undefined(loadSurf)) {
+	if(is_undefined(loadSurf) or !surface_exists(loadSurf)) {
 		
 		// Create Surface...
 		loadSurf = surface_create(WW,WH)
@@ -359,9 +361,6 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	}
 	
 #endregion
-
-#event draw_pre Insert description here
-// You can write your code in this editor
 
 
 #event draw_post Global Logic Updates Updates

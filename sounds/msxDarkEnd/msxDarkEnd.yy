@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":256,
-  "compression":0,
+  "compression":2,
   "conversionMode":0,
   "duration":21.998005,
   "name":"msxDarkEnd",

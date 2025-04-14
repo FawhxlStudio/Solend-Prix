@@ -87,21 +87,24 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 	#region Pre Menu Vox
 		
 		// Play Voxes
-		if((bgmID == N or !audio_is_playing(bgm)) and preDel <= 0 and M.introInst == N) {
+		if(!bgmPlayed and preDel <= 0) {
 			
-			if(bgmID == N) {
-				
-				bgmID = audio_play_sound_on(bgmEmt,bgm,F,0,0)
-				audio_sound_gain(bgmID,1,4000)
-				
-			} else if(M.msx == N or !audio_is_playing(msxDefault)) {
-				
-				M.msx = audio_play_sound_on(bgmEmt,msxDefault,T,0,0)
-				audio_sound_gain(M.msx,1,4000)
-				
-			}
+			// Play Intro BGM
+			bgmID = audio_play_sound_on(bgmEmt,bgm,F,0,0)
+			D.bgm = bgm
+			D.bgmID = bgmID
+			audio_sound_gain(bgmID,2/3,4000)
+			bgmPlayed = T
 			
 		} else if(preDel > 0 ) preDel--;
+		else if(bgmPlayed and !audio_is_playing(bgm) and !audio_is_playing(M.bgm)) {
+			
+			D.bgm = N
+			D.bgmID = N
+			M.bgmID = audio_play_sound_on(bgmEmt,M.bgm,T,0,0);
+			audio_sound_gain(M.bgmID,1/3,4000)
+			
+		}
 		
 		if(preDel <= 0 and fade > 0) fade = clamp(fade-fadei,0,1);
 		
@@ -137,7 +140,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 	
 	#region Title Draw
 		
-		if(surface_exists(titSurf)) {
+		if(surface_exists(titSurf) and M.introInst == N) {
 			
 			// Draw Title
 			if(audio_is_playing(sfxFlyBy)) tita = audio_sound_get_track_position(titsfx)/audio_sound_length(sfxFlyBy);

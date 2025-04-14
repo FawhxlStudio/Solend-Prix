@@ -1,4 +1,4 @@
-// 2025-04-13 14:16:29
+// 2025-04-14 12:14:53
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -7,7 +7,8 @@ uses_physics = false;
 
 // Init
 dbg = T
-msx = N
+bgm = msxDefault
+bgmID = N
 introInst = N
 strBld_ = ""
 strDel_ = 1.5
@@ -52,6 +53,7 @@ if(room_width != WW or room_height != WH)
 
 
 #event draw Game
+/// @description Game
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
 #region Game
@@ -61,10 +63,6 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		if(D.scene_state == GAME.INIT) {
 			
 			#region Init
-				
-				// Play BGM
-				if(!audio_is_playing(msxDefault))
-					msx = audio_play_sound_on(bgmEmt,msxDefault,T,0,0);
 				
 				// Clears all dialogue control variables to default
 				diaNar_reset()
@@ -340,14 +338,56 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Fade-In BGM
 			
-			if(audio_is_playing(msxDefault) and audio_sound_get_gain(msx) == 0) audio_sound_gain(msx,1,10*1000);
+			// D.bgm = Scene Music
+			// bgm   = Default Music
+			if(audio_is_playing(D.bgm)) {
+				
+				#region Stop Previous Scene Music and start new One
+					
+					if(variable_instance_exists(S[$string(D.scni)],K.PLY) and is(S[$ D.scni][$ K.PLY])) {
+						
+						if(audio_exists(S[$ D.scni][$ K.PLY]) and S[$ D.scni][$ K.PLY] != D.bgm and audio_sound_get_gain(D.bgmID) <= 0) {
+							
+							audio_stop_sound(D.bgm)
+							D.bgm = S[$ D.scni][$ K.PLY]
+							D.bgmID = audio_play_sound_on(bgmEmt,D.bgm,F,0,0)
+							if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) > 0) audio_sound_gain(bgmID,0,4000);
+							audio_sound_gain(D.bgmID,2/3,4000)
+							S[$ D.scni][$ K.PLY] = N
+							
+						} else if(audio_sound_get_gain(D.bgmID) >= 2/3) audio_sound_gain(D.bgmID,0,4000);
+						
+					}
+					
+				#endregion
+				
+			} else if(audio_is_playing(bgm)) {
+				
+				#region Start/Stop Default Retrowave and Play Scene Music
+					
+					if(variable_instance_exists(S[$string(D.scni)],K.PLY) and is(S[$ D.scni][$ K.PLY])) {
+						
+						if(audio_exists(S[$ D.scni][$ K.PLY]) and S[$ D.scni][$ K.PLY] != D.bgm) {
+							
+							D.bgm = S[$ D.scni][$ K.PLY]
+							D.bgmID = audio_play_sound_on(bgmEmt,D.bgm,F,0,0)
+							if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) > 0) audio_sound_gain(bgmID,0,4000);
+							audio_sound_gain(D.bgmID,2/3,4000)
+							
+						}
+						S[$ D.scni][$ K.PLY] = N
+						
+					} else if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) <= 0) audio_sound_gain(bgmID,1/3,4000);
+					
+				#endregion
+				
+			} else bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
 			
 		#endregion
 		
 	}
 	
 #endregion
-
 
 #region Application Surface Draw (Shaders)
 	
@@ -393,7 +433,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	if(D.game_state == GAME.MENU and DBG.introSkip) {
 		
 		set_scni(SCENE.RESORT_BED)
-		if(!audio_is_playing(msxDefault)) audio_stop_all();
+		if(!audio_is_playing(bgm)) bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
 		sfx_gunshot(1)
 		introInst = instance_create_layer(0,0,"GUI",oIntro)
 		room_goto(rGame)
@@ -404,7 +444,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #region Dialogue Logic
 	
-	if(!ds_list_empty(D.diaParLst) and !D.diaOverride
+	if(!ds_list_empty(D.diaParL) and !D.diaOverride
 		and D.fd <= 0 and !TRAN.override) {
 		
 		#region Init Parent Dialogue if we haven't (Based on Focuses being noone or not)
@@ -412,7 +452,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			#region Init
 				
 				// Get Dialogue Array [ 0:actor_uid , 1:dia_instance ]..
-				var e = D.diaParLst[|0]
+				var e = D.diaParL[|0]
 				
 				// Set Control Override
 				D.ctrlOverride = T
@@ -456,14 +496,14 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							} else {
 								
 								if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-								ds_list_delete(D.diaParLst,0); // Cancel
+								ds_list_delete(D.diaParL,0); // Cancel
 								
 							}
 							
 						} else {
 							
 							if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-							ds_list_delete(D.diaParLst,0); // Cancel
+							ds_list_delete(D.diaParL,0); // Cancel
 							
 						}
 						
@@ -471,7 +511,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					} else {
 						
 						if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-						ds_list_delete(D.diaParLst,0); // Cancel
+						ds_list_delete(D.diaParL,0); // Cancel
 						
 					}
 					
@@ -479,7 +519,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				} else {
 					
 					if(is_struct(e[1])) e[$ K.DN] = T; // Bypass
-					ds_list_delete(D.diaParLst,0); // Cancel
+					ds_list_delete(D.diaParL,0); // Cancel
 					
 				}
 				
@@ -498,7 +538,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		#region Draw & Iterate Transitions...
 			
-			if(e == D.diaParLst[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestLst)) {
+			if(e == D.diaParL[|0] and is_struct(e[1]) and ds_list_empty(D.diaNestL)) {
 				
 				#region Un-Nested Dialogue (There is no Nested Dialogue (yet))
 					
@@ -520,16 +560,16 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					
 				#endregion
 				
-			} else if(e == D.diaParLst[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestLst)) {
+			} else if(e == D.diaParL[|0] and is_struct(e[1]) and !ds_list_empty(D.diaNestL)) {
 				
-				#region Nested Dialogue (We are currently in a nested diaParLst instance)
+				#region Nested Dialogue (We are currently in a nested diaParL instance)
 					
 					#region Do Nested Dialogue Draw Calls & Recursion...
 						
-						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
-						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,ds_list_top(D.diaNestLst),ds_list_size(D.diaNestLst));
+						if(D.focusL and D.focusL != D.diaSpeaker) diaNar_draw(D.focusL,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
+						if(D.focusR and D.focusR != D.diaSpeaker) diaNar_draw(D.focusR,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
+						if(D.focusM and D.focusM != D.diaSpeaker) diaNar_draw(D.focusM,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
+						if(D.diaSpeaker) diaNar_draw(D.diaSpeaker,ds_list_top(D.diaNestL),ds_list_size(D.diaNestL));
 						
 					#endregion
 					
@@ -548,7 +588,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	} else {
 		
-		#region No more diaParLst?
+		#region No more diaParL?
 			
 			diaNar_focus_reset() // Focus Sanity...
 			// De-Iterate
@@ -573,17 +613,17 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	#endregion
 	
-	#region Parent Dialogue Checks; This is where diaParLst is initiated!
+	#region Parent Dialogue Checks; This is where diaParL is initiated!
 		
-		for(var i = 0; i < ds_list_size(D.actorLst); i++) {
+		for(var i = 0; i < ds_list_size(D.actorL); i++) {
 			
-			var act = D.actorLst[|i]
-			// var started = ds_list_empty(D.diaParLst) // Is the parent dialogue list empty?
+			var act = D.actorL[|i]
+			// var started = ds_list_empty(D.diaParL) // Is the parent dialogue list empty?
 			diaNar_iterate_level(NS,act.uid,0)
 			/* Redundant?
-			if(started and ds_list_empty(D.diaParLst)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
+			if(started and ds_list_empty(D.diaParL)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
 			// No Else Needed; Since if it wasn't empty already, then started is already false.
-			if(started and D.diaParLst[|0][0] == act.uid) D.diaSpeaker = act; // Set whose dialogue it belongs to, to be initial focus/speaker...
+			if(started and D.diaParL[|0][0] == act.uid) D.diaSpeaker = act; // Set whose dialogue it belongs to, to be initial focus/speaker...
 			*/
 			
 		}
@@ -594,9 +634,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 		if(!D.diaLBDrawn) {
 			
-			#region Scene Darken (If no diaParLst)
+			#region Scene Darken (If no diaParL)
 				
-				if(ds_list_empty(D.diaParLst)) {
+				if(ds_list_empty(D.diaParL)) {
 					
 					var ao = draw_get_alpha()
 					draw_set_alpha((1/3)*(D.diaDelPct))
@@ -631,8 +671,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			
 			var _e = P.party[|i]
 			var _spr = sprNA
-			if(_e.dia[$ K.KNW]) _spr = _e.body;
-			else _spr = _e.head;
+			if(_e.dia[$ K.KNW]) _spr = _e.imgSuit;
+			else _spr = _e.imgFace;
 			var _w = WW*.1
 			var _scl = _w/sprite_get_width(_spr)
 			draw_sprite_ext(_spr,0,(sprite_get_xoffset(_spr)*_scl)+((sprite_get_width(_spr)*_scl)*i),sprite_get_yoffset(_spr)*_scl,_scl,_scl,0,c.gry,2/3)
@@ -1126,25 +1166,25 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 															// TODO-4/10/25: Can we modify this suit instance to put the suit back down too?
 															// We don't really need this feature...
 															
-															if(!P.suited and P.suitInst == N) {
+															if(!P.suited and P.suitCrateInst == N) {
 																
 																#region Create/Show Suit Instance
 																	
-																	_img.sprite_index = P.suitSpr
+																	_img.sprite_index = P.imgSuitCrate
 																	_img.sclBase = 8
-																	_img.scl = (WW/_img.sclBase)/sprite_get_width(P.suitSpr)
+																	_img.scl = (WW/_img.sclBase)/sprite_get_width(P.imgSuitCrate)
 																	_img.xxpct = CM[$ string(i)][$ K.XY2][0]
 																	_img.yypct = CM[$ string(i)][$ K.XY2][1]
 																	_img.interact = T
 																	if(variable_instance_exists(CM[$ string(i)],K.STR))
 																		_img.str = CM[$ string(i)][$ K.STR];
-																	P.suitInst = _img
+																	P.suitCrateInst = _img
 																	_img.inScn = D.scni
 																	
 																#endregion
 																
-															} else if(P.suitInst != N and alarm[0] >= 0)
-																P.suitInst.alarm[0] = 2;
+															} else if(P.suitCrateInst != N and alarm[0] >= 0)
+																P.suitCrateInst.alarm[0] = 2;
 																
 														#endregion
 														

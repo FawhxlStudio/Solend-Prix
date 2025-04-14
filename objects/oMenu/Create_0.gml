@@ -6,8 +6,9 @@ fade = 1
 fadei = 1/(GSPD*6)
 
 // BGM
-bgm = msxNightCrawl
+bgm = msxPixelCycle // Nightcrawl?
 bgmID = N
+bgmPlayed = F
 
 // Delays + Title Stuff
 preDel = GSPD*2 // These are Simple Delays, they deiterate themselves

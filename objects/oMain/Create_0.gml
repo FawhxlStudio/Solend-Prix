@@ -2,7 +2,8 @@
 
 // Init
 dbg = T
-msx = N
+bgm = msxDefault
+bgmID = N
 introInst = N
 strBld_ = ""
 strDel_ = 1.5

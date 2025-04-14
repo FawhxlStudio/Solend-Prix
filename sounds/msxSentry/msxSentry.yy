@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"msxSentry",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":320,
+  "compression":2,
+  "conversionMode":0,
+  "duration":412.70856,
+  "name":"msxSentry",
+  "parent":{
+    "name":"T",
+    "path":"folders/Sounds/Music/T.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"msxSentry.mp3",
+  "type":1,
+  "volume":1.0,
+}

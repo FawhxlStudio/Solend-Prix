@@ -10,6 +10,8 @@
 	focusR = N
 	focusM = N
 	fd = 4 // Frame Delay
+	bgm = N
+	bgmID = N
 	
 	// Actor Lists
 	actorL = ds_list_create()
@@ -209,9 +211,6 @@
 	
 	#macro S global.scene_struct
 	S = {}
-	
-	// Array to Fetch Sprites w/
-	fetchArr = [sprSylas1,sprSylas2,sprSylas3,sprSylas,sprSylasBod,sprSylasSuit,sprSpitfire1,sprSpitfire2,sprSpitfireBod]
 	
 	// Init Scene Struct
 	db_scn()

@@ -1,4 +1,4 @@
-// 2025-04-10 23:18:08
+// 2025-04-14 12:27:49
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
@@ -98,7 +98,7 @@
 						
 						if(D.game_state == GAME.MENU) {
 							
-							if(!audio_is_playing(msxDefault)) audio_stop_all();
+							if(!audio_is_playing(M.bgm)) M.bgmID = audio_play_sound_on(bgmEmt,M.bgm,T,0,0);
 							if(!audio_is_playing(sfxCinemaBoom)) audio_play_sound_on(sfxEmt,sfxCinemaBoom,F,1,1);
 							M.introInst = instance_create_layer(0,0,"GUI",oIntro)
 							

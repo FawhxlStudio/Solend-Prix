@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":224,
-  "compression":0,
+  "compression":2,
   "conversionMode":0,
   "duration":291.36978,
   "name":"msxNightCrawl",

@@ -1,4 +1,4 @@
-// 2025-04-13 16:22:06
+// 2025-04-14 13:21:50
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -16,7 +16,7 @@ fadeOut = GSPD*2
 fadeOuti = 0
 D.diaOverride = T
 fetch = T
-alarm[0] = round(GSPD*.5)
+alarm[0] = 4
 gothDel1 = GSPD*14
 gothDel1i = 0
 gothDel2 = GSPD*21
@@ -305,7 +305,7 @@ if(!fetch) {
 	#region Pre-Fetch Logic
 		
 		// Draw Load Surface
-		if(is(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
+		if(is(D.loadSurf) and surface_exists(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
 		
 	#endregion
 	
