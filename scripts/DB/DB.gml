@@ -515,6 +515,7 @@ function db_scn() {
 			S[$ SCENE.RESORT_BED][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.RESORT_BED][$ K.BG0+K.SPR] = sprSuiteBed
 			S[$ SCENE.RESORT_BED][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.RESORT_BED][$ K.ACT+K.LCK] = T
 			S[$ SCENE.RESORT_BED][$ K.ENV] = F
 			S[$ SCENE.RESORT_BED][$ K.SCN+K.BLD+K.TR] = color_make_rgb([192,160,255])
 			S[$ SCENE.RESORT_BED][$ K.SCN+K.BLD+K.FL] = color_make_rgb([48,0,48])
@@ -537,6 +538,7 @@ function db_scn() {
 			S[$ SCENE.RESORT_SUITE][$ K.BG0+K.L1+K.WMT] = 1.5
 			S[$ SCENE.RESORT_SUITE][$ K.BG0+K.SPR] = sprSuite
 			S[$ SCENE.RESORT_SUITE][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.RESORT_SUITE][$ K.ACT+K.LCK] = T
 			S[$ SCENE.RESORT_SUITE][$ K.ENV] = F
 			S[$ SCENE.RESORT_SUITE][$ K.TRA+K.CNT] = 8
 			S[$ SCENE.RESORT_SUITE][$ K.TRA+K.XRG] = [-.2,1.2]
@@ -630,6 +632,7 @@ function db_scn() {
 			S[$ SCENE.CITY_ST3][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.CITY_ST3][$ K.BG0+K.SPR] = sprCityS3
 			S[$ SCENE.CITY_ST3][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.CITY_ST3][$ K.ACT+K.LFT] = ACTOR.STREET_BOSS
 			S[$ SCENE.CITY_ST3][$ K.ENV] = T
 			S[$ SCENE.CITY_ST3][$ K.SCN+K.BLD] = color_make_rgb([192,192,255])
 			
@@ -658,6 +661,7 @@ function db_scn() {
 			S[$ SCENE.CITY_STORE][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.CITY_STORE][$ K.BG0+K.SPR] = sprCityStore
 			S[$ SCENE.CITY_STORE][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.CITY_STORE][$ K.ACT+K.LFT] = ACTOR.STORE_OWNER
 			S[$ SCENE.CITY_STORE][$ K.ENV] = T
 			S[$ SCENE.CITY_STORE][$ K.SCN+K.BLD] = color_make_rgb([255,255,192])
 			
@@ -677,6 +681,8 @@ function db_scn() {
 			S[$ SCENE.CLUB_ENT][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.CLUB_ENT][$ K.BG0+K.SPR] = sprClubEnt
 			S[$ SCENE.CLUB_ENT][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.CLUB_ENT][$ K.ACT+K.LFT] = ACTOR.CLUB_SECURITY
+			S[$ SCENE.CLUB_ENT][$ K.ACT+K.RHT] = ACTOR.RANDOM
 			S[$ SCENE.CLUB_ENT][$ K.ENV] = T
 			S[$ SCENE.CLUB_ENT][$ K.SCN+K.BLD] = color_make_rgb([96,64,160])
 			
@@ -691,6 +697,8 @@ function db_scn() {
 			S[$ SCENE.CLUB_FLOOR][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.CLUB_FLOOR][$ K.BG0+K.SPR] = sprClubFloor
 			S[$ SCENE.CLUB_FLOOR][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.CLUB_FLOOR][$ K.ACT+K.LFT] = ACTOR.CLUB_BOSS
+			S[$ SCENE.CLUB_FLOOR][$ K.ACT+K.RHT] = ACTOR.RANDOM
 			S[$ SCENE.CLUB_FLOOR][$ K.ENV] = T
 			S[$ SCENE.CLUB_FLOOR][$ K.SCN+K.BLD] = color_make_rgb([96,64,160])
 			
@@ -705,6 +713,8 @@ function db_scn() {
 			S[$ SCENE.CLUB_BAR][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.CLUB_BAR][$ K.BG0+K.SPR] = sprClubBar
 			S[$ SCENE.CLUB_BAR][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.CLUB_BAR][$ K.ACT+K.LFT] = ACTOR.RANDOM
+			S[$ SCENE.CLUB_BAR][$ K.ACT+K.RHT] = ACTOR.RANDOM
 			S[$ SCENE.CLUB_BAR][$ K.ENV] = T
 			S[$ SCENE.CLUB_BAR][$ K.SCN+K.BLD] = color_make_rgb([96,64,160])
 			
@@ -718,6 +728,7 @@ function db_scn() {
 			S[$ SCENE.CLUB_BOOTH][$ K.BG0+K.SPR] = sprClubBoothBG
 			S[$ SCENE.CLUB_BOOTH][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.CLUB_BOOTH][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
+			S[$ SCENE.CLUB_BOOTH][$ K.ACT+K.RHT] = ACTOR.RANDOM
 			S[$ SCENE.CLUB_BOOTH][$ K.ENV] = T
 			S[$ SCENE.CLUB_BOOTH][$ K.TRA+K.CNT] = 0
 			S[$ SCENE.CLUB_BOOTH][$ K.SCN+K.BLD] = color_make_rgb([96,64,160])
@@ -738,6 +749,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.SPR] = sprBrothEnt
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_ENT][$ K.ACT+K.RHT] = ACTOR.BROTHEL_SECURITY
 			S[$ SCENE.BROTH_ENT][$ K.ENV] = T
 			S[$ SCENE.BROTH_ENT][$ K.SCN+K.BLD] = color_make_rgb([255,160,160])
 			
@@ -752,6 +764,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_L1][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_L1][$ K.BG0+K.SPR] = sprBrothL1
 			S[$ SCENE.BROTH_L1][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_L1][$ K.ACT+K.RHT] = ACTOR.RANDOM
 			S[$ SCENE.BROTH_L1][$ K.ENV] = T
 			S[$ SCENE.BROTH_L1][$ K.SCN+K.BLD] = color_make_rgb([255,160,160])
 			
@@ -766,6 +779,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_L2][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_L2][$ K.BG0+K.SPR] = sprBrothL2
 			S[$ SCENE.BROTH_L2][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_L2][$ K.ACT+K.LFT] = ACTOR.RANDOM
 			S[$ SCENE.BROTH_L2][$ K.ENV] = T
 			S[$ SCENE.BROTH_L2][$ K.SCN+K.BLD] = color_make_rgb([255,160,160])
 			
@@ -780,6 +794,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_R][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_R][$ K.BG0+K.SPR] = sprBrothR
 			S[$ SCENE.BROTH_R][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_R][$ K.ACT+K.LCK] = T
 			S[$ SCENE.BROTH_R][$ K.ENV] = T
 			S[$ SCENE.BROTH_R][$ K.SCN+K.BLD] = color_make_rgb([192,96,96])
 			
@@ -808,6 +823,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_G2][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_G2][$ K.BG0+K.SPR] = sprBrothG2
 			S[$ SCENE.BROTH_G2][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_G2][$ K.ACT+K.LCK] = T
 			S[$ SCENE.BROTH_G2][$ K.ENV] = T
 			S[$ SCENE.BROTH_G2][$ K.SCN+K.BLD] = color_make_rgb([96,192,96])
 			
@@ -822,6 +838,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_B][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_B][$ K.BG0+K.SPR] = sprBrothB
 			S[$ SCENE.BROTH_B][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_B][$ K.ACT+K.LCK] = T
 			S[$ SCENE.BROTH_B][$ K.ENV] = T
 			S[$ SCENE.BROTH_B][$ K.SCN+K.BLD] = color_make_rgb([96,96,192])
 			
@@ -841,6 +858,9 @@ function db_scn() {
 			S[$ SCENE.SPACEPORT_ENT][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.SPACEPORT_ENT][$ K.BG0+K.SPR] = sprPortEnt
 			S[$ SCENE.SPACEPORT_ENT][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.SPACEPORT_ENT][$ K.ACT+K.LFT] = ACTOR.PORT_RECEPTION
+			S[$ SCENE.SPACEPORT_ENT][$ K.ACT+K.RHT] = ACTOR.PORT_SECURITY
+			S[$ SCENE.SPACEPORT_ENT][$ K.ACT+K.LCK] = T
 			S[$ SCENE.SPACEPORT_ENT][$ K.ENV] = T
 			S[$ SCENE.SPACEPORT_ENT][$ K.SCN+K.BLD] = color_make_rgb([192,192,255])
 			
@@ -879,6 +899,8 @@ function db_scn() {
 			S[$ SCENE.SPACEPORT_TERM][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.SPACEPORT_TERM][$ K.BG0+K.SPR] = sprPortTerm
 			S[$ SCENE.SPACEPORT_TERM][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.SPACEPORT_TERM][$ K.ACT+K.LFT] = ACTOR.RANDOM
+			S[$ SCENE.SPACEPORT_TERM][$ K.ACT+K.RHT] = ACTOR.PORT_MECHANIC
 			S[$ SCENE.SPACEPORT_TERM][$ K.ENV] = T
 			S[$ SCENE.SPACEPORT_TERM][$ K.SCN+K.BLD] = color_make_rgb([192,192,255])
 			
@@ -893,6 +915,7 @@ function db_scn() {
 			S[$ SCENE.SPACEPORT_PRAEY][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.SPACEPORT_PRAEY][$ K.BG0+K.SPR] = sprPortPraey
 			S[$ SCENE.SPACEPORT_PRAEY][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.SPACEPORT_PRAEY][$ K.ACT+K.LCK] = T
 			S[$ SCENE.SPACEPORT_PRAEY][$ K.ENV] = T
 			S[$ SCENE.SPACEPORT_PRAEY][$ K.SCN+K.BLD] = color_make_rgb([192,192,255])
 			
@@ -907,6 +930,7 @@ function db_scn() {
 			S[$ SCENE.SPACEPORT_SPITFIRE][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.SPACEPORT_SPITFIRE][$ K.BG0+K.SPR] = sprPortSpitfire
 			S[$ SCENE.SPACEPORT_SPITFIRE][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.SPACEPORT_SPITFIRE][$ K.ACT+K.LCK] = T
 			S[$ SCENE.SPACEPORT_SPITFIRE][$ K.ENV] = T
 			S[$ SCENE.SPACEPORT_SPITFIRE][$ K.SCN+K.BLD] = color_make_rgb([192,192,255])
 			
@@ -968,6 +992,7 @@ function db_scn() {
 			S[$ SCENE.SLUM_A2][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.SLUM_A2][$ K.BG0+K.SPR] = sprSlumA2
 			S[$ SCENE.SLUM_A2][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.SLUM_A2][$ K.ACT+K.LFT] = ACTOR.SLUM_BOSS
 			S[$ SCENE.SLUM_A2][$ K.ENV] = T
 			S[$ SCENE.SLUM_A2][$ K.SCN+K.BLD] = color_make_rgb([192,192,96])
 			
@@ -996,6 +1021,7 @@ function db_scn() {
 			S[$ SCENE.SLUM_BOD][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.SLUM_BOD][$ K.BG0+K.SPR] = sprSlumBod
 			S[$ SCENE.SLUM_BOD][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.SLUM_BOD][$ K.ACT+K.LFT] = ACTOR.BODEGA_OWNER
 			S[$ SCENE.SLUM_BOD][$ K.ENV] = T
 			S[$ SCENE.SLUM_BOD][$ K.SCN+K.BLD] = color_make_rgb([192,192,96])
 			
@@ -1018,6 +1044,7 @@ function db_scn() {
 			S[$ SCENE.COCKPIT_PRAEY][$ K.BG0+K.L1+K.SPR] = sprScrapersClose
 			S[$ SCENE.COCKPIT_PRAEY][$ K.BG0+K.L1+K.PMT] = 2/3
 			S[$ SCENE.COCKPIT_PRAEY][$ K.BG0+K.L1+K.WMT] = 1.2
+			S[$ SCENE.COCKPIT_PRAEY][$ K.ACT+K.LCK] = T
 			S[$ SCENE.COCKPIT_PRAEY][$ K.ENV] = T
 			S[$ SCENE.COCKPIT_PRAEY][$ K.TRA+K.CNT] = 0
 			S[$ SCENE.COCKPIT_PRAEY][$ K.SCN+K.BLD+K.TR] = c.wht
@@ -1104,7 +1131,7 @@ function db_act() {
         
     #endregion
     
-	#region Sylas (You)/Player
+	#region Pilot Sylas Praey (You)/Player
 		
 		ds_list_add(actorL,P)
 		
@@ -1525,50 +1552,246 @@ function db_act() {
     
 }
 
-function db_act_rnd() {
+// Create a random actor and save em
+function db_act_rnd(scni,close) {
 	
     try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	
-	#region Alexandria
+	if(chance(50)) {
 		
-		ds_list_add(randActorL,instance_create_layer(0,0,"MG",oChar))
-		var _char = randActorL[|ds_list_size(randActorL)-1]
-		_char.dia[$ K.NM] = "UNKNOWN"
-		_char.dia[$ K.SX]  = SEX.FEMALE
-		if(chance(50)) _char.dia[$ K.SX] = SEX.MALE;
-		_char.imgSuit = sprNA
-		_char.imgSuitPol = 1
-		_char.imgFace = sprNA
-		_char.imgFacePol = 1
-		_char.uid = ACTOR.ALEXANDRIA
-		_char.font1 = fAlexandria1
-		_char.font2 = fAlexandria2
-		_char.col[1] = make_color_rgb(192,0,192)
-		_char.col[2] = make_color_rgb(192,0,192)
-		_char.col[3] = make_color_rgb(128,0,128)
-		_char.col[4] = make_color_rgb(128,0,128)
+		#region Random Female
+			
+			// Create + Init
+			ds_list_add(D.randActorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.randActorL)-1
+			var _char = D.randActorL[|_li]
+			
+			// Basics
+			_char.uid = ACTOR.RANDOM
+			_char.scni = scni
+			_char.dia[$ K.NM] = "Unknown Female"
+			_char.dia[$ K.NM+K.KNW] = T
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			
+			#region Pick Sprite
+				
+				if(!close) {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Distant/Scene; fArr+fiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgSuit = irandom(array_length(D.fArr))
+							_char.imgSuitPol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.fiArr,_char.imgSuit)) {
+								
+								D.fiArr[array_length(D.fiArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.randActorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				} else {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Close; cfArr+cfiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgFace = irandom(array_length(D.cfArr))
+							_char.imgFacePol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.cfiArr,_char.imgSuit)) {
+								
+								D.cfiArr[array_length(D.cfiArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.randActorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+			// Fonts
+			_char.font1 = fFem
+			_char.font2 = fEmoteFemale
+			
+			// Colors
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = make_color_rgb(255,192,192)
+			_char.col[4] = make_color_rgb(255,192,192)
+			
+			// Return Instance
+			return _char
+			
+		#endregion
 		
-	#endregion
-	
-	#region Older Sylas
+	} else {
 		
-		ds_list_add(randActorL,instance_create_layer(0,0,"MG",oChar))
-		var _char = randActorL[|ds_list_size(actorL)-1]
-		_char.dia[$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
-		_char.dia[$ K.SX]  = SEX.MALE
-		_char.imgSuit = sprNA
-		_char.imgSuitPol = 1
-		_char.imgFace = sprSylasOlder
-		_char.imgFacePol = 1
-		_char.uid = ACTOR.OLDERSYLAS
-		_char.font1 = fBrave
-		_char.font2 = fTransmit
-		_char.col[1] = make_color_rgb(96,96,192)
-		_char.col[2] = make_color_rgb(96,96,192)
-		_char.col[3] = make_color_rgb(32,32,160)
-		_char.col[4] = make_color_rgb(32,32,192)
+		#region Random Male
+			
+			// Create + Init
+			ds_list_add(randActorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.randActorL)-1
+			var _char = randActorL[|_li]
+			
+			// Basics
+			_char.uid = ACTOR.RANDOM
+			_char.scni = scni
+			_char.dia[$ K.NM] = "Unknown Male"
+			_char.dia[$ K.NM+K.KNW] = T
+			_char.dia[$ K.SX]  = SEX.MALE
+			
+			#region Pick Sprite
+				
+				if(!close) {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Distant/Scene; mArr+miArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgSuit = irandom(array_length(D.mArr))
+							_char.imgSuitPol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.miArr,_char.imgSuit)) {
+								
+								D.miArr[array_length(D.miArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.randActorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				} else {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Close; cmArr+cmiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgFace = irandom(array_length(D.cmArr))
+							_char.imgFacePol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.cmiArr,_char.imgSuit)) {
+								
+								D.cmiArr[array_length(D.cmiArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.randActorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+			// Fonts
+			_char.font1 = fMal
+			_char.font2 = fEmoteMale
+			
+			// Colors
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = make_color_rgb(192,192,255)
+			_char.col[4] = make_color_rgb(192,192,255)
+			
+			// Return Instance
+			return _char
+			
+		#endregion
 		
-	#endregion
+	}
     
 }
 

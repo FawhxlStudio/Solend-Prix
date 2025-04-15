@@ -79,7 +79,10 @@ if(par != N and instance_exists(par)) {
     if(sprite_index == sprPlanetTheiaGas) _vel*=6+vmlt;
     if(sprite_index == sprPlanetTheia) _vel*=10+vmlt;
     if(isGalaxy) _vel*=(scl*1.5);
-    depth = lerp(deptho+100,deptho+1,(_vel*pct)/par.velTgt);
+    
+    if(isStar) depth = lerp(layer_get_depth("MG"),layer_get_depth("FG")+10,pct);
+    else if(sprite_index == sprPix) depth = lerp(layer_get_depth("BG"),layer_get_depth("MG")+1,pct);
+    else if(isGalaxy) depth = lerp(layer_get_depth("Logic"),layer_get_depth("BG")+1,pct);
     
     // Position Iterate
     if(draw and sprite_index != sprPlanetGothicaBR) {

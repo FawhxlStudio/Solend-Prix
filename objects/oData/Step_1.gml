@@ -2,6 +2,108 @@
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 #region Other Updates
 	
+	#region Scene Actor Array & List
+		
+		if(scnActArr == []) {
+			
+			#region Loop Through Scenes...
+				
+				var _scnKs = variable_instance_get_sorted_numKeys(S,T)
+				for(var i = 0; i < array_length(_scnKs); i++) {
+					
+					// Get Scene I
+					var _scni = _scnKs[i]
+					
+					#region Close Actors
+						
+						#region Init
+							
+							var _scn = S[$ _scni]
+							var _ks = variable_instance_get_sorted_strKeys(_scn,T)
+							var _locked = array_contains(_ks,K.ACT+K.LCK) and _scn[$ K.ACT+K.LCK]
+							scnActArr[_scni] = [N,N]
+							var _ref = scnActArr[_scni]
+							
+						#endregion
+						
+						#region Defined Actors
+							
+							#region Actor Left?
+								
+								if(array_contains(_ks,K.ACT+K.LFT)) {
+									
+									if(_scn[$ K.ACT+K.LFT] == ACTOR.RANDOM) _ref[0] = db_act_rnd(_scni,T);
+									else if(actor_find(_scn[$ K.ACT+K.LFT]) != N) _ref[0] = actor_find(_scn[$ K.ACT+K.LFT]);
+									else _ref[0] = U;
+									
+								} else if(_locked) _ref[0] = U;
+								
+							#endregion
+							
+							#region Actor Right?
+								
+								if(array_contains(_ks,K.ACT+K.RHT)) {
+									
+									if(_scn[$ K.ACT+K.RHT] == ACTOR.RANDOM) _ref[1] = db_act_rnd(_scni,T);
+									else if(actor_find(_scn[$ K.ACT+K.RHT]) != N) _ref[1] = actor_find(_scn[$ K.ACT+K.RHT]);
+									else _ref[1] = U;
+									
+								} else if(_locked) _ref[1] = U;
+								
+							#endregion
+							
+						#endregion
+						
+						#region Empty and Unlocked?
+							
+							if(!_locked) {
+								
+								#region Fill Empties 20% Each (N)
+									
+									#region Actor Left
+										
+										if(!is_undefined(_ref[0])) {
+											
+											if(_ref[0] == N and chance(20)) _ref[0] = db_act_rnd(_scni,T);
+											else _ref[0] = U;
+											
+										}
+										
+									#endregion
+									
+									#region Actor Right
+										
+										if(!is_undefined(_ref[1])) {
+											
+											if(_ref[1] == N and chance(20)) _ref[1] = db_act_rnd(_scni,T);
+											else _ref[1] = U;
+											
+										}
+										
+									#endregion
+									
+								#endregion
+								
+							}
+							
+						#endregion
+						
+					#endregion
+					
+					#region Scene Actors (CM Circles: Entity: Random (9))
+						
+						// TODO NEXT
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+		}
+		
+	#endregion
+	
 	#region Scene Blend
 		
 		// Init

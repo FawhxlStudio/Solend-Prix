@@ -1,0 +1,35 @@
+// 2025-04-14 21:22:12
+#event properties (no comments/etc. here are saved)
+parent_index = -1;
+persistent = true;
+uses_physics = false;
+
+#event create Init
+
+#region Surface
+	
+	surf = N
+	surfX = 0
+	surfY = 0
+	surfScl = 1
+	surfRot = 0
+	surfCol = c.wht
+	surfA = 1
+	
+#endregion
+
+
+#event draw_gui_end Draw on Top!
+#region Draw Narration
+	
+	if(is(surf) and surface_exists(surf)) {
+		
+		var ao = draw_get_alpha()
+		draw_set_alpha(1/3)
+		draw_rectangle_color(surfX,surfY,surface_get_width(surf),surface_get_height(surf),c.r,c.r,c.r,c.r,F)
+		draw_set_alpha(ao)
+		draw_surface_ext(surf,surfX,surfY,surfScl,surfScl,surfRot,surfCol,surfA);
+		
+	}
+	
+#endregion

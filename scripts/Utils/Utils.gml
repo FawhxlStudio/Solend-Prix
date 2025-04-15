@@ -23,12 +23,20 @@ function flipr() {
 
 function actor_find(_uid) {
 	
-	for(var i = 0; i < ds_list_size(D.actorL); i++) {
+	try {
 		
-		if(_uid == D.actorL[|i].uid)
-			return D.actorL[|i];
+		if(_uid > ACTOR.FIRST and _uid < ACTOR.LAST) {
+			
+			for(var i = 0; i < ds_list_size(D.actorL); i++) {
+				
+				if(_uid == D.actorL[|i].uid)
+					return D.actorL[|i];
+				
+			}
+			
+		}
 		
-	}
+	} catch(_ex) {}
 	
 	return N
 	
@@ -709,5 +717,12 @@ function round2(num,dec) {
 	
 	// Return result
 	return round(num*base)/base
+	
+}
+
+function pol_flip(pct) {
+	
+	if(chance(pct)) return 1;
+	else return -1;
 	
 }

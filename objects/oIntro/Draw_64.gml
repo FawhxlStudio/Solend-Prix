@@ -33,19 +33,6 @@ if(!fetch) {
 		
 		if(_pctin >= 1 and objTheia == N) {
 			
-			objTheia = instance_create_layer(WW,WH/2,"FG",oStar)
-			objTheia.sprite_index = theia
-			objTheia.scl = (WH*(2/3))/sprite_get_height(theia)
-			objTheia.flick = F
-			objTheia.par = stars
-			objTheia.isChild = T
-			objTheia.pct = 1
-			objTheia.rot = 0
-			objTheia.x = WW+((sprite_get_width(theia)*objTheia.scl)/1)
-			objTheia.isNova = F
-			objTheia.isGalaxy = F
-			objTheia.isStar = F
-			
 			objGas = instance_create_layer(WW,WH/3,"FG",oStar)
 			objGas.sprite_index = gas
 			objGas.scl = (WH*(1+(1/2)))/sprite_get_height(gas)
@@ -59,6 +46,23 @@ if(!fetch) {
 			objGas.isNova = F
 			objGas.isGalaxy = F
 			objGas.isStar = F
+			objGas.depth += 2
+			objGas.deptho = objGas.depth
+			
+			objTheia = instance_create_layer(WW,WH/2,"FG",oStar)
+			objTheia.sprite_index = theia
+			objTheia.scl = (WH*(2/3))/sprite_get_height(theia)
+			objTheia.flick = F
+			objTheia.par = stars
+			objTheia.isChild = T
+			objTheia.pct = 1
+			objTheia.rot = 0
+			objTheia.x = WW+((sprite_get_width(theia)*objTheia.scl)/1)
+			objTheia.isNova = F
+			objTheia.isGalaxy = F
+			objTheia.isStar = F
+			objTheia.depth += 1
+			objTheia.deptho = objTheia.depth
 			
 			objsInit = T
 			
@@ -111,7 +115,7 @@ if(!fetch) {
 				
 				if(objGoth == N) {
 					
-					objGoth = instance_create_layer(WW,WH,"GUI",oStar)
+					objGoth = instance_create_layer(WW,WH,"FG",oStar)
 					objGoth.sprite_index = goth
 					objGoth.par = stars
 					objGoth.isChild = T
@@ -134,6 +138,7 @@ if(!fetch) {
 					objGoth.isNova = F
 					objGoth.isGalaxy = F
 					objGoth.isStar = F
+					// No Depth Change Needed
 					
 				}
 				
@@ -151,9 +156,6 @@ if(!fetch) {
 					
 				}
 				
-				// Skip to End...
-				if(_goth3 >= 1 and deli < (GSPD*60)*59.8) deli = (GSPD*60)*59.8;
-				
 			#endregion
 			
 		}
@@ -162,7 +164,16 @@ if(!fetch) {
 	
 	#region Delay Iteration
 		
-		if(_pctin >= 1 and deli < del) deli = clamp(deli+1,0,del);
+		if(_pctin >= 1 and deli < del) {
+			
+			if(keyboard_check(vk_shift)) {
+				
+				deli = clamp(deli+3,0,del)
+				if(keyboard_check_pressed(vk_enter)) deli = del;
+				
+			} else deli = clamp(deli+1,0,del);
+			
+		}
 		var _pctdel = deli/del
 		
 	#endregion
@@ -177,7 +188,7 @@ if(!fetch) {
 	#region Apply/Draw Fade...
 		
 		if(_pctdel < 1) draw_set_alpha(_pctin);
-		else draw_set_alpha(_pctin-_pctout);
+		else draw_set_alpha(max(0,_pctin-_pctout));
 		stars.pct = draw_get_alpha()
 		draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
 		
@@ -189,6 +200,8 @@ if(!fetch) {
 			
 			D.diaOverride = F
 			M.introInst = N
+			if(is(narSurf) and surface_exists(narSurf)) surface_free(narSurf);
+			if(is(surfDrawer) and instance_exists(surfDrawer)) instance_destroy(surfDrawer);
 			ds_list_destroy(stars.novL)
 			ds_list_destroy(stars.galL)
 			instance_destroy(stars)

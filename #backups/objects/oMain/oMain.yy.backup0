@@ -1,4 +1,4 @@
-// 2025-04-14 12:14:53
+// 2025-04-15 07:35:04
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -213,26 +213,34 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			
 			#region Scene Characters
 				
-				// Left
-				if(variable_instance_exists(S[$ string(D.scni)],K.ACT+K.LFT)) {
+				if(D.scnActArr != []) {
 					
-					var _act = actor_find(S[$ string(D.scni)][$ K.ACT+K.LFT])
-					if(!in_party(_act)) {
+					// Init
+					var _ref = D.scnActArr[D.scni]
+					
+					// Left
+					if(is(_ref[0])) {
 						
-						_act.scni = D.scni
-						D.actorLeft = _act
+						var _act = actor_find(_ref[0]);
+						if(is(_act) and !in_party(_act)) {
+							
+							_act.scni = D.scni
+							D.actorLeft = _act
+							
+						}
 						
 					}
 					
-				}
-				// Right
-				if(variable_instance_exists(S[$ string(D.scni)],K.ACT+K.RHT)) {
-					
-					var _act = actor_find(S[$ string(D.scni)][$ K.ACT+K.RHT])
-					if(!in_party(_act)) {
+					// Right
+					if(is(_ref[1])) {
 						
-						_act.scni = D.scni
-						D.actorRight = _act
+						var _act = actor_find(_ref[1]);
+						if(is(_act) and !in_party(_act)) {
+							
+							_act.scni = D.scni
+							D.actorRight = _act
+							
+						}
 						
 					}
 					

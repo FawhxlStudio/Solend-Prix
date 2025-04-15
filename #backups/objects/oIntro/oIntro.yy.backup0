@@ -1,4 +1,4 @@
-// 2025-04-14 13:21:50
+// 2025-04-15 01:59:04
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -6,46 +6,120 @@ uses_physics = false;
 
 #event create Weeks Earlier Fade-In
 
-nightmare = F
-nightmareInst = U
-del = (GSPD*60)*60
-deli = 0
-fadeIn = GSPD/3
-fadeIni = 0
-fadeOut = GSPD*2
-fadeOuti = 0
-D.diaOverride = T
-fetch = T
-alarm[0] = 4
-gothDel1 = GSPD*14
-gothDel1i = 0
-gothDel2 = GSPD*21
-gothDel2i = 0
-gothDel3 = GSPD*14
-gothDel3i = 0
-
-// Intro Assets
-theia = sprPlanetTheia
-gas   = sprPlanetTheiaGas
-goth  = sprPlanetGothicaBR
-stars = instance_create_layer(0,0,"Logic",oStarControl)
-stars.dir = 182
-
-// Scene Objects
-objTheia = N
-objGas = N
-objGoth = N
-objsInit = F
-theiaDone = F
-
-#region Intro Asset Array
+#region Old (Nightmare Related)
 	
-	assArr = [sprPlanetTheia,sprPlanetTheiaGas,
-		sprPlanetGothicaBR,sprPix,sprGal1,sprGal2,
-		sprGal3,sprGal4,sprGal5,sprGal6,sprGal7,
-		sprGal8,sprGal9,sprNova1,sprNova2,sprNova3,
-		sprNova4,sprNova5,sprNova6,sprNova7,sprNova8,
-		sprNova9,sprStar1,sprStar2,sprStar3,sprStar4]
+	nightmare = F
+	nightmareInst = U
+	
+#endregion
+
+#region Control Overrides + Fetch Init
+	
+	D.diaOverride = T
+	fetch = T
+	alarm[0] = 4
+	
+#endregion
+
+#region Intro Delays/Triggers
+	
+	// Early
+	fadeIn = GSPD*2
+	fadeIni = 0
+	del = (GSPD*60)*2
+	deli = 0
+	
+	// Late
+	gothDel1 = GSPD*28
+	gothDel1i = 0
+	gothDel2 = GSPD*28
+	gothDel2i = 0
+	gothDel3 = GSPD*28
+	gothDel3i = 0
+	
+	// Final
+	fadeOut = GSPD*2
+	fadeOuti = 0
+	
+#endregion
+
+#region Intro Assets
+	
+	// Surfaces
+	narSurf = N
+	narY1 = WH
+	narY2 = U
+	surfDrawer = N
+	
+	// Sprites
+	theia = sprPlanetTheia
+	gas   = sprPlanetTheiaGas
+	goth  = sprPlanetGothicaBR
+	stars = instance_create_layer(0,0,"Logic",oStarControl)
+	stars.dir = 184 // A little tilt down?
+	
+	// Objects
+	objTheia = N
+	objGas = N
+	objGoth = N
+	objsInit = F
+	theiaDone = F
+	
+	#region Intro String Array
+		
+		strArr = ["We were born under a distant sun,\n"
+			+"on a world that never thawed.\n\n"
+			+"Theia, a frozen tundra wrapped in eerie silence.\n"
+			+"We orbited a gas giant that menaced us from above.\n\n"
+			+"Our families sought a future there...\n"
+			+"Instead, we had been abandoned.",
+			
+			"Our last chance... They had put in me.\n"
+			+"I wasnt the best pilot we had...\n"
+			+"Just the best one we had left.\n\n"
+			+"I took the only capable ship,\n"
+			+"unburdened by new regulators or govenors-\n"
+			+"its as dangerous as it is fast.\n"
+			+"Praey, an old prototype fighter.",
+			
+			"Everyone I knew froze themselves, one by one,\n"
+			+"going into stasis hibernation, while I chased a signal,\n"
+			+"like whispers from the void itself.\n\n"
+			+"It was a beacon, and it sent me to the Solend system.\n"
+			+"And now Im here, Gothica, the busy hub of Solend.\n\n"
+			+"A city of dark lights, loyalties and illusions...",
+			
+			"I had been chosen as a pilot in this... Solend Prix.\n"
+			+"A race, a chance to save my home...\n\n"
+			+"A chance...\n"
+			+"A fucking race...\n\n"
+			+"The longer Im here, the clearer things get...\n"
+			+"This race isnt salvation- its a blood sport for bastards.",
+			
+			"Im not here to play in this twisted charity.\n"
+			+"Im Sylas Praey- and Im here to break it."]
+		
+		// May change the way the narration is presented but for now we'll combine it all into one string...
+		introStr = ""
+		for(var i = 0; i < array_length(strArr); i++) {
+			
+			if(i == 0) introStr = strArr[i];
+			else introStr += "\n-\n"+strArr[i];
+			
+		}
+		
+	#endregion
+	
+	#region Intro Asset Array
+		
+		assArr = [sprPlanetTheia,sprPlanetTheiaGas,
+			sprPlanetGothicaBR,sprPix,sprGal1,sprGal2,
+			sprGal3,sprGal4,sprGal5,sprGal6,sprGal7,
+			sprGal8,sprGal9,sprNova1,sprNova2,sprNova3,
+			sprNova4,sprNova5,sprNova6,sprNova7,sprNova8,
+			sprNova9,sprStar1,sprStar2,sprStar3,sprStar4]
+		
+	#endregion
 	
 #endregion
 
@@ -55,9 +129,10 @@ if(fetch) {
 	draw_texture_flush()
 	sprite_prefetch_multi(assArr)
 	fetch = F
+	if(surface_exists(narSurf)) surface_free(narSurf);
+	narSurf = N
 	
 }
-
 
 #event draw_gui Draw and Logix
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
@@ -94,19 +169,6 @@ if(!fetch) {
 		
 		if(_pctin >= 1 and objTheia == N) {
 			
-			objTheia = instance_create_layer(WW,WH/2,"FG",oStar)
-			objTheia.sprite_index = theia
-			objTheia.scl = (WH*(2/3))/sprite_get_height(theia)
-			objTheia.flick = F
-			objTheia.par = stars
-			objTheia.isChild = T
-			objTheia.pct = 1
-			objTheia.rot = 0
-			objTheia.x = WW+((sprite_get_width(theia)*objTheia.scl)/1)
-			objTheia.isNova = F
-			objTheia.isGalaxy = F
-			objTheia.isStar = F
-			
 			objGas = instance_create_layer(WW,WH/3,"FG",oStar)
 			objGas.sprite_index = gas
 			objGas.scl = (WH*(1+(1/2)))/sprite_get_height(gas)
@@ -120,6 +182,23 @@ if(!fetch) {
 			objGas.isNova = F
 			objGas.isGalaxy = F
 			objGas.isStar = F
+			objGas.depth += 2
+			objGas.deptho = objGas.depth
+			
+			objTheia = instance_create_layer(WW,WH/2,"FG",oStar)
+			objTheia.sprite_index = theia
+			objTheia.scl = (WH*(2/3))/sprite_get_height(theia)
+			objTheia.flick = F
+			objTheia.par = stars
+			objTheia.isChild = T
+			objTheia.pct = 1
+			objTheia.rot = 0
+			objTheia.x = WW+((sprite_get_width(theia)*objTheia.scl)/1)
+			objTheia.isNova = F
+			objTheia.isGalaxy = F
+			objTheia.isStar = F
+			objTheia.depth += 1
+			objTheia.deptho = objTheia.depth
 			
 			objsInit = T
 			
@@ -172,7 +251,7 @@ if(!fetch) {
 				
 				if(objGoth == N) {
 					
-					objGoth = instance_create_layer(WW,WH,"GUI",oStar)
+					objGoth = instance_create_layer(WW,WH,"FG",oStar)
 					objGoth.sprite_index = goth
 					objGoth.par = stars
 					objGoth.isChild = T
@@ -195,6 +274,7 @@ if(!fetch) {
 					objGoth.isNova = F
 					objGoth.isGalaxy = F
 					objGoth.isStar = F
+					// No Depth Change Needed
 					
 				}
 				
@@ -212,9 +292,6 @@ if(!fetch) {
 					
 				}
 				
-				// Skip to End...
-				if(_goth3 >= 1 and deli < (GSPD*60)*59.8) deli = (GSPD*60)*59.8;
-				
 			#endregion
 			
 		}
@@ -223,7 +300,16 @@ if(!fetch) {
 	
 	#region Delay Iteration
 		
-		if(_pctin >= 1 and deli < del) deli = clamp(deli+1,0,del);
+		if(_pctin >= 1 and deli < del) {
+			
+			if(keyboard_check(vk_shift)) {
+				
+				deli = clamp(deli+3,0,del)
+				if(keyboard_check_pressed(vk_enter)) deli = del;
+				
+			} else deli = clamp(deli+1,0,del);
+			
+		}
 		var _pctdel = deli/del
 		
 	#endregion
@@ -238,7 +324,7 @@ if(!fetch) {
 	#region Apply/Draw Fade...
 		
 		if(_pctdel < 1) draw_set_alpha(_pctin);
-		else draw_set_alpha(_pctin-_pctout);
+		else draw_set_alpha(max(0,_pctin-_pctout));
 		stars.pct = draw_get_alpha()
 		draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
 		
@@ -250,6 +336,8 @@ if(!fetch) {
 			
 			D.diaOverride = F
 			M.introInst = N
+			if(is(narSurf) and surface_exists(narSurf)) surface_free(narSurf);
+			if(is(surfDrawer) and instance_exists(surfDrawer)) instance_destroy(surfDrawer);
 			ds_list_destroy(stars.novL)
 			ds_list_destroy(stars.galL)
 			instance_destroy(stars)
@@ -316,5 +404,66 @@ if(!fetch) {
 	draw_set_alpha(ao)
 	draw_set_hvalign(hvao)
 	draw_set_font(fo)
+	
+#endregion
+
+#event draw_gui_end Narration Draw
+
+#region Draw Narration
+	
+	if(is(narSurf) and surface_exists(narSurf) and fadeIni >= fadeIn) {
+		
+		// Init Drawer
+		if(!is(surfDrawer)) surfDrawer = instance_create_layer(0,0,"GUI",oDrawer);
+		
+		// Update Scroll
+		var _pct = deli/del
+		narY2 = -surface_get_height(narSurf)
+		narY1 = lerp(WH,narY2,_pct)
+		
+		// Update Drawer
+		surfDrawer.surf = narSurf
+		surfDrawer.surfX = 0
+		surfDrawer.surfY = narY1
+		
+	}
+	
+#endregion
+
+#event draw_pre Narration Pre-Draw
+
+#region Prep Narration Surface
+	
+	if(!is(narSurf) or !surface_exists(narSurf)) {
+		
+		// Init Text
+		var fo = draw_get_font()
+		var hvo = draw_get_hvalign()
+		var ao = draw_get_alpha()
+		draw_set_font(fNarrator)
+		draw_set_hvalign([fa_center,fa_top])
+		draw_set_alpha(1)
+		var _scl = WW/1920
+		var _w = (WW*_scl)*(2/3)
+		var _h = string_height_ext("|\n"+introStr+"\n|",STRH,_w)
+		
+		// Init Surface
+		if(surface_exists(narSurf)) surface_free(narSurf);
+		narSurf = surface_create(WW,_h)
+		surface_set_target(narSurf)
+		
+		// Draw BG
+		draw_rectangle_ext_color([WW*((1/3)/2),0,WW*((2/3)+((1/3)/2)),_h],0,[2/3,c.blk,c.blk,c.blk,c.blk],F)
+		
+		// Draw Narration
+		draw_text_ext_transformed_color(WW/2,STRH,introStr,STRH,_w,_scl,_scl,0,c.wht,c.wht,c.gry,c.gry,1)
+		
+		// Reset Draw Stuff
+		surface_reset_target()
+		draw_set_font(fo)
+		draw_set_hvalign(hvo)
+		draw_set_alpha(ao)
+		
+	}
 	
 #endregion

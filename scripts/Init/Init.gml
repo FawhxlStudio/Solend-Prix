@@ -210,6 +210,16 @@ function _init() {
 			STATIC,
 			UNKNOWN_MALE,
 			UNKNOWN_FEMALE,
+			STREET_BOSS,
+			STORE_OWNER,
+			CLUB_BOSS,
+			CLUB_SECURITY,
+			BROTHEL_SECURITY,
+			SLUM_BOSS,
+			BODEGA_OWNER,
+			PORT_MECHANIC,
+			PORT_RECEPTION,
+			PORT_SECURITY,
 			LAST
 			
 		}
@@ -227,8 +237,18 @@ function _init() {
 			"RANDOM",
 			"ROSNA",
 			"STATIC",
-			"UNKNOWN",
-			"UNKNOWN",
+			"UNKNOWN MALE",
+			"UNKNOWN FEMALE",
+			"STREET BOSS",
+			"STORE OWNER",
+			"CLUB BOSS",
+			"CLUB SECURITY",
+			"BROTHEL SECURITY",
+			"SLUM BOSS",
+			"BODEGA OWNER",
+			"PORT MECHANIC",
+			"PORT RECEPTION",
+			"PORT SECURITY",
 			"LAST"
 			
 		]
@@ -523,7 +543,8 @@ function _init() {
 			NXT:"_next",
 			END:"_end",
 			PLY:"_play",
-			STP:"_stop"
+			STP:"_stop",
+			LCK:"_lock"
 			
 		}
 		

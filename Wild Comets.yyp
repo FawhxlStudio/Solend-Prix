@@ -133,6 +133,7 @@
     {"id":{"name":"oChar","path":"objects/oChar/oChar.yy",},},
     {"id":{"name":"oData","path":"objects/oData/oData.yy",},},
     {"id":{"name":"oDebug","path":"objects/oDebug/oDebug.yy",},},
+    {"id":{"name":"oDrawer","path":"objects/oDrawer/oDrawer.yy",},},
     {"id":{"name":"oEnvironment","path":"objects/oEnvironment/oEnvironment.yy",},},
     {"id":{"name":"oExplosion","path":"objects/oExplosion/oExplosion.yy",},},
     {"id":{"name":"oFoe","path":"objects/oFoe/oFoe.yy",},},

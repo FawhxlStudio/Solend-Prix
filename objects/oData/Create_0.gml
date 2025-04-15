@@ -1,17 +1,20 @@
 #region Global Variables
 	
-	// Init
-	game_state = GAME.INIT
-	diaParL = ds_list_create()
-	diai = 0
-	animPlay = N
-	focus = N
-	focusL = N
-	focusR = N
-	focusM = N
-	fd = 4 // Frame Delay
-	bgm = N
-	bgmID = N
+	#region Init
+		
+		game_state = GAME.INIT
+		diaParL = ds_list_create()
+		diai = 0
+		animPlay = N
+		focus = N
+		focusL = N
+		focusR = N
+		focusM = N
+		fd = 4 // Frame Delay
+		bgm = N
+		bgmID = N
+		
+	#endregion
 	
 	// Actor Lists
 	actorL = ds_list_create()
@@ -24,6 +27,8 @@
 			sprCF6,sprCF7,sprCF8,
 			sprCF9,sprCF10,sprCF11,
 			sprCF12,sprCF13,sprCF14]
+		cfiArr = []
+		
 		fArr = [sprF1,sprF2,
 			sprF3,sprF4,sprF5,
 			sprF6,sprF7,sprF8,
@@ -33,6 +38,8 @@
 			sprF18,sprF19,sprF20,
 			sprF21,sprF22,sprF23,
 			sprF24,sprF25,sprF26]
+		fiArr = []
+		
 		cmArr = [sprCM1,sprCM2,
 			sprCM3,sprCM4,sprCM5,
 			sprCM6,sprCM7,sprCM8,
@@ -42,69 +49,85 @@
 			sprCM18,sprCM19,sprCM20,
 			sprCM21,sprCM22,sprCM23,
 			sprCM24,sprCM25]
+		cmiArr = []
+		
 		mArr = [sprM1,sprM2,
 			sprM3,sprM4,sprM5,
 			sprM6,sprM7,sprM8,
 			sprM9,sprM10,sprM11,
 			sprM12,sprM13,sprM14,
 			sprM15]
+		miArr = []
 		
 	#endregion
 	
 	// Init Draw Olds; HVO,FO,AO,CO
 	draw_reset()
 	
-	// Images
-	// Sky
-	skyImg = instance_create_layer(0,0,"BG",oImage)
-	skyImg.persistent = T
-	
-	// Backdrop
-	bdImg = instance_create_layer(0,0,"BG",oImage)
-	bdImg.persistent = T
-	
-	// Background Layer 2
-	bgL2Img = instance_create_layer(0,0,"BG",oImage)
-	bgL2Img.persistent = T
-	
-	// Background Layer 1
-	bgL1Img = instance_create_layer(0,0,"BG",oImage)
-	bgL1Img.persistent = T
-	
-	// Background
-	bgImg = instance_create_layer(0,0,"BG",oImage)
-	bgImg.persistent = T
-	
-	// Middleground
-	mgImg = instance_create_layer(0,0,"MG",oImage)
-	mgImg.persistent = T
-	
-	// Char L
-	actorLeft = N
-	// Char R
-	actorRight = N
-	
-	// Foreground
-	fgImg = instance_create_layer(0,0,"FG",oImage)
-	fgImg.persistent = T
-	
-	// Global Factors
-	wref = max(1,bgImg.sprite_width)
-	href = max(1,bgImg.sprite_height)
-	bgmxpct = MX/wref
-	bgmypct = MY/href
-	mwref = 1
-	mhref = 1
-	bgdltx = 1
-	bgdlty = 1
-	if(bbox_sanity(bgImg)) {
+	#region Image Objects (Layers)
 		
-		mwref = max(1,bgImg.bbox_right)
-		mhref = max(1,bgImg.bbox_bottom)
-		bgdltx = bgImg.bbox_left
-		bgdlty = bgImg.bbox_top
+		// Sky
+		skyImg = instance_create_layer(0,0,"BG",oImage)
+		skyImg.persistent = T
 		
-	}
+		// Backdrop
+		bdImg = instance_create_layer(0,0,"BG",oImage)
+		bdImg.persistent = T
+		
+		// Background Layer 2
+		bgL2Img = instance_create_layer(0,0,"BG",oImage)
+		bgL2Img.persistent = T
+		
+		// Background Layer 1
+		bgL1Img = instance_create_layer(0,0,"BG",oImage)
+		bgL1Img.persistent = T
+		
+		// Background
+		bgImg = instance_create_layer(0,0,"BG",oImage)
+		bgImg.persistent = T
+		
+		// Middleground
+		mgImg = instance_create_layer(0,0,"MG",oImage)
+		mgImg.persistent = T
+		
+	#endregion
+	
+	#region Actor Objects (Layer)
+		
+		// Char L
+		actorLeft = N
+		// Char R
+		actorRight = N
+		
+	#endregion
+	
+	#region Foreground
+		
+		fgImg = instance_create_layer(0,0,"FG",oImage)
+		fgImg.persistent = T
+		
+	#endregion
+	
+	#region Global Factors
+		
+		wref = max(1,bgImg.sprite_width)
+		href = max(1,bgImg.sprite_height)
+		bgmxpct = MX/wref
+		bgmypct = MY/href
+		mwref = 1
+		mhref = 1
+		bgdltx = 1
+		bgdlty = 1
+		if(bbox_sanity(bgImg)) {
+			
+			mwref = max(1,bgImg.bbox_right)
+			mhref = max(1,bgImg.bbox_bottom)
+			bgdltx = bgImg.bbox_left
+			bgdlty = bgImg.bbox_top
+			
+		}
+		
+	#endregion
 	
 #endregion
 
@@ -204,6 +227,7 @@
 	scnBlendDel  = GSPD/4
 	scnBlendDeli = 0
 	scnBlendPct  = 0
+	scnActArr    = []
 	
 #endregion
 
