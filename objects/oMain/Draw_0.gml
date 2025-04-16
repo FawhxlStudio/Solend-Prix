@@ -13,6 +13,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				// Clears all dialogue control variables to default
 				diaNar_reset()
 				
+				// Clear Actors
+				D.actorLeft = N
+				D.actorRight = N
+				
 			#endregion
 			
 			#region Init Scene
@@ -159,16 +163,15 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			
 			#region Scene Characters
 				
-				if(D.scnActArr != []) {
-					
-					// Init
-					var _ref = D.scnActArr[D.scni]
+				if(!array_equals(D.scnActArr,[]) and D.scni > SCENE.FIRST and D.scni < SCENE.LAST) {
 					
 					// Left
-					if(is(_ref[0])) {
+					if(is(D.scnActArr[D.scni][0])) {
 						
-						var _act = actor_find(_ref[0]);
-						if(is(_act) and !in_party(_act)) {
+						var _act = D.scnActArr[D.scni][0]
+						if(!instance_of(_act,oChar)) _act = actor_find(_act);
+						if(!instance_of(_act,oChar)) _act = actor_find_random(_act);
+						if(instance_of(_act,oChar) and !in_party(_act)) {
 							
 							_act.scni = D.scni
 							D.actorLeft = _act
@@ -178,10 +181,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 					}
 					
 					// Right
-					if(is(_ref[1])) {
+					if(is(D.scnActArr[D.scni][1])) {
 						
-						var _act = actor_find(_ref[1]);
-						if(is(_act) and !in_party(_act)) {
+						var _act = D.scnActArr[D.scni][1]
+						if(!instance_of(_act,oChar)) _act = actor_find(_act);
+						if(!instance_of(_act,oChar)) _act = actor_find_random(_act);
+						if(instance_of(_act,oChar) and !in_party(_act)) {
 							
 							_act.scni = D.scni
 							D.actorRight = _act

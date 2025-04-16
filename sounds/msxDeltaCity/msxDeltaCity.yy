@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxDeltaCity",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"WhiteBatAudio",
+    "path":"audiogroups/WhiteBatAudio",
   },
   "bitDepth":1,
   "bitRate":512,
@@ -12,8 +12,8 @@
   "duration":240.09143,
   "name":"msxDeltaCity",
   "parent":{
-    "name":"Expansion",
-    "path":"folders/Sounds/Music/Expansion.yy",
+    "name":"White Bat Audio",
+    "path":"folders/Sounds/Music/White Bat Audio.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

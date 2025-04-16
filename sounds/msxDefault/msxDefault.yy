@@ -12,8 +12,8 @@
   "duration":4535.3535,
   "name":"msxDefault",
   "parent":{
-    "name":"Expansion",
-    "path":"folders/Sounds/Music/Expansion.yy",
+    "name":"White Bat Audio",
+    "path":"folders/Sounds/Music/White Bat Audio.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

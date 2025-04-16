@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxNightCrawl",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"WhiteBatAudio",
+    "path":"audiogroups/WhiteBatAudio",
   },
   "bitDepth":1,
   "bitRate":224,
@@ -12,8 +12,8 @@
   "duration":291.36978,
   "name":"msxNightCrawl",
   "parent":{
-    "name":"Expansion",
-    "path":"folders/Sounds/Music/Expansion.yy",
+    "name":"White Bat Audio",
+    "path":"folders/Sounds/Music/White Bat Audio.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

@@ -26,7 +26,7 @@
   "origin":8,
   "parent":{
     "name":"Fae",
-    "path":"folders/Sprites/Actors/Fae.yy",
+    "path":"folders/Sprites/Actors/Unused/Fae.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Unused",
+    "path":"texturegroups/Unused",
   },
   "type":0,
   "VTile":false,

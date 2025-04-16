@@ -97,6 +97,7 @@
 						
 						if(D.game_state == GAME.MENU) {
 							
+							global.menu_object.settings = F
 							if(!audio_is_playing(M.bgm)) M.bgmID = audio_play_sound_on(bgmEmt,M.bgm,T,0,0);
 							if(!audio_is_playing(sfxCinemaBoom)) audio_play_sound_on(sfxEmt,sfxCinemaBoom,F,1,1);
 							M.introInst = instance_create_layer(0,0,"GUI",oIntro)

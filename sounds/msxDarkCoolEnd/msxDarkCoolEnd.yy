@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxDarkCoolEnd",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"Anim_Nightmare1_Music",
+    "path":"audiogroups/Anim_Nightmare1_Music",
   },
   "bitDepth":1,
   "bitRate":256,
@@ -12,8 +12,8 @@
   "duration":17.998367,
   "name":"msxDarkCoolEnd",
   "parent":{
-    "name":"Music",
-    "path":"folders/Sounds/Music.yy",
+    "name":"Nightmare",
+    "path":"folders/Sounds/Music/Nightmare.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

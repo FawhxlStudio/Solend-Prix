@@ -12,8 +12,8 @@
   "duration":289.09714,
   "name":"msxPixelCycle",
   "parent":{
-    "name":"T",
-    "path":"folders/Sounds/Music/T.yy",
+    "name":"Tezeta",
+    "path":"folders/Sounds/Music/Tezeta.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

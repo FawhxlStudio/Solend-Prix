@@ -119,8 +119,8 @@
   "maintainGms1Font":false,
   "name":"fEmoteMale",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Male",
+    "path":"folders/Fonts/Male.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -135,8 +135,8 @@
   "size":40.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Char_Sylas",
+    "path":"texturegroups/Char_Sylas",
   },
   "TTFName":"",
   "usesSDF":false,

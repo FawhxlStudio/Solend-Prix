@@ -530,7 +530,7 @@ function diaNar_get_bypass(inst) {
 		else if(string_starts_with(_sks[i],K.BYP)) {
 			
 			// Multiple Bypasses Found? Use Array.
-			if(rtnArr == []) rtn[0] = rtn;
+			if(is_array(rtnArr) and array_length(rtnArr) <= 0) rtn[0] = rtn;
 			rtnArr[array_length(rtnArr)] = _sks[i]
 			
 		}
@@ -538,7 +538,7 @@ function diaNar_get_bypass(inst) {
 	}
 	
 	// Return N if none found, Single if 1 found, Array if 1+
-	if(rtnArr == []) return rtn;
+	if(is_array(rtnArr) and array_length(rtnArr) <= 0) return rtn;
 	else return rtnArr;
 	
 }
@@ -1824,7 +1824,7 @@ function diaNar_get_real_keys(diaInst) {
 		
 	}
 	
-	if(rtn == []) return N;
+	if(is_array(rtn) and array_length(rtn) <= 0) return N;
 	return rtn
 	
 }
@@ -1844,7 +1844,7 @@ function diaNar_get_string_keys(diaInst) {
 		
 	}
 	
-	if(rtn == []) return N;
+	if(is_array(rtn) and array_length(rtn) <= 0) return N;
 	return rtn
 	
 }

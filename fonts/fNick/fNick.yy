@@ -334,8 +334,8 @@
   "maintainGms1Font":false,
   "name":"fNick",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Male",
+    "path":"folders/Fonts/Male.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -350,8 +350,8 @@
   "size":48.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Char_Nick",
+    "path":"texturegroups/Char_Nick",
   },
   "TTFName":"",
   "usesSDF":false,

@@ -119,8 +119,8 @@
   "maintainGms1Font":false,
   "name":"fBrave",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Male",
+    "path":"folders/Fonts/Male.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -135,8 +135,8 @@
   "size":128.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Anim_Nightmare1",
+    "path":"texturegroups/Anim_Nightmare1",
   },
   "TTFName":"",
   "usesSDF":false,

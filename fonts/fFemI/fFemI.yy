@@ -1053,8 +1053,8 @@
   "maintainGms1Font":false,
   "name":"fFemI",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Female",
+    "path":"folders/Fonts/Female.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -1069,8 +1069,8 @@
   "size":32.0,
   "styleName":"Light Italic",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Common_Female",
+    "path":"texturegroups/Common_Female",
   },
   "TTFName":"",
   "usesSDF":false,

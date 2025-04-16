@@ -77,8 +77,8 @@
   "maintainGms1Font":false,
   "name":"fTitle",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Neutral",
+    "path":"folders/Fonts/Neutral.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -93,8 +93,8 @@
   "size":192.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"vFX",
+    "path":"texturegroups/vFX",
   },
   "TTFName":"",
   "usesSDF":false,

@@ -119,8 +119,8 @@
   "maintainGms1Font":false,
   "name":"fNeuB",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Neutral",
+    "path":"folders/Fonts/Neutral.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -135,8 +135,8 @@
   "size":32.0,
   "styleName":"Bold",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Common",
+    "path":"texturegroups/Common",
   },
   "TTFName":"",
   "usesSDF":false,

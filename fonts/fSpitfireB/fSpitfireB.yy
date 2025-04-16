@@ -529,8 +529,8 @@
   "maintainGms1Font":false,
   "name":"fSpitfireB",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Female",
+    "path":"folders/Fonts/Female.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -545,8 +545,8 @@
   "size":38.0,
   "styleName":"Bold",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Char_Spitfire",
+    "path":"texturegroups/Char_Spitfire",
   },
   "TTFName":"",
   "usesSDF":false,

@@ -25,7 +25,8 @@ function actor_find(_uid) {
 	
 	try {
 		
-		if(_uid > ACTOR.FIRST and _uid < ACTOR.LAST) {
+		if(instance_of(_uid,oChar)) return _uid;
+		if(_uid != ACTOR.RANDOM) {
 			
 			for(var i = 0; i < ds_list_size(D.actorL); i++) {
 				
@@ -33,6 +34,24 @@ function actor_find(_uid) {
 					return D.actorL[|i];
 				
 			}
+			
+		}
+		
+	} catch(_ex) {}
+	
+	return N
+	
+}
+
+function actor_find_random(_ruid) {
+	
+	try {
+		
+		if(instance_of(_ruid,oChar)) return _ruid;
+		for(var i = 0; i < ds_list_size(D.randActorL); i++) {
+			
+			if(_ruid == D.randActorL[|i].ruid)
+				return D.randActorL[|i];
 			
 		}
 		
@@ -105,7 +124,7 @@ function variable_instance_get_sorted_numKeys(struct,ascending) {
 	}
 	
 	// Returns
-	if(rtn == []) return N; // Nothing to return...
+	if(is_array(rtn) and array_length(rtn) <= 0) return N; // Nothing to return...
 	else {
 		
 		// Sort & Return
@@ -131,7 +150,7 @@ function variable_instance_get_sorted_strKeys(struct,ascending) {
 	}
 	
 	// Returns
-	if(rtn == []) return N; // Nothing to return...
+	if(is_array(rtn) and array_length(rtn) <= 0) return N; // Nothing to return...
 	else {
 		
 		// Sort & Return
@@ -580,7 +599,7 @@ function proc_fx_arr(inp,last) {
 	// Set Time? If it is an array...
 	if(is_array(inp)) time = inp[0]*GSPD; // Get Second(s) in Frames for Time
 	
-	if(is_undefined(inp) or inp == N or inp == []) rtn = T; // No FX
+	if(is_undefined(inp) or inp == N or (is_array(inp) and array_length(inp) <= 0)) rtn = T; // No FX
 	else if(is_array(inp) and array_length(inp) > 1) {
 		
 		#region inp == FX Array [Time, N/[FX+]]
@@ -724,5 +743,21 @@ function pol_flip(pct) {
 	
 	if(chance(pct)) return 1;
 	else return -1;
+	
+}
+
+function instance_of(inst,obj) {
+	
+	try {
+		
+		if(object_exists(obj)) {
+			
+			if(instance_exists(inst)) return (inst.object_index == obj);
+			
+		}
+		
+	} catch (_ex) {}
+	
+	return F
 	
 }

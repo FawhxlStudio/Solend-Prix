@@ -26,7 +26,7 @@
   "origin":6,
   "parent":{
     "name":"Lea",
-    "path":"folders/Sprites/Actors/Lea.yy",
+    "path":"folders/Sprites/Actors/Unused/Lea.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Unused",
+    "path":"texturegroups/Unused",
   },
   "type":0,
   "VTile":false,

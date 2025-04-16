@@ -87,8 +87,8 @@
   "maintainGms1Font":false,
   "name":"fFakeLove",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Female",
+    "path":"folders/Fonts/Female.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -103,8 +103,8 @@
   "size":72.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Anim_Nightmare1",
+    "path":"texturegroups/Anim_Nightmare1",
   },
   "TTFName":"",
   "usesSDF":false,

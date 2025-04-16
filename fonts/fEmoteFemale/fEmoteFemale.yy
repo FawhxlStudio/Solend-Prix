@@ -192,8 +192,8 @@
   "maintainGms1Font":false,
   "name":"fEmoteFemale",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Female",
+    "path":"folders/Fonts/Female.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -208,8 +208,8 @@
   "size":56.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Common_Female",
+    "path":"texturegroups/Common_Female",
   },
   "TTFName":"",
   "usesSDF":false,

@@ -1,4 +1,4 @@
-// 2025-04-13 18:16:25
+// 2025-04-16 16:00:22
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -12,6 +12,7 @@ uses_physics = false;
 	uid = ACTOR.UNKNOWN
 	col = [1,c.lgry,c.lgry,c.gry,c.gry]
 	scni = N
+	ruid = N // uid for randoms and unknowns
 	
 	// Suit Flags
 	suited = T
@@ -210,63 +211,67 @@ if(in_party(id)) {
 #event step_begin Controls & Updates
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-#region FX Updates
+if(D.scni == scni) {
 	
-	#region Sprite Polarity Flip
+	#region FX Updates
 		
-		#region Horizontal
+		#region Sprite Polarity Flip
 			
-			if(sprFlipH) {
+			#region Horizontal
 				
-				// First? Set Old...
-				if(flipHi == 0) {
+				if(sprFlipH) {
 					
-					// Set Polairty Old
-					if is(imgDia) imgPolOld = imgDiaPol;
-					else if(suited) imgPolOld = imgSuitPol;
-					else imgPolOld = imgFacePol;
+					// First? Set Old...
+					if(flipHi == 0) {
+						
+						// Set Polairty Old
+						if is(imgDia) imgPolOld = imgDiaPol;
+						else if(suited) imgPolOld = imgSuitPol;
+						else imgPolOld = imgFacePol;
+						
+					} else if(imgPolOld != N) {
+						
+						// Apply Transistion
+						if is(imgDia) imgDiaPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+						else if(suited) imgSuitPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+						else imgFacePol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+						
+					}
 					
-				} else if(imgPolOld != N) {
-					
-					// Apply Transistion
-					if is(imgDia) imgDiaPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
-					else if(suited) imgSuitPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
-					else imgFacePol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+					// Iterate
+					flipHi++
+					if(flipHi > flipDel) {
+						
+						// Done?
+						flipHi = 0
+						sprFlipH = F
+						
+						// CHECKLIST:
+						// I think this is done?
+						// Delay Dialogue From Continuing until sprFlipH or sprFlipV is no longer true?
+						// Doesn't cos(0) == 2 or 1? We wan't sin right? 1 -> -1 in lerp???
+						
+					}
 					
 				}
 				
-				// Iterate
-				flipHi++
-				if(flipHi > flipDel) {
-					
-					// Done?
-					flipHi = 0
-					sprFlipH = F
-					
-					// CHECKLIST:
-					// I think this is done?
-					// Delay Dialogue From Continuing until sprFlipH or sprFlipV is no longer true?
-					// Doesn't cos(0) == 2 or 1? We wan't sin right? 1 -> -1 in lerp???
-					
-				}
-				
-			}
+			#endregion
 			
 		#endregion
 		
 	#endregion
 	
-#endregion
-
-#region Meta Updates
-	
-	#region Olds
+	#region Meta Updates
 		
-		suitedo = suited
+		#region Olds
+			
+			suitedo = suited
+			
+		#endregion
 		
 	#endregion
-	
-#endregion
+
+}
 
 if(D.scene_state == GAME.PLAY) {
 	
@@ -279,74 +284,36 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 	
-	if(D.actorLeft == id) {
+	#region Init/Draw
 		
-		#region Init/Draw
-			
-			if(imgDia) sprite_index = imgDia;
-			else if(suited) sprite_index = imgSuit;
-			else sprite_index = imgFace;
-			image_alpha = 1
-			var scl = (D.href)/sprite_get_height(sprite_index)
-			image_xscale = scl
-			image_yscale = scl
-			x = ((WW)*(1/5))+D.bgImg.dltx
-			y = D.bgImg.bbox_bottom
-			image_blend = D.scnBlend3;
-			draw_self()
-			
-		#endregion
+		if(is(imgDia) and imgDia != sprNA) sprite_index = imgDia;
+		else if(suited and is(imgSuit) and imgSuit != sprNA) sprite_index = imgSuit;
+		else if(is(imgFace) and imgFace != sprNA) sprite_index = imgFace;
+		else sprite_index = sprFlare;
+		image_alpha = 1
+		var scl = (D.href)/sprite_get_height(sprite_index)
+		image_xscale = scl
+		image_yscale = scl
+		if(D.actorLeft == id) x = ((WW)*(1/5))+D.bgImg.dltx;
+		else if(D.actorRight == id) x = ((WW)*(4/5))+D.bgImg.dltx;
+		y = D.bgImg.bbox_bottom+min(sprite_height*.2,sprite_yoffset)
+		if(sprite_index != sprFlare) image_blend = D.scnBlend3;
+		else image_blend = c.nr;
+		draw_self()
 		
-		if(bbox_sanity(id)) {
+	#endregion
+	
+	if(bbox_sanity(id)) {
+		
+		if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
+			 and D.focusL == N and !TRAN.override and !D.ctrlOverride
+			 and is_hover(id)) {
 			
-			if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
-				 and D.focusL == N and !TRAN.override and !D.ctrlOverride
-				 and is_hover(id)) {
-				
-				// Init
-				D.isHvr = id
-				mouseIn = T
-				
-				if(diaAvailable) {
-					
-					#region Shader Draw
-						
-						// Open Surface
-						var surf = surface_create(WW,WH)
-						surface_set_target(surf)
-							
-							shader_set(shWhite)
-								
-								if(MBL) {
-									
-									var _a = shader_get_uniform(shWhite,"alpha")
-									shader_set_uniform_f(_a,D.hvrPct/6)
-									
-								} else {
-									
-									var _a = shader_get_uniform(shWhite,"alpha")
-									shader_set_uniform_f(_a,D.hvrPct/5)
-									
-								}
-								
-								draw_self()
-								
-							shader_reset()
-							
-						// Finalize Surface
-						surface_reset_target()
-						draw_surface_ext(surf,0,0,1,1,0,col[1],1)
-						surface_free(surf)
-						
-					#endregion
-					
-				} else D.isHvr = N;
-				
-			} else if(D.focusL == N and !TRAN.override
-				and !D.ctrlOverride and D.hvrPct > 0) {
-				
-				// Init
-				mouseIn = F
+			// Init
+			D.isHvr = id
+			mouseIn = T
+			
+			if(diaAvailable) {
 				
 				#region Shader Draw
 					
@@ -374,19 +341,56 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 						
 					// Finalize Surface
 					surface_reset_target()
-					draw_surface_ext(surf,0,0,1,1,0,col[3],D.hvrPct)
+					draw_surface_ext(surf,0,0,1,1,0,col[1],1)
 					surface_free(surf)
 					
 				#endregion
 				
-			} else mouseIn = F;
+			} else D.isHvr = N;
 			
-		}
-		
-		// Reset Dialogue Available
-		diaAvailable = F
+		} else if(D.focusL == N and !TRAN.override
+			and !D.ctrlOverride and D.hvrPct > 0) {
+			
+			// Init
+			mouseIn = F
+			
+			#region Shader Draw
+				
+				// Open Surface
+				var surf = surface_create(WW,WH)
+				surface_set_target(surf)
+					
+					shader_set(shWhite)
+						
+						if(MBL) {
+							
+							var _a = shader_get_uniform(shWhite,"alpha")
+							shader_set_uniform_f(_a,D.hvrPct/6)
+							
+						} else {
+							
+							var _a = shader_get_uniform(shWhite,"alpha")
+							shader_set_uniform_f(_a,D.hvrPct/5)
+							
+						}
+						
+						draw_self()
+						
+					shader_reset()
+					
+				// Finalize Surface
+				surface_reset_target()
+				draw_surface_ext(surf,0,0,1,1,0,col[3],D.hvrPct)
+				surface_free(surf)
+				
+			#endregion
+			
+		} else mouseIn = F;
 		
 	}
+	
+	// Reset Dialogue Available
+	diaAvailable = F
 	
 }
 

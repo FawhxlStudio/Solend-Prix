@@ -1222,15 +1222,15 @@ function db_act() {
 			_char.font2 = fSpitfireB // Emote
 			
 			// Face
-			_char.imgFace = sprSpitfire1
+			_char.imgFace = sprSpitfire
 			_char.imgFacePol = 1
 			
 			// Suit
-			_char.imgSuit = sprSpitfireBod
+			_char.imgSuit = sprSpitfireSuit
 			_char.imgSuitPol = 1
 			
 			// Suit Back
-			_char.imgSuitBack = sprSpitfireBack
+			_char.imgSuitBack = sprSpitfireSuitBack
 			_char.imgSuitBackPol = 1
 			
 			// Dialogue
@@ -1568,10 +1568,13 @@ function db_act_rnd(scni,close) {
 			
 			// Basics
 			_char.uid = ACTOR.RANDOM
+			_char.ruid = _li
 			_char.scni = scni
 			_char.dia[$ K.NM] = "Unknown Female"
 			_char.dia[$ K.NM+K.KNW] = T
 			_char.dia[$ K.SX]  = SEX.FEMALE
+			_char.suited = F
+			_char.suitedo = _char.suited
 			
 			#region Pick Sprite
 				
@@ -1585,7 +1588,7 @@ function db_act_rnd(scni,close) {
 						while(_TO <= 3) {
 							
 							// Pick
-							_char.imgSuit = irandom(array_length(D.fArr))
+							_char.imgSuit = D.fArr[irandom(array_length(D.fArr)-1)]
 							_char.imgSuitPol = pol_flip(50)
 							
 							// Check & Break/Pass?
@@ -1625,13 +1628,13 @@ function db_act_rnd(scni,close) {
 						while(_TO <= 3) {
 							
 							// Pick
-							_char.imgFace = irandom(array_length(D.cfArr))
+							_char.imgFace = D.cfArr[irandom(array_length(D.cfArr)-1)]
 							_char.imgFacePol = pol_flip(50)
 							
 							// Check & Break/Pass?
-							if(!array_contains(D.cfiArr,_char.imgSuit)) {
+							if(!array_contains(D.cfiArr,_char.imgFace)) {
 								
-								D.cfiArr[array_length(D.cfiArr)] = _char.imgSuit
+								D.cfiArr[array_length(D.cfiArr)] = _char.imgFace
 								break
 								
 							}
@@ -1685,10 +1688,13 @@ function db_act_rnd(scni,close) {
 			
 			// Basics
 			_char.uid = ACTOR.RANDOM
+			_char.ruid = _li
 			_char.scni = scni
 			_char.dia[$ K.NM] = "Unknown Male"
 			_char.dia[$ K.NM+K.KNW] = T
 			_char.dia[$ K.SX]  = SEX.MALE
+			_char.suited = F
+			_char.suitedo = _char.suited
 			
 			#region Pick Sprite
 				
@@ -1702,7 +1708,7 @@ function db_act_rnd(scni,close) {
 						while(_TO <= 3) {
 							
 							// Pick
-							_char.imgSuit = irandom(array_length(D.mArr))
+							_char.imgSuit = D.mArr[irandom(array_length(D.mArr)-1)]
 							_char.imgSuitPol = pol_flip(50)
 							
 							// Check & Break/Pass?
@@ -1742,13 +1748,13 @@ function db_act_rnd(scni,close) {
 						while(_TO <= 3) {
 							
 							// Pick
-							_char.imgFace = irandom(array_length(D.cmArr))
+							_char.imgFace = D.cmArr[irandom(array_length(D.cmArr)-1)]
 							_char.imgFacePol = pol_flip(50)
 							
 							// Check & Break/Pass?
-							if(!array_contains(D.cmiArr,_char.imgSuit)) {
+							if(!array_contains(D.cmiArr,_char.imgFace)) {
 								
-								D.cmiArr[array_length(D.cmiArr)] = _char.imgSuit
+								D.cmiArr[array_length(D.cmiArr)] = _char.imgFace
 								break
 								
 							}

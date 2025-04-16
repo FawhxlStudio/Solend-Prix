@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxBellhop",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"Tezeta",
+    "path":"audiogroups/Tezeta",
   },
   "bitDepth":1,
   "bitRate":320,
@@ -12,8 +12,8 @@
   "duration":283.6898,
   "name":"msxBellhop",
   "parent":{
-    "name":"T",
-    "path":"folders/Sounds/Music/T.yy",
+    "name":"Tezeta",
+    "path":"folders/Sounds/Music/Tezeta.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

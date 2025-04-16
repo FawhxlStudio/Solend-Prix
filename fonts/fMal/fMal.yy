@@ -2290,8 +2290,8 @@
   "maintainGms1Font":false,
   "name":"fMal",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Male",
+    "path":"folders/Fonts/Male.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -2306,8 +2306,8 @@
   "size":32.0,
   "styleName":"Bold",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Common_Male",
+    "path":"texturegroups/Common_Male",
   },
   "TTFName":"",
   "usesSDF":false,

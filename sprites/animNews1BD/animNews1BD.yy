@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Anim_News1",
+    "path":"texturegroups/Anim_News1",
   },
   "type":0,
   "VTile":false,

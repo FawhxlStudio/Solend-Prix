@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Goth_Resort",
+    "path":"texturegroups/Goth_Resort",
   },
   "type":0,
   "VTile":false,

@@ -6,6 +6,7 @@
 	uid = ACTOR.UNKNOWN
 	col = [1,c.lgry,c.lgry,c.gry,c.gry]
 	scni = N
+	ruid = N // uid for randoms and unknowns
 	
 	// Suit Flags
 	suited = T

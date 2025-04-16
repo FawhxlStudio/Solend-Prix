@@ -145,8 +145,8 @@
   "maintainGms1Font":false,
   "name":"fInfect",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Neutral",
+    "path":"folders/Fonts/Neutral.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -161,8 +161,8 @@
   "size":50.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Anim_Nightmare1",
+    "path":"texturegroups/Anim_Nightmare1",
   },
   "TTFName":"",
   "usesSDF":false,

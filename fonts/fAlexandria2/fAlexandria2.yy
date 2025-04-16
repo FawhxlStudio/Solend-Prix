@@ -87,8 +87,8 @@
   "maintainGms1Font":false,
   "name":"fAlexandria2",
   "parent":{
-    "name":"Fonts",
-    "path":"folders/Fonts.yy",
+    "name":"Female",
+    "path":"folders/Fonts/Female.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -103,8 +103,8 @@
   "size":50.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Char_Alexandria",
+    "path":"texturegroups/Char_Alexandria",
   },
   "TTFName":"",
   "usesSDF":false,

@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"Anim_Nightmare1",
+    "path":"texturegroups/Anim_Nightmare1",
   },
   "type":0,
   "VTile":false,

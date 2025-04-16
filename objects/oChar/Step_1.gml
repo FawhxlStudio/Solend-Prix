@@ -1,63 +1,67 @@
 /// @description Controls & Updates
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 
-#region FX Updates
+if(D.scni == scni) {
 	
-	#region Sprite Polarity Flip
+	#region FX Updates
 		
-		#region Horizontal
+		#region Sprite Polarity Flip
 			
-			if(sprFlipH) {
+			#region Horizontal
 				
-				// First? Set Old...
-				if(flipHi == 0) {
+				if(sprFlipH) {
 					
-					// Set Polairty Old
-					if is(imgDia) imgPolOld = imgDiaPol;
-					else if(suited) imgPolOld = imgSuitPol;
-					else imgPolOld = imgFacePol;
+					// First? Set Old...
+					if(flipHi == 0) {
+						
+						// Set Polairty Old
+						if is(imgDia) imgPolOld = imgDiaPol;
+						else if(suited) imgPolOld = imgSuitPol;
+						else imgPolOld = imgFacePol;
+						
+					} else if(imgPolOld != N) {
+						
+						// Apply Transistion
+						if is(imgDia) imgDiaPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+						else if(suited) imgSuitPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+						else imgFacePol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+						
+					}
 					
-				} else if(imgPolOld != N) {
-					
-					// Apply Transistion
-					if is(imgDia) imgDiaPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
-					else if(suited) imgSuitPol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
-					else imgFacePol = lerp(imgPolOld*-1,imgPolOld,cos(degtorad(180*(flipHi/flipDel))/2));
+					// Iterate
+					flipHi++
+					if(flipHi > flipDel) {
+						
+						// Done?
+						flipHi = 0
+						sprFlipH = F
+						
+						// CHECKLIST:
+						// I think this is done?
+						// Delay Dialogue From Continuing until sprFlipH or sprFlipV is no longer true?
+						// Doesn't cos(0) == 2 or 1? We wan't sin right? 1 -> -1 in lerp???
+						
+					}
 					
 				}
 				
-				// Iterate
-				flipHi++
-				if(flipHi > flipDel) {
-					
-					// Done?
-					flipHi = 0
-					sprFlipH = F
-					
-					// CHECKLIST:
-					// I think this is done?
-					// Delay Dialogue From Continuing until sprFlipH or sprFlipV is no longer true?
-					// Doesn't cos(0) == 2 or 1? We wan't sin right? 1 -> -1 in lerp???
-					
-				}
-				
-			}
+			#endregion
 			
 		#endregion
 		
 	#endregion
 	
-#endregion
-
-#region Meta Updates
-	
-	#region Olds
+	#region Meta Updates
 		
-		suitedo = suited
+		#region Olds
+			
+			suitedo = suited
+			
+		#endregion
 		
 	#endregion
-	
-#endregion
+
+}
 
 if(D.scene_state == GAME.PLAY) {
 	

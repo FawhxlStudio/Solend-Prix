@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"vaVox1",
   "audioGroupId":{
-    "name":"audiogroup_default",
-    "path":"audiogroups/audiogroup_default",
+    "name":"Vox",
+    "path":"audiogroups/Vox",
   },
   "bitDepth":1,
   "bitRate":256,
