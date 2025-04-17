@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Intro",
-    "path":"texturegroups/Intro",
+    "name":"tg_intro",
+    "path":"texturegroups/tg_intro",
   },
   "type":0,
   "VTile":false,

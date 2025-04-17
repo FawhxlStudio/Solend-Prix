@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Starfield",
-    "path":"texturegroups/Starfield",
+    "name":"tg_starfield",
+    "path":"texturegroups/tg_starfield",
   },
   "type":0,
   "VTile":false,

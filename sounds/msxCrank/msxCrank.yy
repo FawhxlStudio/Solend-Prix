@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxCrank",
   "audioGroupId":{
-    "name":"Tezeta",
-    "path":"audiogroups/Tezeta",
+    "name":"ag_slums",
+    "path":"audiogroups/ag_slums",
   },
   "bitDepth":1,
   "bitRate":320,

@@ -11,7 +11,7 @@
 		#region Draw Loading Surface
 			
 			// Draw BG Fade
-			draw_rectangle_ext_color([0,0,WW,WH],0,[.8,c.blk,c.blk,c.blk,c.blk],F)
+			draw_rectangle_ext_color([-1,-1,WW,WH],0,[.8,c.blk,c.blk,c.blk,c.blk],F)
 			
 			// Init Text
 			draw_set_font(fTitle)

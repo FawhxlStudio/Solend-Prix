@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Goth_Brothel",
-    "path":"texturegroups/Goth_Brothel",
+    "name":"tg_brothel",
+    "path":"texturegroups/tg_brothel",
   },
   "type":0,
   "VTile":false,

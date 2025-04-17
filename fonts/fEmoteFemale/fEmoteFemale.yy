@@ -208,8 +208,8 @@
   "size":56.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Common_Female",
-    "path":"texturegroups/Common_Female",
+    "name":"tg_common_female",
+    "path":"texturegroups/tg_common_female",
   },
   "TTFName":"",
   "usesSDF":false,

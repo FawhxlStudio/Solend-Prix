@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Assorted_Females",
-    "path":"texturegroups/Assorted_Females",
+    "name":"tg_females",
+    "path":"texturegroups/tg_females",
   },
   "type":0,
   "VTile":false,

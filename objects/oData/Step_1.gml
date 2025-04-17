@@ -72,7 +72,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][0] == N) {
 											
-											if(chance(20)) scnActArr[_scni][0] = db_act_rnd(_scni,T);
+											if(chance(33)) scnActArr[_scni][0] = db_act_rnd(_scni,T);
 											else scnActArr[_scni][0] = U;
 											
 										}
@@ -83,7 +83,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][1] == N) {
 											
-											if(chance(20)) scnActArr[_scni][1] = db_act_rnd(_scni,T);
+											if(chance(33)) scnActArr[_scni][1] = db_act_rnd(_scni,T);
 											else scnActArr[_scni][1] = U;
 											
 										}

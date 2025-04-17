@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Goth_Common",
-    "path":"texturegroups/Goth_Common",
+    "name":"tg_goth_common",
+    "path":"texturegroups/tg_goth_common",
   },
   "type":0,
   "VTile":false,

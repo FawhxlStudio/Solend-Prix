@@ -9,12 +9,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	
 #endregion
 
-if(!fetch) {
+if(!load and intro_ready()) {
 	
 	#region Fade In Iteration
 		
 		if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
 		var _pctin = fadeIni/fadeIn
+		if(_pctin >= 1) unload_menu();
 		
 	#endregion
 	
@@ -180,7 +181,17 @@ if(!fetch) {
 	
 	#region Fade Out Iteration
 		
-		if(_pctdel >= 1 and fadeOuti < fadeOut) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+		if(_pctdel >= 1 and fadeOuti < fadeOut) {
+			
+			fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+			if(!load2) {
+				
+				load_resort_area()
+				load_random_actors()
+				
+			}
+			
+		}
 		var _pctout = fadeOuti/fadeOut
 		
 	#endregion
@@ -206,6 +217,7 @@ if(!fetch) {
 			ds_list_destroy(stars.galL)
 			instance_destroy(stars)
 			instance_destroy(id)
+			unload_intro()
 			
 		}
 		
@@ -254,7 +266,7 @@ if(!fetch) {
 	
 } else {
 	
-	#region Pre-Fetch Logic
+	#region Loading Screen
 		
 		// Draw Load Surface
 		if(is(D.loadSurf) and surface_exists(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);

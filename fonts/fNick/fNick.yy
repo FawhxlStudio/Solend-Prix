@@ -350,8 +350,8 @@
   "size":48.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Char_Nick",
-    "path":"texturegroups/Char_Nick",
+    "name":"tg_char_nick",
+    "path":"texturegroups/tg_char_nick",
   },
   "TTFName":"",
   "usesSDF":false,

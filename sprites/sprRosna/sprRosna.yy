@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Char_Rosna",
-    "path":"texturegroups/Char_Rosna",
+    "name":"tg_char_rosna",
+    "path":"texturegroups/tg_char_rosna",
   },
   "type":0,
   "VTile":false,

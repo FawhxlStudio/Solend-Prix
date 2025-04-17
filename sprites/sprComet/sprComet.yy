@@ -113,8 +113,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Unused",
-    "path":"texturegroups/Unused",
+    "name":"tg_unused",
+    "path":"texturegroups/tg_unused",
   },
   "type":0,
   "VTile":false,

@@ -31,3 +31,7 @@ mg2spr = sprSylasSuit
 settings = F
 setDel = GSPD/2
 setDeli = 0
+
+// Load
+load_menu()
+loaded = T

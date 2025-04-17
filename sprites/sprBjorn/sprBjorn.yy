@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Flyers",
-    "path":"texturegroups/Flyers",
+    "name":"tg_flyers",
+    "path":"texturegroups/tg_flyers",
   },
   "type":0,
   "VTile":false,

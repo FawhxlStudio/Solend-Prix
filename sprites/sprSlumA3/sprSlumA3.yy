@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Goth_Slums",
-    "path":"texturegroups/Goth_Slums",
+    "name":"tg_slums",
+    "path":"texturegroups/tg_slums",
   },
   "type":0,
   "VTile":false,

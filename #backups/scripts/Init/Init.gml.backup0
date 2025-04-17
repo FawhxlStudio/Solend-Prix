@@ -1,4 +1,4 @@
-// 2025-04-15 03:31:41
+// 2025-04-17 03:39:43
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function _init() {
@@ -616,6 +616,23 @@ function _init() {
 			text_prep("") // init Values...
 			
 		#endregion
+		
+	#endregion
+	
+	#region Asset Groups
+		
+		#macro AGA global.audioGroupsArray
+		AGA = []
+		var snds = asset_get_ids(asset_sound)
+		for(var i = 0; i < array_length(snds); i++) {
+			
+			if(!array_contains(AGA,audio_sound_get_audio_group(snds[i])))
+				AGA[array_length(AGA)] = audio_sound_get_audio_group(snds[i]);
+			
+		}
+		
+		#macro TGA global.textureGroupsArray
+		TGA = texturegroup_get_names()
 		
 	#endregion
 	

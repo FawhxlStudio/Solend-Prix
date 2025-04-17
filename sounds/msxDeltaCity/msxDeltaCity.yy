@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxDeltaCity",
   "audioGroupId":{
-    "name":"WhiteBatAudio",
-    "path":"audiogroups/WhiteBatAudio",
+    "name":"ag_whitebat_unused",
+    "path":"audiogroups/ag_whitebat_unused",
   },
   "bitDepth":1,
   "bitRate":512,

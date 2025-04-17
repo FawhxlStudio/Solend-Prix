@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Assorted_Males",
-    "path":"texturegroups/Assorted_Males",
+    "name":"tg_males",
+    "path":"texturegroups/tg_males",
   },
   "type":0,
   "VTile":false,

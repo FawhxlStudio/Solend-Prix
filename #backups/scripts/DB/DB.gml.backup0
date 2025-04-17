@@ -1,4 +1,4 @@
-// 2025-04-16 15:50:17
+// 2025-04-17 03:38:29
 function db_diaNar() {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
@@ -725,7 +725,7 @@ function db_scn() {
 			
 			S[$ SCENE.CLUB_BOOTH] = {}
 			S[$ SCENE.CLUB_BOOTH][$ K.BD0+K.SPR] = sprClubBoothBD
-			S[$ SCENE.CLUB_BOOTH][$ K.BD0+K.PMT] = .8
+			S[$ SCENE.CLUB_BOOTH][$ K.BD0+K.PMT] = 2/3
 			S[$ SCENE.CLUB_BOOTH][$ K.BG0+K.SPR] = sprClubBoothBG
 			S[$ SCENE.CLUB_BOOTH][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.CLUB_BOOTH][$ K.ACT+K.LFT] = ACTOR.SPITFIRE
@@ -1223,15 +1223,15 @@ function db_act() {
 			_char.font2 = fSpitfireB // Emote
 			
 			// Face
-			_char.imgFace = sprSpitfire1
+			_char.imgFace = sprSpitfire
 			_char.imgFacePol = 1
 			
 			// Suit
-			_char.imgSuit = sprSpitfireBod
+			_char.imgSuit = sprSpitfireSuit
 			_char.imgSuitPol = 1
 			
 			// Suit Back
-			_char.imgSuitBack = sprSpitfireBack
+			_char.imgSuitBack = sprSpitfireSuitBack
 			_char.imgSuitBackPol = 1
 			
 			// Dialogue

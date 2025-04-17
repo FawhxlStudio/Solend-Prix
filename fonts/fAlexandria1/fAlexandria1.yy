@@ -134,8 +134,8 @@
   "size":48.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Char_Alexandria",
-    "path":"texturegroups/Char_Alexandria",
+    "name":"tg_char_alexandria",
+    "path":"texturegroups/tg_char_alexandria",
   },
   "TTFName":"",
   "usesSDF":false,

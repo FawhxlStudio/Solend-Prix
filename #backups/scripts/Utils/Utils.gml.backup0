@@ -1,4 +1,4 @@
-// 2025-04-16 15:43:19
+// 2025-04-17 03:26:56
 function chance(pct) {
 	
 	var r = random_range(0,100)
@@ -26,7 +26,6 @@ function actor_find(_uid) {
 	
 	try {
 		
-		if(instance_of(_uid,oChar)) return _uid;
 		if(_uid != ACTOR.RANDOM) {
 			
 			for(var i = 0; i < ds_list_size(D.actorL); i++) {
@@ -705,6 +704,51 @@ function set_scni(scni) {
 	try {
 		
 		if(scni > SCENE.FIRST and scni < SCENE.LAST) {
+			
+			if(D.scni > SCENE.FIRST and D.scni < SCENE.LAST) {
+				
+				#region Entering new area? Load/Unload Assets...
+					
+					var _from = string_split(SCENEn[D.scni],"_")[0]
+					var _to   = string_split(SCENEn[scni],"_")[0]
+					
+					if(_from != _to) {
+						
+						#region Unload Previous Area
+							
+							switch(_from) {
+								
+								case "RESORT": unload_resort_area(); break;
+								case "CITY": unload_city_area(); break;
+								case "CLUB": unload_club_area(); break;
+								case "BROTH": unload_brothel_area(); break;
+								case "SPACEPORT": unload_port_area(); break;
+								case "SLUM": unload_slums_area(); break;
+								
+							}
+							
+						#endregion
+						
+						#region Load Previous Area
+							
+							switch(_to) {
+								
+								case "RESORT": load_resort_area(); break;
+								case "CITY": load_city_area(); break;
+								case "CLUB": load_club_area(); break;
+								case "BROTH": load_brothel_area(); break;
+								case "SPACEPORT": load_port_area(); break;
+								case "SLUM": load_slums_area(); break;
+								
+							}
+							
+						#endregion
+						
+					}
+					
+				#endregion
+				
+			}
 			
 			D.game_state  = GAME.PLAY
 			D.scene_state = GAME.INIT

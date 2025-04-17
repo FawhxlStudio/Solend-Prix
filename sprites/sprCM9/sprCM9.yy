@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Assorted_Males_Close",
-    "path":"texturegroups/Assorted_Males_Close",
+    "name":"tg_males_close",
+    "path":"texturegroups/tg_males_close",
   },
   "type":0,
   "VTile":false,

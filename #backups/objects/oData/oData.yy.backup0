@@ -1,4 +1,4 @@
-// 2025-04-16 15:56:34
+// 2025-04-17 03:30:04
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -286,6 +286,12 @@ uses_physics = false;
 	
 #endregion
 
+#region Loads
+	
+	load_common()
+	
+#endregion
+
 #event step Live Update
 
 
@@ -363,7 +369,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][0] == N) {
 											
-											if(chance(20)) scnActArr[_scni][0] = db_act_rnd(_scni,T);
+											if(chance(33)) scnActArr[_scni][0] = db_act_rnd(_scni,T);
 											else scnActArr[_scni][0] = U;
 											
 										}
@@ -374,7 +380,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][1] == N) {
 											
-											if(chance(20)) scnActArr[_scni][1] = db_act_rnd(_scni,T);
+											if(chance(33)) scnActArr[_scni][1] = db_act_rnd(_scni,T);
 											else scnActArr[_scni][1] = U;
 											
 										}
@@ -476,7 +482,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		#region Draw Loading Surface
 			
 			// Draw BG Fade
-			draw_rectangle_ext_color([0,0,WW,WH],0,[.8,c.blk,c.blk,c.blk,c.blk],F)
+			draw_rectangle_ext_color([-1,-1,WW,WH],0,[.8,c.blk,c.blk,c.blk,c.blk],F)
 			
 			// Init Text
 			draw_set_font(fTitle)

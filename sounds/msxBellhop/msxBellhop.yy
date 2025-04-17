@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxBellhop",
   "audioGroupId":{
-    "name":"Tezeta",
-    "path":"audiogroups/Tezeta",
+    "name":"ag_resort",
+    "path":"audiogroups/ag_resort",
   },
   "bitDepth":1,
   "bitRate":320,

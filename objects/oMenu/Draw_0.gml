@@ -3,6 +3,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 if (room == rMenu and D.game_state == GAME.MENU) {
 	
+	if(!loaded) {
+		
+		load_menu()
+		loaded = T
+		
+	}
+	
 	#region Init Menu Screen
 		
 		// Basic
@@ -106,7 +113,8 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			
 		}
 		
-		if(preDel <= 0 and fade > 0) fade = clamp(fade-fadei,0,1);
+		var _loadDone = common_ready() and menu_ready()
+		if(preDel <= 0 and fade > 0 and _loadDone) fade = clamp(fade-fadei,0,1);
 		
 		draw_set_alpha(fade)
 		draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,c.blk,c.blk,F)
@@ -227,5 +235,10 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 		if(!settings and setDeli > 0) setDeli = clamp(setDeli-1,0,setDel);
 		
 	#endregion
+	
+} else if(loaded) {
+	
+	unload_menu()
+	loaded = F
 	
 }

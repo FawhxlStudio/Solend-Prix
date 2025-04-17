@@ -93,8 +93,8 @@
   "size":192.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"vFX",
-    "path":"texturegroups/vFX",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

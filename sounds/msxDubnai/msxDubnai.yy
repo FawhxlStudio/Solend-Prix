@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxDubnai",
   "audioGroupId":{
-    "name":"Tezeta",
-    "path":"audiogroups/Tezeta",
+    "name":"ag_port",
+    "path":"audiogroups/ag_port",
   },
   "bitDepth":1,
   "bitRate":320,

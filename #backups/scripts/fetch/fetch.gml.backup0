@@ -1,0 +1,42 @@
+// 2025-04-16 19:11:23
+// Script assets have changed for v2.3.0 see
+// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+function fetch_common() {
+	
+	#region Audio
+		
+		if(!audio_group_is_loaded(audiogroup_default)) audio_group_load(audiogroup_default);
+		if(!audio_group_is_loaded(ag_sfx)) audio_group_load(ag_sfx);
+		if(!audio_group_is_loaded(ag_ui)) audio_group_load(ag_ui);
+		
+	#endregion
+	
+	#region Texture/Sprites
+		
+		if(texturegroup_get_status("Default") == texturegroup_status_unloaded) texturegroup_load("Default",T);
+		if(texturegroup_get_status("tg_char_sylas") == texturegroup_status_unloaded) texturegroup_load("tg_char_sylas",T);
+		if(texturegroup_get_status("tg_common") == texturegroup_status_unloaded) texturegroup_load("tg_common",T);
+		if(texturegroup_get_status("tg_goth_common") == texturegroup_status_unloaded) texturegroup_load("tg_goth_common",T);
+		
+	#endregion
+	
+}
+
+function fetch_menu() {
+    
+	if(texturegroup_get_status("tg_menu") == texturegroup_status_unloaded) texturegroup_load("tg_menu",T);
+    
+}
+
+function fetch_intro() {
+    
+	if(texturegroup_get_status("tg_intro") == texturegroup_status_unloaded) texturegroup_load("tg_menu",T);
+	fetch_starfield()
+    
+}
+
+function fetch_starfield() {
+    
+	if(texturegroup_get_status("tg_starfield") == texturegroup_status_unloaded) texturegroup_load("tg_menu",T);
+    
+}

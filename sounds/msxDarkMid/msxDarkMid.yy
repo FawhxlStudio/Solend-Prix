@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxDarkMid",
   "audioGroupId":{
-    "name":"Anim_Nightmare1_Music",
-    "path":"audiogroups/Anim_Nightmare1_Music",
+    "name":"ag_nightmare1",
+    "path":"audiogroups/ag_nightmare1",
   },
   "bitDepth":1,
   "bitRate":256,

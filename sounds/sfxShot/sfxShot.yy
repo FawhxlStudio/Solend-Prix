@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"sfxShot",
   "audioGroupId":{
-    "name":"SFX",
-    "path":"audiogroups/SFX",
+    "name":"ag_sfx",
+    "path":"audiogroups/ag_sfx",
   },
   "bitDepth":1,
   "bitRate":256,

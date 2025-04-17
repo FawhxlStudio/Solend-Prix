@@ -103,8 +103,8 @@
   "size":72.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"Anim_Nightmare1",
-    "path":"texturegroups/Anim_Nightmare1",
+    "name":"tg_nightmare1",
+    "path":"texturegroups/tg_nightmare1",
   },
   "TTFName":"",
   "usesSDF":false,

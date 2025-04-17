@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Char_Spitfire",
-    "path":"texturegroups/Char_Spitfire",
+    "name":"tg_char_spitfire",
+    "path":"texturegroups/tg_char_spitfire",
   },
   "type":0,
   "VTile":false,

@@ -2306,8 +2306,8 @@
   "size":32.0,
   "styleName":"Bold",
   "textureGroupId":{
-    "name":"Common_Male",
-    "path":"texturegroups/Common_Male",
+    "name":"tg_common_male",
+    "path":"texturegroups/tg_common_male",
   },
   "TTFName":"",
   "usesSDF":false,

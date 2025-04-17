@@ -724,7 +724,7 @@ function db_scn() {
 			
 			S[$ SCENE.CLUB_BOOTH] = {}
 			S[$ SCENE.CLUB_BOOTH][$ K.BD0+K.SPR] = sprClubBoothBD
-			S[$ SCENE.CLUB_BOOTH][$ K.BD0+K.PMT] = .8
+			S[$ SCENE.CLUB_BOOTH][$ K.BD0+K.PMT] = 2/3
 			S[$ SCENE.CLUB_BOOTH][$ K.BG0+K.SPR] = sprClubBoothBG
 			S[$ SCENE.CLUB_BOOTH][$ K.BG0+K.PMT] = 1
 			S[$ SCENE.CLUB_BOOTH][$ K.ACT+K.LFT] = ACTOR.SPITFIRE

@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"vFX",
-    "path":"texturegroups/vFX",
+    "name":"tg_fx",
+    "path":"texturegroups/tg_fx",
   },
   "type":0,
   "VTile":false,

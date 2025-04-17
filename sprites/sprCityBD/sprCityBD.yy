@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Goth_City",
-    "path":"texturegroups/Goth_City",
+    "name":"tg_city",
+    "path":"texturegroups/tg_city",
   },
   "type":0,
   "VTile":false,

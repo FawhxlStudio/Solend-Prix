@@ -7,6 +7,7 @@
 	col = [1,c.lgry,c.lgry,c.gry,c.gry]
 	scni = N
 	ruid = N // uid for randoms and unknowns
+	deptho = depth
 	
 	// Suit Flags
 	suited = T
@@ -14,6 +15,9 @@
 	
 	// Interact Flag
 	mouseIn = F
+	hvrPctO = 0
+	hvrDelO = GSPD
+	hvrDeliO = 0
 	
 	// Dialogue Flags
 	spkr = F

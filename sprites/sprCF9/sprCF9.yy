@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Assorted_Females_Close",
-    "path":"texturegroups/Assorted_Females_Close",
+    "name":"tg_females_close",
+    "path":"texturegroups/tg_females_close",
   },
   "type":0,
   "VTile":false,

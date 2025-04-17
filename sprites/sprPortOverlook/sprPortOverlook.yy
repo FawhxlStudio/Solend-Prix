@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Goth_Port",
-    "path":"texturegroups/Goth_Port",
+    "name":"tg_port",
+    "path":"texturegroups/tg_port",
   },
   "type":0,
   "VTile":false,

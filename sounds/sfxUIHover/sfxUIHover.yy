@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"sfxUIHover",
   "audioGroupId":{
-    "name":"SFX_UI",
-    "path":"audiogroups/SFX_UI",
+    "name":"ag_ui",
+    "path":"audiogroups/ag_ui",
   },
   "bitDepth":1,
   "bitRate":512,

@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxSporkbomb",
   "audioGroupId":{
-    "name":"Tezeta",
-    "path":"audiogroups/Tezeta",
+    "name":"ag_brothel",
+    "path":"audiogroups/ag_brothel",
   },
   "bitDepth":1,
   "bitRate":320,

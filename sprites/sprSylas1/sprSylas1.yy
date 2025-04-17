@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Char_Sylas",
-    "path":"texturegroups/Char_Sylas",
+    "name":"tg_char_sylas",
+    "path":"texturegroups/tg_char_sylas",
   },
   "type":0,
   "VTile":false,

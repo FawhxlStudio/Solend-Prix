@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxSlickBandit",
   "audioGroupId":{
-    "name":"Tezeta",
-    "path":"audiogroups/Tezeta",
+    "name":"ag_club",
+    "path":"audiogroups/ag_club",
   },
   "bitDepth":1,
   "bitRate":320,

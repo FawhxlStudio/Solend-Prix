@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"msxSentry",
   "audioGroupId":{
-    "name":"Tezeta",
-    "path":"audiogroups/Tezeta",
+    "name":"ag_tezeta_unused",
+    "path":"audiogroups/ag_tezeta_unused",
   },
   "bitDepth":1,
   "bitRate":320,

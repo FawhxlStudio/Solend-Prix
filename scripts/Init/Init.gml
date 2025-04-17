@@ -618,6 +618,23 @@ function _init() {
 		
 	#endregion
 	
+	#region Asset Groups
+		
+		#macro AGA global.audioGroupsArray
+		AGA = []
+		var snds = asset_get_ids(asset_sound)
+		for(var i = 0; i < array_length(snds); i++) {
+			
+			if(!array_contains(AGA,audio_sound_get_audio_group(snds[i])))
+				AGA[array_length(AGA)] = audio_sound_get_audio_group(snds[i]);
+			
+		}
+		
+		#macro TGA global.textureGroupsArray
+		TGA = texturegroup_get_names()
+		
+	#endregion
+	
 	#region Debug
 		
 		try {

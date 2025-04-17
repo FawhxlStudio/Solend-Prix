@@ -1,4 +1,4 @@
-// 2025-04-15 01:59:04
+// 2025-04-17 04:11:09
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -16,7 +16,8 @@ uses_physics = false;
 #region Control Overrides + Fetch Init
 	
 	D.diaOverride = T
-	fetch = T
+	load = T
+	load2 = F
 	alarm[0] = 4
 	
 #endregion
@@ -26,15 +27,16 @@ uses_physics = false;
 	// Early
 	fadeIn = GSPD*2
 	fadeIni = 0
-	del = (GSPD*60)*2
+	mns = 1
+	del = (GSPD*60)*mns
 	deli = 0
 	
 	// Late
-	gothDel1 = GSPD*28
+	gothDel1 = del/3
 	gothDel1i = 0
-	gothDel2 = GSPD*28
+	gothDel2 = del/3
 	gothDel2i = 0
-	gothDel3 = GSPD*28
+	gothDel3 = del/3
 	gothDel3i = 0
 	
 	// Final
@@ -91,8 +93,8 @@ uses_physics = false;
 			
 			"I had been chosen as a pilot in this... Solend Prix.\n"
 			+"A race, a chance to save my home...\n\n"
-			+"A chance...\n"
 			+"A fucking race...\n\n"
+			+"A chance...\n\n"
 			+"The longer Im here, the clearer things get...\n"
 			+"This race isnt salvation- its a blood sport for bastards.",
 			
@@ -104,7 +106,7 @@ uses_physics = false;
 		for(var i = 0; i < array_length(strArr); i++) {
 			
 			if(i == 0) introStr = strArr[i];
-			else introStr += "\n-\n"+strArr[i];
+			else introStr += "\n\n-\n\n"+strArr[i];
 			
 		}
 		
@@ -123,12 +125,15 @@ uses_physics = false;
 	
 #endregion
 
+#event destroy Unload Assets
+unload_intro()
+
+
 #event alarm0 Flush & Fetch...
-if(fetch) {
+if(load) {
 	
-	draw_texture_flush()
-	sprite_prefetch_multi(assArr)
-	fetch = F
+	load_intro()
+	load = F
 	if(surface_exists(narSurf)) surface_free(narSurf);
 	narSurf = N
 	
@@ -145,12 +150,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	
 #endregion
 
-if(!fetch) {
+if(!load and intro_ready()) {
 	
 	#region Fade In Iteration
 		
 		if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
 		var _pctin = fadeIni/fadeIn
+		if(_pctin >= 1) unload_menu();
 		
 	#endregion
 	
@@ -316,7 +322,17 @@ if(!fetch) {
 	
 	#region Fade Out Iteration
 		
-		if(_pctdel >= 1 and fadeOuti < fadeOut) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+		if(_pctdel >= 1 and fadeOuti < fadeOut) {
+			
+			fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+			if(!load2) {
+				
+				load_resort_area()
+				load_random_actors()
+				
+			}
+			
+		}
 		var _pctout = fadeOuti/fadeOut
 		
 	#endregion
@@ -342,6 +358,7 @@ if(!fetch) {
 			ds_list_destroy(stars.galL)
 			instance_destroy(stars)
 			instance_destroy(id)
+			unload_intro()
 			
 		}
 		
@@ -390,7 +407,7 @@ if(!fetch) {
 	
 } else {
 	
-	#region Pre-Fetch Logic
+	#region Loading Screen
 		
 		// Draw Load Surface
 		if(is(D.loadSurf) and surface_exists(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);

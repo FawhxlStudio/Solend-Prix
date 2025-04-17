@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"Goth_Club",
-    "path":"texturegroups/Goth_Club",
+    "name":"tg_club1",
+    "path":"texturegroups/tg_club1",
   },
   "type":0,
   "VTile":false,

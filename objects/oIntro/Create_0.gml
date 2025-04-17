@@ -10,7 +10,8 @@
 #region Control Overrides + Fetch Init
 	
 	D.diaOverride = T
-	fetch = T
+	load = T
+	load2 = F
 	alarm[0] = 4
 	
 #endregion
@@ -20,15 +21,16 @@
 	// Early
 	fadeIn = GSPD*2
 	fadeIni = 0
-	del = (GSPD*60)*2
+	mns = 1
+	del = (GSPD*60)*mns
 	deli = 0
 	
 	// Late
-	gothDel1 = GSPD*28
+	gothDel1 = del/3
 	gothDel1i = 0
-	gothDel2 = GSPD*28
+	gothDel2 = del/3
 	gothDel2i = 0
-	gothDel3 = GSPD*28
+	gothDel3 = del/3
 	gothDel3i = 0
 	
 	// Final
@@ -85,8 +87,8 @@
 			
 			"I had been chosen as a pilot in this... Solend Prix.\n"
 			+"A race, a chance to save my home...\n\n"
-			+"A chance...\n"
 			+"A fucking race...\n\n"
+			+"A chance...\n\n"
 			+"The longer Im here, the clearer things get...\n"
 			+"This race isnt salvation- its a blood sport for bastards.",
 			
@@ -98,7 +100,7 @@
 		for(var i = 0; i < array_length(strArr); i++) {
 			
 			if(i == 0) introStr = strArr[i];
-			else introStr += "\n-\n"+strArr[i];
+			else introStr += "\n\n-\n\n"+strArr[i];
 			
 		}
 		

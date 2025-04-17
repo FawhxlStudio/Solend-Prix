@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"vaVox2",
   "audioGroupId":{
-    "name":"Vox",
-    "path":"audiogroups/Vox",
+    "name":"ag_unused",
+    "path":"audiogroups/ag_unused",
   },
   "bitDepth":1,
   "bitRate":256,
