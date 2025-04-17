@@ -1,4 +1,4 @@
-// 2025-04-17 04:11:09
+// 2025-04-17 04:44:36
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -27,16 +27,16 @@ uses_physics = false;
 	// Early
 	fadeIn = GSPD*2
 	fadeIni = 0
-	mns = 1
+	mns = 1.5
 	del = (GSPD*60)*mns
 	deli = 0
 	
 	// Late
-	gothDel1 = del/3
+	gothDel1 = del/4
 	gothDel1i = 0
-	gothDel2 = del/3
+	gothDel2 = del/4
 	gothDel2i = 0
-	gothDel3 = del/3
+	gothDel3 = del/4
 	gothDel3i = 0
 	
 	// Final
@@ -77,16 +77,15 @@ uses_physics = false;
 			+"Instead, we had been abandoned.",
 			
 			"Our last chance... They had put in me.\n"
-			+"I wasnt the best pilot we had...\n"
-			+"Just the best one we had left.\n\n"
+			+"I was the best pilot we had left...\n\n"
 			+"I took the only capable ship,\n"
-			+"unburdened by new regulators or govenors-\n"
+			+"unburdened by regulators or govenors-\n"
 			+"its as dangerous as it is fast.\n"
-			+"Praey, an old prototype fighter.",
+			+"Praey, an old prototype fighter-scout.",
 			
-			"Everyone I knew froze themselves, one by one,\n"
-			+"going into stasis hibernation, while I chased a signal,\n"
-			+"like whispers from the void itself.\n\n"
+			"Everyone I knew froze themselves,\n"
+			+"going into a stasis-sleep... while I chased a signal,\n"
+			+"like whispers from the void.\n\n"
 			+"It was a beacon, and it sent me to the Solend system.\n"
 			+"And now Im here, Gothica, the busy hub of Solend.\n\n"
 			+"A city of dark lights, loyalties and illusions...",
@@ -96,7 +95,7 @@ uses_physics = false;
 			+"A fucking race...\n\n"
 			+"A chance...\n\n"
 			+"The longer Im here, the clearer things get...\n"
-			+"This race isnt salvation- its a blood sport for bastards.",
+			+"This race isnt help- its a blood sport.",
 			
 			"Im not here to play in this twisted charity.\n"
 			+"Im Sylas Praey- and Im here to break it."]
