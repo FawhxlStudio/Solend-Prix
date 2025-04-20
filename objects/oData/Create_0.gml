@@ -16,11 +16,10 @@
 		
 	#endregion
 	
-	// Actor Lists
-	actorL = ds_list_create()
-	randActorL = ds_list_create()
-	
 	#region Random Actor Asset Arrays
+		
+		// Actor List
+		actorL = ds_list_create()
 		
 		cfArr = [sprCF1,sprCF2,
 			sprCF3,sprCF4,sprCF5,
@@ -142,7 +141,7 @@
 	
 	// Hover
 	isHvr = N
-	isHvro = N
+	isHvrO = N
 	hvrDel = GSPD/2
 	hvrDeli = 0
 	hvrPct = 0
@@ -174,6 +173,8 @@
 	scs = chance(50)
 	mns = chance(50)
 	hrs = chance(50)
+	
+	
 	
 #endregion
 
@@ -218,8 +219,11 @@
 
 #region Scene Globals
 	
+	// Scene Basics
 	scni         = -1
 	scene_state  = GAME.INIT
+	
+	// Scene Blend/Light
 	scnBlend1    = c.wht
 	scnBlend2    = c.wht
 	scnBlend3    = c.wht
@@ -227,6 +231,8 @@
 	scnBlendDel  = GSPD/4
 	scnBlendDeli = 0
 	scnBlendPct  = 0
+	
+	// Scene Actor Array
 	scnActArr    = []
 	
 #endregion

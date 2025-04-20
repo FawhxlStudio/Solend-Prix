@@ -8,6 +8,7 @@ introInst = N
 strBld_ = ""
 strDel_ = 1.5
 strDeli_ = 0
+pause = F
 
 // Init App Resize
 alarm[0] = 1

@@ -5,10 +5,9 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	
 	if(D.game_state == GAME.MENU and DBG.introSkip) {
 		
-		set_scni(SCENE.RESORT_BED)
+		if(is_scn(DBG.skipTo)) set_scni(DBG.skipTo);
+		else set_scni(SCENE.RESORT_BED); // Skip to not set, just skip to first room
 		if(!audio_is_playing(bgm)) bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
-		sfx_gunshot(1)
-		introInst = instance_create_layer(0,0,"GUI",oIntro)
 		room_goto(rGame)
 		
 	}
@@ -192,7 +191,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			
 			var act = D.actorL[|i]
 			// var started = ds_list_empty(D.diaParL) // Is the parent dialogue list empty?
-			diaNar_iterate_level(NS,act.uid,0)
+			diaNar_iterate_level(NS,act.uid,0);
 			/* Redundant?
 			if(started and ds_list_empty(D.diaParL)) started = F; // If the parent dialogue WAS empty and still is, then we DIDN'T start one so switch it to false
 			// No Else Needed; Since if it wasn't empty already, then started is already false.

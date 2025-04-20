@@ -1562,13 +1562,13 @@ function db_act_rnd(scni,close) {
 		#region Random Female
 			
 			// Create + Init
-			ds_list_add(D.randActorL,instance_create_layer(0,0,"MG",oChar))
-			var _li = ds_list_size(D.randActorL)-1
-			var _char = D.randActorL[|_li]
+			ds_list_add(D.actorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.actorL)-1
+			var _char = D.actorL[|_li]
 			
 			// Basics
 			_char.uid = ACTOR.RANDOM
-			_char.ruid = _li
+			_char.ruid = ACTOR.LAST+_li
 			_char.scni = scni
 			_char.dia[$ K.NM] = "Unknown Female"
 			_char.dia[$ K.NM+K.KNW] = T
@@ -1611,7 +1611,7 @@ function db_act_rnd(scni,close) {
 						if(_TO > 3) {
 							
 							instance_destroy(_char)
-							ds_list_delete(D.randActorL,_li)
+							ds_list_delete(D.actorL,_li)
 							return U
 							
 						}
@@ -1651,7 +1651,7 @@ function db_act_rnd(scni,close) {
 						if(_TO > 3) {
 							
 							instance_destroy(_char)
-							ds_list_delete(D.randActorL,_li)
+							ds_list_delete(D.actorL,_li)
 							return U
 							
 						}
@@ -1682,13 +1682,13 @@ function db_act_rnd(scni,close) {
 		#region Random Male
 			
 			// Create + Init
-			ds_list_add(randActorL,instance_create_layer(0,0,"MG",oChar))
-			var _li = ds_list_size(D.randActorL)-1
-			var _char = randActorL[|_li]
+			ds_list_add(D.actorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.actorL)-1
+			var _char = D.actorL[|_li]
 			
 			// Basics
 			_char.uid = ACTOR.RANDOM
-			_char.ruid = _li
+			_char.ruid = ACTOR.LAST+_li
 			_char.scni = scni
 			_char.dia[$ K.NM] = "Unknown Male"
 			_char.dia[$ K.NM+K.KNW] = T
@@ -1731,7 +1731,7 @@ function db_act_rnd(scni,close) {
 						if(_TO > 3) {
 							
 							instance_destroy(_char)
-							ds_list_delete(D.randActorL,_li)
+							ds_list_delete(D.actorL,_li)
 							return U
 							
 						}
@@ -1771,7 +1771,7 @@ function db_act_rnd(scni,close) {
 						if(_TO > 3) {
 							
 							instance_destroy(_char)
-							ds_list_delete(D.randActorL,_li)
+							ds_list_delete(D.actorL,_li)
 							return U
 							
 						}

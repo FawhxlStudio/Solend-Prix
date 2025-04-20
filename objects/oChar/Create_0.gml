@@ -3,10 +3,10 @@
 #region Essential & Flags
 	
 	// Essentials
-	uid = ACTOR.UNKNOWN
-	col = [1,c.lgry,c.lgry,c.gry,c.gry]
-	scni = N
+	uid = U
 	ruid = N // uid for randoms and unknowns
+	scni = N
+	col = [1,c.lgry,c.lgry,c.gry,c.gry]
 	deptho = depth
 	
 	// Suit Flags
@@ -23,6 +23,7 @@
 	spkr = F
 	spkro = F
 	diaAvailable = F
+	surf =  N
 	
 #endregion
 

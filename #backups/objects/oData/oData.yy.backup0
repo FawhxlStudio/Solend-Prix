@@ -1,4 +1,4 @@
-// 2025-04-17 03:30:04
+// 2025-04-20 00:31:37
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -22,11 +22,10 @@ uses_physics = false;
 		
 	#endregion
 	
-	// Actor Lists
-	actorL = ds_list_create()
-	randActorL = ds_list_create()
-	
 	#region Random Actor Asset Arrays
+		
+		// Actor List
+		actorL = ds_list_create()
 		
 		cfArr = [sprCF1,sprCF2,
 			sprCF3,sprCF4,sprCF5,
@@ -148,7 +147,7 @@ uses_physics = false;
 	
 	// Hover
 	isHvr = N
-	isHvro = N
+	isHvrO = N
 	hvrDel = GSPD/2
 	hvrDeli = 0
 	hvrPct = 0
@@ -180,6 +179,8 @@ uses_physics = false;
 	scs = chance(50)
 	mns = chance(50)
 	hrs = chance(50)
+	
+	
 	
 #endregion
 
@@ -224,8 +225,11 @@ uses_physics = false;
 
 #region Scene Globals
 	
+	// Scene Basics
 	scni         = -1
 	scene_state  = GAME.INIT
+	
+	// Scene Blend/Light
 	scnBlend1    = c.wht
 	scnBlend2    = c.wht
 	scnBlend3    = c.wht
@@ -233,6 +237,8 @@ uses_physics = false;
 	scnBlendDel  = GSPD/4
 	scnBlendDeli = 0
 	scnBlendPct  = 0
+	
+	// Scene Actor Array
 	scnActArr    = []
 	
 #endregion
@@ -316,9 +322,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						
 						#region Init
 							
-							var _scn = S[$ _scni]
-							var _ks = variable_instance_get_sorted_strKeys(_scn,T)
-							var _locked = (array_contains(_ks,K.ACT+K.LCK) and _scn[$ K.ACT+K.LCK])
+							var _ks = variable_instance_get_sorted_strKeys(S[$ _scni],T)
+							var _locked = (array_contains(_ks,K.ACT+K.LCK) and S[$ _scni][$ K.ACT+K.LCK])
 							scnActArr[_scni] = [N,N]
 							
 						#endregion
@@ -327,32 +332,40 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							
 							#region Actor Left?
 								
-								if(array_contains(_ks,K.ACT+K.LFT) and !instance_of(_scn[$ K.ACT+K.LFT],oChar)) {
+								if(variable_instance_exists(S[$ _scni],K.ACT+K.LFT) and !instance_of(S[$ _scni][$ K.ACT+K.LFT],oChar)) {
 									
 									// Get/Make Char Object...
-									if(_scn[$ K.ACT+K.LFT] == ACTOR.RANDOM) scnActArr[_scni][0] = db_act_rnd(_scni,T);
-									else scnActArr[_scni][0] = actor_find(_scn[$ K.ACT+K.LFT]);
+									if(S[$ _scni][$ K.ACT+K.LFT] == ACTOR.RANDOM) {
+										
+										scnActArr[_scni][0] = db_act_rnd(_scni,T)
+										if(instance_of(scnActArr[_scni][0],oChar)) S[$ _scni][$ K.ACT+K.LFT] = scnActArr[_scni][0].ruid;
+										
+									} else scnActArr[_scni][0] = actor_find(S[$ _scni][$ K.ACT+K.LFT]);
 									
 									// Undefined if Fail
 									if(!instance_of(scnActArr[_scni][0],oChar)) scnActArr[_scni][0] = U;
 									
-								} else if(instance_of(_scn[$ K.ACT+K.LFT],oChar)) scnActArr[_scni][0] = _scn[$ K.ACT+K.LFT];
+								} else if(instance_of(S[$ _scni][$ K.ACT+K.LFT],oChar)) scnActArr[_scni][0] = S[$ _scni][$ K.ACT+K.LFT];
 								if(_locked and !instance_of(scnActArr[_scni][0],oChar)) scnActArr[_scni][0] = U;
 								
 							#endregion
 							
 							#region Actor Right?
 								
-								if(array_contains(_ks,K.ACT+K.RHT) and !instance_of(_scn[$ K.ACT+K.RHT],oChar)) {
+								if(variable_instance_exists(S[$ _scni],K.ACT+K.RHT) and !instance_of(S[$ _scni][$ K.ACT+K.RHT],oChar)) {
 									
 									// Get/Make Char Object...
-									if(_scn[$ K.ACT+K.RHT] == ACTOR.RANDOM) scnActArr[_scni][1] = db_act_rnd(_scni,T);
-									else scnActArr[_scni][1] = actor_find(_scn[$ K.ACT+K.RHT]);
+									if(S[$ _scni][$ K.ACT+K.RHT] == ACTOR.RANDOM) {
+										
+										scnActArr[_scni][1] = db_act_rnd(_scni,T);
+										if(instance_of(scnActArr[_scni][1],oChar)) S[$ _scni][$ K.ACT+K.RHT] = scnActArr[_scni][1].ruid;
+										
+									} else scnActArr[_scni][1] = actor_find(S[$ _scni][$ K.ACT+K.RHT]);
 									
 									// Undefined if Fail
 									if(!instance_of(scnActArr[_scni][1],oChar)) scnActArr[_scni][1] = U;
 									
-								} else if(instance_of(_scn[$ K.ACT+K.RHT],oChar)) scnActArr[_scni][1] = _scn[$ K.ACT+K.RHT];
+								} else if(instance_of(S[$ _scni][$ K.ACT+K.RHT],oChar)) scnActArr[_scni][1] = S[$ _scni][$ K.ACT+K.RHT];
 								if(_locked and !instance_of(scnActArr[_scni][1],oChar)) scnActArr[_scni][1] = U;
 								
 							#endregion
@@ -369,8 +382,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][0] == N) {
 											
-											if(chance(33)) scnActArr[_scni][0] = db_act_rnd(_scni,T);
-											else scnActArr[_scni][0] = U;
+											if(chance(33)) {
+												
+												scnActArr[_scni][0] = db_act_rnd(_scni,T);
+												if(instance_of(scnActArr[_scni][0],oChar)) S[$ _scni][$ K.ACT+K.LFT] = scnActArr[_scni][0].ruid;
+												
+											} else scnActArr[_scni][0] = U;
 											
 										}
 										
@@ -380,8 +397,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][1] == N) {
 											
-											if(chance(33)) scnActArr[_scni][1] = db_act_rnd(_scni,T);
-											else scnActArr[_scni][1] = U;
+											if(chance(33)) {
+												
+												scnActArr[_scni][1] = db_act_rnd(_scni,T);
+												if(instance_of(scnActArr[_scni][1],oChar)) S[$ _scni][$ K.ACT+K.RHT] = scnActArr[_scni][1].ruid;
+												
+											} else scnActArr[_scni][1] = U;
 											
 										}
 										
@@ -469,6 +490,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 #event draw_gui Surface Inits
 
 
+#event draw_gui_end Draw Loading Surface...
+// Loading Screen
+if(!loading_done() and is(D.loadSurf) and surface_exists(D.loadSurf))
+	draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
+
+
 #event draw_pre Surface Inits?
 
 #region Init/Draw Load Surface
@@ -505,9 +532,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 
 #event draw_post Global Logic Updates Updates
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 #region Control Override
 	
-	if(!ds_list_empty(diaParL) or animPlay != N or focus != N) ctrlOverride = T;
+	if(!ds_list_empty(diaParL) or animPlay != N or focus != N or !loading_done()) ctrlOverride = T;
 	else ctrlOverride = F;
 	
 #endregion
@@ -533,7 +561,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		hvrPct = hvrDeli/hvrDel
 		
 	}
-	isHvro = isHvr
+	isHvrO = isHvr
 	isHvr = N
 	
 	// Button Hover (For UI SFX)

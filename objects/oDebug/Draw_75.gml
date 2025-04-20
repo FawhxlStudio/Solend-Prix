@@ -171,6 +171,29 @@ if(active and edit and !console) {
 					}
 					dbgStr1 += "\nMouse BG X/Y pct: "+string(D.bgmxpct)+"/"+string(D.bgmypct)
 					dbgStr1 += "\nBG DLT X/Y: "+string(D.bgdltx)+"/"+string(D.bgdlty)
+					dbgStr1 += "\nInstance Count: "+string(instance_count)
+					
+				#endregion
+				
+				#region Scene Variabls
+					
+					#region Scene L/R Actors (Close)
+						
+						var _scnActArr = get_scnActArr(N)
+						if(is(_scnActArr)) {
+							
+							dbgStr1 += "\nScene Actor Array: [0]: "
+							// Left
+							if(instance_of(_scnActArr[0],oChar)) dbgStr1 += ACTORn[_scnActArr[0].uid];
+							else dbgStr1 += "None";
+							dbgStr1 += " / [1]: "
+							// Right
+							if(instance_of(_scnActArr[1],oChar)) dbgStr1 += ACTORn[_scnActArr[1].uid];
+							else dbgStr1 += "None";
+							
+						}
+						
+					#endregion
 					
 				#endregion
 				

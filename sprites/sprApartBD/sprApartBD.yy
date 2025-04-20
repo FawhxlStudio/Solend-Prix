@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"tg_resort2",
-    "path":"texturegroups/tg_resort2",
+    "name":"tg_resort",
+    "path":"texturegroups/tg_resort",
   },
   "type":0,
   "VTile":false,

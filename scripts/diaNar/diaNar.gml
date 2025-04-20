@@ -720,7 +720,12 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 						if(variable_instance_exists(diaInst,string(uid))) {
 							
 							var actr = actor_find(uid)
-							if(actr == P or actr.scni == D.scni or ds_list_has(P.party,actr)) return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1)
+							
+							if(is(actr)) {
+								
+								if(actr == P or actr.scni == D.scni or ds_list_has(P.party,actr)) return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1)
+								
+							}
 							
 						}
 						break

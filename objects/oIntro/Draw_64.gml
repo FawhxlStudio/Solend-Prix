@@ -183,13 +183,14 @@ if(!load and intro_ready()) {
 		
 		if(_pctdel >= 1 and fadeOuti < fadeOut) {
 			
-			fadeOuti = clamp(fadeOuti+1,0,fadeOut);
 			if(!load2) {
 				
 				load_resort_area()
 				load_random_actors()
+				load2 = F
 				
 			}
+			if(loading_done()) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
 			
 		}
 		var _pctout = fadeOuti/fadeOut
@@ -217,7 +218,6 @@ if(!load and intro_ready()) {
 			ds_list_destroy(stars.galL)
 			instance_destroy(stars)
 			instance_destroy(id)
-			unload_intro()
 			
 		}
 		
@@ -269,7 +269,7 @@ if(!load and intro_ready()) {
 	#region Loading Screen
 		
 		// Draw Load Surface
-		if(is(D.loadSurf) and surface_exists(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
+		// if(is(D.loadSurf) and surface_exists(D.loadSurf)) draw_surface_ext(D.loadSurf,0,0,1,1,0,c.wht,1);
 		
 	#endregion
 	

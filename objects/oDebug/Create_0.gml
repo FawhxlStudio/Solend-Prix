@@ -6,6 +6,7 @@ edit = F
 editHelp = T
 console = F
 introSkip = F
+skipTo = N
 resetControl = T
 unstuck = T
 muted = F

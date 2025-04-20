@@ -163,14 +163,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			
 			#region Scene Characters
 				
-				if(!array_equals(D.scnActArr,[]) and D.scni > SCENE.FIRST and D.scni < SCENE.LAST) {
+				if(!array_equals(D.scnActArr,[]) and is_scn(N)) {
 					
 					// Left
 					if(is(D.scnActArr[D.scni][0])) {
 						
 						var _act = D.scnActArr[D.scni][0]
 						if(!instance_of(_act,oChar)) _act = actor_find(_act);
-						if(!instance_of(_act,oChar)) _act = actor_find_random(_act);
 						if(instance_of(_act,oChar) and !in_party(_act)) {
 							
 							_act.scni = D.scni
@@ -185,7 +184,6 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						
 						var _act = D.scnActArr[D.scni][1]
 						if(!instance_of(_act,oChar)) _act = actor_find(_act);
-						if(!instance_of(_act,oChar)) _act = actor_find_random(_act);
 						if(instance_of(_act,oChar) and !in_party(_act)) {
 							
 							_act.scni = D.scni

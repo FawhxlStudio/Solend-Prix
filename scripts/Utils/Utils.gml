@@ -25,11 +25,28 @@ function actor_find(_uid) {
 	
 	try {
 		
-		if(_uid != ACTOR.RANDOM) {
+		// If is already a whole Char, return itself
+		if(instance_of(_uid,oChar)) return _uid;
+		
+		// Check:
+		// Try UID if it matches a non random actor w/o ruid, return that
+		// Otherwise if it matches no non random actor, try random actors
+		if(_uid != ACTOR.RANDOM and _uid > ACTOR.FIRST and _uid < ACTOR.LAST) {
 			
 			for(var i = 0; i < ds_list_size(D.actorL); i++) {
 				
-				if(_uid == D.actorL[|i].uid)
+				var _act = D.actorL[|i]
+				if(_uid == _act.uid and !is(_act.ruid) and _act.uid != ACTOR.RANDOM)
+					return D.actorL[|i];
+				
+			}
+			
+		} else if(_uid > ACTOR.LAST) and _uid < ACTOR.LAST+ds_list_size(D.actorL) {
+			
+			for(var i = 0; i < ds_list_size(D.actorL); i++) {
+				
+				var _act = D.actorL[|i]
+				if(is(_act.ruid) and _uid == _act.ruid)
 					return D.actorL[|i];
 				
 			}
@@ -42,19 +59,21 @@ function actor_find(_uid) {
 	
 }
 
-function actor_find_random(_ruid) {
+function is_scn(_scni) {
 	
-	try {
+	if(!is(_scni)) return (D.scni > SCENE.FIRST and D.scni < SCENE.LAST);
+	else return (_scni > SCENE.FIRST and _scni < SCENE.LAST);
+	
+}
+
+function get_scnActArr(_scni) {
+	
+	if(!array_equals(D.scnActArr,[])) {
 		
-		if(instance_of(_ruid,oChar)) return _ruid;
-		for(var i = 0; i < ds_list_size(D.randActorL); i++) {
-			
-			if(_ruid == D.randActorL[|i].ruid)
-				return D.randActorL[|i];
-			
-		}
+		if(!is(_scni) and is_scn(N)) return D.scnActArr[D.scni];
+		else if(is_scn(_scni)) return D.scnActArr[_scni];
 		
-	} catch(_ex) {}
+	}
 	
 	return N
 	
@@ -270,8 +289,56 @@ function struct_find(inst,k) {
 
 function is_hover(inst) {
 	
+	// Hover not set, we can return True Immediately
+	if(!is(D.isHvr)) {
+		
+		// Is Mouse still in a pervious char; Set it
+		if(is(D.isHvrO) and instance_of(D.isHvrO,oChar)
+			and mouse_in_instance(D.isHvrO,T)) D.isHvr = D.isHvrO;
+		
+		// Return True if still isn't set after previous check or is now set to the current inst...
+		// (True because it is available to be set by a new instance)
+		return (!is(D.isHvr) or D.isHvr == inst)
+		
+	}
+	
 	// Return True if No Hover set or Hover is instance
-	return ((!D.isHvr or D.isHvr == inst) and (!D.isHvro or D.isHvro == inst))
+	if(instance_of(inst,oChar)) {
+		
+		if(!instance_of(D.isHvr,oChar)) return F; // Hover is not a char so it can't match
+		else if(inst.uid != ACTOR.RANDOM and D.isHvr.uid != ACTOR.RANDOM) return (inst.uid == D.isHvr.uid); // Return True if they are the same non-random char...
+		else return (inst.uid == ACTOR.RANDOM and D.isHvr.uid == ACTOR.RANDOM and inst.ruid == D.isHvr.ruid); // Return True if they are teh same Random Char...
+		
+	} else return D.isHvr == inst; // Not char? Simple Check... (Why I can't do this with chars is beyond me...)
+	
+}
+
+function mouse_in_instance(inst,setMouseIn) {
+	
+	var rtn = F
+	
+	try {
+		
+		if(instance_exists(inst)) {
+			
+			with(inst) {
+				
+				if(bbox_sanity(id)) {
+					
+					if(mouse_in_rectangle([bbox_left,bbox_top,bbox_right,bbox_bottom])
+						and D.focusL == N and !TRAN.override and !D.ctrlOverride) rtn = T;
+					
+				}
+				
+				if(setMouseIn) mouseIn = rtn;
+				
+			}
+			
+		}
+		
+	} catch(_ex) {}
+	
+	return rtn
 	
 }
 
@@ -794,9 +861,10 @@ function instance_of(inst,obj) {
 	
 	try {
 		
-		if(object_exists(obj)) {
+		if(is_handle(inst) and is_handle(obj)) {
 			
-			if(instance_exists(inst)) return (inst.object_index == obj);
+			if(object_exists(obj) and instance_exists(inst)
+				and inst.object_index == obj) return T;
 			
 		}
 		

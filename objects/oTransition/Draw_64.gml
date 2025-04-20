@@ -65,7 +65,7 @@ if(!done and to_scni != N) {
 	#region Fade In (Universal)
 		
 		if(to_scni != N or to_anim != N or from_anim != N) done = F;
-		if(tgs_are_loaded() and ags_are_loaded()) deli--; // Only fade out when everything is done loading...
+		if(loading_done()) deli--; // Only fade out when everything is done loading...
 		delpct = deli/del
 		
 	#endregion

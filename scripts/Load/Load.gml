@@ -431,8 +431,7 @@ function tgs_are_loaded() {
 	
 	for(var i = 0; i < array_length(TGA); i++) {
 		
-		if(texturegroup_get_status(TGA[i]) < texturegroup_status_fetched
-			and texturegroup_get_status(TGA[i]) > texturegroup_status_unloaded) rtn = F;
+		if(texturegroup_get_status(TGA[i]) == texturegroup_status_loading) rtn = F;
 		
 	}
 	
@@ -446,7 +445,7 @@ function ags_are_loaded() {
 	
 	for(var i = 0; i < array_length(AGA); i++) {
 		
-		if(audio_group_load_progress(AGA[i]) > 0
+		if(!audio_group_is_loaded(AGA[i])
 			and audio_group_load_progress(AGA[i]) < 100) rtn = F;
 		
 	}

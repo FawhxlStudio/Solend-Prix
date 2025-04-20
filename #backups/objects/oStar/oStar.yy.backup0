@@ -1,4 +1,4 @@
-// 2025-04-14 23:34:53
+// 2025-04-18 00:42:39
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 sprite_index = sprPix;
@@ -187,9 +187,9 @@ if(par != N and instance_exists(par)) {
     if(sprite_index == sprPlanetTheia) _vel*=10+vmlt;
     if(isGalaxy) _vel*=(scl*1.5);
     
-    if(isStar) depth = lerp(layer_get_depth("MG"),layer_get_depth("FG")+10,pct);
-    else if(sprite_index == sprPix) depth = lerp(layer_get_depth("BG"),layer_get_depth("MG")+1,pct);
-    else if(isGalaxy) depth = lerp(layer_get_depth("Logic"),layer_get_depth("BG")+1,pct);
+    if(isStar) depth = lerp(layer_get_depth("MG"),layer_get_depth("FG")+10,pct); // Front
+    else if(sprite_index == sprPix or isNova) depth = lerp(layer_get_depth("BG"),layer_get_depth("MG")+1,pct); // Middle
+    else if(isGalaxy) depth = lerp(layer_get_depth("Logic"),layer_get_depth("BG")+1,pct); // Back
     
     // Position Iterate
     if(draw and sprite_index != sprPlanetGothicaBR) {

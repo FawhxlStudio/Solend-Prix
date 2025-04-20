@@ -19,9 +19,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 						
 						#region Init
 							
-							var _scn = S[$ _scni]
-							var _ks = variable_instance_get_sorted_strKeys(_scn,T)
-							var _locked = (array_contains(_ks,K.ACT+K.LCK) and _scn[$ K.ACT+K.LCK])
+							var _ks = variable_instance_get_sorted_strKeys(S[$ _scni],T)
+							var _locked = (array_contains(_ks,K.ACT+K.LCK) and S[$ _scni][$ K.ACT+K.LCK])
 							scnActArr[_scni] = [N,N]
 							
 						#endregion
@@ -30,32 +29,40 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							
 							#region Actor Left?
 								
-								if(array_contains(_ks,K.ACT+K.LFT) and !instance_of(_scn[$ K.ACT+K.LFT],oChar)) {
+								if(variable_instance_exists(S[$ _scni],K.ACT+K.LFT) and !instance_of(S[$ _scni][$ K.ACT+K.LFT],oChar)) {
 									
 									// Get/Make Char Object...
-									if(_scn[$ K.ACT+K.LFT] == ACTOR.RANDOM) scnActArr[_scni][0] = db_act_rnd(_scni,T);
-									else scnActArr[_scni][0] = actor_find(_scn[$ K.ACT+K.LFT]);
+									if(S[$ _scni][$ K.ACT+K.LFT] == ACTOR.RANDOM) {
+										
+										scnActArr[_scni][0] = db_act_rnd(_scni,T)
+										if(instance_of(scnActArr[_scni][0],oChar)) S[$ _scni][$ K.ACT+K.LFT] = scnActArr[_scni][0].ruid;
+										
+									} else scnActArr[_scni][0] = actor_find(S[$ _scni][$ K.ACT+K.LFT]);
 									
 									// Undefined if Fail
 									if(!instance_of(scnActArr[_scni][0],oChar)) scnActArr[_scni][0] = U;
 									
-								} else if(instance_of(_scn[$ K.ACT+K.LFT],oChar)) scnActArr[_scni][0] = _scn[$ K.ACT+K.LFT];
+								} else if(instance_of(S[$ _scni][$ K.ACT+K.LFT],oChar)) scnActArr[_scni][0] = S[$ _scni][$ K.ACT+K.LFT];
 								if(_locked and !instance_of(scnActArr[_scni][0],oChar)) scnActArr[_scni][0] = U;
 								
 							#endregion
 							
 							#region Actor Right?
 								
-								if(array_contains(_ks,K.ACT+K.RHT) and !instance_of(_scn[$ K.ACT+K.RHT],oChar)) {
+								if(variable_instance_exists(S[$ _scni],K.ACT+K.RHT) and !instance_of(S[$ _scni][$ K.ACT+K.RHT],oChar)) {
 									
 									// Get/Make Char Object...
-									if(_scn[$ K.ACT+K.RHT] == ACTOR.RANDOM) scnActArr[_scni][1] = db_act_rnd(_scni,T);
-									else scnActArr[_scni][1] = actor_find(_scn[$ K.ACT+K.RHT]);
+									if(S[$ _scni][$ K.ACT+K.RHT] == ACTOR.RANDOM) {
+										
+										scnActArr[_scni][1] = db_act_rnd(_scni,T);
+										if(instance_of(scnActArr[_scni][1],oChar)) S[$ _scni][$ K.ACT+K.RHT] = scnActArr[_scni][1].ruid;
+										
+									} else scnActArr[_scni][1] = actor_find(S[$ _scni][$ K.ACT+K.RHT]);
 									
 									// Undefined if Fail
 									if(!instance_of(scnActArr[_scni][1],oChar)) scnActArr[_scni][1] = U;
 									
-								} else if(instance_of(_scn[$ K.ACT+K.RHT],oChar)) scnActArr[_scni][1] = _scn[$ K.ACT+K.RHT];
+								} else if(instance_of(S[$ _scni][$ K.ACT+K.RHT],oChar)) scnActArr[_scni][1] = S[$ _scni][$ K.ACT+K.RHT];
 								if(_locked and !instance_of(scnActArr[_scni][1],oChar)) scnActArr[_scni][1] = U;
 								
 							#endregion
@@ -72,8 +79,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][0] == N) {
 											
-											if(chance(33)) scnActArr[_scni][0] = db_act_rnd(_scni,T);
-											else scnActArr[_scni][0] = U;
+											if(chance(33)) {
+												
+												scnActArr[_scni][0] = db_act_rnd(_scni,T);
+												if(instance_of(scnActArr[_scni][0],oChar)) S[$ _scni][$ K.ACT+K.LFT] = scnActArr[_scni][0].ruid;
+												
+											} else scnActArr[_scni][0] = U;
 											
 										}
 										
@@ -83,8 +94,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][1] == N) {
 											
-											if(chance(33)) scnActArr[_scni][1] = db_act_rnd(_scni,T);
-											else scnActArr[_scni][1] = U;
+											if(chance(33)) {
+												
+												scnActArr[_scni][1] = db_act_rnd(_scni,T);
+												if(instance_of(scnActArr[_scni][1],oChar)) S[$ _scni][$ K.ACT+K.RHT] = scnActArr[_scni][1].ruid;
+												
+											} else scnActArr[_scni][1] = U;
 											
 										}
 										

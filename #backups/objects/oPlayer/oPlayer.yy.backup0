@@ -1,4 +1,4 @@
-// 2025-04-13 18:09:09
+// 2025-04-20 00:36:49
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -9,6 +9,7 @@ uses_physics = false;
 	
 	// Essential
 	uid = ACTOR.SYLAS
+	ruid = N
 	col = [1,c.nb,c.nb,c.lb,c.lb]
 	
 	// Suit

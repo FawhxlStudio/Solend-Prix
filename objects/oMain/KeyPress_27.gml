@@ -1,2 +1,2 @@
-/// @description End Game
-game_end()
+/// @description Toggle Pause Menu
+pause = !pause

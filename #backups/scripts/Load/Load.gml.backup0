@@ -1,4 +1,4 @@
-// 2025-04-17 03:18:34
+// 2025-04-20 00:17:53
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
@@ -432,8 +432,7 @@ function tgs_are_loaded() {
 	
 	for(var i = 0; i < array_length(TGA); i++) {
 		
-		if(texturegroup_get_status(TGA[i]) < texturegroup_status_fetched
-			and texturegroup_get_status(TGA[i]) > texturegroup_status_unloaded) rtn = F;
+		if(texturegroup_get_status(TGA[i]) == texturegroup_status_loading) rtn = F;
 		
 	}
 	
@@ -447,7 +446,7 @@ function ags_are_loaded() {
 	
 	for(var i = 0; i < array_length(AGA); i++) {
 		
-		if(audio_group_load_progress(AGA[i]) > 0
+		if(!audio_group_is_loaded(AGA[i])
 			and audio_group_load_progress(AGA[i]) < 100) rtn = F;
 		
 	}

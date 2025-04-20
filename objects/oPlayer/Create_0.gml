@@ -4,6 +4,7 @@
 	
 	// Essential
 	uid = ACTOR.SYLAS
+	ruid = N
 	col = [1,c.nb,c.nb,c.lb,c.lb]
 	
 	// Suit

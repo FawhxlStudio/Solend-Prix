@@ -70,16 +70,16 @@
 			+"Our families sought a future there...\n"
 			+"Instead, we had been abandoned.",
 			
-			"Our last chance... They had put in me.\n"
-			+"I was the best pilot we had left...\n\n"
-			+"I took the only capable ship,\n"
+			"Our last chance- they had put in me...\n"
+			+"I was the best pilot we had left.\n\n"
+			+"So I took the only capable ship,\n"
 			+"unburdened by regulators or govenors-\n"
-			+"its as dangerous as it is fast.\n"
+			+"its as dangerous as it is fast.\n\n"
 			+"Praey, an old prototype fighter-scout.",
 			
 			"Everyone I knew froze themselves,\n"
-			+"going into a stasis-sleep... while I chased a signal,\n"
-			+"like whispers from the void.\n\n"
+			+"going into stasis-sleep as I chased a signal,\n"
+			+"like hunting whispers in the void.\n\n"
 			+"It was a beacon, and it sent me to the Solend system.\n"
 			+"And now Im here, Gothica, the busy hub of Solend.\n\n"
 			+"A city of dark lights, loyalties and illusions...",
@@ -91,7 +91,7 @@
 			+"The longer Im here, the clearer things get...\n"
 			+"This race isnt help- its a blood sport.",
 			
-			"Im not here to play in this twisted charity.\n"
+			"Im not here to win some corrupt charity.\n"
 			+"Im Sylas Praey- and Im here to break it."]
 		
 		// May change the way the narration is presented but for now we'll combine it all into one string...
