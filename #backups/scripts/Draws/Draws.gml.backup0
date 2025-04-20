@@ -1,4 +1,4 @@
-// 2025-04-15 07:51:25
+// 2025-04-20 03:10:44
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
@@ -133,6 +133,24 @@
 					case ACTION.DIA_GOTO: return ACTION.DIA_GOTO;
 					
 					case ACTION.DIA_LEAVE: return ACTION.DIA_LEAVE;
+					
+					case ACTION.DIA_APPROACH: {
+						
+						if(instance_of(D.scnActSel,oChar)) D.scnActSel.approach = T;
+						D.scnActSel = N
+						return T
+						break
+						
+					}
+					
+					case ACTION.DIA_MOVEPAST: {
+						
+						if(instance_of(D.scnActSel,oChar)) D.scnActSel.hide = T;
+						D.scnActSel = N
+						return T
+						break
+						
+					}
 					
 				#endregion
 				

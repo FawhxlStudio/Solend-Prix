@@ -67,4 +67,11 @@ if(D.scene_state == GAME.PLAY) {
 	
 	if(in_party(id)) scni = D.scni
 	
+	#region Resets...
+		
+		if(D.scni != scni) hide = F;
+		approach = F
+		
+	#endregion
+	
 }

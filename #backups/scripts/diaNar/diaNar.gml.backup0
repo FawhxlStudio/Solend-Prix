@@ -1,4 +1,4 @@
-// 2025-04-19 21:14:11
+// 2025-04-20 02:10:31
 function diaNar_focus_reset() {
 	
 	// Empty Focuses
@@ -721,7 +721,12 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 						if(variable_instance_exists(diaInst,string(uid))) {
 							
 							var actr = actor_find(uid)
-							if(actr == P or actr.scni == D.scni or ds_list_has(P.party,actr)) return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1)
+							
+							if(is(actr)) {
+								
+								if(actr == P or actr.scni == D.scni or ds_list_has(P.party,actr)) return diaNar_iterate_level(diaInst[$ uid],uid,diaLyr+1)
+								
+							}
 							
 						}
 						break
@@ -1045,7 +1050,8 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 																		actr.diaAvailable = T;
 																		
 																		// Clicked & Activate...
-																		if(MBLR) _rtn = diaInst;
+																		if(actr.approach) _rtn = diaInst;
+																		actr.approach = F
 																		
 																	} else if(_byp != N) {
 																		
@@ -1065,12 +1071,13 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 																				if(is_struct(diaInst[$ _byp])) {
 																					
 																					// Clicked & Activate...
-																					if(MBLR)  {
+																					if(actr.approach)  {
 																						
 																						_rtn = diaInst[$ _byp]
 																						_isBypassing = T
 																						
 																					}
+																					actr.approach = F
 																					
 																				}
 																				

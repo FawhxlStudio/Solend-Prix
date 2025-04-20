@@ -232,8 +232,9 @@
 	scnBlendDeli = 0
 	scnBlendPct  = 0
 	
-	// Scene Actor Array
-	scnActArr    = []
+	// Scene Actors
+	scnActArr = []
+	scnActSel = N
 	
 #endregion
 

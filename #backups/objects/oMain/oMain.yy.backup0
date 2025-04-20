@@ -1,4 +1,4 @@
-// 2025-04-20 00:32:29
+// 2025-04-20 03:57:27
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -71,6 +71,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				// Clear Actors
 				D.actorLeft = N
 				D.actorRight = N
+				
+				area_check()
 				
 			#endregion
 			

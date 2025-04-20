@@ -1,4 +1,4 @@
-// 2025-04-19 22:38:07
+// 2025-04-20 03:36:02
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function _init() {
@@ -367,6 +367,8 @@ function _init() {
 			VOL_SFX,
 			VOL_BGM,
 			VOL_GUI,
+			DIA_APPROACH,
+			DIA_MOVEPAST,
 			LAST
 			
 		}
@@ -452,6 +454,26 @@ function _init() {
 			
 			show_debug_message("Critical: Scene Names Missing!")
 			game_end(1)
+			
+		}
+		
+		enum BIAS {
+			
+			FIRST,
+			POSITIVE,
+			NEUTRAL,
+			NEGATIVE,
+			LAST
+			
+		}
+		
+		enum ALIGN {
+			
+			FIRST,
+			FRIENDLY,
+			NEUTRAL,
+			HOSTILE,
+			LAST
 			
 		}
 		

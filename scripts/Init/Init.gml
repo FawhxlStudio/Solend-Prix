@@ -366,6 +366,8 @@ function _init() {
 			VOL_SFX,
 			VOL_BGM,
 			VOL_GUI,
+			DIA_APPROACH,
+			DIA_MOVEPAST,
 			LAST
 			
 		}
@@ -451,6 +453,26 @@ function _init() {
 			
 			show_debug_message("Critical: Scene Names Missing!")
 			game_end(1)
+			
+		}
+		
+		enum BIAS {
+			
+			FIRST,
+			POSITIVE,
+			NEUTRAL,
+			NEGATIVE,
+			LAST
+			
+		}
+		
+		enum ALIGN {
+			
+			FIRST,
+			FRIENDLY,
+			NEUTRAL,
+			HOSTILE,
+			LAST
 			
 		}
 		

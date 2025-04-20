@@ -1049,7 +1049,8 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 																		actr.diaAvailable = T;
 																		
 																		// Clicked & Activate...
-																		if(MBLR) _rtn = diaInst;
+																		if(actr.approach) _rtn = diaInst;
+																		actr.approach = F
 																		
 																	} else if(_byp != N) {
 																		
@@ -1069,12 +1070,13 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 																				if(is_struct(diaInst[$ _byp])) {
 																					
 																					// Clicked & Activate...
-																					if(MBLR)  {
+																					if(actr.approach)  {
 																						
 																						_rtn = diaInst[$ _byp]
 																						_isBypassing = T
 																						
 																					}
+																					actr.approach = F
 																					
 																				}
 																				

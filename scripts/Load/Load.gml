@@ -5,6 +5,68 @@
 	
 	#region Meta
 		
+		function area_check() {
+			
+			switch(string_split(SCENEn[D.scni],"_")[0]) {
+				
+				case "RESORT": {
+					
+					load_resort_area()
+					load_random_actors()
+					break
+					
+				}
+				
+				case "CITY": {
+					
+					load_city_area()
+					load_random_actors()
+					break
+					
+				}
+				
+				case "CLUB": {
+					
+					load_club_area()
+					load_random_actors()
+					break
+					
+				}
+				
+				case "BROTH": {
+					
+					load_brothel_area()
+					load_random_actors()
+					break
+					
+				}
+				
+				case "SPACEPORT": {
+					
+					load_port_area()
+					load_random_actors()
+					break
+					
+				}
+				
+				case "SLUM": {
+					
+					load_slums_area()
+					load_random_actors()
+					break
+					
+				}
+				
+				case "COCKPIT": {
+					
+					break
+					
+				}
+				
+			}
+			
+		}
+		
 		function loading_done() {
 			
 			return (tgs_are_loaded() and ags_are_loaded())
@@ -147,6 +209,7 @@
 			
 			if(!audio_group_is_loaded(ag_club)) audio_group_load(ag_club);
 			if(texturegroup_get_status("tg_club1") == texturegroup_status_unloaded) texturegroup_load("tg_club1",T);
+			if(texturegroup_get_status("tg_char_spitfire") == texturegroup_status_unloaded) texturegroup_load("tg_char_spitfire",T);
 			load_club2_area()
 			
 		}

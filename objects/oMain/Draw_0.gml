@@ -17,6 +17,8 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 				D.actorLeft = N
 				D.actorRight = N
 				
+				area_check()
+				
 			#endregion
 			
 			#region Init Scene

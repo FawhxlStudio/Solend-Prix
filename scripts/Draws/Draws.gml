@@ -133,6 +133,24 @@
 					
 					case ACTION.DIA_LEAVE: return ACTION.DIA_LEAVE;
 					
+					case ACTION.DIA_APPROACH: {
+						
+						if(instance_of(D.scnActSel,oChar)) D.scnActSel.approach = T;
+						D.scnActSel = N
+						return T
+						break
+						
+					}
+					
+					case ACTION.DIA_MOVEPAST: {
+						
+						if(instance_of(D.scnActSel,oChar)) D.scnActSel.hide = T;
+						D.scnActSel = N
+						return T
+						break
+						
+					}
+					
 				#endregion
 				
 				default: break;

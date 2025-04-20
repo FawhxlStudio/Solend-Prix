@@ -1,4 +1,4 @@
-// 2025-04-20 00:27:34
+// 2025-04-20 01:01:27
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -10,7 +10,7 @@ active = T
 edit = F
 editHelp = T
 console = F
-introSkip = F
+introSkip = T
 skipTo = N
 resetControl = T
 unstuck = T

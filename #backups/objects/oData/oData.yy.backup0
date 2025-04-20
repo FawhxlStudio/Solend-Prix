@@ -1,4 +1,4 @@
-// 2025-04-20 00:31:37
+// 2025-04-20 00:44:10
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -238,8 +238,9 @@ uses_physics = false;
 	scnBlendDeli = 0
 	scnBlendPct  = 0
 	
-	// Scene Actor Array
-	scnActArr    = []
+	// Scene Actors
+	scnActArr = []
+	scnActSel = N
 	
 #endregion
 

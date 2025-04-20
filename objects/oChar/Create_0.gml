@@ -8,6 +8,8 @@
 	scni = N
 	col = [1,c.lgry,c.lgry,c.gry,c.gry]
 	deptho = depth
+	hide = F
+	approach = F
 	
 	// Suit Flags
 	suited = T
@@ -31,6 +33,8 @@
 	
 	// Relation to Player (-/+)
 	relation = 0
+	bias = irandom_range(BIAS.POSITIVE,BIAS.NEGATIVE)
+	align = irandom_range(ALIGN.FRIENDLY,ALIGN.HOSTILE)
 	
 #endregion
 
