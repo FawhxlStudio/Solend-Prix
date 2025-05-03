@@ -1,4 +1,4 @@
-// 2025-04-20 03:39:17
+// 2025-04-24 00:24:13
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -32,6 +32,20 @@ uses_physics = false;
 	spkro = F
 	diaAvailable = F
 	surf =  N
+	
+	// Modifier
+	velSclMn = 1.1
+	velSclMx = 1.3
+	velScl = random_range(velSclMn,velSclMx)
+	velSclPct = (velScl-velSclMn)/(velSclMx-velSclMn)
+	
+	// Selection Delay
+	selDel = ceil(GSPD*.1)
+	selDeli = 0
+	
+	// Percent Based x/y set for zoom transitions
+	xpct = N
+	ypct = N
 	
 #endregion
 
@@ -307,23 +321,43 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 		else if(is(imgFace) and imgFace != sprNA) sprite_index = imgFace;
 		else sprite_index = sprFlare;
 		image_alpha = 1
-		var scl = (D.href)/sprite_get_height(sprite_index)
+		var scl = lerp(((D.href)/sprite_get_height(sprite_index))*.8,(D.href)/sprite_get_height(sprite_index),velSclPct)
 		image_xscale = scl
 		image_yscale = scl
-		if(D.actorLeft == id) x = (WW*(1/5))+D.bgImg.dltx;
-		else if(D.actorRight == id) x = (WW*(4/5))+D.bgImg.dltx;
-		y = D.bgImg.bbox_bottom+min(sprite_height*.2,sprite_yoffset)
-		if(sprite_index != sprFlare) image_blend = D.scnBlend3;
-		else image_blend = c.nr;
-		if(uid != ACTOR.RANDOM) {
+		
+		// FIX THIS, ADJUSTING CHAR'S IN SCENE POSITION FOR DEPTH EFFECT
+		var _velSclo = velScl
+		var _dltx = (D.bgImg.dltx*velScl)
+		var _dlty = (D.bgImg.dlty*velScl)
+		if(D.actorLeft == id) x = (WW*(1/5))+_dltx;
+		else if(D.actorRight == id) x = (WW*(4/5))+_dltx;
+		y = D.bgImg.bbox_bottom+((sprite_height*.2)*(1+(velScl-velSclMn)))
+		velScl = _velSclo
+		
+		if(D.zo == D.z or (xpct == N and ypct == N)) {
 			
-			depth = lerp(layer_get_depth("MG"),layer_get_depth("FG"),uid/(ds_list_size(D.actorL)-1))
-			
-		} else {
-			
-			depth = lerp(layer_get_depth("MG"),layer_get_depth("FG"),ruid/(ds_list_size(D.actorL)-1))+1
+			if(bbox_sanity(D.bgImg)) {
+				
+				xpct = (x-D.bgImg.bbox_left)/(D.bgImg.bbox_right-D.bgImg.bbox_left)
+				ypct = (y-D.bgImg.bbox_top)/(D.bgImg.bbox_bottom-D.bgImg.bbox_top)
+				
+			}
 			
 		}
+		
+		if(D.zo != D.z) {
+			
+			if(bbox_sanity(D.bgImg)) {
+				
+				x = lerp(D.bgImg.bbox_left,D.bgImg.bbox_right,xpct)
+				
+			}
+			
+		}
+		if(sprite_index != sprFlare) image_blend = D.scnBlend3;
+		else image_blend = c.nr;
+		if(y >= WH) depth = lerp(layer_get_depth("FG"),layer_get_depth("FGFade")+1,uid/(ds_list_size(D.actorL)-1));
+		else depth = lerp(layer_get_depth("MG"),layer_get_depth("MGFade")+1,ruid/(ACTOR.LAST+(ds_list_size(D.actorL)-1)));
 		
 		if(!hide) draw_self();
 		
@@ -336,11 +370,20 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 			#region Hovering...
 				
 				// Init
-				if(D.isHvr != id) audio_play_sound_on(guiEmt,sfxUIHover,F,2,1);
+				if(D.isHvr != id and D.scnActSel != id) audio_play_sound_on(guiEmt,sfxUIHover,F,2,1);
 				D.isHvr = id
 				mouseIn = T
-				hvrPctO = D.hvrPct
-				hvrDeliO = hvrDelO-(hvrDelO*hvrPctO)
+				if(D.scnActSel == id) {
+					
+					hvrPctO = 0
+					hvrDeliO = hvrDelO
+					
+				} else {
+					
+					hvrPctO = D.hvrPct
+					hvrDeliO = hvrDelO-(hvrDelO*hvrPctO)
+					
+				}
 				
 				if(diaAvailable and D.scnActSel != id and !hide) {
 					
@@ -384,16 +427,21 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 					
 				}
 				
-				#region Select Interaction
+				#region Unselected Interaction
 					
 					if(D.scnActSel != id) {
 						
-						#region Not selected...
+						#region Select It
 							
 							var _xy4 = [max(0,bbox_left),max(1,bbox_top),min(WW-1,bbox_right),min(WH-1,bbox_bottom)]
 							draw_rectangle_ext_color(_xy4,0,[.5,c.lgry,c.dgry,c.lgry,c.dgry],T)
 							
-							if(MBLR) D.scnActSel = id; // Select
+							if(MBLR) {
+								
+								D.scnActSel = id // Select
+								D.fd = 4
+								
+							}
 							
 						#endregion
 						
@@ -403,10 +451,11 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 				
 			#endregion
 			
-		} else if(!TRAN.override and !D.ctrlOverride and hvrPctO > 0 and !hide) {
+		} else if(!TRAN.override and !D.ctrlOverride and hvrPctO > 0) {
 			
 			#region Not Hovering: Fade out highlighting...
 				
+				if(D.isHvr == id) D.isHvr = N;
 				if(hvrDeliO < hvrDelO) hvrDeliO = clamp(hvrDeliO+1,0,hvrDelO)
 				if(D.scnActSel == id) hvrDeliO = hvrDelO; // If selected get rid of shader
 				hvrPctO = 1-(hvrDeliO/hvrDelO)
@@ -458,6 +507,7 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 			
 			#region Not Hovering: Faded Out...
 				
+				if(D.isHvr == id) D.isHvr = N;
 				mouseIn = F
 				if(hvrDeliO < hvrDelO) hvrDeliO = clamp(hvrDeliO+1,0,hvrDelO);
 				hvrPctO = 1-(hvrDeliO/hvrDelO)
@@ -465,16 +515,20 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 				
 			#endregion
 			
+			#region Unselect
+				
+				if(MBLP and D.scnActSel == id) D.scnActSel = N;
+				
+			#endregion
+			
 		}
 		
 		if(D.scnActSel == id and !TRAN.override and !D.ctrlOverride and !hide) {
 			
-			#region Selected...
+			#region Selected Interaction...
 				
 				var _xy4 = [max(0,bbox_left),max(1,bbox_top),min(WW-1,bbox_right),min(WH-1,bbox_bottom)]
 				draw_rectangle_ext_color(_xy4,0,[.8,c.ng,c.g,c.ng,c.g],T)
-				
-				if(MBRR) D.scnActSel = N; // Unselect
 				
 				#region Draw Selection Choices
 					
@@ -493,7 +547,7 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 						_xy4Btn[3] = _xy4Btn[1]+(STRH*2)
 						
 						// Approach Button
-						draw_button_fxl(_xy4Btn,[.8,c.dgry,c.dgry,c.blk,c.blk],[1,c.ng,c.g,c.ng,c.g],"Approach",ACTION.DIA_APPROACH,diaAvailable)
+						draw_button_fxl(_xy4Btn,[2/3,c.dgry,c.dgry,c.blk,c.blk],[1,c.ng,c.ng,c.g,c.g],"Approach",ACTION.DIA_APPROACH,diaAvailable)
 						
 					#endregion
 					
@@ -503,7 +557,17 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 						_xy4Btn[3] = _xy4Btn[1]+(STRH*2)
 						
 						// Approach Button
-						draw_button_fxl(_xy4Btn,[.8,c.dgry,c.dgry,c.blk,c.blk],[1,c.ng,c.g,c.ng,c.g],"Move Past",ACTION.DIA_MOVEPAST,T)
+						draw_button_fxl(_xy4Btn,[2/3,c.dgry,c.dgry,c.blk,c.blk],[1,c.ng,c.ng,c.g,c.g],"Move Past",ACTION.DIA_MOVEPAST,T)
+						
+					#endregion
+					
+					#region Cancel
+						
+						_xy4Btn[1] = _xy4Btn[3]+STRH
+						_xy4Btn[3] = _xy4Btn[1]+(STRH*2)
+						
+						// Approach Button
+						draw_button_fxl(_xy4Btn,[2/3,c.dgry,c.dgry,c.blk,c.blk],[1,c.ny,c.ny,c.ylw,c.ylw],"Cancel",ACTION.CANCEL,T)
 						
 					#endregion
 					

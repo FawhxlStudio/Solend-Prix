@@ -1,4 +1,4 @@
-// 2025-04-19 21:54:55
+// 2025-04-22 01:28:55
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -126,6 +126,7 @@ uses_physics = false;
 
 #event destroy Unload Assets
 unload_intro()
+unload_menu()
 
 
 #event alarm0 Flush & Fetch...
@@ -149,24 +150,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	
 #endregion
 
-if(!load and intro_ready()) {
+if(!load and loading_done()) {
 	
 	#region Fade In Iteration
 		
 		if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
 		var _pctin = fadeIni/fadeIn
-		if(_pctin >= 1) unload_menu();
-		
-	#endregion
-	
-	#region Change Room (When Fade-In is Done)
-		
-		if(_pctin >= 1 and room != rGame) {
-			
-			set_scni(SCENE.RESORT_BED)
-			room_goto(rGame)
-			
-		}
 		
 	#endregion
 	
@@ -325,6 +314,8 @@ if(!load and intro_ready()) {
 			
 			if(!load2) {
 				
+				set_scni(SCENE.RESORT_BED)
+				room_goto(rGame)
 				load_resort_area()
 				load_random_actors()
 				load2 = F
@@ -420,6 +411,14 @@ if(!load and intro_ready()) {
 	draw_set_alpha(ao)
 	draw_set_hvalign(hvao)
 	draw_set_font(fo)
+	
+#endregion
+
+#event draw_gui_begin Draw BG
+
+#region Intro BG
+	
+	if(!menu_ready()) draw_rectangle_ext_color([-1,0,WW,WH],0,[1,c.blk,c.blk,c.blk,c.blk],F);
 	
 #endregion
 

@@ -28,6 +28,19 @@
 			sprCF12,sprCF13,sprCF14]
 		cfiArr = []
 		
+		slumCFArr = [sprSlumCF1,sprSlumCF2,
+			sprSlumCF3,sprSlumCF4,sprSlumCF5,
+			sprSlumCF6,sprSlumCF7,sprSlumCF8,
+			sprSlumCF9,sprSlumCF10]
+		slumCFiArr = []
+		
+		brothCFArr = [sprBrothCF1,sprBrothCF2,
+			sprBrothCF3,sprBrothCF4,sprBrothCF5,
+			sprBrothCF6,sprBrothCF7,sprBrothCF8,
+			sprBrothCF9,sprBrothCF10,sprBrothCF11,
+			sprBrothCF12]
+		brothCFiArr = []
+		
 		fArr = [sprF1,sprF2,
 			sprF3,sprF4,sprF5,
 			sprF6,sprF7,sprF8,
@@ -46,9 +59,13 @@
 			sprCM12,sprCM13,sprCM14,
 			sprCM15,sprCM16,sprCM17,
 			sprCM18,sprCM19,sprCM20,
-			sprCM21,sprCM22,sprCM23,
-			sprCM24,sprCM25]
+			sprCM21]
 		cmiArr = []
+		
+		slumCMArr = [sprSlumCM1,sprSlumCM2,
+			sprSlumCM3,sprSlumCM4,sprSlumCM5,
+			sprSlumCM6,sprSlumCM7]
+		slumCMiArr = []
 		
 		mArr = [sprM1,sprM2,
 			sprM3,sprM4,sprM5,
@@ -68,22 +85,25 @@
 		// Sky
 		skyImg = instance_create_layer(0,0,"BG",oImage)
 		skyImg.persistent = T
-		
+		skyImg.depth = lerp(layer_get_depth("BG"),layer_get_depth("BGFade")+1,1/6)
 		// Backdrop
 		bdImg = instance_create_layer(0,0,"BG",oImage)
 		bdImg.persistent = T
-		
+		bdImg.depth = lerp(layer_get_depth("BG"),layer_get_depth("BGFade")+1,2/6)
 		// Background Layer 2
 		bgL2Img = instance_create_layer(0,0,"BG",oImage)
 		bgL2Img.persistent = T
+		bgL2Img.depth = lerp(layer_get_depth("BG"),layer_get_depth("BGFade")+1,3/6)
 		
 		// Background Layer 1
 		bgL1Img = instance_create_layer(0,0,"BG",oImage)
 		bgL1Img.persistent = T
+		bgL1Img.depth = lerp(layer_get_depth("BG"),layer_get_depth("BGFade")+1,4/6)
 		
 		// Background
 		bgImg = instance_create_layer(0,0,"BG",oImage)
 		bgImg.persistent = T
+		bgImg.depth = lerp(layer_get_depth("BG"),layer_get_depth("BGFade")+1,5/6)
 		
 		// Middleground
 		mgImg = instance_create_layer(0,0,"MG",oImage)
@@ -174,46 +194,89 @@
 	mns = chance(50)
 	hrs = chance(50)
 	
-	
-	
 #endregion
 
 #region Dialogue Globals
 	
-	diaOverride = F
-	diaZmn = 1
-	diaZmx = 1.2
-	diaDel = GSPD
-	diaDeli = 0
-	diaDelPct = 0
-	diaDeli2 = 0
-	diaDelPct2 = 0
-	diaSpeaker = N
-	diaNestL = ds_list_create()
-	diaTranDel = GSPD*(2/3)
-	diaTranDeli = 0
-	diaTranPct = 0
-	diaSoftClose = F
-	diad = 0
-	diaNestDir = T // T == Into Nest, F == Out of Nest
-	diaContinue = F
-	diaLnkA = N
-	diaLnkB = N
-	diaLnkC = N
-	diaLnkD = N
-	diaLnkE = N
-	diaAnimTo = N
-	diaTrigi = 0
-	diaEnter = F
-	diaDone = F
-	diaDly = GSPD*2
-	diaI = 0
-	diaPct = 0
-	diaInstArr = N // Array to hold instance vars (i.e. [actor id, image] to transition to) ([Inst]ance [Arr]ay)
-	diaImn = 0
-	diaImx = diaDly
-	diaInstRpt = N
-	diaLBDrawn = F
+	#region DiaNar/Universal
+		
+		diaOverride = F
+		diaZmn = 1
+		diaZmx = 1.2
+		diaDel = GSPD
+		diaDeli = 0
+		diaDelPct = 0
+		diaDeli2 = 0
+		diaDelPct2 = 0
+		diaSpeaker = N
+		diaNestL = ds_list_create()
+		diaTranDel = GSPD*(2/3)
+		diaTranDeli = 0
+		diaTranPct = 0
+		diaSoftClose = F
+		diad = 0
+		diaNestDir = T // T == Into Nest, F == Out of Nest
+		diaContinue = F
+		diaLnkA = N
+		diaLnkB = N
+		diaLnkC = N
+		diaLnkD = N
+		diaLnkE = N
+		diaAnimTo = N
+		diaTrigi = 0
+		diaEnter = F
+		diaDone = F
+		diaDly = GSPD*2
+		diaI = 0
+		diaPct = 0
+		diaInstArr = N // Array to hold instance vars (i.e. [actor id, image] to transition to) ([Inst]ance [Arr]ay)
+		diaImn = 0
+		diaImx = diaDly
+		diaInstRpt = N
+		diaLBDrawn = F
+		
+	#endregion
+	
+	#region Combat Specific
+		
+		diaOpp = N
+		
+		#region Asset Arrays
+			
+			#region Male
+				
+				comMGuard = [sprComMGuard1,sprComMGuard2]
+				comMNeutral = [sprComMNeutral1,sprComMNeutral2]
+				comMStumble = [sprComMStumble1,sprComMStumble2]
+				comMRecoverN = [sprComMRecoverN1]
+				comMRecoverS = [sprComMRecoverS1]
+				comMRecoverW = [sprComMRecoverW1]
+				
+			#endregion
+			
+			#region Female
+				
+				comFGuard = [sprComFGuard1,sprComFGuard2]
+				comFNeutral = [sprComFNeutral1,sprComFNeutral2]
+				comFStumble = [sprComFStumble1,sprComFStumble2]
+				comFRecoverN = [sprComFRecoverN1]
+				comFRecoverS = [sprComFRecoverS1]
+				comFRecoverW = [sprComFRecoverW1]
+				
+			#endregion
+			
+			#region Actions
+				
+				comActBlock = [sprComActBlock1]
+				comActFist = [sprComActFist1]
+				comActGrab = [sprComActGrab1]
+				comActHandshake = [sprComActHandshake1]
+				
+			#endregion
+			
+		#endregion
+		
+	#endregion
 	
 #endregion
 
@@ -252,12 +315,21 @@
 	
 	#region Init
 		
+		// Narrative Struct
 		#macro NS global.narrative_struct
 		NS = {}
 		NS[$ K.I] = 0
 		NS[$ K.CAR] = 0
 		NS[$ K.CAR+K.DL] = GSPD*.2
 		NS[$ K.CAR+K.DLI] = 0
+		
+		// Combat Struct
+		#macro CS global.combat_struct
+		CS = {}
+		CS[$ K.I] = 0
+		CS[$ K.CAR] = 0
+		CS[$ K.CAR+K.DL] = GSPD*.2
+		CS[$ K.CAR+K.DLI] = 0
 		
 	#endregion
 	

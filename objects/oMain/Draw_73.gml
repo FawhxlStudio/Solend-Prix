@@ -55,6 +55,20 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 									
 									if(variable_instance_exists(CM[$ string(i)],K.SHP)) {
 										
+										#region Init Other Checks
+											
+											// Checks
+											// An Info node is just a message with no scene_to set.
+											var _isMove = variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)
+											var _isInteract = (variable_instance_exists(CM[$ string(i)],K.CLK) and !_isMove)
+											var _isInfo = (variable_instance_exists(CM[$ string(i)],K.STR) and !_isMove and !_isInteract)
+											
+											// Hud Available & Active?
+											var _hudActive = F
+											if(is(P)) _hudActive = (P.suited and P.hudActive);
+											
+										#endregion
+										
 										if(CM[$ string(i)][$ K.SHP] == "rect") {
 											
 											#region Draw Debug XY Rectangles
@@ -78,13 +92,21 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 															
 															#region Do have 2nd Coordinate, Full Draw
 																
-																// Init 2nd Coordinate
-																_xy4[2] = CM[$ string(i)][$ K.XY4][2]*CM[$ string(i)][$ K.WH2][0]+D.bgImg.dltx-_dw2
-																_xy4[3] = CM[$ string(i)][$ K.XY4][3]*CM[$ string(i)][$ K.WH2][1]+D.bgImg.dlty-_dh2
+																#region Additional Vars Init
+																	
+																	// Init 2nd Coordinates
+																	_xy4[2] = CM[$ string(i)][$ K.XY4][2]*CM[$ string(i)][$ K.WH2][0]+D.bgImg.dltx-_dw2
+																	_xy4[3] = CM[$ string(i)][$ K.XY4][3]*CM[$ string(i)][$ K.WH2][1]+D.bgImg.dlty-_dh2
+																	
+																	// Middle Coordinate
+																	var _xy2m = get_xym(_xy4)
+																	var _h2 = abs(_xy4[3]-_xy4[1])
+																	
+																#endregion
 																
 																#region Draw Additional Vars
 																	
-																	#region Mouse Hover
+																	#region Mouse Hover/Icons
 																		
 																		if(mouse_in_rectangle(_xy4) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
 																			and variable_instance_exists(CM[$ string(i)],K.HVR)
@@ -95,7 +117,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																			D.isHvr = id
 																			
 																			if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
-																					or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
+																				or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
 																				
 																				if(variable_instance_exists(CM[$ string(i)],K.STR)) {
 																					
@@ -296,6 +318,42 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																				CM[$ string(i)][$ K.FOD] = T
 																			*/
 																			
+																		} else if(!D.ctrlOverride and D.fd <= 0 and !TRAN.override and !instance_of(D.isHvr,oChar)
+																			and variable_instance_exists(CM[$ string(i)],K.HVR)) {
+																			
+																			#region Move Icon?
+																				
+																				if(_isMove and _hudActive and is(_xy2m)) {
+																					
+																					var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),_h2/sprite_get_height(sprHUDEntry))
+																					draw_sprite_ext(sprHUDEntry,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																					
+																				}
+																				
+																			#endregion
+																			
+																			#region Move Icon?
+																				
+																				if(_isInteract and _hudActive and is(_xy2m)) {
+																					
+																					var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),_h2/sprite_get_height(sprHUDEntry))
+																					draw_sprite_ext(sprHUDEntry,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																					
+																				}
+																				
+																			#endregion
+																			
+																			#region Info Icon?
+																				
+																				if(_isInfo and _hudActive and is(_xy2m)) {
+																					
+																					var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),_h2/sprite_get_height(sprHUDInfo))
+																					draw_sprite_ext(sprHUDInfo,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																					
+																				}
+																				
+																			#endregion
+																			
 																		}
 																		
 																	#endregion
@@ -326,11 +384,11 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 													
 													var _xy2 = [CM[$ string(i)][$ K.XY2][0]*CM[$ string(i)][$ K.WH2][0]+D.bgImg.dltx-_dw2,
 														CM[$ string(i)][$ K.XY2][1]*CM[$ string(i)][$ K.WH2][1]+D.bgImg.dlty-_dh2]
-													var _rad = real(CM[$ string(i)][$ K.RAD])
+													var _rad = abs(real(CM[$ string(i)][$ K.RAD]))
 													
 												#endregion
 												
-												#region Mouse Hover
+												#region Mouse Hover/Icons
 													
 													if(mouse_in_circle(_xy2,_rad) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
 														and variable_instance_exists(CM[$ string(i)],K.HVR)
@@ -455,68 +513,99 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 															CM[$ string(i)][$ K.FOD] = T
 														*/
 														
+													} else if(!D.ctrlOverride and D.fd <= 0 and !TRAN.override and !instance_of(D.isHvr,oChar)
+														and variable_instance_exists(CM[$ string(i)],K.HVR)) {
+														
+														#region Info Icon?
+															
+															if(_isInfo and _hudActive) {
+																
+																var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),(_rad*2)/sprite_get_height(sprHUDInfo))
+																draw_sprite_ext(sprHUDInfo,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																
+															}
+															
+														#endregion
+														
+														#region Move Icon?
+															
+															if(_isMove and _hudActive) {
+																
+																var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),(_rad*2)/sprite_get_height(sprHUDEntry))
+																draw_sprite_ext(sprHUDEntry,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																
+															}
+															
+														#endregion
+														
 													}
 													
 												#endregion
 												
 												#region Character/Entity Bodies
 													
-													if(CM[$ string(i)][$ K.ENT] == ACTOR.SYLAS) {
+													if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
 														
-														#region Sylas (Suit Storage Location)
+														if(CM[$ string(i)][$ K.ENT] == ACTOR.SYLAS) {
 															
-															// Init
-															var _w = (D.bgImg.sprite_width)
-															var _h = (D.bgImg.sprite_height)
-															var _img = D.mgImg
-															
-															// TODO-4/10/25: Can we modify this suit instance to put the suit back down too?
-															// We don't really need this feature...
-															
-															if(!P.suited and P.suitCrateInst == N) {
+															#region Sylas (Suit Storage Location)
 																
-																#region Create/Show Suit Instance
+																#region Init
 																	
-																	_img.sprite_index = P.imgSuitCrate
-																	_img.sclBase = 8
-																	_img.scl = (WW/_img.sclBase)/sprite_get_width(P.imgSuitCrate)
-																	_img.xxpct = CM[$ string(i)][$ K.XY2][0]
-																	_img.yypct = CM[$ string(i)][$ K.XY2][1]
-																	_img.interact = T
-																	if(variable_instance_exists(CM[$ string(i)],K.STR))
-																		_img.str = CM[$ string(i)][$ K.STR];
-																	P.suitCrateInst = _img
-																	_img.inScn = D.scni
+																	var _w = (D.bgImg.sprite_width)
+																	var _h = (D.bgImg.sprite_height)
+																	var _img = D.mgImg
 																	
 																#endregion
 																
-															} else if(P.suitCrateInst != N and alarm[0] >= 0)
-																P.suitCrateInst.alarm[0] = 2;
+																// TODO-4/10/25: Can we modify this suit instance to put the suit back down too?
 																
-														#endregion
-														
-													} else if(CM[$ string(i)][$ K.ENT] == ACTOR.RANDOM) {
-														
-														#region Spawn/Host Random Actor
-															
-															
-															
-														#endregion
-														
-													} else if(CM[$ string(i)][$ K.ENT] == ACTOR.STATIC
-														and variable_instance_exists(CM[$ string(i)],K.SPR)) {
-														
-														#region Static - FG - Sprite
-															
-															var _spr = asset_get_index(CM[$ string(i)][$ K.SPR])
-															if(_spr != F) {
+																if(!P.suited and P.suitCrateInst == N) {
+																	
+																	#region Create/Show Suit Instance
+																		
+																		_img.sprite_index = P.imgSuitCrate
+																		_img.sclBase = 8
+																		_img.scl = (WW/_img.sclBase)/sprite_get_width(P.imgSuitCrate)
+																		_img.xxpct = CM[$ string(i)][$ K.XY2][0]
+																		_img.yypct = CM[$ string(i)][$ K.XY2][1]
+																		_img.interact = T
+																		if(variable_instance_exists(CM[$ string(i)],K.STR))
+																			_img.str = CM[$ string(i)][$ K.STR];
+																		P.suitCrateInst = _img
+																		_img.inScn = D.scni
+																		
+																	#endregion
+																	
+																} else if(P.suitCrateInst != N and alarm[0] >= 0)
+																	P.suitCrateInst.alarm[0] = 2;
 																
-																var _scl = (WW/4)/sprite_get_width(_spr)
-																draw_sprite_ext(_spr,0,CM[$ string(i)][$ K.XY2][0],CM[$ string(i)][$ K.XY2][1],_scl,_scl,0,c.wht,1)
-																
-															}
+															#endregion
 															
-														#endregion
+														} else if(CM[$ string(i)][$ K.ENT] == ACTOR.RANDOM) {
+															
+															#region Spawn/Host Random Actor
+																
+																
+																
+															#endregion
+															
+														} else if(CM[$ string(i)][$ K.ENT] == ACTOR.STATIC
+															and variable_instance_exists(CM[$ string(i)],K.SPR)) {
+															
+															#region Static - FG - Sprite
+																
+																var _spr = asset_get_index(CM[$ string(i)][$ K.SPR])
+																if(_spr != F) {
+																	
+																	var _scl = (WW/4)/sprite_get_width(_spr)
+																	draw_sprite_ext(_spr,0,CM[$ string(i)][$ K.XY2][0],CM[$ string(i)][$ K.XY2][1],_scl,_scl,0,c.wht,1)
+																	
+																}
+																
+															#endregion
+															
+														}
 														
 													}
 													

@@ -1,4 +1,4 @@
-// 2025-04-20 01:01:27
+// 2025-04-22 04:01:43
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -10,14 +10,14 @@ active = T
 edit = F
 editHelp = T
 console = F
-introSkip = T
-skipTo = N
+introSkip = F
+skipTo = SCENE.RESORT_SUITE
 resetControl = T
 unstuck = T
 muted = F
 envInvert = T
 diaDebug = F
-diaShortcut = F
+diaShortcut = T
 scnJump = T
 nightSkip = F
 

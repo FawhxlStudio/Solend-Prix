@@ -9,24 +9,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 	
 #endregion
 
-if(!load and intro_ready()) {
+if(!load and loading_done()) {
 	
 	#region Fade In Iteration
 		
 		if(fadeIni < fadeIn) fadeIni = clamp(fadeIni+1,0,fadeIn);
 		var _pctin = fadeIni/fadeIn
-		if(_pctin >= 1) unload_menu();
-		
-	#endregion
-	
-	#region Change Room (When Fade-In is Done)
-		
-		if(_pctin >= 1 and room != rGame) {
-			
-			set_scni(SCENE.RESORT_BED)
-			room_goto(rGame)
-			
-		}
 		
 	#endregion
 	
@@ -185,6 +173,8 @@ if(!load and intro_ready()) {
 			
 			if(!load2) {
 				
+				set_scni(SCENE.RESORT_BED)
+				room_goto(rGame)
 				load_resort_area()
 				load_random_actors()
 				load2 = F

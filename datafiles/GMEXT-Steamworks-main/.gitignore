@@ -1,0 +1,34 @@
+# VS and VSC folders
+**/.vs/
+**/.vsc/
+
+# Common extensions
+**/*.exp
+**/*.ilk
+**/*.lib
+**/*.pdb
+**/*.exp
+**/*.exe
+
+# Steamworks SDKs
+source/Steamworks_sdk/
+
+# Steamworks DEMO options
+source/Steamworks_gml/options/
+
+# Steamworks build solutions (temp & output)
+**/Debug/
+**/Release/
+
+# MacOS
+.DS_Store
+
+# XCode and VS userdata
+*.user
+xcuserdata/
+
+# Release packages
+output/
+source/Steamworks_gml/extensions/steamworks/scriptUtils.bat.bak
+
+source/Steamworks_gml/extensions/steamworks/scriptUtils.sh.bak

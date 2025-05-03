@@ -1,4 +1,4 @@
-// 2025-04-19 21:48:28
+// 2025-04-29 00:35:45
 function db_diaNar() {
 	
 	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
@@ -202,8 +202,8 @@ function db_diaNar() {
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 0] = "*You jolt awake, it felt like you were suddenly falling"
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 1] = "\"fuck!\""
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 2] = "*You remember you're in your assigned suite"
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 3] = "\"ugh... what the hell was that...\""
-			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 4] = "*You mostly shake off the nightmare"
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 3] = "\"ergh-\""
+			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 4] = "*You shake off the vertigo..."
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 5] = V.RIGHT
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 6] = "[ L.I.N.I Prompt ]"
 			NS[$ SCENE.RESORT_BED][$ ACTOR.SYLAS][$ 0][$ 7] = "Look around the environment to find points of interest."
@@ -499,6 +499,95 @@ function db_diaNar() {
 		
 	#endregion
     
+	#region Combat
+		
+		#region Generic/Random
+			
+			// Male/Female Keys
+			var _mk = K.SX+mk()
+			var _fk = K.SX+fk()
+			
+			// $Scene -> $Actor -> $Instance -> $Dialogue/Narrative (Nestable)
+			CS[$ ACTOR.RANDOM] = {}
+			
+			#region Male
+				
+				// Create Random Male Struct
+				CS[$ ACTOR.RANDOM][$ _mk] = {}
+				
+				#region Area: Any
+					
+					// Create Any Area...
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY] = {}
+					
+					// Instance 0
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 1] = "\"Feeling lucky?\""
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 3] = "\"Sure am...\""
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 4] = V.FIGHT_START
+					
+				#endregion
+				
+				#region Area: Underground
+					
+					// Create Any Area...
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM] = {}
+					
+					// Instance 0
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 1] = "\"You don't know shit.\""
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 3] = "\"You sure about that?\""
+					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 4] = V.FIGHT_START
+					
+				#endregion
+				
+			#endregion
+			
+			#region Female
+				
+				// Create Random Female Struct
+				CS[$ ACTOR.RANDOM][$ _fk] = {}
+				
+				#region Area: Any
+					
+					// Create Any Area...
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY] = {}
+					
+					// Instance 0
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 1] = "\"You'll regret this.\""
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 3] = "\"We'll see...\""
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 4] = V.FIGHT_START
+					
+				#endregion
+				
+				#region Area: Brothel
+					
+					// Create Any Area...
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL] = {}
+					
+					// Instance 0
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 1] = "\"Shame.\""
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 3] = "\"...\""
+					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 4] = V.FIGHT_START
+					
+				#endregion
+				
+			#endregion
+			
+		#endregion
+		
+	#endregion
+	
 }
 
 function db_scn() {
@@ -743,7 +832,7 @@ function db_scn() {
 		#region Entrance
 			
 			S[$ SCENE.BROTH_ENT] = {}
-			S[$ SCENE.BROTH_ENT][$ K.PLY] = msxSporkbomb
+			S[$ SCENE.BROTH_ENT][$ K.PLY] = msxCrank
 			S[$ SCENE.BROTH_ENT][$ K.SK0+K.SPR] = sprNA
 			S[$ SCENE.BROTH_ENT][$ K.BD0+K.SPR] = sprNA
 			S[$ SCENE.BROTH_ENT][$ K.BG0+K.L2+K.SPR] = sprNA
@@ -795,6 +884,7 @@ function db_scn() {
 			S[$ SCENE.BROTH_R][$ K.BG0+K.L1+K.SPR] = sprNA
 			S[$ SCENE.BROTH_R][$ K.BG0+K.SPR] = sprBrothR
 			S[$ SCENE.BROTH_R][$ K.BG0+K.PMT] = 1
+			S[$ SCENE.BROTH_R][$ K.ACT+K.RHT] = ACTOR.ROSNA
 			S[$ SCENE.BROTH_R][$ K.ACT+K.LCK] = T
 			S[$ SCENE.BROTH_R][$ K.ENV] = T
 			S[$ SCENE.BROTH_R][$ K.SCN+K.BLD] = color_make_rgb([192,96,96])
@@ -972,7 +1062,7 @@ function db_scn() {
 		#region Alley 1
 			
 			S[$ SCENE.SLUM_A1] = {}
-			S[$ SCENE.SLUM_A1][$ K.PLY] = msxCrank
+			S[$ SCENE.SLUM_A1][$ K.PLY] = msxSporkbomb
 			S[$ SCENE.SLUM_A1][$ K.SK0+K.SPR] = sprNA
 			S[$ SCENE.SLUM_A1][$ K.BD0+K.SPR] = sprNA
 			S[$ SCENE.SLUM_A1][$ K.BG0+K.L2+K.SPR] = sprNA
@@ -1277,6 +1367,50 @@ function db_act() {
 			
 			// Face
 			_char.imgFace = sprNA
+			_char.imgFacePol = 1
+			
+			// Suit
+			_char.imgSuit = sprNA
+			_char.imgSuitPol = 1
+			
+		#endregion
+		
+	#endregion
+	
+	#region Pilot Rosna 
+		
+		#region Create Instance
+			
+			ds_list_add(actorL,instance_create_layer(0,0,"MG",oChar))
+			var _char = actorL[|ds_list_size(actorL)-1]
+			_char.uid = ACTOR.ROSNA
+			_char.col[1] = make_color_rgb(255,128,128)
+			_char.col[2] = make_color_rgb(255,128,128)
+			_char.col[3] = make_color_rgb(160,80,80)
+			_char.col[4] = make_color_rgb(160,80,80)
+			
+		#endregion
+		
+		#region (Dia)logue
+			
+			_char.dia[$ K.NM] = "Pilot"
+			_char.dia[$ K.FNM] = "Rosna"
+			_char.dia[$ K.LNM] = N
+			_char.dia[$ K.KNW]  = T
+			_char.dia[$ K.FNM+K.KNW]  = F
+			_char.dia[$ K.LNM+K.KNW]  = F
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			
+		#endregion
+		
+		#region Assets
+			
+			// Fonts
+			_char.font1 = fFakeLove
+			_char.font2 = fFem
+			
+			// Face
+			_char.imgFace = sprRosna
 			_char.imgFacePol = 1
 			
 			// Suit
@@ -1636,6 +1770,504 @@ function db_act_rnd(scni,close) {
 							if(!array_contains(D.cfiArr,_char.imgFace)) {
 								
 								D.cfiArr[array_length(D.cfiArr)] = _char.imgFace
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+			// Fonts
+			_char.font1 = fFem
+			_char.font2 = fEmoteFemale
+			
+			// Colors
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = make_color_rgb(255,192,192)
+			_char.col[4] = make_color_rgb(255,192,192)
+			
+			// Return Instance
+			return _char
+			
+		#endregion
+		
+	} else {
+		
+		#region Random Male
+			
+			// Create + Init
+			ds_list_add(D.actorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.actorL)-1
+			var _char = D.actorL[|_li]
+			
+			// Basics
+			_char.uid = ACTOR.RANDOM
+			_char.ruid = ACTOR.LAST+_li
+			_char.scni = scni
+			_char.dia[$ K.NM] = "Unknown Male"
+			_char.dia[$ K.NM+K.KNW] = T
+			_char.dia[$ K.SX]  = SEX.MALE
+			_char.suited = F
+			_char.suitedo = _char.suited
+			
+			#region Pick Sprite
+				
+				if(!close) {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Distant/Scene; mArr+miArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgSuit = D.mArr[irandom(array_length(D.mArr)-1)]
+							_char.imgSuitPol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.miArr,_char.imgSuit)) {
+								
+								D.miArr[array_length(D.miArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				} else {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Close; cmArr+cmiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgFace = D.cmArr[irandom(array_length(D.cmArr)-1)]
+							_char.imgFacePol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.cmiArr,_char.imgFace)) {
+								
+								D.cmiArr[array_length(D.cmiArr)] = _char.imgFace
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+			// Fonts
+			_char.font1 = fMal
+			_char.font2 = fEmoteMale
+			
+			// Colors
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = make_color_rgb(192,192,255)
+			_char.col[4] = make_color_rgb(192,192,255)
+			
+			// Return Instance
+			return _char
+			
+		#endregion
+		
+	}
+    
+}
+
+// Create a random actor and save em
+function db_act_rnd_slum(scni,close) {
+	
+    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
+	if(chance(100*(1/3))) {
+		
+		#region Random Female
+			
+			// Create + Init
+			ds_list_add(D.actorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.actorL)-1
+			var _char = D.actorL[|_li]
+			
+			// Basics
+			_char.uid = ACTOR.RANDOM
+			_char.ruid = ACTOR.LAST+_li
+			_char.scni = scni
+			_char.dia[$ K.NM] = "Unknown Female"
+			_char.dia[$ K.NM+K.KNW] = T
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			_char.suited = F
+			_char.suitedo = _char.suited
+			
+			#region Pick Sprite
+				
+				if(!close) {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Distant/Scene; fArr+fiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgSuit = D.fArr[irandom(array_length(D.fArr)-1)]
+							_char.imgSuitPol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.fiArr,_char.imgSuit)) {
+								
+								D.fiArr[array_length(D.fiArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				} else {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Close; cfArr+cfiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgFace = D.slumCFArr[irandom(array_length(D.slumCFArr)-1)]
+							_char.imgFacePol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.slumCFiArr,_char.imgFace)) {
+								
+								D.slumCFiArr[array_length(D.slumCFiArr)] = _char.imgFace
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+			// Fonts
+			_char.font1 = fFem
+			_char.font2 = fEmoteFemale
+			
+			// Colors
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = make_color_rgb(255,192,192)
+			_char.col[4] = make_color_rgb(255,192,192)
+			
+			// Return Instance
+			return _char
+			
+		#endregion
+		
+	} else {
+		
+		#region Random Male
+			
+			// Create + Init
+			ds_list_add(D.actorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.actorL)-1
+			var _char = D.actorL[|_li]
+			
+			// Basics
+			_char.uid = ACTOR.RANDOM
+			_char.ruid = ACTOR.LAST+_li
+			_char.scni = scni
+			_char.dia[$ K.NM] = "Unknown Male"
+			_char.dia[$ K.NM+K.KNW] = T
+			_char.dia[$ K.SX]  = SEX.MALE
+			_char.suited = F
+			_char.suitedo = _char.suited
+			
+			#region Pick Sprite
+				
+				if(!close) {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Distant/Scene; mArr+miArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgSuit = D.mArr[irandom(array_length(D.mArr)-1)]
+							_char.imgSuitPol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.miArr,_char.imgSuit)) {
+								
+								D.miArr[array_length(D.miArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				} else {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Close; cmArr+cmiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgFace = D.slumCMArr[irandom(array_length(D.slumCMArr)-1)]
+							_char.imgFacePol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.slumCMiArr,_char.imgFace)) {
+								
+								D.slumCMiArr[array_length(D.slumCMiArr)] = _char.imgFace
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				}
+				
+			#endregion
+			
+			// Fonts
+			_char.font1 = fMal
+			_char.font2 = fEmoteMale
+			
+			// Colors
+			_char.col[1] = c.wht
+			_char.col[2] = c.wht
+			_char.col[3] = make_color_rgb(192,192,255)
+			_char.col[4] = make_color_rgb(192,192,255)
+			
+			// Return Instance
+			return _char
+			
+		#endregion
+		
+	}
+    
+}
+
+// Create a random actor and save em
+function db_act_rnd_broth(scni,close) {
+	
+    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
+	if(chance(90)) {
+		
+		#region Random Female
+			
+			// Create + Init
+			ds_list_add(D.actorL,instance_create_layer(0,0,"MG",oChar))
+			var _li = ds_list_size(D.actorL)-1
+			var _char = D.actorL[|_li]
+			
+			// Basics
+			_char.uid = ACTOR.RANDOM
+			_char.ruid = ACTOR.LAST+_li
+			_char.scni = scni
+			_char.dia[$ K.NM] = "Unknown Female"
+			_char.dia[$ K.NM+K.KNW] = T
+			_char.dia[$ K.SX]  = SEX.FEMALE
+			_char.suited = F
+			_char.suitedo = _char.suited
+			
+			#region Pick Sprite
+				
+				if(!close) {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Distant/Scene; fArr+fiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgSuit = D.fArr[irandom(array_length(D.fArr)-1)]
+							_char.imgSuitPol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.fiArr,_char.imgSuit)) {
+								
+								D.fiArr[array_length(D.fiArr)] = _char.imgSuit
+								break
+								
+							}
+							
+							// Retry...
+							_TO++
+							
+						}
+						
+					#endregion
+					
+					#region Timeout Condition: Cancel/Destroy Char Object.
+						
+						if(_TO > 3) {
+							
+							instance_destroy(_char)
+							ds_list_delete(D.actorL,_li)
+							return U
+							
+						}
+						
+					#endregion
+					
+				} else {
+					
+					// Init Timeout
+					var _TO = 0
+					
+					#region Pick Random Unused Sprite (Close; cfArr+cfiArr)...
+						
+						while(_TO <= 3) {
+							
+							// Pick
+							_char.imgFace = D.brothCFArr[irandom(array_length(D.brothCFArr)-1)]
+							_char.imgFacePol = pol_flip(50)
+							
+							// Check & Break/Pass?
+							if(!array_contains(D.brothCFiArr,_char.imgFace)) {
+								
+								D.brothCFiArr[array_length(D.brothCFiArr)] = _char.imgFace
 								break
 								
 							}

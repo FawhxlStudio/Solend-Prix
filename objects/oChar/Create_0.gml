@@ -27,6 +27,20 @@
 	diaAvailable = F
 	surf =  N
 	
+	// Modifier
+	velSclMn = 1.1
+	velSclMx = 1.3
+	velScl = random_range(velSclMn,velSclMx)
+	velSclPct = (velScl-velSclMn)/(velSclMx-velSclMn)
+	
+	// Selection Delay
+	selDel = ceil(GSPD*.1)
+	selDeli = 0
+	
+	// Percent Based x/y set for zoom transitions
+	xpct = N
+	ypct = N
+	
 #endregion
 
 #region Stats

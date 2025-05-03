@@ -5,14 +5,14 @@ active = T
 edit = F
 editHelp = T
 console = F
-introSkip = T
-skipTo = N
+introSkip = F
+skipTo = SCENE.RESORT_SUITE
 resetControl = T
 unstuck = T
 muted = F
 envInvert = T
 diaDebug = F
-diaShortcut = F
+diaShortcut = T
 scnJump = T
 nightSkip = F
 

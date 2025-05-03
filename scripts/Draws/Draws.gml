@@ -55,7 +55,7 @@
 						fgc[1],fgc[2],fgc[3],fgc[4],F)
 					
 					// Do button action
-					if(MBLR) {
+					if(MBLR and D.fd <= 0) {
 						
 						// Reset Alpha and Do Action
 						draw_set_alpha(ao)
@@ -138,7 +138,14 @@
 						if(instance_of(D.scnActSel,oChar)) D.scnActSel.approach = T;
 						D.scnActSel = N
 						return T
-						break
+						
+					}
+					
+					case ACTION.DIA_ATTACK: {
+						
+						if(instance_of(D.scnActSel,oChar)) D.diaOpp = D.scnActSel;
+						D.scnActSel = N
+						return T
 						
 					}
 					
@@ -147,7 +154,17 @@
 						if(instance_of(D.scnActSel,oChar)) D.scnActSel.hide = T;
 						D.scnActSel = N
 						return T
-						break
+						
+					}
+					
+				#endregion
+				
+				#region Universal
+					
+					case ACTION.CANCEL: {
+						
+						if(instance_of(D.scnActSel,oChar)) D.scnActSel = N;
+						return T
 						
 					}
 					

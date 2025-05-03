@@ -34,7 +34,12 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 									// Get/Make Char Object...
 									if(S[$ _scni][$ K.ACT+K.LFT] == ACTOR.RANDOM) {
 										
-										scnActArr[_scni][0] = db_act_rnd(_scni,T)
+										
+										if(scn_area(_scni) == AREA.SLUM and chance(80))
+											scnActArr[_scni][0] = db_act_rnd_slum(_scni,T);
+										else if(scn_area(_scni) == AREA.BROTHEL and chance(80))
+											scnActArr[_scni][0] = db_act_rnd_broth(_scni,T);
+										else scnActArr[_scni][0] = db_act_rnd(_scni,T);
 										if(instance_of(scnActArr[_scni][0],oChar)) S[$ _scni][$ K.ACT+K.LFT] = scnActArr[_scni][0].ruid;
 										
 									} else scnActArr[_scni][0] = actor_find(S[$ _scni][$ K.ACT+K.LFT]);
@@ -54,7 +59,11 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 									// Get/Make Char Object...
 									if(S[$ _scni][$ K.ACT+K.RHT] == ACTOR.RANDOM) {
 										
-										scnActArr[_scni][1] = db_act_rnd(_scni,T);
+										if(scn_area(_scni) == AREA.SLUM and chance(80))
+											scnActArr[_scni][1] = db_act_rnd_slum(_scni,T);
+										else if(scn_area(_scni) == AREA.BROTHEL and chance(80))
+											scnActArr[_scni][1] = db_act_rnd_broth(_scni,T);
+										else scnActArr[_scni][1] = db_act_rnd(_scni,T);
 										if(instance_of(scnActArr[_scni][1],oChar)) S[$ _scni][$ K.ACT+K.RHT] = scnActArr[_scni][1].ruid;
 										
 									} else scnActArr[_scni][1] = actor_find(S[$ _scni][$ K.ACT+K.RHT]);
@@ -73,15 +82,19 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 							
 							if(!_locked) {
 								
-								#region Fill Empties 20% Each (N)
+								#region Fill Empties 67% Each (N)
 									
 									#region Actor Left
 										
 										if(scnActArr[_scni][0] == N) {
 											
-											if(chance(33)) {
+											if(chance(100*(2/3))) {
 												
-												scnActArr[_scni][0] = db_act_rnd(_scni,T);
+												if(scn_area(_scni) == AREA.SLUM and chance(80))
+													scnActArr[_scni][0] = db_act_rnd_slum(_scni,T);
+												else if(scn_area(_scni) == AREA.BROTHEL and chance(80))
+													scnActArr[_scni][0] = db_act_rnd_broth(_scni,T);
+												else scnActArr[_scni][0] = db_act_rnd(_scni,T);
 												if(instance_of(scnActArr[_scni][0],oChar)) S[$ _scni][$ K.ACT+K.LFT] = scnActArr[_scni][0].ruid;
 												
 											} else scnActArr[_scni][0] = U;
@@ -94,9 +107,13 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 										
 										if(scnActArr[_scni][1] == N) {
 											
-											if(chance(33)) {
+											if(chance(100*(2/3))) {
 												
-												scnActArr[_scni][1] = db_act_rnd(_scni,T);
+												if(scn_area(_scni) == AREA.SLUM and chance(80))
+													scnActArr[_scni][1] = db_act_rnd_slum(_scni,T);
+												else if(scn_area(_scni) == AREA.BROTHEL and chance(80))
+													scnActArr[_scni][1] = db_act_rnd_broth(_scni,T);
+												else scnActArr[_scni][1] = db_act_rnd(_scni,T);
 												if(instance_of(scnActArr[_scni][1],oChar)) S[$ _scni][$ K.ACT+K.RHT] = scnActArr[_scni][1].ruid;
 												
 											} else scnActArr[_scni][1] = U;

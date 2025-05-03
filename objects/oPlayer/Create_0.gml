@@ -10,6 +10,7 @@
 	// Suit
 	suited = F
 	suitedo = F
+	hudActive = T
 	
 	// Dialogue Speaker
 	spkr = F

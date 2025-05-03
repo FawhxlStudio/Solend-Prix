@@ -71,69 +71,69 @@ function _init() {
 			
 		#endregion
 		
-		#region Color Struct
+	#endregion
+	
+	#region Color Struct
+		
+		#macro c global.color_struct
+		c = {
 			
-			#macro c global.color_struct
-			c = {
+			#region Grayscale
 				
-				#region Grayscale
-					
-					wht		:	make_color_rgb(255,255,255),
-					lgry	:	make_color_rgb(192,192,192),
-					gry		:	make_color_rgb(128,128,128),
-					dgry	:	make_color_rgb(64,64,64),
-					blk		:	make_color_rgb(0,0,0),
-					
-				#endregion
+				wht		:	make_color_rgb(255,255,255),
+				lgry	:	make_color_rgb(192,192,192),
+				gry		:	make_color_rgb(128,128,128),
+				dgry	:	make_color_rgb(64,64,64),
+				blk		:	make_color_rgb(0,0,0),
 				
-				#region Redscale
-					
-					nr	:	make_color_rgb(255,0,0),
-					lr	:	make_color_rgb(192,0,0),
-					r	:	make_color_rgb(128,0,0),
-					dr	:	make_color_rgb(64,0,0),
-					
-				#endregion
-				
-				#region Greenscale
-					
-					ng	:	make_color_rgb(0,255,0),
-					lg	:	make_color_rgb(0,192,0),
-					g	:	make_color_rgb(0,128,0),
-					dg	:	make_color_rgb(0,64,0),
-					
-				#endregion
-				
-				#region Bluescale
-					
-					nb	:	make_color_rgb(128,128,255),
-					lb	:	make_color_rgb(128,128,255),
-					b	:	make_color_rgb(32,32,128),
-					db	:	make_color_rgb(0,0,64),
-					
-				#endregion
-				
-				#region Yellowscale
-					
-					ny	:	make_color_rgb(255,255,0),
-					ly	:	make_color_rgb(192,192,0),
-					ylw	:	make_color_rgb(128,128,0),
-					dy	:	make_color_rgb(64,64,0),
-					
-				#endregion
-				
-				#region Orangescale
-					
-					nrng	:	make_color_rgb(255,128,0),
-					lrng	:	make_color_rgb(192,96,0),
-					rng		:	make_color_rgb(128,64,0),
-					drng	:	make_color_rgb(64,32,0)
-					
-				#endregion
-				
-			}
+			#endregion
 			
-		#endregion
+			#region Redscale
+				
+				nr	:	make_color_rgb(255,0,0),
+				lr	:	make_color_rgb(192,0,0),
+				r	:	make_color_rgb(128,0,0),
+				dr	:	make_color_rgb(64,0,0),
+				
+			#endregion
+			
+			#region Greenscale
+				
+				ng	:	make_color_rgb(0,255,0),
+				lg	:	make_color_rgb(0,192,0),
+				g	:	make_color_rgb(0,128,0),
+				dg	:	make_color_rgb(0,64,0),
+				
+			#endregion
+			
+			#region Bluescale
+				
+				nb	:	make_color_rgb(128,128,255),
+				lb	:	make_color_rgb(128,128,255),
+				b	:	make_color_rgb(32,32,128),
+				db	:	make_color_rgb(0,0,64),
+				
+			#endregion
+			
+			#region Yellowscale
+				
+				ny	:	make_color_rgb(255,255,0),
+				ly	:	make_color_rgb(192,192,0),
+				ylw	:	make_color_rgb(128,128,0),
+				dy	:	make_color_rgb(64,64,0),
+				
+			#endregion
+			
+			#region Orangescale
+				
+				nrng	:	make_color_rgb(255,128,0),
+				lrng	:	make_color_rgb(192,96,0),
+				rng		:	make_color_rgb(128,64,0),
+				drng	:	make_color_rgb(64,32,0)
+				
+			#endregion
+			
+		}
 		
 	#endregion
 	
@@ -306,6 +306,9 @@ function _init() {
 			DONE_AND_LEAVE,
 			FLIP_H,
 			FLIP_V,
+			FIGHT_START,
+			CHAR_SELF,
+			CHAR_PLAYER,
 			LAST
 			
 		}
@@ -345,6 +348,9 @@ function _init() {
 			"DONE_AND_LEAVE",
 			"FLIP_H",
 			"FLIP_V",
+			"FIGHT_START",
+			"CHAR_SELF",
+			"CHAR_PLAYER",
 			"LAST"
 			
 		]
@@ -368,6 +374,23 @@ function _init() {
 			VOL_GUI,
 			DIA_APPROACH,
 			DIA_MOVEPAST,
+			DIA_ATTACK,
+			CANCEL,
+			LAST
+			
+		}
+		
+		enum AREA {
+			
+			FIRST,
+			ANY,
+			RESORT,
+			CITY,
+			CLUB,
+			BROTHEL,
+			SPACEPORT,
+			SLUM,
+			PRAEY,
 			LAST
 			
 		}

@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Brothel",
-    "path":"folders/Sprites/Scenes/Brothel.yy",
+    "name":"R",
+    "path":"folders/Sprites/Scenes/Brothel/R.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

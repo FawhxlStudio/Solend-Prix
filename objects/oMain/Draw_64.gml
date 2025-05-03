@@ -202,6 +202,21 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 		
 	#endregion
 	
+	#region Combat Dialogue Check TODO: Figure out how to iterate through a combat dialogue instance?
+		
+		if(ds_list_empty(D.diaParL) and instance_of(D.diaOpp,oChar)) {
+			
+			var _inst = get_combat_dia_inst(D.diaOpp)
+			if(is(_inst)) {
+				
+				ds_list_add(D.diaParL,[D.diaOpp.ruid,_inst]);
+				
+			}
+			
+		}
+		
+	#endregion
+	
 	if((D.diaTranPct < 1 and D.diaTranPct > 0) or D.diaDelPct2 < 1 or (!D.diaLBDrawn and D.diaTranPct == 1)) {
 		
 		if(!D.diaLBDrawn) {

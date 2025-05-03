@@ -329,6 +329,22 @@
 		
 	#endregion
 	
+	#region Combat
+		
+		function load_combat_male() {
+			
+			if(texturegroup_get_status("tg_combat_male") == texturegroup_status_unloaded) texturegroup_load("tg_combat_male",T);
+			
+		}
+		
+		function load_combat_female() {
+			
+			if(texturegroup_get_status("tg_combat_female") == texturegroup_status_unloaded) texturegroup_load("tg_combat_female",T);
+			
+		}
+		
+	#endregion
+	
 #endregion
 
 #region Unloads
@@ -481,6 +497,22 @@
 			if(texturegroup_get_status("tg_females_close") > texturegroup_status_unloaded) texturegroup_unload("tg_females_close");
 			if(texturegroup_get_status("tg_common_male") > texturegroup_status_unloaded) texturegroup_unload("tg_common_male");
 			if(texturegroup_get_status("tg_common_female") > texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			
+		}
+		
+	#endregion
+	
+	#region Combat
+		
+		function unload_combat_male() {
+			
+			if(texturegroup_get_status("tg_combat_male") > texturegroup_status_unloaded) texturegroup_unload("tg_combat_male");
+			
+		}
+		
+		function unload_combat_female() {
+			
+			if(texturegroup_get_status("tg_combat_female") > texturegroup_status_unloaded) texturegroup_unload("tg_combat_female");
 			
 		}
 		
