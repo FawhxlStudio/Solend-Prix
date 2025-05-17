@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":357.264,
+  "duration":333.264,
   "name":"msxSporkbomb",
   "parent":{
     "name":"Tezeta",

@@ -1,5 +1,5 @@
 /// @description Context Map (It's a struct but w/e)
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 #region Mapped Contextuals...
 	
 	#region Draw Each Debug XY Entry per scni & Edit/Control Logic
@@ -59,9 +59,10 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 											
 											// Checks
 											// An Info node is just a message with no scene_to set.
-											var _isMove = variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)
-											var _isInteract = (variable_instance_exists(CM[$ string(i)],K.CLK) and !_isMove)
-											var _isInfo = (variable_instance_exists(CM[$ string(i)],K.STR) and !_isMove and !_isInteract)
+											var _notEnt = !variable_instance_exists(CM[$ string(i)],K.ENT)
+											var _isMove = variable_instance_exists(CM[$ string(i)],K.SCN+K.TO) and _notEnt
+											var _isInteract = (variable_instance_exists(CM[$ string(i)],K.CLK) and _notEnt and !_isMove)
+											var _isInfo = (variable_instance_exists(CM[$ string(i)],K.STR) and _notEnt and !_isMove and !_isInteract)
 											
 											// Hud Available & Active?
 											var _hudActive = F
@@ -108,253 +109,310 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																	
 																	#region Mouse Hover/Icons
 																		
-																		if(mouse_in_rectangle(_xy4) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
-																			and variable_instance_exists(CM[$ string(i)],K.HVR)
-																			and variable_instance_exists(CM[$ string(i)],K.FND)
-																			and is_hover(id)) {
+																		#region Is Hover Interaction...
 																			
-																			// Set Hover
-																			D.isHvr = id
-																			
-																			if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
-																				or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
+																			if(mouse_in_rectangle(_xy4) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
+																				and variable_instance_exists(CM[$ string(i)],K.HVR)
+																				and variable_instance_exists(CM[$ string(i)],K.FND)
+																				and is_hover(id)) {
 																				
-																				if(variable_instance_exists(CM[$ string(i)],K.STR)) {
-																					
-																					if(CM[$ string(i)][$ K.STR] != noone
-																						and is_string(CM[$ string(i)][$ K.STR])) {
-																						
-																						#region Draw Hover/Found Messages on Cursor
-																							
-																							draw_set_font(fNeu)
-																							var _w = D.bgImg.sprite_width/6
-																							var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
-																							var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
-																							
-																							// Draw and Reset
-																							var hvo = [draw_get_halign(),draw_get_valign()]
-																							var ao = draw_get_alpha()
-																							var hv = [fa_left,fa_top]
-																							var xx = WMX+STRH
-																							var yy = WMY+STRH
-																							if(xx+strw > WW) {
-																								hv[0] = fa_right
-																								xx = WMX-STRH
-																							}
-																							if(yy+strh > WH) {
-																								hv[1] = fa_bottom
-																								yy = WMY-STRH
-																							}
-																							draw_set_hvalign(hv)
-																							draw_text_ext_color(xx,yy,CM[$ string(i)][$ K.STR],
-																								STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
-																							draw_set_hvalign(hvo)
-																							
-																						#endregion
-																						
-																					}
-																					
-																				}
+																				// Set Hover
+																				D.isHvr = id
 																				
-																				#region Highlight
+																				if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
+																					or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
 																					
-																					if(variable_instance_exists(CM[$ string(i)],K.HLT)) {
+																					#region Text/Info
 																						
-																						if(CM[$ string(i)][$ K.HLT]) {
+																						if(variable_instance_exists(CM[$ string(i)],K.STR)) {
 																							
-																							var ao = draw_get_alpha()
-																							if(MBL) draw_set_alpha(D.hvrPct/4)
-																							else draw_set_alpha(D.hvrPct/3)
-																							
-																							var cc = color_brightness(D.scnBlend3,1.4)
-																							draw_rectangle_color(_xy4[0],_xy4[1],_xy4[2],_xy4[3],cc,cc,cc,cc,F)
-																							
-																							draw_set_alpha(ao)
+																							if(CM[$ string(i)][$ K.STR] != noone
+																								and is_string(CM[$ string(i)][$ K.STR])) {
+																								
+																								#region Draw Hover/Found Messages on Cursor
+																									
+																									draw_set_font(fNeu)
+																									var _w = D.bgImg.sprite_width/6
+																									var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																									var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																									
+																									// Draw and Reset
+																									var hvo = [draw_get_halign(),draw_get_valign()]
+																									var ao = draw_get_alpha()
+																									var hv = [fa_left,fa_top]
+																									var xx = WMX+STRH
+																									var yy = WMY+STRH
+																									if(xx+strw > WW) {
+																										hv[0] = fa_right
+																										xx = WMX-STRH
+																									}
+																									if(yy+strh > WH) {
+																										hv[1] = fa_bottom
+																										yy = WMY-STRH
+																									}
+																									draw_set_hvalign(hv)
+																									draw_text_ext_color(xx,yy,CM[$ string(i)][$ K.STR],
+																										STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
+																									draw_set_hvalign(hvo)
+																									
+																								#endregion
+																								
+																							}
 																							
 																						}
 																						
-																					}
+																					#endregion
 																					
-																				#endregion Highlight
-																				
-																				#region Click Actions
-																					
-																					if(variable_instance_exists(CM[$ string(i)],K.CLK)) {
+																					#region Highlight
 																						
-																						#region Left Click
+																						if(variable_instance_exists(CM[$ string(i)],K.HLT)) {
 																							
-																							if(CM[$ string(i)][$ K.CLK] == V.MB_LP and MBLP) {
+																							if(CM[$ string(i)][$ K.HLT]) {
 																								
-																								#region Anim
-																									
-																									if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
-																										
-																										// Start Anim w/ Anim Name...
-																										diaNar_anim_start(CM[$ string(i)][$ K.ANM])
-																										
-																										// "Destroy"
-																										if(CM[$ string(i)][$ K.DTR])
-																											CM[$ string(i)][$ K.DTD] = T
-																										break
-																										
-																									}
-																									
-																								#endregion
+																								var ao = draw_get_alpha()
+																								if(MBL) draw_set_alpha(D.hvrPct/4)
+																								else draw_set_alpha(D.hvrPct/3)
 																								
-																								#region Scene Change
-																									
-																									if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
-																										
-																										TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
-																										TRAN.zXYpct = [MXPCT,MYPCT]
-																										
-																									}
-																									
-																								#endregion
+																								var cc = color_brightness(D.scnBlend3,1.4)
+																								draw_rectangle_color(_xy4[0],_xy4[1],_xy4[2],_xy4[3],cc,cc,cc,cc,F)
 																								
-																								#region WIP Light Toggle (blendBG)
+																								draw_set_alpha(ao)
+																								
+																							}
+																							
+																						}
+																						
+																					#endregion Highlight
+																					
+																					#region Click Actions
+																						
+																						if(variable_instance_exists(CM[$ string(i)],K.CLK)) {
+																							
+																							#region Left Click
+																								
+																								if(CM[$ string(i)][$ K.CLK] == V.MB_LP and MBLP) {
 																									
-																									if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
+																									#region Anim
 																										
-																										if(CM[$ string(i)][$ K.ENT] == "blendBG") {
+																										if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
 																											
-																											// Toggle/Set ENV
-																											if(variable_instance_exists(S[$ string(D.scni)],K.ENV))
-																												S[$ string(D.scni)][$ K.ENV] = !S[$ string(D.scni)][$ K.ENV];
-																											else S[$ string(D.scni)][$ K.ENV] = T;
+																											// Start Anim w/ Anim Name...
+																											diaNar_anim_start(CM[$ string(i)][$ K.ANM])
 																											
-																											if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD)) {
+																											// "Destroy"
+																											if(CM[$ string(i)][$ K.DTR])
+																												CM[$ string(i)][$ K.DTD] = T
+																											break
+																											
+																										}
+																										
+																									#endregion
+																									
+																									#region Scene Change
+																										
+																										if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
+																											
+																											TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
+																											TRAN.zXYpct = [MXPCT,MYPCT]
+																											
+																										}
+																										
+																									#endregion
+																									
+																									#region WIP Light Toggle (blendBG)
+																										
+																										if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
+																											
+																											if(CM[$ string(i)][$ K.ENT] == "blendBG") {
 																												
-																												// Single Blending Specified
-																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD]; // Brighter...
-																												else D.scnBlend2 = color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4); // Darker... ~25% Darker? WIP: Can make a variable here...
+																												// Toggle/Set ENV
+																												if(variable_instance_exists(S[$ string(D.scni)],K.ENV))
+																													S[$ string(D.scni)][$ K.ENV] = !S[$ string(D.scni)][$ K.ENV];
+																												else S[$ string(D.scni)][$ K.ENV] = T;
 																												
-																											} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
-																												and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
-																												
-																												// True & False Blending Specified
-																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]; // Brighter?
-																												else D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]; // Darker?
-																												
-																											} else if(!variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
-																												and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
-																												
-																												// False Only Blending Specified
-																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = c.wht; // Brighter...
-																												else D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]; // Darker?
-																												
-																											} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
-																												and !variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
-																												
-																												// True Only Blending Specified
-																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]; // Brighter?
-																												else D.scnBlend2 = c.dgry; // Darker...
-																												
-																											} else {
-																												
-																												// No Blending Specified
-																												if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = c.wht; // Brighter...
-																												else D.scnBlend2 = c.dgry; // Darker...
+																												if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD)) {
+																													
+																													// Single Blending Specified
+																													if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD]; // Brighter...
+																													else D.scnBlend2 = color_brightness(S[$ string(D.scni)][$ K.SCN+K.BLD],1/4); // Darker... ~25% Darker? WIP: Can make a variable here...
+																													
+																												} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+																													and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+																													
+																													// True & False Blending Specified
+																													if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]; // Brighter?
+																													else D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]; // Darker?
+																													
+																												} else if(!variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+																													and variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+																													
+																													// False Only Blending Specified
+																													if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = c.wht; // Brighter...
+																													else D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.FL]; // Darker?
+																													
+																												} else if(variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.TR)
+																													and !variable_instance_exists(S[$ string(D.scni)],K.SCN+K.BLD+K.FL)) {
+																													
+																													// True Only Blending Specified
+																													if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = S[$ string(D.scni)][$ K.SCN+K.BLD+K.TR]; // Brighter?
+																													else D.scnBlend2 = c.dgry; // Darker...
+																													
+																												} else {
+																													
+																													// No Blending Specified
+																													if(S[$ string(D.scni)][$ K.ENV]) D.scnBlend2 = c.wht; // Brighter...
+																													else D.scnBlend2 = c.dgry; // Darker...
+																													
+																												}
 																												
 																											}
 																											
 																										}
 																										
-																									}
+																										
+																									#endregion
 																									
+																									// Delay to Prevent Click-Thru
+																									D.fd = 4
 																									
-																								#endregion
+																								}
 																								
-																								// Delay to Prevent Click-Thru
-																								D.fd = 4
+																							#endregion
+																							
+																						}
+																						
+																					#endregion
+																					
+																					#region Draw HUD Marker/Icon
+																						
+																						if(!instance_of(D.isHvr,oChar) and is_array(_xy2m) and _hudActive) {
+																							
+																							#region Move Icon
+																								
+																								if(_isMove) {
+																									
+																									var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),_h2/sprite_get_height(sprHUDEntry))
+																									draw_sprite_ext(sprHUDEntry,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																									
+																								}
+																								
+																							#endregion
+																							
+																							#region Interact Icon
+																								
+																								if(_isInteract) {
+																									
+																									var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInteract),_h2/sprite_get_height(sprHUDInteract))
+																									draw_sprite_ext(sprHUDInteract,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																									
+																								}
+																								
+																							#endregion
+																							
+																							#region Info Icon
+																								
+																								if(_isInfo) {
+																									
+																									var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),_h2/sprite_get_height(sprHUDInfo))
+																									draw_sprite_ext(sprHUDInfo,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																									
+																								}
+																								
+																							#endregion
+																							
+																						}
+																						
+																					#endregion
+																					
+																					#region Derelict: Logbook Spawn Logic
+																						
+																						/* N/A
+																						if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
+																							
+																							if(CM[$ string(i)][$ K.ENT] != noone
+																								and is_string(CM[$ string(i)][$ K.ENT])) {
+																								
+																								#region Entity Spawn
+																									switch(CM[$ string(i)][$ K.ENT]) {
+																										
+																										case "SniperLogBook": {
+																											
+																											if(!variable_instance_exists(s.set.entity,"SniperLogBook")) {
+																												
+																												var _xy = [irandom_range(_xy4[0],_xy4[2])-D.bgImg.sprite_width,irandom_range(_xy4[1],_xy4[3])-D.bgImg.sprite_height]
+																												s.set.entity[$ "SniperLogBook"] = init_entity(_xy,"Armory Logbook",ent.game,scenei,s)
+																												var _ent = s.set.entity[$ "SniperLogBook"]
+																												_ent.gameObj = eSniperGame
+																												_ent.spr = sprLogBook
+																												_ent.sprRot = random_range(-45,45)
+																												_ent.state = ent.game
+																												_ent.durability = 1
+																												
+																											}
+																											break
+																											
+																										}
+																										
+																									}
+																								#endregion
 																								
 																							}
 																							
-																						#endregion
+																						}
+																						*/
+																						
+																					#endregion
+																					
+																				}
+																				
+																				#region Derelict: Search Found Logic
+																					
+																					/*/Found?
+																					if(CM[$ string(i)][$ K.FND] and !CM[$ string(i)][$ K.FOD] and p.search.done)
+																						CM[$ string(i)][$ K.FOD] = T
+																					*/
+																					
+																				#endregion
+																				
+																			} else if(!D.ctrlOverride and D.fd <= 0 and !TRAN.override and !instance_of(D.isHvr,oChar)
+																				and variable_instance_exists(CM[$ string(i)],K.HVR) and is_array(_xy2m) and _hudActive) {
+																				
+																				#region Move Icon
+																					
+																					if(_isMove) {
+																						
+																						var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),_h2/sprite_get_height(sprHUDEntry))
+																						draw_sprite_ext(sprHUDEntry,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,1/3)
 																						
 																					}
 																					
 																				#endregion
 																				
-																				/* N/A
-																				if(variable_instance_exists(CM[$ string(i)],K.ENT)) {
+																				#region Interact Icon
 																					
-																					if(CM[$ string(i)][$ K.ENT] != noone
-																						and is_string(CM[$ string(i)][$ K.ENT])) {
+																					if(_isInteract) {
 																						
-																						#region Entity Spawn
-																							switch(CM[$ string(i)][$ K.ENT]) {
-																								
-																								case "SniperLogBook": {
-																									
-																									if(!variable_instance_exists(s.set.entity,"SniperLogBook")) {
-																										
-																										var _xy = [irandom_range(_xy4[0],_xy4[2])-D.bgImg.sprite_width,irandom_range(_xy4[1],_xy4[3])-D.bgImg.sprite_height]
-																										s.set.entity[$ "SniperLogBook"] = init_entity(_xy,"Armory Logbook",ent.game,scenei,s)
-																										var _ent = s.set.entity[$ "SniperLogBook"]
-																										_ent.gameObj = eSniperGame
-																										_ent.spr = sprLogBook
-																										_ent.sprRot = random_range(-45,45)
-																										_ent.state = ent.game
-																										_ent.durability = 1
-																										
-																									}
-																									break
-																									
-																								}
-																								
-																							}
-																						#endregion
+																						var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInteract),_h2/sprite_get_height(sprHUDInteract))
+																						draw_sprite_ext(sprHUDInteract,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,1/3)
 																						
 																					}
 																					
-																				}
-																				*/
+																				#endregion
+																				
+																				#region Info Icon
+																					
+																					if(_isInfo) {
+																						
+																						var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),_h2/sprite_get_height(sprHUDInfo))
+																						draw_sprite_ext(sprHUDInfo,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,1/3)
+																						
+																					}
+																					
+																				#endregion
 																				
 																			}
 																			
-																			/*/Found?
-																			if(CM[$ string(i)][$ K.FND] and !CM[$ string(i)][$ K.FOD] and p.search.done)
-																				CM[$ string(i)][$ K.FOD] = T
-																			*/
-																			
-																		} else if(!D.ctrlOverride and D.fd <= 0 and !TRAN.override and !instance_of(D.isHvr,oChar)
-																			and variable_instance_exists(CM[$ string(i)],K.HVR)) {
-																			
-																			#region Move Icon?
-																				
-																				if(_isMove and _hudActive and is(_xy2m)) {
-																					
-																					var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),_h2/sprite_get_height(sprHUDEntry))
-																					draw_sprite_ext(sprHUDEntry,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
-																					
-																				}
-																				
-																			#endregion
-																			
-																			#region Move Icon?
-																				
-																				if(_isInteract and _hudActive and is(_xy2m)) {
-																					
-																					var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),_h2/sprite_get_height(sprHUDEntry))
-																					draw_sprite_ext(sprHUDEntry,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
-																					
-																				}
-																				
-																			#endregion
-																			
-																			#region Info Icon?
-																				
-																				if(_isInfo and _hudActive and is(_xy2m)) {
-																					
-																					var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),_h2/sprite_get_height(sprHUDInfo))
-																					draw_sprite_ext(sprHUDInfo,0,_xy2m[0],_xy2m[1],_scl2,_scl2,0,D.scnBlend3,2/3)
-																					
-																				}
-																				
-																			#endregion
-																			
-																		}
+																		#endregion
 																		
 																	#endregion
 																	
@@ -365,7 +423,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 																
 															#endregion
 															
-														} else {}
+														}
 														
 													#endregion
 													
@@ -390,116 +448,211 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 												
 												#region Mouse Hover/Icons
 													
-													if(mouse_in_circle(_xy2,_rad) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
-														and variable_instance_exists(CM[$ string(i)],K.HVR)
+													#region Is Hover Interaction...
+														
+														if(mouse_in_circle(_xy2,_rad) and !D.ctrlOverride and D.fd <= 0 and !TRAN.override
+															and variable_instance_exists(CM[$ string(i)],K.HVR)
 															and variable_instance_exists(CM[$ string(i)],K.FND)
 															and is_hover(id)) {
-														
-														// Set Hover
-														D.isHvr = id
-														
-														if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
-															or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
 															
-															if(variable_instance_exists(CM[$ string(i)],K.STR)) {
+															// Set Hover
+															D.isHvr = id
+															
+															if(CM[$ string(i)][$ K.HVR] and (!CM[$ string(i)][$ K.FND]
+																or (CM[$ string(i)][$ K.FND] and CM[$ string(i)][$ K.FOD]))) {
 																
-																if(CM[$ string(i)][$ K.STR] != noone
-																	and is_string(CM[$ string(i)][$ K.STR])) {
+																#region Text/Message
 																	
-																	#region Draw Hover/Found Messages on Cursor
+																	if(variable_instance_exists(CM[$ string(i)],K.STR)) {
 																		
-																		draw_set_font(fNeu)
-																		var _w = D.bgImg.sprite_width/6
-																		var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
-																		var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
-																		
-																		// Draw and Reset
-																		var hvo = [draw_get_halign(),draw_get_valign()]
-																		var ao = draw_get_alpha()
-																		var hv = [fa_left,fa_top]
-																		var xx = WMX+STRH
-																		var yy = WMY+STRH
-																		if(xx+strw > WW) {
-																			hv[0] = fa_right
-																			xx = WMX-STRH
+																		if(CM[$ string(i)][$ K.STR] != noone
+																			and is_string(CM[$ string(i)][$ K.STR])) {
+																			
+																			#region Draw Hover/Found Messages on Cursor
+																				
+																				draw_set_font(fNeu)
+																				var _w = D.bgImg.sprite_width/6
+																				var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																				var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
+																				
+																				// Draw and Reset
+																				var hvo = [draw_get_halign(),draw_get_valign()]
+																				var ao = draw_get_alpha()
+																				var hv = [fa_left,fa_top]
+																				var xx = WMX+STRH
+																				var yy = WMY+STRH
+																				if(xx+strw > WW) {
+																					hv[0] = fa_right
+																					xx = WMX-STRH
+																				}
+																				if(yy+strh > WH) {
+																					hv[1] = fa_bottom
+																					yy = WMY-STRH
+																				}
+																				draw_set_hvalign(hv)
+																				draw_text_ext_color(xx,yy,CM[$ string(i)][$ K.STR],
+																					STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
+																				draw_set_hvalign(hvo)
+																				
+																			#endregion
+																			
 																		}
-																		if(yy+strh > WH) {
-																			hv[1] = fa_bottom
-																			yy = WMY-STRH
-																		}
-																		draw_set_hvalign(hv)
-																		draw_text_ext_color(xx,yy,CM[$ string(i)][$ K.STR],
-																			STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
-																		draw_set_hvalign(hvo)
 																		
-																	#endregion
+																	}
 																	
-																}
+																#endregion
+																
+																#region Highlight
+																	
+																	if(variable_instance_exists(CM[$ string(i)],K.HLT)) {
+																		
+																		if(CM[$ string(i)][$ K.HLT]) {
+																			
+																			var ao = draw_get_alpha()
+																			if(MBL) draw_set_alpha(D.hvrPct/4)
+																			else draw_set_alpha(D.hvrPct/3)
+																			
+																			var cc = color_brightness(D.scnBlend3,1.4)
+																			draw_circle_color(_xy2[0],_xy2[1],_rad,cc,cc,F)
+																			
+																			draw_set_alpha(ao)
+																			
+																		}
+																		
+																	}
+																	
+																#endregion
+																
+																#region Click Actions
+																	
+																	if(variable_instance_exists(CM[$ string(i)],K.CLK)) {
+																		
+																		#region Left Click
+																			
+																			if(CM[$ string(i)][$ K.CLK] == V.MB_LP and MBLP) {
+																				
+																				#region Anim
+																					
+																					if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
+																						
+																						diaNar_anim_start(CM[$ string(i)][$ K.ANM])
+																						
+																						// "Destroy"
+																						if(CM[$ string(i)][$ K.DTR])
+																							CM[$ string(i)][$ K.DTD] = T;
+																							
+																						break
+																						
+																					}
+																					
+																				#endregion
+																				
+																				#region To Scene
+																					
+																					if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
+																						
+																						TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
+																						TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref]
+																						
+																					}
+																					
+																				#endregion
+																				
+																				// Delay to Prevent Click-Thru
+																				D.fd = 4
+																				
+																			}
+																			
+																		#endregion
+																		
+																	}
+																	
+																#endregion
+																
+																#region Draw HUD Marker/Icon
+																	
+																	if(!instance_of(D.isHvr,oChar) and _hudActive) {
+																		
+																		#region Move Icon
+																			
+																			if(_isMove) {
+																				
+																				var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),(_rad*2)/sprite_get_height(sprHUDEntry))
+																				draw_sprite_ext(sprHUDEntry,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																				
+																			}
+																			
+																		#endregion
+																		
+																		#region Interact Icon
+																			
+																			if(_isInteract) {
+																				
+																				var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInteract),(_rad*2)/sprite_get_height(sprHUDInteract))
+																				draw_sprite_ext(sprHUDInteract,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																				
+																			}
+																			
+																		#endregion
+																		
+																		#region Info Icon
+																			
+																			if(_isInfo) {
+																				
+																				var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),(_rad*2)/sprite_get_height(sprHUDInfo))
+																				draw_sprite_ext(sprHUDInfo,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
+																				
+																			}
+																			
+																		#endregion
+																		
+																	}
+																	
+																#endregion
 																
 															}
 															
-															#region Highlight
+															#region Derelict: Search Found Logic
 																
-																if(variable_instance_exists(CM[$ string(i)],K.HLT)) {
+																/*
+																// Found?
+																if(CM[$ string(i)][$ K.FND] and !CM[$ string(i)][$ K.FOD])
+																	CM[$ string(i)][$ K.FOD] = T
+																*/
+																
+															#endregion
+															
+														} else if(!D.ctrlOverride and D.fd <= 0 and !TRAN.override and !instance_of(D.isHvr,oChar)
+															and variable_instance_exists(CM[$ string(i)],K.HVR) and _hudActive) {
+															
+															#region Move Icon
+																
+																if(_isMove) {
 																	
-																	if(CM[$ string(i)][$ K.HLT]) {
-																		
-																		var ao = draw_get_alpha()
-																		if(MBL) draw_set_alpha(D.hvrPct/4)
-																		else draw_set_alpha(D.hvrPct/3)
-																		
-																		var cc = color_brightness(D.scnBlend3,1.4)
-																		draw_circle_color(_xy2[0],_xy2[1],_rad,cc,cc,F)
-																		
-																		draw_set_alpha(ao)
-																		
-																	}
+																	var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),(_rad*2)/sprite_get_height(sprHUDEntry))
+																	draw_sprite_ext(sprHUDEntry,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,1/3)
 																	
 																}
 																
 															#endregion
 															
-															#region Click Actions
+															#region Interact Icon
 																
-																if(variable_instance_exists(CM[$ string(i)],K.CLK)) {
+																if(_isInteract) {
 																	
-																	#region Left Click
-																		
-																		if(CM[$ string(i)][$ K.CLK] == V.MB_LP and MBLP) {
-																			
-																			#region Anim
-																				
-																				if(variable_instance_exists(CM[$ string(i)],K.ANM)) {
-																					
-																					diaNar_anim_start(CM[$ string(i)][$ K.ANM])
-																					
-																					// "Destroy"
-																					if(CM[$ string(i)][$ K.DTR])
-																						CM[$ string(i)][$ K.DTD] = T;
-																						
-																					break
-																					
-																				}
-																				
-																			#endregion
-																			
-																			#region To Scene
-																				
-																				if(variable_instance_exists(CM[$ string(i)],K.SCN+K.TO)) {
-																					
-																					TRAN.to_scni = int64(CM[$ string(i)][$ K.SCN+K.TO])
-																					TRAN.zXYpct = [_xy2[0]/D.mwref,_xy2[1]/D.mhref]
-																					
-																				}
-																				
-																			#endregion
-																			
-																			// Delay to Prevent Click-Thru
-																			D.fd = 4
-																			
-																		}
-																		
-																	#endregion
+																	var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInteract),(_rad*2)/sprite_get_height(sprHUDInteract))
+																	draw_sprite_ext(sprHUDInteract,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,1/3)
+																	
+																}
+																
+															#endregion
+															
+															#region Info Icon
+																
+																if(_isInfo) {
+																	
+																	var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),(_rad*2)/sprite_get_height(sprHUDInfo))
+																	draw_sprite_ext(sprHUDInfo,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,1/3)
 																	
 																}
 																
@@ -507,38 +660,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 															
 														}
 														
-														/*
-														// Found?
-														if(CM[$ string(i)][$ K.FND] and !CM[$ string(i)][$ K.FOD])
-															CM[$ string(i)][$ K.FOD] = T
-														*/
-														
-													} else if(!D.ctrlOverride and D.fd <= 0 and !TRAN.override and !instance_of(D.isHvr,oChar)
-														and variable_instance_exists(CM[$ string(i)],K.HVR)) {
-														
-														#region Info Icon?
-															
-															if(_isInfo and _hudActive) {
-																
-																var _scl2 = min((WH*.05)/sprite_get_height(sprHUDInfo),(_rad*2)/sprite_get_height(sprHUDInfo))
-																draw_sprite_ext(sprHUDInfo,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
-																
-															}
-															
-														#endregion
-														
-														#region Move Icon?
-															
-															if(_isMove and _hudActive) {
-																
-																var _scl2 = min((WH*.05)/sprite_get_height(sprHUDEntry),(_rad*2)/sprite_get_height(sprHUDEntry))
-																draw_sprite_ext(sprHUDEntry,0,_xy2[0],_xy2[1],_scl2,_scl2,0,D.scnBlend3,2/3)
-																
-															}
-															
-														#endregion
-														
-													}
+													#endregion
 													
 												#endregion
 												

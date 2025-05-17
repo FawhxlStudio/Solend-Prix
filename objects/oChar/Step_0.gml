@@ -1,5 +1,5 @@
 /// @description Logic Updates & Dialogue Triggers
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(in_party(id)) {
 	

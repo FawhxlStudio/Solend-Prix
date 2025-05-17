@@ -27,12 +27,14 @@
 			sprCF9,sprCF10,sprCF11,
 			sprCF12,sprCF13,sprCF14]
 		cfiArr = []
+		cfLoaded = F
 		
 		slumCFArr = [sprSlumCF1,sprSlumCF2,
 			sprSlumCF3,sprSlumCF4,sprSlumCF5,
 			sprSlumCF6,sprSlumCF7,sprSlumCF8,
 			sprSlumCF9,sprSlumCF10]
 		slumCFiArr = []
+		slumCFLoaded = F
 		
 		brothCFArr = [sprBrothCF1,sprBrothCF2,
 			sprBrothCF3,sprBrothCF4,sprBrothCF5,
@@ -40,6 +42,7 @@
 			sprBrothCF9,sprBrothCF10,sprBrothCF11,
 			sprBrothCF12]
 		brothCFiArr = []
+		brothCFLoaded = F
 		
 		fArr = [sprF1,sprF2,
 			sprF3,sprF4,sprF5,
@@ -51,6 +54,7 @@
 			sprF21,sprF22,sprF23,
 			sprF24,sprF25,sprF26]
 		fiArr = []
+		fLoaded = F
 		
 		cmArr = [sprCM1,sprCM2,
 			sprCM3,sprCM4,sprCM5,
@@ -61,11 +65,13 @@
 			sprCM18,sprCM19,sprCM20,
 			sprCM21]
 		cmiArr = []
+		cmLoaded = F
 		
 		slumCMArr = [sprSlumCM1,sprSlumCM2,
 			sprSlumCM3,sprSlumCM4,sprSlumCM5,
 			sprSlumCM6,sprSlumCM7]
 		slumCMiArr = []
+		slumCMLoaded = F
 		
 		mArr = [sprM1,sprM2,
 			sprM3,sprM4,sprM5,
@@ -74,6 +80,7 @@
 			sprM12,sprM13,sprM14,
 			sprM15]
 		miArr = []
+		mLoaded = F
 		
 	#endregion
 	
@@ -251,6 +258,7 @@
 				comMRecoverN = [sprComMRecoverN1]
 				comMRecoverS = [sprComMRecoverS1]
 				comMRecoverW = [sprComMRecoverW1]
+				comMLoaded = F
 				
 			#endregion
 			
@@ -262,6 +270,7 @@
 				comFRecoverN = [sprComFRecoverN1]
 				comFRecoverS = [sprComFRecoverS1]
 				comFRecoverW = [sprComFRecoverW1]
+				comFLoaded = F
 				
 			#endregion
 			
@@ -271,6 +280,7 @@
 				comActFist = [sprComActFist1]
 				comActGrab = [sprComActGrab1]
 				comActHandshake = [sprComActHandshake1]
+				comActLoaded = F
 				
 			#endregion
 			

@@ -1,5 +1,5 @@
 /// @description Draw and Logix
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region Init Draw Olds
 	
@@ -173,14 +173,19 @@ if(!load and loading_done()) {
 			
 			if(!load2) {
 				
-				set_scni(SCENE.RESORT_BED)
-				room_goto(rGame)
-				load_resort_area()
-				load_random_actors()
-				load2 = F
+				var _rdy = load_resort_area()
+				_rdy = load_random_actors()
+				load2 = _rdy
+				
+				if(load2) {
+					
+					set_scni(SCENE.RESORT_BED)
+					room_goto(rGame)
+					
+				}
 				
 			}
-			if(loading_done()) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+			if(load2) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
 			
 		}
 		var _pctout = fadeOuti/fadeOut

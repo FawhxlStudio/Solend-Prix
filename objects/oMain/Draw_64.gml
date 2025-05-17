@@ -1,5 +1,5 @@
 /// @description Menu/Dialogue
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region Menu Skip (Debug)*
 	
@@ -209,7 +209,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 			var _inst = get_combat_dia_inst(D.diaOpp)
 			if(is(_inst)) {
 				
-				ds_list_add(D.diaParL,[D.diaOpp.ruid,_inst]);
+				ds_list_add(D.diaParL,[D.diaOpp.ruid,_inst])
 				
 			}
 			

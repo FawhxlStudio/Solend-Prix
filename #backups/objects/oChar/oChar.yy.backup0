@@ -1,4 +1,4 @@
-// 2025-04-24 00:24:13
+// 2025-05-05 04:33:26
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -296,6 +296,8 @@ if(D.scni == scni) {
 
 }
 
+#event step_end Resets
+
 if(D.scene_state == GAME.PLAY) {
 	
 	if(in_party(id)) scni = D.scni
@@ -303,11 +305,13 @@ if(D.scene_state == GAME.PLAY) {
 	#region Resets...
 		
 		if(D.scni != scni) hide = F;
+		if(D.diaOpp == N and approach) D.diaOpp = id
 		approach = F
 		
 	#endregion
 	
 }
+
 
 #event draw Draw In Scene
 try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }

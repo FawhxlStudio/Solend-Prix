@@ -21,16 +21,16 @@
 	// Early
 	fadeIn = GSPD*2
 	fadeIni = 0
-	mns = 1.5
+	mns = 1.8
 	del = (GSPD*60)*mns
 	deli = 0
 	
 	// Late
-	gothDel1 = del/4
+	gothDel1 = del/3
 	gothDel1i = 0
-	gothDel2 = del/4
+	gothDel2 = del/6
 	gothDel2i = 0
-	gothDel3 = del/4
+	gothDel3 = del/12
 	gothDel3i = 0
 	
 	// Final

@@ -551,7 +551,7 @@
 		// Since this is setting where it is called from...
 		function text_prep(str) {
 			
-			try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+			
 			
 			// the usual init; non-ext
 			str_  = str
@@ -567,7 +567,7 @@
 		// Since this is setting where it is called from...
 		function text_prep_cc(str) {
 			
-			try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+			
 			
 			// the usual init; non-ext
 			str_  = str

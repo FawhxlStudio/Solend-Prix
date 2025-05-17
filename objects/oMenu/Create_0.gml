@@ -1,5 +1,5 @@
 /// @description Init
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 // Fade in
 fade = 1
@@ -33,5 +33,4 @@ setDel = GSPD/2
 setDeli = 0
 
 // Load
-load_menu()
-loaded = T
+loaded = F

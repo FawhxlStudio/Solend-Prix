@@ -1,5 +1,5 @@
 /// @description Draw and Logix
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(!DBG.active or !DBG.nightSkip) {
 	

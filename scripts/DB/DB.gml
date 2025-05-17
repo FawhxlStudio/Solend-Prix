@@ -1,6 +1,6 @@
 function db_diaNar() {
 	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
 	
 	#region Anims
 		
@@ -502,45 +502,41 @@ function db_diaNar() {
 		
 		#region Generic/Random
 			
-			// Male/Female Keys
-			var _mk = K.SX+mk()
-			var _fk = K.SX+fk()
-			
 			// $Scene -> $Actor -> $Instance -> $Dialogue/Narrative (Nestable)
 			CS[$ ACTOR.RANDOM] = {}
 			
 			#region Male
 				
 				// Create Random Male Struct
-				CS[$ ACTOR.RANDOM][$ _mk] = {}
+				CS[$ ACTOR.RANDOM][$ mk()] = {}
 				
 				#region Area: Any
 					
 					// Create Any Area...
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY] = {}
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY] = {}
 					
 					// Instance 0
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0] = {}
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 0] = V.CHAR_SELF
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 1] = "\"Feeling lucky?\""
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 2] = V.CHAR_PLAYER
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 3] = "\"Sure am...\""
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.ANY][$ 0][$ 4] = V.FIGHT_START
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY][$ 0][$ 1] = "\"Feeling lucky?\""
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY][$ 0][$ 3] = "\"Sure am...\""
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY][$ 0][$ 4] = V.FIGHT_START
 					
 				#endregion
 				
 				#region Area: Underground
 					
 					// Create Any Area...
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM] = {}
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM] = {}
 					
 					// Instance 0
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0] = {}
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 0] = V.CHAR_SELF
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 1] = "\"You don't know shit.\""
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 2] = V.CHAR_PLAYER
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 3] = "\"You sure about that?\""
-					CS[$ ACTOR.RANDOM][$ _mk][$ AREA.SLUM][$ 0][$ 4] = V.FIGHT_START
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM][$ 0][$ 1] = "\"You don't know shit.\""
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM][$ 0][$ 3] = "\"You sure about that?\""
+					CS[$ ACTOR.RANDOM][$ mk()][$ AREA.SLUM][$ 0][$ 4] = V.FIGHT_START
 					
 				#endregion
 				
@@ -549,35 +545,35 @@ function db_diaNar() {
 			#region Female
 				
 				// Create Random Female Struct
-				CS[$ ACTOR.RANDOM][$ _fk] = {}
+				CS[$ ACTOR.RANDOM][$ fk()] = {}
 				
 				#region Area: Any
 					
 					// Create Any Area...
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY] = {}
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY] = {}
 					
 					// Instance 0
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0] = {}
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 0] = V.CHAR_SELF
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 1] = "\"You'll regret this.\""
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 2] = V.CHAR_PLAYER
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 3] = "\"We'll see...\""
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.ANY][$ 0][$ 4] = V.FIGHT_START
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY][$ 0][$ 1] = "\"You'll regret this.\""
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY][$ 0][$ 3] = "\"We'll see...\""
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY][$ 0][$ 4] = V.FIGHT_START
 					
 				#endregion
 				
 				#region Area: Brothel
 					
 					// Create Any Area...
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL] = {}
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL] = {}
 					
 					// Instance 0
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0] = {}
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 0] = V.CHAR_SELF
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 1] = "\"Shame.\""
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 2] = V.CHAR_PLAYER
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 3] = "\"...\""
-					CS[$ ACTOR.RANDOM][$ _fk][$ AREA.BROTHEL][$ 0][$ 4] = V.FIGHT_START
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL][$ 0] = {}
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL][$ 0][$ 0] = V.CHAR_SELF
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL][$ 0][$ 1] = "\"Shame.\""
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL][$ 0][$ 2] = V.CHAR_PLAYER
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL][$ 0][$ 3] = "\"...\""
+					CS[$ ACTOR.RANDOM][$ fk()][$ AREA.BROTHEL][$ 0][$ 4] = V.FIGHT_START
 					
 				#endregion
 				
@@ -591,7 +587,7 @@ function db_diaNar() {
 
 function db_scn() {
 	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
 	
 	#region Resort
 		
@@ -1204,7 +1200,7 @@ function db_scn() {
 
 function db_act() {
 	
-    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+    
     
     #region Actor List Reset
         
@@ -1689,7 +1685,7 @@ function db_act() {
 // Create a random actor and save em
 function db_act_rnd(scni,close) {
 	
-    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+    
 	
 	if(chance(50)) {
 		
@@ -1938,7 +1934,7 @@ function db_act_rnd(scni,close) {
 // Create a random actor and save em
 function db_act_rnd_slum(scni,close) {
 	
-    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+    
 	
 	if(chance(100*(1/3))) {
 		
@@ -2187,7 +2183,7 @@ function db_act_rnd_slum(scni,close) {
 // Create a random actor and save em
 function db_act_rnd_broth(scni,close) {
 	
-    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+    
 	
 	if(chance(90)) {
 		
@@ -2435,8 +2431,6 @@ function db_act_rnd_broth(scni,close) {
 
 function db_context() {
 	
-    try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
-    
 	if(file_exists(game_save_id+"nodes.json")) {
 		
 		var _str = ""

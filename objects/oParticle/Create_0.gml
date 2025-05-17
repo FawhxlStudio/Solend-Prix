@@ -1,5 +1,5 @@
 /// @description Init
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 sprite_index = sprEmbers
 image_index = irandom(image_number)
 almn = (GSPD/2)

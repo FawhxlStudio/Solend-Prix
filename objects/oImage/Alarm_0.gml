@@ -1,5 +1,5 @@
 /// @description Rescale
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(is_bg_img()) {
 	

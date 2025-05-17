@@ -148,6 +148,7 @@ function _init() {
 			INIT,
 			PLAY,
 			MENU,
+			PAUSE,
 			LAST
 			
 		}

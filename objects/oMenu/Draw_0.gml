@@ -1,12 +1,12 @@
 /// @description Draw BG
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if (room == rMenu and D.game_state == GAME.MENU) {
 	
 	if(!loaded) {
 		
-		load_menu()
-		loaded = T
+		var _rdy = load_menu()
+		loaded = _rdy
 		
 	}
 	
@@ -113,7 +113,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			
 		}
 		
-		var _loadDone = common_ready() and menu_ready()
+		var _loadDone = loading_done()
 		if(preDel <= 0 and fade > 0 and _loadDone) fade = clamp(fade-fadei,0,1);
 		
 		draw_set_alpha(fade)

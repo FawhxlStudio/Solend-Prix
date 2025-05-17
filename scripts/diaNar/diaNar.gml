@@ -199,7 +199,7 @@ function diaNar_at_choice() {
 
 function diaNar_close(isDone) {
 	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
 	
 	#region Close Out Current...
 		
@@ -345,7 +345,7 @@ function diaNar_close(isDone) {
 
 function diaNar_open_nest(actr,diaInst,diaLyr) {
 	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+	
 	#region Start a Nest diaParL here...
 		
 		// Init; If it diaNarI() isn't a struct then we assume it is a link and we want to open itself...
@@ -692,7 +692,6 @@ function diaNar_done(inst) {
 
 function diaNar_iterate_level(diaInst,uid,diaLyr) {
 	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	if(is_struct(diaInst)) {
 		
 		if(uid != N) {
@@ -734,7 +733,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 					
 				#endregion
 				
-				#region 2 Instance Level (Recursive)
+				#region 2 Instance Level (Recursive of each instance of dialogue belonging to something...)
 					
 					case 2: {
 						
@@ -774,7 +773,7 @@ function diaNar_iterate_level(diaInst,uid,diaLyr) {
 					
 				#endregion
 				
-				#region 3 & 4+ Dialogue/Narrative Level (Recursive)
+				#region 3 & 4+ Dialogue/Narrative Level (Recursive of additional instances inside...)
 					
 					// 3 == Parent Dialogue
 					// 4+ == Nested Dialogue
@@ -1980,8 +1979,6 @@ function diaNar_to_editor(inst,lyr,k) {
 }
 
 function diaNar_draw(actr,diaInst,diaLyr){
-	
-	try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
 	
 	// Init
 	var _spr = sprNA
@@ -3195,63 +3192,75 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		// Colors
 		if(!actr) {
 			
-			// Emote?
-			var _fgco = fgc_
-			//if(draw_get_font() == fEmote) fgc_ = [fgc_[0],c.wht,c.wht,c.gry,c.gry];
-			
-			// If Transmit, blink carot every other second
-			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+			#region No Actor?
 				
-				// Play Beep at fr 0
-				if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
+				// Emote?
+				var _fgco = fgc_
+				//if(draw_get_font() == fEmote) fgc_ = [fgc_[0],c.wht,c.wht,c.gry,c.gry];
 				
-				// Draw w/ Carot;  Reuse Carot if Already there...; ] is carot because it uses a nice default character
-				if(string_ends_with(string_trim_end(strBld_),"]")) draw_text_ext_color(xx,yy,strBld_,STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
-				else draw_text_ext_color(xx,yy,strBld_+"]",STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+				// If Transmit, blink carot every other second
+				if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+					
+					// Play Beep at fr 0
+					if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
+					
+					// Draw w/ Carot;  Reuse Carot if Already there...; ] is carot because it uses a nice default character
+					if(string_ends_with(string_trim_end(strBld_),"]")) draw_text_ext_color(xx,yy,strBld_,STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+					else draw_text_ext_color(xx,yy,strBld_+"]",STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+					
+				} else {
+					
+					// If is Transmit and ends with ], use it as carot
+					if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(strBld_),"]")  and strFull)
+						draw_text_ext_color(xx,yy,string_copy(strBld_,0,string_length(strBld_)-1),STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+					else draw_text_ext_color(xx,yy,strBld_,STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
+					
+				}
 				
-			} else {
+				// Reset Global FGC if was Emote
+				if(draw_get_font() == fEmote) fgc_ = _fgco;
 				
-				// If is Transmit and ends with ], use it as carot
-				if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(strBld_),"]")  and strFull)
-					draw_text_ext_color(xx,yy,string_copy(strBld_,0,string_length(strBld_)-1),STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
-				else draw_text_ext_color(xx,yy,strBld_,STRH,WW,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0]);
-				
-			}
-			
-			// Reset Global FGC if was Emote
-			if(draw_get_font() == fEmote) fgc_ = _fgco;
+			#endregion
 			
 		} else if(actr.uid == ACTOR.FOX) {
 			
-			// Init
-			var _c = actr.col
-			//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
-			
-			// If Transmit, blink carot every other second
-			if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+			#region FOX
 				
-				// Play Beep at fr 0
-				if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
+				// Init
+				var _c = actr.col
+				//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
 				
-				// Draw w/ Carot;  Reuse Carot if Already there...; ] is carot because it uses a nice default character
-				if(string_ends_with(string_trim_end(strBld_),"]")) draw_text_ext_color(xx,yy,strBld_,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
-				else draw_text_ext_color(xx,yy,strBld_+"]",STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+				// If Transmit, blink carot every other second
+				if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+					
+					// Play Beep at fr 0
+					if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
+					
+					// Draw w/ Carot;  Reuse Carot if Already there...; ] is carot because it uses a nice default character
+					if(string_ends_with(string_trim_end(strBld_),"]")) draw_text_ext_color(xx,yy,strBld_,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+					else draw_text_ext_color(xx,yy,strBld_+"]",STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+					
+				} else {
+					
+					// If is Transmit and ends with ], use it as carot
+					if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(strBld_),"]") and strFull)
+						draw_text_ext_color(xx,yy,string_copy(strBld_,0,string_length(strBld_)-1),STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+					else draw_text_ext_color(xx,yy,strBld_,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
+					
+				}
 				
-			} else {
-				
-				// If is Transmit and ends with ], use it as carot
-				if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(strBld_),"]") and strFull)
-					draw_text_ext_color(xx,yy,string_copy(strBld_,0,string_length(strBld_)-1),STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
-				else draw_text_ext_color(xx,yy,strBld_,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
-				
-			}
+			#endregion
 			
 		} else {
 			
-			// Draw Text...
-			var _c = actr.col
-			//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
-			draw_text_ext_color(xx,yy,strBld_,STRH,strw_,_c[1],_c[2],_c[3],_c[4],_c[0])
+			#region Actor...
+				
+				// Draw Text...
+				var _c = actr.col
+				//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
+				draw_text_ext_color(xx,yy,strBld_,STRH,strw_,_c[1],_c[2],_c[3],_c[4],_c[0])
+				
+			#endregion
 			
 		}
 		

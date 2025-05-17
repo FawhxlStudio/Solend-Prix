@@ -1,4 +1,4 @@
-// 2025-04-22 01:28:55
+// 2025-05-06 20:36:47
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -27,16 +27,16 @@ uses_physics = false;
 	// Early
 	fadeIn = GSPD*2
 	fadeIni = 0
-	mns = 1.5
+	mns = 1.8
 	del = (GSPD*60)*mns
 	deli = 0
 	
 	// Late
-	gothDel1 = del/4
+	gothDel1 = del/3
 	gothDel1i = 0
-	gothDel2 = del/4
+	gothDel2 = del/6
 	gothDel2i = 0
-	gothDel3 = del/4
+	gothDel3 = del/12
 	gothDel3i = 0
 	
 	// Final
@@ -132,10 +132,14 @@ unload_menu()
 #event alarm0 Flush & Fetch...
 if(load) {
 	
-	load_intro()
-	load = F
-	if(surface_exists(narSurf)) surface_free(narSurf);
-	narSurf = N
+	var _rdy = load_intro()
+	if(_rdy) {
+		
+		load = F
+		if(surface_exists(narSurf)) surface_free(narSurf);
+		narSurf = N
+		
+	} else alarm[0] = 1;
 	
 }
 
@@ -314,14 +318,19 @@ if(!load and loading_done()) {
 			
 			if(!load2) {
 				
-				set_scni(SCENE.RESORT_BED)
-				room_goto(rGame)
-				load_resort_area()
-				load_random_actors()
-				load2 = F
+				var _rdy = load_resort_area()
+				_rdy = load_random_actors()
+				load2 = _rdy
+				
+				if(load2) {
+					
+					set_scni(SCENE.RESORT_BED)
+					room_goto(rGame)
+					
+				}
 				
 			}
-			if(loading_done()) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
+			if(load2) fadeOuti = clamp(fadeOuti+1,0,fadeOut);
 			
 		}
 		var _pctout = fadeOuti/fadeOut
@@ -418,7 +427,7 @@ if(!load and loading_done()) {
 
 #region Intro BG
 	
-	if(!menu_ready()) draw_rectangle_ext_color([-1,0,WW,WH],0,[1,c.blk,c.blk,c.blk,c.blk],F);
+	if(!loading_done()) draw_rectangle_ext_color([-1,0,WW,WH],0,[1,c.blk,c.blk,c.blk,c.blk],F);
 	
 #endregion
 

@@ -1,4 +1,4 @@
-// 2025-04-22 04:01:43
+// 2025-05-13 21:56:22
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -17,7 +17,7 @@ unstuck = T
 muted = F
 envInvert = T
 diaDebug = F
-diaShortcut = T
+diaShortcut = F
 scnJump = T
 nightSkip = F
 
@@ -70,7 +70,7 @@ if(file_exists(game_save_id+"console.json")) {
 } else CON = {}
 
 #event step Live Update
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 #region Other Debug Controls...
 	
 	if(D.game_state == GAME.PLAY and D.scene_state == GAME.PLAY) {
@@ -309,7 +309,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 #endregion
 
 #event draw_end Editor
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region Editor Controls and Drawing
 	
@@ -1775,7 +1775,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 #endregion
 
 #event draw_gui_end Debug View
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(active and edit and !console) {
 	

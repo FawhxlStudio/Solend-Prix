@@ -1,5 +1,5 @@
 /// @description Init
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 almn = (GSPD/2)
 almx = (GSPD*2)
 al = random_range(almn,almx)

@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":0.5,
   "textureGroupId":{
-    "name":"tg_char_sylas",
-    "path":"texturegroups/tg_char_sylas",
+    "name":"tg_combat_actions",
+    "path":"texturegroups/tg_combat_actions",
   },
   "type":0,
   "VTile":false,

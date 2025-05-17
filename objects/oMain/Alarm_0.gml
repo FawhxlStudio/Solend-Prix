@@ -1,5 +1,5 @@
 /// @description Resize Surface
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 // Ensure Minimum WH of 1
 var _ww = max(1,WW)
 var _wh = max(1,WH)

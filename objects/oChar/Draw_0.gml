@@ -1,5 +1,5 @@
 /// @description Draw In Scene
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 	

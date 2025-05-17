@@ -1,5 +1,5 @@
 /// @description Fade + Logic
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 if(!done and to_scni != N) {
 	
 	#region To Scene

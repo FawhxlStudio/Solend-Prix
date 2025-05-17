@@ -61,110 +61,116 @@ function actor_find(_uid) {
 
 function scn_area(_scni) {
 	
-	// If no arg, use current scene i...
-	if(!is(_scni)) _scni = D.scni;
+	try {
+		
+		// If no arg, use current scene i...
+		if(!is(_scni)) _scni = D.scni;
+		
+		switch(_scni) {
+			
+			#region Resort
+				
+				case SCENE.RESORT_BED:
+				case SCENE.RESORT_SUITE:
+				case SCENE.RESORT_COURT1:
+				case SCENE.RESORT_COURT2:
+					
+					return AREA.RESORT
+					
+				break
+				
+			#endregion
+			
+			#region City
+				
+				case SCENE.CITY_PLAZA:
+				case SCENE.CITY_ST1:
+				case SCENE.CITY_ST2:
+				case SCENE.CITY_ST3:
+				case SCENE.CITY_ST4:
+				case SCENE.CITY_STORE:
+					
+					return AREA.CITY
+					
+				break
+				
+			#endregion
+			
+			#region Club
+				
+				case SCENE.CLUB_ENT:
+				case SCENE.CLUB_FLOOR:
+				case SCENE.CLUB_BAR:
+				case SCENE.CLUB_BOOTH:
+					
+					return AREA.CLUB
+					
+				break
+				
+			#endregion
+			
+			#region Brothel
+				
+				case SCENE.BROTH_ENT:
+				case SCENE.BROTH_L1:
+				case SCENE.BROTH_L2:
+				case SCENE.BROTH_R:
+				case SCENE.BROTH_G1:
+				case SCENE.BROTH_G2:
+				case SCENE.BROTH_B:
+					
+					return AREA.BROTHEL
+					
+				break
+				
+			#endregion
+			
+			#region Underground
+				
+				case SCENE.SLUM_A1:
+				case SCENE.SLUM_A2:
+				case SCENE.SLUM_A3:
+				case SCENE.SLUM_BOD:
+					
+					return AREA.SLUM
+					
+				break
+				
+			#endregion
+			
+			#region Spaceport
+				
+				case SCENE.SPACEPORT_ENT:
+				case SCENE.SPACEPORT_OVERLOOK:
+				case SCENE.SPACEPORT_TERM:
+				case SCENE.SPACEPORT_PRAEY:
+				case SCENE.SPACEPORT_SPITFIRE:
+				case SCENE.SPACEPORT_HANG1:
+				case SCENE.SPACEPORT_HANG2:
+					
+					return AREA.SPACEPORT
+					
+				break
+				
+			#endregion
+			
+			#region Ship
+				
+				case SCENE.COCKPIT_PRAEY:
+					
+					return AREA.PRAEY
+					
+				break
+				
+			#endregion
+			
+			default: return N;
+			
+		}
+		
+	} catch(_ex) {}
 	
-	switch(_scni) {
-		
-		#region Resort
-			
-			case SCENE.RESORT_BED:
-			case SCENE.RESORT_SUITE:
-			case SCENE.RESORT_COURT1:
-			case SCENE.RESORT_COURT2:
-				
-				return AREA.RESORT
-				
-			break
-			
-		#endregion
-		
-		#region City
-			
-			case SCENE.CITY_PLAZA:
-			case SCENE.CITY_ST1:
-			case SCENE.CITY_ST2:
-			case SCENE.CITY_ST3:
-			case SCENE.CITY_ST4:
-			case SCENE.CITY_STORE:
-				
-				return AREA.CITY
-				
-			break
-			
-		#endregion
-		
-		#region Club
-			
-			case SCENE.CLUB_ENT:
-			case SCENE.CLUB_FLOOR:
-			case SCENE.CLUB_BAR:
-			case SCENE.CLUB_BOOTH:
-				
-				return AREA.CLUB
-				
-			break
-			
-		#endregion
-		
-		#region Brothel
-			
-			case SCENE.BROTH_ENT:
-			case SCENE.BROTH_L1:
-			case SCENE.BROTH_L2:
-			case SCENE.BROTH_R:
-			case SCENE.BROTH_G1:
-			case SCENE.BROTH_G2:
-			case SCENE.BROTH_B:
-				
-				return AREA.BROTHEL
-				
-			break
-			
-		#endregion
-		
-		#region Underground
-			
-			case SCENE.SLUM_A1:
-			case SCENE.SLUM_A2:
-			case SCENE.SLUM_A3:
-			case SCENE.SLUM_BOD:
-				
-				return AREA.SLUM
-				
-			break
-			
-		#endregion
-		
-		#region Spaceport
-			
-			case SCENE.SPACEPORT_ENT:
-			case SCENE.SPACEPORT_OVERLOOK:
-			case SCENE.SPACEPORT_TERM:
-			case SCENE.SPACEPORT_PRAEY:
-			case SCENE.SPACEPORT_SPITFIRE:
-			case SCENE.SPACEPORT_HANG1:
-			case SCENE.SPACEPORT_HANG2:
-				
-				return AREA.SPACEPORT
-				
-			break
-			
-		#endregion
-		
-		#region Ship
-			
-			case SCENE.COCKPIT_PRAEY:
-				
-				return AREA.PRAEY
-				
-			break
-			
-		#endregion
-		
-		default: return N;
-		
-	}
+	return N
 	
 }
 
@@ -403,9 +409,10 @@ function is_hover(inst) {
 	// Hover not set, we can return True Immediately
 	if(!is(D.isHvr)) {
 		
-		// Is Mouse still in a pervious char; Set it
+		// Is Mouse still in a pervious and not hidden char? Then Set current back to it.
 		if(is(D.isHvrO) and instance_of(D.isHvrO,oChar)
-			and mouse_in_instance(D.isHvrO,T)) D.isHvr = D.isHvrO;
+			and mouse_in_instance(D.isHvrO,T)
+			and !D.isHvrO.hide) D.isHvr = D.isHvrO;
 		
 		// Return True if still isn't set after previous check or is now set to the current inst...
 		// (True because it is available to be set by a new instance)
@@ -743,15 +750,6 @@ function mix(a, b, t) {
     
 }
 
-function lerp_color(c1,c2,pct) {
-	
-	var _r = lerp(color_get_red(c1),color_get_red(c2),pct)
-	var _g = lerp(color_get_green(c1),color_get_green(c2),pct)
-	var _b = lerp(color_get_blue(c1),color_get_blue(c2),pct)
-	return make_color_rgb(_r,_g,_b)
-	
-}
-
 function delta_pct(ll,ul,val) {
 	
 	rtn = U
@@ -987,13 +985,13 @@ function instance_of(inst,obj) {
 
 function mk() {
 	
-	return "_"+string(SEX.MALE)
+	return K.SX+"_"+string(SEX.MALE)
 	
 }
 
 function fk() {
 	
-	return "_"+string(SEX.FEMALE)
+	return K.SX+"_"+string(SEX.FEMALE)
 	
 }
 
@@ -1003,6 +1001,7 @@ function get_combat_dia_inst(_actr) {
 		
 		case ACTOR.RANDOM: {
 			
+			var _rand = CS[$ ACTOR.RANDOM]
 			var _area = scn_area(D.scni)
 			var _inst = []
 			
@@ -1012,14 +1011,19 @@ function get_combat_dia_inst(_actr) {
 					
 					// Init
 					// Get Any Struct
-					var _mAny = CS[$ ACTOR.RANDOM][$ mk()][$ AREA.ANY]
+					var _randM = _rand[$ mk()]
+					var _mAny = _randM[$ AREA.ANY]
 					// Get Scene Struct
 					var _mScn = N
-					if(variable_instance_exists(CS[$ ACTOR.RANDOM][$ mk()],string(scn_area(D.scni)))) _mScn = CS[$ ACTOR.RANDOM][$ mk()][$ string(scn_area(D.scni))];
+					if(is(scn_area(D.scni))) {
+						
+						if(variable_instance_exists(_randM,string(scn_area(D.scni)))) _mScn = _randM[$ string(scn_area(D.scni))];
+						
+					}
 					// Pick Key Set (67% to be Scene if available, 33% to be Any or Just Any if no Scene available...)
 					var _ks = variable_instance_get_names(_mAny)
 					var _isScn = T
-					if(is(_mScn) and chance(100*(2/3))) var _ks = variable_instance_get_names(_mScn);
+					if(is(_mScn) and chance(67)) var _ks = variable_instance_get_names(_mScn);
 					else _isScn = F;
 					
 					// Pick a Random Combat Dialogue Instance
@@ -1034,19 +1038,24 @@ function get_combat_dia_inst(_actr) {
 					
 					// Init
 					// Get Any Struct
-					var _fAny = CS[$ ACTOR.RANDOM][$ fk()][$ AREA.ANY]
+					var _randF = _rand[$ fk()]
+					var _fAny = _randF[$ AREA.ANY]
 					// Get Scene Struct
 					var _fScn = N
-					if(variable_instance_exists(CS[$ ACTOR.RANDOM][$ fk()],string(scn_area(D.scni)))) _fScn = CS[$ ACTOR.RANDOM][$ fk()][$ string(scn_area(D.scni))];
+					if(is(scn_area(D.scni))) {
+						
+						if(variable_instance_exists(_randF,string(scn_area(D.scni)))) _fScn = _randF[$ string(scn_area(D.scni))];
+						
+					}
 					// Pick Key Set (67% to be Scene if available, 33% to be Any or Just Any if no Scene available...)
 					var _ks = variable_instance_get_names(_fAny)
 					var _isScn = T
-					if(is(_fScn) and chance(100*(2/3))) var _ks = variable_instance_get_names(_fScn);
+					if(is(_fScn) and chance(67)) var _ks = variable_instance_get_names(_fScn);
 					else _isScn = F;
 					
 					// Pick a Random Combat Dialogue Instance
 					var _sz = array_length(_ks)
-					if(_isScn and _sz) return _fScn[$ _ks[irandom(_sz-1)]];
+					if(_isScn and _sz) return   _fScn[$ _ks[irandom(_sz-1)]];
 					if(!_isScn and _sz) return _fAny[$ _ks[irandom(_sz-1)]];
 					break
 					
@@ -1096,5 +1105,18 @@ function get_xym(_xy) {
 	
 	// Default/Fail
 	return N
+	
+}
+
+function lerp_color(col1,col2,pct) {
+	
+	// Returns the new color that is a lerp of each (r)ed, (g)reen and (b)lue value from col1 and col2 from 0 to 1.
+	return make_color_rgb(minMax(0,255,lerp(color_get_red(col1),color_get_red(col2),pct)),minMax(0,255,lerp(color_get_green(col1),color_get_green(col2),pct)),minMax(0,255,lerp(color_get_blue(col1),color_get_blue(col2),pct)))
+	
+}
+
+function minMax(mn,mx,vl) {
+	
+	return max(mn,min(mx,vl))
 	
 }

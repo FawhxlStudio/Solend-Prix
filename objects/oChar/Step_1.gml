@@ -1,5 +1,5 @@
 /// @description Controls & Updates
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(D.scni == scni) {
 	
@@ -61,17 +61,4 @@ if(D.scni == scni) {
 		
 	#endregion
 
-}
-
-if(D.scene_state == GAME.PLAY) {
-	
-	if(in_party(id)) scni = D.scni
-	
-	#region Resets...
-		
-		if(D.scni != scni) hide = F;
-		approach = F
-		
-	#endregion
-	
 }

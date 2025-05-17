@@ -1,6 +1,6 @@
 /// @description No Draw; Logic
 // Do Destroy Logic Externally for lists n such to keep track of count and to call draw_self()
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 if(initd) {
 	
 	al = clamp(al-ai,0,al)

@@ -1,5 +1,5 @@
 /// @description Global Logic Updates Updates
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region Control Override
 	

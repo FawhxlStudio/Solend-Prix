@@ -1,5 +1,5 @@
 /// @description Rescale
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(tightPan) scl = (WW*1.1)/sprite_get_width(sprite_index)
 else scl = (WW*D.zmn)/sprite_get_width(sprite_index)
