@@ -97,7 +97,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 		if(!bgmPlayed and preDel <= 0) {
 			
 			// Play Intro BGM
-			bgmID = audio_play_sound_on(bgmEmt,bgm,F,0,0)
+			bgmID = audio_play_sound_on(global.bgmEmt,bgm,F,0,0)
 			D.bgm = bgm
 			D.bgmID = bgmID
 			audio_sound_gain(bgmID,2/3,4000)
@@ -108,7 +108,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			
 			D.bgm = N
 			D.bgmID = N
-			M.bgmID = audio_play_sound_on(bgmEmt,M.bgm,T,0,0);
+			M.bgmID = audio_play_sound_on(global.bgmEmt,M.bgm,T,0,0);
 			audio_sound_gain(M.bgmID,1/3,4000)
 			
 		}
@@ -164,7 +164,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			
 			if(titDel > 0) titDel--;
 			if(btnDeli < btnDel and titDel == 0) btnDeli = clamp(btnDeli+1,0,btnDel);
-			if(titDel > 0 and titDel < GSPD*2.9 and !audio_is_playing(sfxFlyBy)) titsfx = audio_play_sound_on(sfxEmt,sfxFlyBy,F,1,1);
+			if(titDel > 0 and titDel < GSPD*2.9 and !audio_is_playing(sfxFlyBy)) titsfx = audio_play_sound_on(global.sfxEmt,sfxFlyBy,F,1,1);
 			if(titDel > 0 and titDel < GSPD*2.8) titDel = 0;
 			if(btnDel > 0 and btnDel < GSPD*(1/3)) btnDel = 0;
 			
@@ -216,19 +216,19 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			draw_rectangle_color(WW*(.025-_d),WH*(.45-_d),WW*(.575+_d),WH*(.975+_d),c.wht,c.wht,c.gry,c.gry,T)
 			
 			// Master Vol
-			slider_draw([WW*(.1-_d),WH*(.5-_d),WW*(.5+_d),WH*(.55+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Total Volume",masterVol,0,1,2,"%",ACTION.VOL_MASTER,settings)
+			slider_draw([WW*(.1-_d),WH*(.5-_d),WW*(.5+_d),WH*(.55+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Total Volume",global.masterVol,0,1,2,"%",ACTION.VOL_MASTER,settings)
 			
 			// Environment Vol
-			slider_draw([WW*(.1-_d),WH*(.6-_d),WW*(.5+_d),WH*(.65+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Environmental/Ambient Effects Volume",envVol,0,1,2,"%",ACTION.VOL_ENV,settings)
+			slider_draw([WW*(.1-_d),WH*(.6-_d),WW*(.5+_d),WH*(.65+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Environmental/Ambient Effects Volume",global.envVol,0,1,2,"%",ACTION.VOL_ENV,settings)
 			
 			// SFX Vol
-			slider_draw([WW*(.1-_d),WH*(.7-_d),WW*(.5+_d),WH*(.75+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Sound Effects Volume",sfxVol,0,1,2,"%",ACTION.VOL_SFX,settings)
+			slider_draw([WW*(.1-_d),WH*(.7-_d),WW*(.5+_d),WH*(.75+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Sound Effects Volume",global.sfxVol,0,1,2,"%",ACTION.VOL_SFX,settings)
 			
 			// BGM Vol
-			slider_draw([WW*(.1-_d),WH*(.8-_d),WW*(.5+_d),WH*(.85+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Background Music Volume",bgmVol,0,1,2,"%",ACTION.VOL_BGM,settings)
+			slider_draw([WW*(.1-_d),WH*(.8-_d),WW*(.5+_d),WH*(.85+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"Background Music Volume",global.bgmVol,0,1,2,"%",ACTION.VOL_BGM,settings)
 			
 			// GUI Vol
-			slider_draw([WW*(.1-_d),WH*(.9-_d),WW*(.5+_d),WH*(.95+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"GUI Volume",guiVol,0,1,2,"%",ACTION.VOL_GUI,settings)
+			slider_draw([WW*(.1-_d),WH*(.9-_d),WW*(.5+_d),WH*(.95+_d)],[(1/3)*_delpct,c.dgry,c.dgry,c.blk,c.blk],[_delpct,c.wht,c.wht,c.gry,c.gry],"GUI Volume",global.guiVol,0,1,2,"%",ACTION.VOL_GUI,settings)
 			
 		}
 		

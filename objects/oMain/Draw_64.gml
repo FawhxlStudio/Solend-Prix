@@ -7,7 +7,7 @@
 		
 		if(is_scn(DBG.skipTo)) set_scni(DBG.skipTo);
 		else set_scni(SCENE.RESORT_BED); // Skip to not set, just skip to first room
-		if(!audio_is_playing(bgm)) bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
+		if(!audio_is_playing(bgm)) bgmID = audio_play_sound_on(global.bgmEmt,bgm,T,0,0);
 		room_goto(rGame)
 		
 	}

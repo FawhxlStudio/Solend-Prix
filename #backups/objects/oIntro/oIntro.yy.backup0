@@ -1,4 +1,4 @@
-// 2025-05-06 20:36:47
+// 2025-06-02 21:41:23
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -144,7 +144,7 @@ if(load) {
 }
 
 #event draw_gui Draw and Logix
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region Init Draw Olds
 	
@@ -438,17 +438,21 @@ if(!load and loading_done()) {
 	if(is(narSurf) and surface_exists(narSurf) and fadeIni >= fadeIn) {
 		
 		// Init Drawer
-		if(!is(surfDrawer)) surfDrawer = instance_create_layer(0,0,"GUI",oDrawer);
+		// if(!is(surfDrawer)) surfDrawer = instance_create_layer(0,0,"GUI",oDrawer);
 		
 		// Update Scroll
 		var _pct = deli/del
 		narY2 = -surface_get_height(narSurf)
 		narY1 = lerp(WH,narY2,_pct)
 		
-		// Update Drawer
-		surfDrawer.surf = narSurf
-		surfDrawer.surfX = 0
-		surfDrawer.surfY = narY1
+		if(is(surfDrawer)) {
+			
+			// Update Drawer
+			surfDrawer.surf = narSurf
+			surfDrawer.surfX = 0
+			surfDrawer.surfY = narY1
+			
+		}
 		
 	}
 	

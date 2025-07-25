@@ -1,4 +1,4 @@
-// 2025-05-05 04:33:26
+// 2025-05-19 22:21:08
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -46,6 +46,9 @@ uses_physics = false;
 	// Percent Based x/y set for zoom transitions
 	xpct = N
 	ypct = N
+	
+	// Voice Pitch
+	vPitch = N
 	
 #endregion
 
@@ -124,7 +127,7 @@ uses_physics = false;
 #endregion
 
 #event step Logic Updates & Dialogue Triggers
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(in_party(id)) {
 	
@@ -232,7 +235,7 @@ if(in_party(id)) {
 }
 
 #event step_begin Controls & Updates
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(D.scni == scni) {
 	
@@ -314,7 +317,7 @@ if(D.scene_state == GAME.PLAY) {
 
 
 #event draw Draw In Scene
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 	
@@ -593,4 +596,4 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 }
 
 #event draw_pre Olds
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+

@@ -194,7 +194,7 @@ function _init() {
 			
 		}
 		
-		globalvar ACTORn
+		global.ACTORn = []
 		enum ACTOR {
 			
 			FIRST,
@@ -224,7 +224,7 @@ function _init() {
 			LAST
 			
 		}
-		ACTORn = [
+		global.ACTORn = [
 			
 			"FIRST",
 			"SYLAS",
@@ -253,7 +253,7 @@ function _init() {
 			"LAST"
 			
 		]
-		if(array_length(ACTORn)-1 != ACTOR.LAST) {
+		if(array_length(global.ACTORn)-1 != ACTOR.LAST) {
 			
 			show_debug_message("Critical: Actor Names Missing!")
 			game_end(1)
@@ -270,7 +270,7 @@ function _init() {
 			
 		}
 		
-		globalvar Vn
+		global.Vn = []
 		enum V {
 			
 			FIRST,
@@ -313,7 +313,7 @@ function _init() {
 			LAST
 			
 		}
-		Vn = [
+		global.Vn = [
 			
 			"FIRST",
 			"STATIC",
@@ -355,7 +355,7 @@ function _init() {
 			"LAST"
 			
 		]
-		if(array_length(Vn)-1 != V.LAST) {
+		if(array_length(global.Vn)-1 != V.LAST) {
 			show_debug_message("Critical: Value Names Missing!")
 			game_end(1)
 		}
@@ -396,7 +396,7 @@ function _init() {
 			
 		}
 		
-		globalvar SCENEn
+		global.SCENEn = []
 		enum SCENE {
 			
 			FIRST,
@@ -436,7 +436,7 @@ function _init() {
 			LAST
 			
 		}
-		SCENEn = [
+		global.SCENEn = [
 			"FIRST",
 			"RESORT_BED",
 			"RESORT_SUITE",
@@ -473,7 +473,7 @@ function _init() {
 			"COCKPIT_PRAEY",
 			"LAST"
 		]
-		if(array_length(SCENEn)-1 != SCENE.LAST) {
+		if(array_length(global.SCENEn)-1 != SCENE.LAST) {
 			
 			show_debug_message("Critical: Scene Names Missing!")
 			game_end(1)
@@ -600,20 +600,20 @@ function _init() {
 		
 		#region Volume Vars
 			
-			globalvar masterVol;
-			globalvar envVol;
-			globalvar sfxVol;
-			globalvar bgmVol;
-			globalvar guiVol;
+			global.masterVol = N
+			global.envVol = N
+			global.sfxVol = N
+			global.bgmVol = N
+			global.guiVol = N
 			
-			masterVol = 1
-			envVol = 2/3
-			sfxVol = 2/3
-			bgmVol = 2/3
-			guiVol = 1/2
+			global.masterVol = 1
+			global.envVol = 2/3
+			global.sfxVol = 2/3
+			global.bgmVol = 2/3
+			global.guiVol = 1/2
 			
 			// Init Master Gain
-			audio_master_gain(masterVol)
+			audio_master_gain(global.masterVol)
 			
 		#endregion
 		
@@ -626,20 +626,20 @@ function _init() {
 		
 		#region Emitters
 			
-			globalvar envEmt; // Static Central Emitter; Environment
-			globalvar sfxEmt; // Static Central Emitter; Sound FX
-			globalvar bgmEmt; // Static Central Emitter; Background Music
-			globalvar guiEmt; // Static Central Emitter; GUI/HUD
+			global.envEmt = N // Static Central Emitter; Environment
+			global.sfxEmt = N // Static Central Emitter; Sound FX
+			global.bgmEmt = N // Static Central Emitter; Background Music
+			global.guiEmt = N // Static Central Emitter; GUI/HUD
 			
-			envEmt = audio_emitter_create()
-			sfxEmt = audio_emitter_create()
-			bgmEmt = audio_emitter_create()
-			guiEmt = audio_emitter_create()
+			global.envEmt = audio_emitter_create()
+			global.sfxEmt = audio_emitter_create()
+			global.bgmEmt = audio_emitter_create()
+			global.guiEmt = audio_emitter_create()
 			
-			audio_emitter_position(envEmt,0,0,0)
-			audio_emitter_position(sfxEmt,0,0,0)
-			audio_emitter_position(bgmEmt,0,0,0)
-			audio_emitter_position(guiEmt,0,0,0)
+			audio_emitter_position(global.envEmt,0,0,0)
+			audio_emitter_position(global.sfxEmt,0,0,0)
+			audio_emitter_position(global.bgmEmt,0,0,0)
+			audio_emitter_position(global.guiEmt,0,0,0)
 			
 		#endregion
 		
@@ -649,15 +649,15 @@ function _init() {
 		
 		#region Text Globals
 			
-			globalvar str_
-			globalvar stri_
-			globalvar strw_
-			globalvar strh_
-			globalvar bgc_
-			globalvar fgc_
-			globalvar strBld_
-			globalvar strDel_
-			globalvar strDeli_
+			global.str_ = N
+			global.stri_ = N
+			global.strw_ = N
+			global.strh_ = N
+			global.bgc_ = N
+			global.fgc_ = N
+			global.strBld_ = N
+			global.strDel_ = N
+			global.strDeli_ = N
 			text_prep("") // init Values...
 			
 		#endregion

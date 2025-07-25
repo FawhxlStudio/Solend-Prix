@@ -317,7 +317,7 @@
 							
 							audio_stop_sound(D.bgm)
 							D.bgm = S[$ D.scni][$ K.PLY]
-							D.bgmID = audio_play_sound_on(bgmEmt,D.bgm,F,0,0)
+							D.bgmID = audio_play_sound_on(global.bgmEmt,D.bgm,F,0,0)
 							if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) > 0) audio_sound_gain(bgmID,0,4000);
 							audio_sound_gain(D.bgmID,2/3,4000)
 							S[$ D.scni][$ K.PLY] = N
@@ -337,7 +337,7 @@
 						if(audio_exists(S[$ D.scni][$ K.PLY]) and S[$ D.scni][$ K.PLY] != D.bgm) {
 							
 							D.bgm = S[$ D.scni][$ K.PLY]
-							D.bgmID = audio_play_sound_on(bgmEmt,D.bgm,F,0,0)
+							D.bgmID = audio_play_sound_on(global.bgmEmt,D.bgm,F,0,0)
 							if(audio_is_playing(bgm) and audio_sound_get_gain(bgmID) > 0) audio_sound_gain(bgmID,0,4000);
 							audio_sound_gain(D.bgmID,2/3,4000)
 							
@@ -348,7 +348,7 @@
 					
 				#endregion
 				
-			} else bgmID = audio_play_sound_on(bgmEmt,bgm,T,0,0);
+			} else bgmID = audio_play_sound_on(global.bgmEmt,bgm,T,0,0);
 			
 		#endregion
 		

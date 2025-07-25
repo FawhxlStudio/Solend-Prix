@@ -1,4 +1,4 @@
-// 2025-05-09 19:37:51
+// 2025-06-02 21:05:07
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 persistent = true;
@@ -20,6 +20,7 @@ uses_physics = false;
 
 
 #event draw_gui_end Draw on Top!
+
 #region Draw Surface
 	
 	if(is(surf) and surface_exists(surf)) 

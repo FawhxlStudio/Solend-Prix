@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"sfxTypeMal",
+  "audioGroupId":{
+    "name":"ag_sfx",
+    "path":"audiogroups/ag_sfx",
+  },
+  "bitDepth":1,
+  "bitRate":320,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.22319728,
+  "name":"sfxTypeMal",
+  "parent":{
+    "name":"Text",
+    "path":"folders/Sounds/SFX/Text.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"sfxTypeMal.mp3",
+  "type":1,
+  "volume":1.0,
+}

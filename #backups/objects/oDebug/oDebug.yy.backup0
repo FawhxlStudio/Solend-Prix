@@ -1,4 +1,4 @@
-// 2025-05-13 21:56:22
+// 2025-05-29 14:13:58
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -17,7 +17,7 @@ unstuck = T
 muted = F
 envInvert = T
 diaDebug = F
-diaShortcut = F
+diaShortcut = T
 scnJump = T
 nightSkip = F
 

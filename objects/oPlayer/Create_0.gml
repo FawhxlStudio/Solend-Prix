@@ -40,6 +40,9 @@
 	imgDia = N
 	imgDiaPol = 1
 	
+	// Voice Pitch
+	vPitch = N
+	
 #endregion
 
 #region Flip Vars

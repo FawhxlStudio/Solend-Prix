@@ -884,8 +884,8 @@ function set_scni(scni) {
 				
 				#region Entering new area? Load/Unload Assets...
 					
-					var _from = string_split(SCENEn[D.scni],"_")[0]
-					var _to   = string_split(SCENEn[scni],"_")[0]
+					var _from = string_split(global.SCENEn[D.scni],"_")[0]
+					var _to   = string_split(global.SCENEn[scni],"_")[0]
 					
 					if(_from != _to) {
 						

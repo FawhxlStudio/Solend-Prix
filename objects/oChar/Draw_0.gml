@@ -59,7 +59,7 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 			#region Hovering...
 				
 				// Init
-				if(D.isHvr != id and D.scnActSel != id) audio_play_sound_on(guiEmt,sfxUIHover,F,2,1);
+				if(D.isHvr != id and D.scnActSel != id) audio_play_sound_on(global.guiEmt,sfxUIHover,F,2,1);
 				D.isHvr = id
 				mouseIn = T
 				if(D.scnActSel == id) {

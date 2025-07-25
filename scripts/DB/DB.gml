@@ -22,7 +22,7 @@ function db_diaNar() {
 			#region Tutorial
 				
 				NS[$ global.tutnm] = {}
-				NS[$ global.tutnm][$ K.NM] = ACTORn[ACTOR.FOX]
+				NS[$ global.tutnm][$ K.NM] = global.ACTORn[ACTOR.FOX]
 				NS[$ global.tutnm][$ K.ACT] = ACTOR.FOX
 				NS[$ global.tutnm][$ K.BD0+K.SPR] = sprNA
 				NS[$ global.tutnm][$ K.BG0+K.SPR] = sprNA
@@ -54,7 +54,7 @@ function db_diaNar() {
 			#region Radio In (BECKONING DISABLED, NOW DOES NOT PLAY beknm NEXT SEE K.ANM+K.NXT)
 				
 				NS[$ global.radnm] = {}
-				NS[$ global.radnm][$ K.NM] = ACTORn[ACTOR.OLDERSYLAS]
+				NS[$ global.radnm][$ K.NM] = global.ACTORn[ACTOR.OLDERSYLAS]
 				NS[$ global.radnm][$ K.ACT] = ACTOR.OLDERSYLAS
 				NS[$ global.radnm][$ K.BD0+K.SPR] = sprCockpitBG
 				NS[$ global.radnm][$ K.BG0+K.SPR] = sprSylasOlderDark
@@ -76,7 +76,7 @@ function db_diaNar() {
 			#region Beckoning
 				
 				NS[$ global.beknm] = {}
-				NS[$ global.beknm][$ K.NM] = ACTORn[ACTOR.VIRAL]
+				NS[$ global.beknm][$ K.NM] = global.ACTORn[ACTOR.VIRAL]
 				NS[$ global.beknm][$ K.ACT] = ACTOR.VIRAL
 				NS[$ global.beknm][$ K.BD0+K.SPR] = sprDerelict
 				NS[$ global.beknm][$ K.BG0+K.SPR] = sprApproach
@@ -97,7 +97,7 @@ function db_diaNar() {
 				* [1][1] = N (No FX, Just Seconds...) or fxArray (ie [V.FXNAME,[param],...])
 				*/
 				NS[$ global.visnm] = {}
-				NS[$ global.visnm][$ K.NM] = ACTORn[ACTOR.UNKNOWN]
+				NS[$ global.visnm][$ K.NM] = global.ACTORn[ACTOR.UNKNOWN]
 				NS[$ global.visnm][$ K.ACT] = ACTOR.UNKNOWN
 				NS[$ global.visnm][$ K.BD0+K.SPR] = sprNA
 				NS[$ global.visnm][$ K.BG0+K.SPR] = [sprScope,[4,[V.ZOOM_PAN,U,U,[fa_center,fa_middle]]],
@@ -1199,8 +1199,6 @@ function db_scn() {
 }
 
 function db_act() {
-	
-    
     
     #region Actor List Reset
         
@@ -1220,6 +1218,7 @@ function db_act() {
 	#region Pilot Sylas Praey (You)/Player
 		
 		ds_list_add(actorL,P)
+		P.vPitch = .9
 		
 	#endregion
 	
@@ -1286,6 +1285,7 @@ function db_act() {
 			_char.col[2] = c.nr
 			_char.col[3] = c.ny
 			_char.col[4] = c.ny
+			_char.vPitch = random_range(1.2,1.241)
 			
 		#endregion
 		
@@ -1339,6 +1339,7 @@ function db_act() {
 			_char.col[2] = make_color_rgb(192,0,192)
 			_char.col[3] = make_color_rgb(128,0,128)
 			_char.col[4] = make_color_rgb(128,0,128)
+			_char.vPitch = random_range(1.242,1.25)
 			
 		#endregion
 		
@@ -1383,6 +1384,7 @@ function db_act() {
 			_char.col[2] = make_color_rgb(255,128,128)
 			_char.col[3] = make_color_rgb(160,80,80)
 			_char.col[4] = make_color_rgb(160,80,80)
+			_char.vPitch = random_range(1.1,1.15)
 			
 		#endregion
 		
@@ -1427,6 +1429,7 @@ function db_act() {
 			_char.col[2] = make_color_rgb(0,255,0)
 			_char.col[3] = make_color_rgb(0,192,0)
 			_char.col[4] = make_color_rgb(0,192,0)
+			_char.vPitch = random_range(0.95,0.925)
 			
 		#endregion
 		
@@ -1471,6 +1474,7 @@ function db_act() {
 			_char.col[2] = make_color_rgb(96,96,192)
 			_char.col[3] = make_color_rgb(32,32,160)
 			_char.col[4] = make_color_rgb(32,32,192)
+			_char.vPitch = .8
 			
 		#endregion
 		
@@ -1559,6 +1563,7 @@ function db_act() {
 			_char.col[2] = c.lgry
 			_char.col[3] = make_color_rgb(160,160,255)
 			_char.col[4] = make_color_rgb(160,160,255)
+			_char.vPitch = random_range(.85,.9)
 			
 		#endregion
 		
@@ -1603,6 +1608,7 @@ function db_act() {
 			_char.col[2] = c.lgry
 			_char.col[3] = make_color_rgb(255,160,160)
 			_char.col[4] = make_color_rgb(255,160,160)
+			_char.vPitch = random_range(1.151,1.124)
 			
 		#endregion
 		
@@ -1652,7 +1658,7 @@ function db_act() {
 		
 		#region (Dia)logue
 			
-			_char.dia[$ K.NM] = ACTORn[ACTOR.VIRAL]
+			_char.dia[$ K.NM] = global.ACTORn[ACTOR.VIRAL]
 			_char.dia[$ K.FNM] = N
 			_char.dia[$ K.LNM] = N
 			_char.dia[$ K.KNW]  = F
@@ -1685,8 +1691,6 @@ function db_act() {
 // Create a random actor and save em
 function db_act_rnd(scni,close) {
 	
-    
-	
 	if(chance(50)) {
 		
 		#region Random Female
@@ -1705,6 +1709,7 @@ function db_act_rnd(scni,close) {
 			_char.dia[$ K.SX]  = SEX.FEMALE
 			_char.suited = F
 			_char.suitedo = _char.suited
+			_char.vPitch = random_range(1.1251,1.24)
 			
 			#region Pick Sprite
 				
@@ -1825,6 +1830,7 @@ function db_act_rnd(scni,close) {
 			_char.dia[$ K.SX]  = SEX.MALE
 			_char.suited = F
 			_char.suitedo = _char.suited
+			_char.vPitch = random_range(0.81,0.94)
 			
 			#region Pick Sprite
 				
@@ -1934,8 +1940,6 @@ function db_act_rnd(scni,close) {
 // Create a random actor and save em
 function db_act_rnd_slum(scni,close) {
 	
-    
-	
 	if(chance(100*(1/3))) {
 		
 		#region Random Female
@@ -1954,6 +1958,7 @@ function db_act_rnd_slum(scni,close) {
 			_char.dia[$ K.SX]  = SEX.FEMALE
 			_char.suited = F
 			_char.suitedo = _char.suited
+			_char.vPitch = random_range(1.1251,1.24)
 			
 			#region Pick Sprite
 				
@@ -2074,6 +2079,7 @@ function db_act_rnd_slum(scni,close) {
 			_char.dia[$ K.SX]  = SEX.MALE
 			_char.suited = F
 			_char.suitedo = _char.suited
+			_char.vPitch = random_range(0.81,0.94)
 			
 			#region Pick Sprite
 				
@@ -2183,8 +2189,6 @@ function db_act_rnd_slum(scni,close) {
 // Create a random actor and save em
 function db_act_rnd_broth(scni,close) {
 	
-    
-	
 	if(chance(90)) {
 		
 		#region Random Female
@@ -2203,6 +2207,7 @@ function db_act_rnd_broth(scni,close) {
 			_char.dia[$ K.SX]  = SEX.FEMALE
 			_char.suited = F
 			_char.suitedo = _char.suited
+			_char.vPitch = random_range(1.251,1.24)
 			
 			#region Pick Sprite
 				
@@ -2323,6 +2328,7 @@ function db_act_rnd_broth(scni,close) {
 			_char.dia[$ K.SX]  = SEX.MALE
 			_char.suited = F
 			_char.suitedo = _char.suited
+			_char.vPitch = random_range(0.81,0.94)
 			
 			#region Pick Sprite
 				

@@ -342,7 +342,7 @@
 																						
 																						if(_str != "") _str += "\n"
 																						if(!is_string_real(ES[$ string(i)][$ K.SCN+K.TO])) _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO]);
-																						else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
+																						else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+global.SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
 																						
 																					}
 																					
@@ -549,7 +549,7 @@
 																							
 																							if(_str2 != "") _str2 += ", "
 																							if(!is_string_real(ES[$ string(i)][$ K.ENT])) _str2 += "Entity: \""+string(ES[$ string(i)][$ K.ENT])+"\"";
-																							else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
+																							else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+global.ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
 																							// If real, points to an actor, otherwise string could be anything else...
 																							
 																						}
@@ -566,7 +566,7 @@
 																							
 																							if(_str2 != "") _str2 += ", ";
 																							if(!is_string_real(ES[$ string(i)][$ K.CLK])) _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK]);
-																							else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+Vn[real(ES[$ string(i)][$ K.CLK])]+")";
+																							else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+global.Vn[real(ES[$ string(i)][$ K.CLK])]+")";
 																							
 																						}
 																						
@@ -710,7 +710,7 @@
 																	
 																	if(_str != "") _str += "\n"
 																	if(!is_string_real(ES[$ string(i)][$ K.SCN+K.TO])) _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO]);
-																	else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
+																	else _str += "scene_to: "+string(ES[$ string(i)][$ K.SCN+K.TO])+"("+global.SCENEn[real(ES[$ string(i)][$ K.SCN+K.TO])]+")";
 																	
 																}
 																
@@ -887,7 +887,7 @@
 																		
 																		if(_str2 != "") _str2 += ", "
 																		if(!is_string_real(ES[$ string(i)][$ K.ENT])) _str2 += "Entity: \""+string(ES[$ string(i)][$ K.ENT])+"\"";
-																		else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
+																		else _str2 += "Entity: "+string(ES[$ string(i)][$ K.ENT])+"("+global.ACTORn[real(ES[$ string(i)][$ K.ENT])]+")";
 																		// If real, points to an actor, otherwise string could be anything else...
 																		
 																	}
@@ -901,7 +901,7 @@
 																		
 																		if(_str2 != "") _str2 += ", ";
 																		if(!is_string_real(ES[$ string(i)][$ K.CLK])) _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK]);
-																		else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+Vn[real(ES[$ string(i)][$ K.CLK])]+")";
+																		else _str2 += "Click: "+string(ES[$ string(i)][$ K.CLK])+"("+global.Vn[real(ES[$ string(i)][$ K.CLK])]+")";
 																		
 																	}
 																	

@@ -7,7 +7,7 @@
 		
 		function area_check() {
 			
-			switch(string_split(SCENEn[D.scni],"_")[0]) {
+			switch(string_split(global.SCENEn[D.scni],"_")[0]) {
 				
 				case "RESORT": {
 					

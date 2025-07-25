@@ -1,4 +1,4 @@
-// 2025-05-09 18:41:29
+// 2025-05-20 20:17:53
 function diaNar_focus_reset() {
 	
 	// Empty Focuses
@@ -3275,10 +3275,23 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				
 				strBld_ += string_char_at(inst[$ i],stri_+1)
 				stri_ += 1
-				if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(.9,1.1));
-				else if(!actr.dia[$ K.KNW] and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(.9,1.1));
-				else if(actr.dia[$ K.SX] == SEX.MALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(.8,.9));
-				else if(actr.dia[$ K.SX] == SEX.FEMALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound(sfxType,0,F,.5,0,random_range(1.1,1.2));
+				if(actr.vPitch == N) {
+					
+					// Voice Pitch not set so we use defaults
+					if(actr.uid == ACTOR.FOX and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound_on(sfxEmt,sfxType,F,0,2/3,0,random_range(.9,1.1));
+					else if(!actr.dia[$ K.KNW] and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound_on(sfxEmt,sfxType,F,0,2/3,0,random_range(.9,1.1));
+					else if(actr.dia[$ K.SX] == SEX.MALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound_on(sfxEmt,sfxType,F,0,2/3,0,random_range(.8,.9));
+					else if(actr.dia[$ K.SX] == SEX.FEMALE and !audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound_on(sfxEmt,sfxType,F,0,2/3,0,random_range(1.1,1.2));
+					
+				} else {
+					
+					// Voice Pitch set so use it!!! ;p im baked
+					// To better days... hopefully
+					// My throne of enthusiasim
+					// May need to adjust the random_range at the end
+					if(!audio_is_playing(sfxType) and !string_ends_with(strBld_," ")) audio_play_sound_on(sfxEmt,sfxType,F,0,2/3,0,actr.vPitch+random_range(-.005,.005));
+					
+				}
 				strDeli_ = 0
 				
 			#endregion

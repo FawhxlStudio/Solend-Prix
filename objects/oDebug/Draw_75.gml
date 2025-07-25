@@ -184,11 +184,11 @@ if(active and edit and !console) {
 							
 							dbgStr1 += "\nScene Actor Array: [0]: "
 							// Left
-							if(instance_of(_scnActArr[0],oChar)) dbgStr1 += ACTORn[_scnActArr[0].uid];
+							if(instance_of(_scnActArr[0],oChar)) dbgStr1 += global.ACTORn[_scnActArr[0].uid];
 							else dbgStr1 += "None";
 							dbgStr1 += " / [1]: "
 							// Right
-							if(instance_of(_scnActArr[1],oChar)) dbgStr1 += ACTORn[_scnActArr[1].uid];
+							if(instance_of(_scnActArr[1],oChar)) dbgStr1 += global.ACTORn[_scnActArr[1].uid];
 							else dbgStr1 += "None";
 							
 						}
@@ -224,11 +224,11 @@ if(active and edit and !console) {
 					dbgStr1 += "\nDia Inst: "+string(D.diaInstArr);
 					if(D.diaContinue) dbgStr1 += "\nDia Continue...";
 					if(D.diaDone) dbgStr1 += "\nDia Done...";
-					if(D.diaLnkA != N) dbgStr1 += "\nDia Link A:["+ACTORn[D.diaLnkA[0]]+","+string(is_struct(D.diaLnkA[1]))+"]";
-					if(D.diaLnkB != N) dbgStr1 += "\nDia Link B:["+ACTORn[D.diaLnkB[0]]+","+string(is_struct(D.diaLnkB[1]))+"]";
-					if(D.diaLnkC != N) dbgStr1 += "\nDia Link C:["+ACTORn[D.diaLnkC[0]]+","+string(is_struct(D.diaLnkC[1]))+"]";
-					if(D.diaLnkD != N) dbgStr1 += "\nDia Link D:["+ACTORn[D.diaLnkD[0]]+","+string(is_struct(D.diaLnkD[1]))+"]";
-					if(D.diaLnkE != N) dbgStr1 += "\nDia Link E:["+ACTORn[D.diaLnkE[0]]+","+string(is_struct(D.diaLnkE[1]))+"]";
+					if(D.diaLnkA != N) dbgStr1 += "\nDia Link A:["+global.ACTORn[D.diaLnkA[0]]+","+string(is_struct(D.diaLnkA[1]))+"]";
+					if(D.diaLnkB != N) dbgStr1 += "\nDia Link B:["+global.ACTORn[D.diaLnkB[0]]+","+string(is_struct(D.diaLnkB[1]))+"]";
+					if(D.diaLnkC != N) dbgStr1 += "\nDia Link C:["+global.ACTORn[D.diaLnkC[0]]+","+string(is_struct(D.diaLnkC[1]))+"]";
+					if(D.diaLnkD != N) dbgStr1 += "\nDia Link D:["+global.ACTORn[D.diaLnkD[0]]+","+string(is_struct(D.diaLnkD[1]))+"]";
+					if(D.diaLnkE != N) dbgStr1 += "\nDia Link E:["+global.ACTORn[D.diaLnkE[0]]+","+string(is_struct(D.diaLnkE[1]))+"]";
 					if(D.diaAnimTo != N) dbgStr1 += "\nDia Anim To: "+string(D.diaAnimTo);
 					
 				#endregion
@@ -767,36 +767,36 @@ if(active and edit and !console) {
 					if(diaPrev2Str != "") {
 						
 						text_prep(string_trim(diaPrev2Str));
-						fgc_[1] = c.nr
-						fgc_[2] = c.nr
-						fgc_[3] = c.r
-						fgc_[4] = c.r
+						global.fgc_[1] = c.nr
+						global.fgc_[2] = c.nr
+						global.fgc_[3] = c.r
+						global.fgc_[4] = c.r
 						
 					} else if(is_string(dbgStr2)) text_prep(string_trim(dbgStr1+dbgStr2));
 					else text_prep(string_trim(dbgStr1));
 					
 					// Make Debug STR BG more opaque for now...
-					bgc_[0] = .9
-					bgc_[1] = c.blk
-					bgc_[2] = c.blk
-					bgc_[3] = make_color_rgb(16,16,16)
-					bgc_[4] = make_color_rgb(16,16,16)
+					global.bgc_[0] = .9
+					global.bgc_[1] = c.blk
+					global.bgc_[2] = c.blk
+					global.bgc_[3] = make_color_rgb(16,16,16)
+					global.bgc_[4] = make_color_rgb(16,16,16)
 					
 					// Draw Debug Strings
-					draw_set_alpha(bgc_[0])
+					draw_set_alpha(global.bgc_[0])
 					if(MXPCT > 1/3) {
 						
 						// Left Side
 						draw_set_hvalign([fa_left,fa_top])
-						draw_rectangle_color(0,0,strw_,strh_+dbgStrScrl,bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
-						draw_text_color(0,dbgStrScrl,str_,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0])
+						draw_rectangle_color(0,0,global.strw_,global.strh_+dbgStrScrl,global.bgc_[1],global.bgc_[2],global.bgc_[3],global.bgc_[4],F)
+						draw_text_color(0,dbgStrScrl,global.str_,global.fgc_[1],global.fgc_[2],global.fgc_[3],global.fgc_[4],global.fgc_[0])
 						
 					} else {
 						
 						// Move to Right to get out of way...
 						draw_set_hvalign([fa_right,fa_top])
-						draw_rectangle_color(WW,0,WW-strw_,strh_+dbgStrScrl,bgc_[1],bgc_[2],bgc_[3],bgc_[4],F)
-						draw_text_color(WW,dbgStrScrl,str_,fgc_[1],fgc_[2],fgc_[3],fgc_[4],fgc_[0])
+						draw_rectangle_color(WW,0,WW-global.strw_,global.strh_+dbgStrScrl,global.bgc_[1],global.bgc_[2],global.bgc_[3],global.bgc_[4],F)
+						draw_text_color(WW,dbgStrScrl,global.str_,global.fgc_[1],global.fgc_[2],global.fgc_[3],global.fgc_[4],global.fgc_[0])
 						
 					}
 					

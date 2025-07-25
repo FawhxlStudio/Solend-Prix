@@ -1,4 +1,4 @@
-// 2025-05-02 01:12:30
+// 2025-05-19 22:23:02
 #event properties (no comments/etc. here are saved)
 parent_index = -1;
 uses_physics = false;
@@ -44,6 +44,9 @@ uses_physics = false;
 	// Dialogue
 	imgDia = N
 	imgDiaPol = 1
+	
+	// Voice Pitch
+	vPitch = N
 	
 #endregion
 
@@ -95,7 +98,7 @@ uses_physics = false;
 #endregion
 
 #event step Logic Updates & Dialogue Triggers
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region Dialogue
 	
@@ -198,7 +201,7 @@ try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* G
 #endregion Dialogue
 
 #event step_begin Controls
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+
 
 #region FX Updates
 	
@@ -280,4 +283,4 @@ if(D.scene_state == GAME.PLAY) {
 }
 
 #event draw_pre
-try { /* GMLive Call */ if (live_call()) return live_result; } catch(_ex) { /* GMLive not available? */ }
+

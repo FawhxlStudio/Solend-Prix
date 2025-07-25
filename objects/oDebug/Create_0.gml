@@ -12,7 +12,7 @@ unstuck = T
 muted = F
 envInvert = T
 diaDebug = F
-diaShortcut = F
+diaShortcut = T
 scnJump = T
 nightSkip = F
 

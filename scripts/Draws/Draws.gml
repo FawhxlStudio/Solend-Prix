@@ -44,7 +44,7 @@
 					if(!D.btnHvr and !audio_is_playing(sfxUIHover)) {
 						
 						D.btnHvr = T
-						audio_play_sound_on(guiEmt,sfxUIHover,F,2,1,0,random_range(.95,1.05))
+						audio_play_sound_on(global.guiEmt,sfxUIHover,F,2,1,0,random_range(.95,1.05))
 						
 					}
 					
@@ -61,7 +61,7 @@
 						draw_set_alpha(ao)
 						var rtn = button_action(actn)
 						// Confirm SFX
-						if(rtn and !audio_is_playing(sfxUIConfirm)) audio_play_sound_on(guiEmt,sfxUIConfirm,F,2,2,0,random_range(.95,1.05));
+						if(rtn and !audio_is_playing(sfxUIConfirm)) audio_play_sound_on(global.guiEmt,sfxUIConfirm,F,2,2,0,random_range(.95,1.05));
 						return rtn
 						
 					}
@@ -98,8 +98,8 @@
 						if(D.game_state == GAME.MENU) {
 							
 							global.menu_object.settings = F
-							if(!audio_is_playing(M.bgm)) M.bgmID = audio_play_sound_on(bgmEmt,M.bgm,T,0,0);
-							if(!audio_is_playing(sfxCinemaBoom)) audio_play_sound_on(sfxEmt,sfxCinemaBoom,F,1,1);
+							if(!audio_is_playing(M.bgm)) M.bgmID = audio_play_sound_on(global.bgmEmt,M.bgm,T,0,0);
+							if(!audio_is_playing(sfxCinemaBoom)) audio_play_sound_on(global.sfxEmt,sfxCinemaBoom,F,1,1);
 							M.introInst = instance_create_layer(0,0,"GUI",oIntro)
 							
 						}
@@ -214,7 +214,7 @@
 						if(!D.btnHvr and !audio_is_playing(sfxUIHover)) {
 							
 							D.btnHvr = T
-							audio_play_sound_on(guiEmt,sfxUIHover,F,2,1,0,random_range(.95,1.05))
+							audio_play_sound_on(global.guiEmt,sfxUIHover,F,2,1,0,random_range(.95,1.05))
 							
 						}
 						
@@ -241,7 +241,7 @@
 						if(sym == "%") draw_text_color(x2,xy[3],string("{0}{1}",v*100,sym),fgc[1],fgc[2],fgc[3],fgc[4],a);
 						else draw_text_color(x2,xy[3],string("{0}{1}",v,sym),fgc[1],fgc[2],fgc[3],fgc[4],a);
 						// Slider Click SFX
-						if(v != vo and !audio_is_playing(sfxUIClick)) audio_play_sound_on(guiEmt,sfxUIClick,F,2,1,0,random_range(.95,1.05));
+						if(v != vo and !audio_is_playing(sfxUIClick)) audio_play_sound_on(global.guiEmt,sfxUIClick,F,2,1,0,random_range(.95,1.05));
 						
 					} else {
 						
@@ -330,40 +330,40 @@
 						
 						case ACTION.VOL_MASTER: {
 							
-							masterVol = v
-							audio_master_gain(masterVol)
+							global.masterVol = v
+							audio_master_gain(global.masterVol)
 							break
 							
 						}
 						
 						case ACTION.VOL_ENV: {
 							
-							envVol = v
-							audio_emitter_gain(envEmt,envVol)
+							global.envVol = v
+							audio_emitter_gain(global.envEmt,global.envVol)
 							break
 							
 						}
 						
 						case ACTION.VOL_SFX: {
 							
-							sfxVol = v
-							audio_emitter_gain(sfxEmt,sfxVol)
+							global.sfxVol = v
+							audio_emitter_gain(global.sfxEmt,global.sfxVol)
 							break
 							
 						}
 						
 						case ACTION.VOL_BGM: {
 							
-							bgmVol = v
-							audio_emitter_gain(bgmEmt,bgmVol)
+							global.bgmVol = v
+							audio_emitter_gain(global.bgmEmt,global.bgmVol)
 							break
 							
 						}
 						
 						case ACTION.VOL_GUI: {
 							
-							guiVol = v
-							audio_emitter_gain(guiEmt,guiVol)
+							global.guiVol = v
+							audio_emitter_gain(global.guiEmt,global.guiVol)
 							break
 							
 						}
@@ -554,12 +554,12 @@
 			
 			
 			// the usual init; non-ext
-			str_  = str
-			stri_ = 0
-			strw_ = string_width(str)
-			strh_ = string_height(str)
-			bgc_  = [1/3,c.dgry,c.dgry,c.blk,c.blk] // Background Default
-			fgc_  = [1,c.ng,c.ng,c.lg,c.lg] // Foreground/Text Default
+			global.str_  = str
+			global.stri_ = 0
+			global.strw_ = string_width(str)
+			global.strh_ = string_height(str)
+			global.bgc_  = [1/3,c.dgry,c.dgry,c.blk,c.blk] // Background Default
+			global.fgc_  = [1,c.ng,c.ng,c.lg,c.lg] // Foreground/Text Default
 			
 		}
 		
@@ -570,11 +570,11 @@
 			
 			
 			// the usual init; non-ext
-			str_  = str
-			strw_ = string_width_ext(str,STRH,WW*(7/8))
-			strh_ = string_height_ext(str,STRH,WW*(7/8))
-			bgc_  = [.9,c.blk,c.blk,c.blk,c.blk] // Background Default
-			fgc_  = [1,c.wht,c.wht,c.lgry,c.lgry] // Foreground/Text Default
+			global.str_  = str
+			global.strw_ = string_width_ext(str,STRH,WW*(7/8))
+			global.strh_ = string_height_ext(str,STRH,WW*(7/8))
+			global.bgc_  = [.9,c.blk,c.blk,c.blk,c.blk] // Background Default
+			global.fgc_  = [1,c.wht,c.wht,c.lgry,c.lgry] // Foreground/Text Default
 			
 		}
 		

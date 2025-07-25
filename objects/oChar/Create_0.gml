@@ -41,6 +41,9 @@
 	xpct = N
 	ypct = N
 	
+	// Voice Pitch
+	vPitch = N
+	
 #endregion
 
 #region Stats
@@ -103,7 +106,7 @@
 	
 	diai = 0
 	dia = {}
-	dia[$ K.NM] = ACTORn[ACTOR.UNKNOWN]
+	dia[$ K.NM] = global.ACTORn[ACTOR.UNKNOWN]
 	dia[$ K.FNM] = N
 	dia[$ K.LNM] = N
 	dia[$ K.SX] = N
