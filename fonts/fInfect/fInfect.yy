@@ -161,8 +161,8 @@
   "size":50.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"tg_nightmare1",
-    "path":"texturegroups/tg_nightmare1",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

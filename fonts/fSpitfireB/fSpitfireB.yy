@@ -545,8 +545,8 @@
   "size":38.0,
   "styleName":"Bold",
   "textureGroupId":{
-    "name":"tg_char_spitfire",
-    "path":"texturegroups/tg_char_spitfire",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

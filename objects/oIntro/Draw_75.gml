@@ -5,7 +5,7 @@
 	if(is(narSurf) and surface_exists(narSurf) and fadeIni >= fadeIn) {
 		
 		// Init Drawer
-		// if(!is(surfDrawer)) surfDrawer = instance_create_layer(0,0,"GUI",oDrawer);
+		if(!is(surfDrawer)) surfDrawer = instance_create_layer(0,0,"GUI",oDrawer);
 		
 		// Update Scroll
 		var _pct = deli/del

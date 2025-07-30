@@ -554,12 +554,12 @@
 			
 			
 			// the usual init; non-ext
-			global.str_  = str
-			global.stri_ = 0
-			global.strw_ = string_width(str)
-			global.strh_ = string_height(str)
-			global.bgc_  = [1/3,c.dgry,c.dgry,c.blk,c.blk] // Background Default
-			global.fgc_  = [1,c.ng,c.ng,c.lg,c.lg] // Foreground/Text Default
+			global.str  = str
+			global.stri = 0
+			global.strw = string_width(str)
+			global.strh = string_height(str)
+			global.bgc  = [1/3,c.dgry,c.dgry,c.blk,c.blk] // Background Default
+			global.fgc  = [1,c.ng,c.ng,c.lg,c.lg] // Foreground/Text Default
 			
 		}
 		
@@ -570,11 +570,11 @@
 			
 			
 			// the usual init; non-ext
-			global.str_  = str
-			global.strw_ = string_width_ext(str,STRH,WW*(7/8))
-			global.strh_ = string_height_ext(str,STRH,WW*(7/8))
-			global.bgc_  = [.9,c.blk,c.blk,c.blk,c.blk] // Background Default
-			global.fgc_  = [1,c.wht,c.wht,c.lgry,c.lgry] // Foreground/Text Default
+			global.str  = str
+			global.strw = string_width_ext(str,STRH,WW*(7/8))
+			global.strh = string_height_ext(str,STRH,WW*(7/8))
+			global.bgc  = [.9,c.blk,c.blk,c.blk,c.blk] // Background Default
+			global.fgc  = [1,c.wht,c.wht,c.lgry,c.lgry] // Foreground/Text Default
 			
 		}
 		

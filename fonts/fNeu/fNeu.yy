@@ -135,8 +135,8 @@
   "size":24.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"tg_common",
-    "path":"texturegroups/tg_common",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

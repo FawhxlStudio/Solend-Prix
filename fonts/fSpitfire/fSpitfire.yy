@@ -566,8 +566,8 @@
   "size":40.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"tg_char_spitfire",
-    "path":"texturegroups/tg_char_spitfire",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

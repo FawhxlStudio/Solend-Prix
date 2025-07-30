@@ -135,8 +135,8 @@
   "size":16.0,
   "styleName":"Regular",
   "textureGroupId":{
-    "name":"tg_char_sylas",
-    "path":"texturegroups/tg_char_sylas",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

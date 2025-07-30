@@ -135,8 +135,8 @@
   "size":32.0,
   "styleName":"Bold",
   "textureGroupId":{
-    "name":"tg_common",
-    "path":"texturegroups/tg_common",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

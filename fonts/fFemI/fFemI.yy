@@ -1069,8 +1069,8 @@
   "size":32.0,
   "styleName":"Light Italic",
   "textureGroupId":{
-    "name":"tg_common_female",
-    "path":"texturegroups/tg_common_female",
+    "name":"Default",
+    "path":"texturegroups/Default",
   },
   "TTFName":"",
   "usesSDF":false,

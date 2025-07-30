@@ -5,9 +5,9 @@ dbg = T
 bgm = msxDefault
 bgmID = N
 introInst = N
-global.strBld_ = ""
-global.strDel_ = 1.5
-global.strDeli_ = 0
+global.strBld = ""
+global.strDel = 1.5
+global.strDeli = 0
 pause = F
 pauseSurf = N
 

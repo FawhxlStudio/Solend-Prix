@@ -111,32 +111,6 @@
 			
 		}
 		
-		function common_ready() {
-			
-			// Init
-			var rtn = T
-			
-			#region Audio
-				
-				if(!audio_group_is_loaded(audiogroup_default)) rtn = F;
-				if(!audio_group_is_loaded(ag_sfx)) rtn = F;
-				if(!audio_group_is_loaded(ag_ui)) rtn = F;
-				
-			#endregion
-			
-			#region Textures/Sprites
-				
-				if(texturegroup_get_status("Default") != texturegroup_status_fetched) rtn = F;
-				if(texturegroup_get_status("tg_char_sylas") != texturegroup_status_fetched) rtn = F;
-				if(texturegroup_get_status("tg_common") != texturegroup_status_fetched) rtn = F;
-				if(texturegroup_get_status("tg_goth_common") != texturegroup_status_fetched) rtn = F;
-				
-			#endregion
-			
-			return rtn
-			
-		}
-		
 		function load_menu() {
 			
 			var done = T
@@ -148,13 +122,6 @@
 			}
 			load_club2_area()
 			return done
-			
-		}
-		
-		function menu_ready() {
-			
-			return (texturegroup_get_status("tg_menu") == texturegroup_status_fetched
-				and texturegroup_get_status("tg_club2") == texturegroup_status_fetched)
 			
 		}
 		
@@ -172,18 +139,6 @@
 			
 		}
 		
-		function intro_ready() {
-			
-			// Init
-			var rtn = T
-			
-			if(texturegroup_get_status("tg_intro") != texturegroup_status_fetched) rtn = F;
-			if(!starfield_ready()) rtn = F;
-			
-			return rtn
-			
-		}
-		
 		function load_starfield() {
 			
 			var done = T
@@ -194,12 +149,6 @@
 				
 			}
 			return done
-			
-		}
-		
-		function starfield_ready() {
-			
-			return texturegroup_get_status("tg_starfield") == texturegroup_status_fetched
 			
 		}
 		
@@ -233,18 +182,6 @@
 				
 			}
 			return done
-			
-		}
-		
-		function resort_area_ready() {
-			
-			var rtn = T
-			
-			if(!audio_group_is_loaded(ag_resort)) rtn = F;
-			if(texturegroup_get_status("tg_resort") != texturegroup_status_fetched) rtn = F;
-			//load_anim_news1()
-			
-			return rtn
 			
 		}
 		
@@ -355,17 +292,6 @@
 			
 		}
 		
-		function anim_news1_ready() {
-			
-			var rtn = T
-			
-			if(texturegroup_get_status("tg_news1") != texturegroup_status_fetched) rtn = F;
-			//load_char_alexandria()
-			
-			return rtn
-			
-		}
-		
 		function load_anim_nightmare1() {
 			
 			var done = T
@@ -377,17 +303,6 @@
 				
 			}
 			return done
-			
-		}
-		
-		function anim_nightmare1_ready() {
-			
-			var rtn = T
-			
-			if(!audio_group_is_loaded(ag_nightmare1)) rtn = F;
-			if(texturegroup_get_status("tg_nightmare1") != texturegroup_status_fetched) rtn = F;
-			
-			return rtn
 			
 		}
 		
@@ -428,13 +343,6 @@
 				
 			}
 			return done
-			
-		}
-		
-		function char_alexandria_ready() {
-			
-			if(texturegroup_get_status("tg_char_alexandria") != texturegroup_status_fetched) rtn = F;
-			if(texturegroup_get_status("tg_common_female") != texturegroup_status_fetched) rtn = F;
 			
 		}
 		
@@ -550,21 +458,21 @@
 		
 		function unload_menu() {
 			
-			if(texturegroup_get_status("tg_menu") > texturegroup_status_unloaded) texturegroup_unload("tg_menu")
+			if(texturegroup_get_status("tg_menu") != texturegroup_status_unloaded) texturegroup_unload("tg_menu")
 			unload_club2_area()
 			
 		}
 		
 		function unload_intro() {
 			
-			if(texturegroup_get_status("tg_intro") > texturegroup_status_unloaded) texturegroup_unload("tg_intro");
+			if(texturegroup_get_status("tg_intro") != texturegroup_status_unloaded) texturegroup_unload("tg_intro");
 			unload_starfield()
 			
 		}
 		
 		function unload_starfield() {
 			
-			if(texturegroup_get_status("tg_starfield") > texturegroup_status_unloaded) texturegroup_unload("tg_starfield");
+			if(texturegroup_get_status("tg_starfield") != texturegroup_status_unloaded) texturegroup_unload("tg_starfield");
 			
 		}
 		
@@ -575,7 +483,7 @@
 		function unload_resort_area() {
 			
 			//if(audio_group_is_loaded(ag_resort)) audio_group_unload(ag_resort);
-			if(texturegroup_get_status("tg_resort") > texturegroup_status_unloaded) texturegroup_unload("tg_resort");
+			if(texturegroup_get_status("tg_resort") != texturegroup_status_unloaded) texturegroup_unload("tg_resort");
 			unload_anim_news1()
 			unload_resort2_area()
 			
@@ -584,49 +492,49 @@
 		function unload_resort2_area() {
 			
 			//if(audio_group_is_loaded(ag_resort)) audio_group_unload(ag_resort);
-			if(texturegroup_get_status("tg_resort2") > texturegroup_status_unloaded) texturegroup_unload("tg_resort2");
+			if(texturegroup_get_status("tg_resort2") != texturegroup_status_unloaded) texturegroup_unload("tg_resort2");
 			
 		}
 		
 		function unload_city_area() {
 			
 			//if(audio_group_is_loaded(ag_city)) audio_group_unload(ag_city);
-			if(texturegroup_get_status("tg_city") > texturegroup_status_unloaded) texturegroup_unload("tg_city");
+			if(texturegroup_get_status("tg_city") != texturegroup_status_unloaded) texturegroup_unload("tg_city");
 			
 		}
 		
 		function unload_club_area() {
 			
 			//if(audio_group_is_loaded(ag_club)) audio_group_unload(ag_club);
-			if(texturegroup_get_status("tg_club1") > texturegroup_status_unloaded) texturegroup_unload("tg_club1");
+			if(texturegroup_get_status("tg_club1") != texturegroup_status_unloaded) texturegroup_unload("tg_club1");
 			unload_club2_area()
 			
 		}
 		
 		function unload_club2_area() {
 			
-			if(texturegroup_get_status("tg_club2") > texturegroup_status_unloaded) texturegroup_unload("tg_club2");
+			if(texturegroup_get_status("tg_club2") != texturegroup_status_unloaded) texturegroup_unload("tg_club2");
 			
 		}
 		
 		function unload_brothel_area() {
 			
 			//if(audio_group_is_loaded(ag_brothel)) audio_group_unload(ag_brothel);
-			if(texturegroup_get_status("tg_brothel") > texturegroup_status_unloaded) texturegroup_unload("tg_brothel");
+			if(texturegroup_get_status("tg_brothel") != texturegroup_status_unloaded) texturegroup_unload("tg_brothel");
 			
 		}
 		
 		function unload_slums_area() {
 			
 			//if(audio_group_is_loaded(ag_slums)) audio_group_unload(ag_slums);
-			if(texturegroup_get_status("tg_slums") > texturegroup_status_unloaded) texturegroup_unload("tg_slums");
+			if(texturegroup_get_status("tg_slums") != texturegroup_status_unloaded) texturegroup_unload("tg_slums");
 			
 		}
 		
 		function unload_port_area() {
 			
 			//if(audio_group_is_loaded(ag_port)) audio_group_unload(ag_port);
-			if(texturegroup_get_status("tg_port") > texturegroup_status_unloaded) texturegroup_unload("tg_port");
+			if(texturegroup_get_status("tg_port") != texturegroup_status_unloaded) texturegroup_unload("tg_port");
 			
 		}
 		
@@ -636,7 +544,7 @@
 		
 		function unload_anim_news1() {
 			
-			if(texturegroup_get_status("tg_news1") > texturegroup_status_unloaded) texturegroup_unload("tg_news1");
+			if(texturegroup_get_status("tg_news1") != texturegroup_status_unloaded) texturegroup_unload("tg_news1");
 			unload_char_alexandria()
 			
 		}
@@ -644,7 +552,7 @@
 		function unload_anim_nightmare1() {
 			
 			//if(audio_group_is_loaded(ag_nightmare1)) audio_group_unload(ag_nightmare1);
-			if(texturegroup_get_status("tg_nightmare1") > texturegroup_status_unloaded) texturegroup_unload("tg_nightmare1");
+			if(texturegroup_get_status("tg_nightmare1") != texturegroup_status_unloaded) texturegroup_unload("tg_nightmare1");
 			
 		}
 		
@@ -654,26 +562,26 @@
 		
 		function unload_char_spitfire() {
 			
-			if(texturegroup_get_status("tg_char_spitfire") > texturegroup_status_unloaded) texturegroup_unload("tg_char_spitfire");
-			if(texturegroup_get_status("tg_common_female") > texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			if(texturegroup_get_status("tg_char_spitfire") != texturegroup_status_unloaded) texturegroup_unload("tg_char_spitfire");
+			if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
 			
 		}
 		
 		function unload_char_alexandria() {
 			
-			if(texturegroup_get_status("tg_char_alexandria") > texturegroup_status_unloaded) texturegroup_unload("tg_char_alexandria");
-			if(texturegroup_get_status("tg_common_female") > texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			if(texturegroup_get_status("tg_char_alexandria") != texturegroup_status_unloaded) texturegroup_unload("tg_char_alexandria");
+			if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
 			
 		}
 		
 		function unload_random_actors() {
 			
-			if(texturegroup_get_status("tg_males") > texturegroup_status_unloaded) texturegroup_unload("tg_males");
-			if(texturegroup_get_status("tg_females") > texturegroup_status_unloaded) texturegroup_unload("tg_females");
-			if(texturegroup_get_status("tg_males_close") > texturegroup_status_unloaded) texturegroup_unload("tg_males_close");
-			if(texturegroup_get_status("tg_females_close") > texturegroup_status_unloaded) texturegroup_unload("tg_females_close");
-			if(texturegroup_get_status("tg_common_male") > texturegroup_status_unloaded) texturegroup_unload("tg_common_male");
-			if(texturegroup_get_status("tg_common_female") > texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			if(texturegroup_get_status("tg_males") != texturegroup_status_unloaded) texturegroup_unload("tg_males");
+			if(texturegroup_get_status("tg_females") != texturegroup_status_unloaded) texturegroup_unload("tg_females");
+			if(texturegroup_get_status("tg_males_close") != texturegroup_status_unloaded) texturegroup_unload("tg_males_close");
+			if(texturegroup_get_status("tg_females_close") != texturegroup_status_unloaded) texturegroup_unload("tg_females_close");
+			if(texturegroup_get_status("tg_common_male") != texturegroup_status_unloaded) texturegroup_unload("tg_common_male");
+			if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
 			
 		}
 		
@@ -683,13 +591,13 @@
 		
 		function unload_combat_male() {
 			
-			if(texturegroup_get_status("tg_combat_male") > texturegroup_status_unloaded) texturegroup_unload("tg_combat_male");
+			if(texturegroup_get_status("tg_combat_male") != texturegroup_status_unloaded) texturegroup_unload("tg_combat_male");
 			
 		}
 		
 		function unload_combat_female() {
 			
-			if(texturegroup_get_status("tg_combat_female") > texturegroup_status_unloaded) texturegroup_unload("tg_combat_female");
+			if(texturegroup_get_status("tg_combat_female") != texturegroup_status_unloaded) texturegroup_unload("tg_combat_female");
 			
 		}
 		

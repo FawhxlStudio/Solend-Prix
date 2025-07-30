@@ -102,10 +102,7 @@
   "sdfSpread":32,
   "size":50.0,
   "styleName":"Regular",
-  "textureGroupId":{
-    "name":"tg_char_alexandria",
-    "path":"texturegroups/tg_char_alexandria",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":false,
 }

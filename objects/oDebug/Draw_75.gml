@@ -767,36 +767,36 @@ if(active and edit and !console) {
 					if(diaPrev2Str != "") {
 						
 						text_prep(string_trim(diaPrev2Str));
-						global.fgc_[1] = c.nr
-						global.fgc_[2] = c.nr
-						global.fgc_[3] = c.r
-						global.fgc_[4] = c.r
+						global.fgc[1] = c.nr
+						global.fgc[2] = c.nr
+						global.fgc[3] = c.r
+						global.fgc[4] = c.r
 						
 					} else if(is_string(dbgStr2)) text_prep(string_trim(dbgStr1+dbgStr2));
 					else text_prep(string_trim(dbgStr1));
 					
 					// Make Debug STR BG more opaque for now...
-					global.bgc_[0] = .9
-					global.bgc_[1] = c.blk
-					global.bgc_[2] = c.blk
-					global.bgc_[3] = make_color_rgb(16,16,16)
-					global.bgc_[4] = make_color_rgb(16,16,16)
+					global.bgc[0] = .9
+					global.bgc[1] = c.blk
+					global.bgc[2] = c.blk
+					global.bgc[3] = make_color_rgb(16,16,16)
+					global.bgc[4] = make_color_rgb(16,16,16)
 					
 					// Draw Debug Strings
-					draw_set_alpha(global.bgc_[0])
+					draw_set_alpha(global.bgc[0])
 					if(MXPCT > 1/3) {
 						
 						// Left Side
 						draw_set_hvalign([fa_left,fa_top])
-						draw_rectangle_color(0,0,global.strw_,global.strh_+dbgStrScrl,global.bgc_[1],global.bgc_[2],global.bgc_[3],global.bgc_[4],F)
-						draw_text_color(0,dbgStrScrl,global.str_,global.fgc_[1],global.fgc_[2],global.fgc_[3],global.fgc_[4],global.fgc_[0])
+						draw_rectangle_color(0,0,global.strw,global.strh+dbgStrScrl,global.bgc[1],global.bgc[2],global.bgc[3],global.bgc[4],F)
+						draw_text_color(0,dbgStrScrl,global.str,global.fgc[1],global.fgc[2],global.fgc[3],global.fgc[4],global.fgc[0])
 						
 					} else {
 						
 						// Move to Right to get out of way...
 						draw_set_hvalign([fa_right,fa_top])
-						draw_rectangle_color(WW,0,WW-global.strw_,global.strh_+dbgStrScrl,global.bgc_[1],global.bgc_[2],global.bgc_[3],global.bgc_[4],F)
-						draw_text_color(WW,dbgStrScrl,global.str_,global.fgc_[1],global.fgc_[2],global.fgc_[3],global.fgc_[4],global.fgc_[0])
+						draw_rectangle_color(WW,0,WW-global.strw,global.strh+dbgStrScrl,global.bgc[1],global.bgc[2],global.bgc[3],global.bgc[4],F)
+						draw_text_color(WW,dbgStrScrl,global.str,global.fgc[1],global.fgc[2],global.fgc[3],global.fgc[4],global.fgc[0])
 						
 					}
 					

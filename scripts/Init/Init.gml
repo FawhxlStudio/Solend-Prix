@@ -649,15 +649,15 @@ function _init() {
 		
 		#region Text Globals
 			
-			global.str_ = N
-			global.stri_ = N
-			global.strw_ = N
-			global.strh_ = N
-			global.bgc_ = N
-			global.fgc_ = N
-			global.strBld_ = N
-			global.strDel_ = N
-			global.strDeli_ = N
+			global.str = N
+			global.stri = N
+			global.strw = N
+			global.strh = N
+			global.bgc = N
+			global.fgc = N
+			global.strBld = N
+			global.strDel = N
+			global.strDeli = N
 			text_prep("") // init Values...
 			
 		#endregion
