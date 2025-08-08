@@ -63,8 +63,8 @@
 
 #region Char Fonts
 	
-	font1 = fSylas // Dialogue
-	font2 = fEmoteMale // Emote
+	font1 = fSylas_New // Dialogue
+	font2 = fEmoteMale_New // Emote
 	
 #endregion
 

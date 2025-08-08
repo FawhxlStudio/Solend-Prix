@@ -2350,7 +2350,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 								// Set Sex Font...
 								if(variable_instance_exists(actr.dia,K.SX)) {
 									
-									if(actr.dia[$ K.SX] == SEX.FEMALE) draw_set_font(fFemB);
+									if(actr.dia[$ K.SX] == SEX.FEMALE) draw_set_font(fFemB_New);
 									else draw_set_font(fMalB);
 									
 								}
@@ -3028,7 +3028,7 @@ function diaNar_draw(actr,diaInst,diaLyr){
 	
 	#region Resets
 		
-		draw_set_font(fNeu)
+		draw_set_font(fNeu_New)
 		draw_set_alpha(1)
 		
 	#endregion
@@ -3068,7 +3068,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 		
 		// Set Font...
 		if(actr != N) draw_set_font(actr.font1);
-		else draw_set_font(fNeu);
+		else draw_set_font(fNeu_New);
 		
 		#region Is Emote? * at start of string
 			
@@ -3081,19 +3081,19 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 						
 						if(variable_instance_exists(actr.dia,K.SX)) {
 							
-							if(actr.dia[$ K.SX] == SEX.FEMALE) draw_set_font(fEmoteFemale);
-							else if(actr.dia[$ K.SX] == SEX.MALE) draw_set_font(fEmoteMale);
-							else draw_set_font(fEmoteNarrator);
+							if(actr.dia[$ K.SX] == SEX.FEMALE) draw_set_font(fEmoteFemale_New);
+							else if(actr.dia[$ K.SX] == SEX.MALE) draw_set_font(fEmoteMale_New);
+							else draw_set_font(fEmoteNarrator_New);
 							
-						} else draw_set_font(fEmoteNarrator);
+						} else draw_set_font(fEmoteNarrator_New);
 						
 					} catch(_ex) {
 						
-						draw_set_font(fEmoteNarrator)
+						draw_set_font(fEmoteNarrator_New)
 						
 					}
 					
-				} else draw_set_font(fEmoteNarrator); // Set Emote Font
+				} else draw_set_font(fEmoteNarrator_New); // Set Emote Font
 				inst[$ i] = string_replace_all(inst[$ i],"*","") // Remove Asterisks
 				
 			}
@@ -3163,11 +3163,11 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 					if(actr != N) {
 						
 						var _c = actr.col
-						if(actr.uid == ACTOR.FOX or draw_get_font() == fTransmit)
+						if(actr.uid == ACTOR.FOX or draw_get_font() == fTransmit_New)
 							draw_rectangle_color(0,0,WW,WH,c.blk,c.blk,_c[1],_c[3],F);
 						else draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.blk,c.blk,_c[1],_c[3],F);
 						
-					} else if(draw_get_font() != fTransmit) draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.wht,c.wht,c.ltgry,c.ltgry,F);
+					} else if(draw_get_font() != fTransmit_New) draw_rectangle_color(xy[0],xy[1],xy[2],xy[3],c.wht,c.wht,c.ltgry,c.ltgry,F);
 					else draw_rectangle_color(0,0,WW,WH,c.wht,c.wht,c.ltgry,c.ltgry,F);
 					
 				#endregion
@@ -3199,7 +3199,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				//if(draw_get_font() == fEmote) global.fgc = [global.fgc[0],c.wht,c.wht,c.gry,c.gry];
 				
 				// If Transmit, blink carot every other second
-				if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+				if(D.sc%2 == 0 and draw_get_font() == fTransmit_New and strFull) {
 					
 					// Play Beep at fr 0
 					if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
@@ -3211,7 +3211,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				} else {
 					
 					// If is Transmit and ends with ], use it as carot
-					if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(global.strBld),"]")  and strFull)
+					if(draw_get_font() == fTransmit_New and string_ends_with(string_trim_end(global.strBld),"]")  and strFull)
 						draw_text_ext_color(xx,yy,string_copy(global.strBld,0,string_length(global.strBld)-1),STRH,WW,global.fgc[1],global.fgc[2],global.fgc[3],global.fgc[4],global.fgc[0]);
 					else draw_text_ext_color(xx,yy,global.strBld,STRH,WW,global.fgc[1],global.fgc[2],global.fgc[3],global.fgc[4],global.fgc[0]);
 					
@@ -3231,7 +3231,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				//if(draw_get_font() == fEmote) _c = [_c[0],c.wht,c.wht,c.gry,c.gry];
 				
 				// If Transmit, blink carot every other second
-				if(D.sc%2 == 0 and draw_get_font() == fTransmit and strFull) {
+				if(D.sc%2 == 0 and draw_get_font() == fTransmit_New and strFull) {
 					
 					// Play Beep at fr 0
 					if(D.fr == 0) audio_play_sound(sfxBeepInput,0,F,.5);
@@ -3243,7 +3243,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				} else {
 					
 					// If is Transmit and ends with ], use it as carot
-					if(draw_get_font() == fTransmit and string_ends_with(string_trim_end(global.strBld),"]") and strFull)
+					if(draw_get_font() == fTransmit_New and string_ends_with(string_trim_end(global.strBld),"]") and strFull)
 						draw_text_ext_color(xx,yy,string_copy(global.strBld,0,string_length(global.strBld)-1),STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
 					else draw_text_ext_color(xx,yy,global.strBld,STRH,WW,_c[1],_c[2],_c[3],_c[4],_c[0]);
 					
@@ -3340,7 +3340,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 	#region Draw Name
 		
 		// Reset Font
-		draw_set_font(fNeu)
+		draw_set_font(fNeu_New)
 		
 		#region Anim Name Variable
 			
@@ -3351,7 +3351,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 				
 				#region Text Pre
 					
-					draw_set_font(fNeuB)
+					draw_set_font(fNeuB_New)
 					var w = WW/3
 					var h = (WH*.9)-1
 					var _w = string_width(_nm)
@@ -3377,7 +3377,7 @@ function diaNar_draw_dialogue(inst,actr,i,letterbox) {
 					draw_text_color(xy[0]+5,xy[1]-5,_nm,_c[1],_c[2],_c[3],_c[4],1)
 					
 					// Reset Font
-					draw_set_font(fNeu)
+					draw_set_font(fNeu_New)
 					
 				#endregion
 				

@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":283.6898,
+  "duration":175.34404,
   "name":"msxBellhop",
   "parent":{
     "name":"Tezeta",

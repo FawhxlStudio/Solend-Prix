@@ -133,7 +133,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			surface_set_target(titSurf)
 			
 			draw_set_hvalign([fa_center,fa_middle])
-			draw_set_font(fTitle)
+			draw_set_font(fTitle_New)
 			var _str = "Solend Prix"
 			var _strw = string_width(_str)
 			if(titAngl == N) titAngl = random_range(-3,3);
@@ -170,7 +170,7 @@ if (room == rMenu and D.game_state == GAME.MENU) {
 			
 			// Init Play + Button Draws
 			draw_set_hvalign([fa_center,fa_middle])
-			draw_set_font(fHUD)
+			draw_set_font(fHUD_New)
 			var _bpct = btnDeli/btnDel
 			var _bx1 = lerp(WW*.785,WW*.67,_bpct)
 			var _bx2 = lerp(WW*.785,WW*.9,_bpct)

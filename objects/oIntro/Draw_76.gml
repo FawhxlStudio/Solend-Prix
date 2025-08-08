@@ -8,7 +8,7 @@
 		var fo = draw_get_font()
 		var hvo = draw_get_hvalign()
 		var ao = draw_get_alpha()
-		draw_set_font(fNarrator)
+		draw_set_font(fNarrator_New)
 		draw_set_hvalign([fa_center,fa_top])
 		draw_set_alpha(1)
 		var _scl = WW/1920

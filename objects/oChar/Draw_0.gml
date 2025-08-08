@@ -224,7 +224,7 @@ if(D.scni == scni and !in_party(id) and !diaNar_in_focus(id)) {
 					// Draw Init
 					var fo = draw_get_font()
 					var hvo = draw_get_hvalign()
-					draw_set_font(fHUD)
+					draw_set_font(fHUD_New)
 					draw_set_hvalign([fa_center,fa_middle])
 					
 					#region Approach

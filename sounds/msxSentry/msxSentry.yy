@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":412.70856,
+  "duration":204.61859,
   "name":"msxSentry",
   "parent":{
     "name":"Tezeta",

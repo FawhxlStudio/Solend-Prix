@@ -57,8 +57,8 @@
 
 #region Char Fonts
 	
-	font1 = fNeu // Dialogue
-	font2 = fNeu // Emote
+	font1 = fNeu_New // Dialogue
+	font2 = fNeu_New // Emote
 	
 #endregion
 

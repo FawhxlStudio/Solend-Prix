@@ -21,7 +21,7 @@
 	// Early
 	fadeIn = GSPD*2
 	fadeIni = 0
-	mns = 1.8
+	mns = 4
 	del = (GSPD*60)*mns
 	deli = 0
 	

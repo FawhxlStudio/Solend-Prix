@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":260.049,
+  "duration":309.07065,
   "name":"msxSlickBandit",
   "parent":{
     "name":"Tezeta",

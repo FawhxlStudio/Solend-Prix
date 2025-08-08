@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":289.09714,
+  "duration":140.57071,
   "name":"msxPixelCycle",
   "parent":{
     "name":"Tezeta",

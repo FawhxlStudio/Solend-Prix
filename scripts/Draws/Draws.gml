@@ -74,7 +74,7 @@
 				
 				var midx = lerp(xy[0],xy[2],0.5)
 				var midy = lerp(xy[1],xy[3],0.5)
-				draw_set_font(fHUD)
+				draw_set_font(fHUD_New)
 				draw_set_hvalign([fa_center,fa_middle])
 				draw_text_color(midx,midy,str,fgc[1],fgc[2],
 					fgc[3],fgc[4],fgc[0])
@@ -421,7 +421,7 @@
 					// This is also the first defaults... Ideally outside of specific draw lines these should return to these values...
 					// Can use this to reset to defaults if needed?
 					HVO = [fa_left,fa_top]
-					FO = fNeu
+					FO = fNeu_New
 					AO = 1
 					CO = c.wht
 					
@@ -432,7 +432,7 @@
 				// Must be in Data Create Event...
 				// D wouldn't be set yet...
 				HVO = [fa_left,fa_top]
-				FO = fNeu
+				FO = fNeu_New
 				AO = 1
 				CO = c.wht
 				

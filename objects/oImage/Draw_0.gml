@@ -45,7 +45,7 @@ if(D.game_state == GAME.PLAY
 						#region Draw Hover/Found Messages on Cursor
 							
 							// Init
-							draw_set_font(fNeu)
+							draw_set_font(fNeu_New)
 							var _w = D.bgImg.sprite_width/6
 							var strw = string_width_ext(str,STRH,_w)
 							var strh = string_height_ext(str,STRH,_w)
@@ -74,7 +74,7 @@ if(D.game_state == GAME.PLAY
 							draw_set_hvalign(hv)
 							draw_text_ext_color(xx,yy,str,STRH,_w,c.wht,c.wht,c.wht,c.wht,D.hvrPct)
 							draw_set_hvalign(hvo)
-							draw_set_font(fNeu)
+							draw_set_font(fNeu_New)
 							
 						#endregion
 						

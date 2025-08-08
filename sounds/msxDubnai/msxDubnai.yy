@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":250.72327,
+  "duration":188.75937,
   "name":"msxDubnai",
   "parent":{
     "name":"Tezeta",

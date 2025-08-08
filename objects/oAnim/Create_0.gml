@@ -32,7 +32,7 @@ LIGHTS_DIM = c.gry
 LIGHTS_ON = c.wht
 
 animStr = N
-font = fNeu
+font = fNeu_New
 bg = sprNA
 bd = sprNA
 ship = sprNA

@@ -94,12 +94,12 @@
 					if(texturegroup_get_status("tg_char_sylas") == texturegroup_status_unloaded) texturegroup_load("tg_char_sylas",T);
 					done = F
 					
-				} else if(texturegroup_get_status("tg_common") != texturegroup_status_fetched) {
+				}/* else if(texturegroup_get_status("tg_common") != texturegroup_status_fetched) {
 					
 					if(texturegroup_get_status("tg_common") == texturegroup_status_unloaded) texturegroup_load("tg_common",T);
 					done = F
 					
-				} else if(texturegroup_get_status("tg_goth_common") != texturegroup_status_fetched) {
+				}*/ else if(texturegroup_get_status("tg_goth_common") != texturegroup_status_fetched) {
 					
 					if(texturegroup_get_status("tg_goth_common") == texturegroup_status_unloaded) texturegroup_load("tg_goth_common",T);
 					done = F
@@ -318,12 +318,12 @@
 				if(texturegroup_get_status("tg_char_spitfire") == texturegroup_status_unloaded) texturegroup_load("tg_char_spitfire",T);
 				done = F
 				
-			} else if(texturegroup_get_status("tg_common_female") != texturegroup_status_fetched) {
+			}/* else if(texturegroup_get_status("tg_common_female") != texturegroup_status_fetched) {
 				
 				if(texturegroup_get_status("tg_common_female") == texturegroup_status_unloaded) texturegroup_load("tg_common_female",T);
 				done = F
 				
-			}
+			}*/
 			return done
 			
 		}
@@ -336,12 +336,12 @@
 				if(texturegroup_get_status("tg_char_alexandria") == texturegroup_status_unloaded) texturegroup_load("tg_char_alexandria",T);
 				done = F
 				
-			} else if(texturegroup_get_status("tg_common_female") != texturegroup_status_fetched) {
+			}/* else if(texturegroup_get_status("tg_common_female") != texturegroup_status_fetched) {
 				
 				if(texturegroup_get_status("tg_common_female") == texturegroup_status_unloaded) texturegroup_load("tg_common_female",T);
 				done = F
 				
-			}
+			}*/
 			return done
 			
 		}
@@ -350,7 +350,7 @@
 			
 			var done = T
 			// Commons
-			if(texturegroup_get_status("tg_common_male") != texturegroup_status_fetched) {
+			/*if(texturegroup_get_status("tg_common_male") != texturegroup_status_fetched) {
 				
 				if(texturegroup_get_status("tg_common_male") == texturegroup_status_unloaded) texturegroup_load("tg_common_male",T);
 				done = F
@@ -360,7 +360,7 @@
 				if(texturegroup_get_status("tg_common_female") == texturegroup_status_unloaded) texturegroup_load("tg_common_female",T);
 				done = F
 				
-			} else if(texturegroup_get_status("tg_males") != texturegroup_status_fetched) {
+			} else */if(texturegroup_get_status("tg_males") != texturegroup_status_fetched) {
 				
 				if(texturegroup_get_status("tg_males") == texturegroup_status_unloaded) texturegroup_load("tg_males",T);
 				done = F
@@ -563,14 +563,14 @@
 		function unload_char_spitfire() {
 			
 			if(texturegroup_get_status("tg_char_spitfire") != texturegroup_status_unloaded) texturegroup_unload("tg_char_spitfire");
-			if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			//if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
 			
 		}
 		
 		function unload_char_alexandria() {
 			
 			if(texturegroup_get_status("tg_char_alexandria") != texturegroup_status_unloaded) texturegroup_unload("tg_char_alexandria");
-			if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			//if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
 			
 		}
 		
@@ -580,8 +580,8 @@
 			if(texturegroup_get_status("tg_females") != texturegroup_status_unloaded) texturegroup_unload("tg_females");
 			if(texturegroup_get_status("tg_males_close") != texturegroup_status_unloaded) texturegroup_unload("tg_males_close");
 			if(texturegroup_get_status("tg_females_close") != texturegroup_status_unloaded) texturegroup_unload("tg_females_close");
-			if(texturegroup_get_status("tg_common_male") != texturegroup_status_unloaded) texturegroup_unload("tg_common_male");
-			if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
+			//if(texturegroup_get_status("tg_common_male") != texturegroup_status_unloaded) texturegroup_unload("tg_common_male");
+			//if(texturegroup_get_status("tg_common_female") != texturegroup_status_unloaded) texturegroup_unload("tg_common_female");
 			
 		}
 		

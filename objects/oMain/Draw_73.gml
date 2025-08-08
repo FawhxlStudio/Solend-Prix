@@ -131,7 +131,7 @@
 																								
 																								#region Draw Hover/Found Messages on Cursor
 																									
-																									draw_set_font(fNeu)
+																									draw_set_font(fNeu_New)
 																									var _w = D.bgImg.sprite_width/6
 																									var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
 																									var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)
@@ -470,7 +470,7 @@
 																			
 																			#region Draw Hover/Found Messages on Cursor
 																				
-																				draw_set_font(fNeu)
+																				draw_set_font(fNeu_New)
 																				var _w = D.bgImg.sprite_width/6
 																				var strw = string_width_ext(CM[$ string(i)][$ K.STR],STRH,_w)
 																				var strh = string_height_ext(CM[$ string(i)][$ K.STR],STRH,_w)

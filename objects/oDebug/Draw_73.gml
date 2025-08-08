@@ -208,7 +208,7 @@
 						
 						// Init Font
 						var fo = draw_get_font()
-						draw_set_font(fDebug)
+						draw_set_font(fDebug_New)
 						
 						// Loop through all the entries in ES
 						// (a struct of structs, each struct an entry with relevant data)

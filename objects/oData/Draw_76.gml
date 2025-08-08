@@ -14,7 +14,7 @@
 			draw_rectangle_ext_color([-1,-1,WW,WH],0,[.8,c.blk,c.blk,c.blk,c.blk],F)
 			
 			// Init Text
-			draw_set_font(fTitle)
+			draw_set_font(fTitle_New)
 			draw_set_hvalign([fa_center,fa_middle])
 			var _str = "LOADING"
 			var _w = WW/2

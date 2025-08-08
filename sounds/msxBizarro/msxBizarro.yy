@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":308.6106,
+  "duration":158.6663,
   "name":"msxBizarro",
   "parent":{
     "name":"Tezeta",

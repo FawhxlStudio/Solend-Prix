@@ -763,7 +763,7 @@ if(active and edit and !console) {
 					draw_olds_pull()
 					
 					// Init
-					draw_set_font(fDebug)
+					draw_set_font(fDebug_New)
 					if(diaPrev2Str != "") {
 						
 						text_prep(string_trim(diaPrev2Str));
@@ -1193,7 +1193,7 @@ if(active and edit and !console) {
 				var _th = string_height_ext(">"+CONarr[CONstri],20,WW)
 				var _xx = 0
 				var _yy = WH // sep+padding = 30
-				draw_set_font(fDebug)
+				draw_set_font(fDebug_New)
 				draw_set_hvalign([fa_left,fa_bottom])
 				
 				#region String W/H

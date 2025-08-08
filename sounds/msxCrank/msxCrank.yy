@@ -9,7 +9,7 @@
   "bitRate":320,
   "compression":2,
   "conversionMode":0,
-  "duration":277.2,
+  "duration":257.7894,
   "name":"msxCrank",
   "parent":{
     "name":"Tezeta",

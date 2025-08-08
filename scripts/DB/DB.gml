@@ -1251,8 +1251,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fNeu	// Dialogue
-			_char.font2 = fNeuB // Emote
+			_char.font1 = fNeu_New	// Dialogue
+			_char.font2 = fNeuB_New // Emote
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1304,8 +1304,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fSpitfire  // Dialogue
-			_char.font2 = fSpitfireB // Emote
+			_char.font1 = fSpitfire_New  // Dialogue
+			_char.font2 = fSpitfireB_New // Emote
 			
 			// Face
 			_char.imgFace = sprSpitfire
@@ -1358,8 +1358,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fAlexandria1
-			_char.font2 = fAlexandria2
+			_char.font1 = fAlexandria1_New
+			_char.font2 = fAlexandria2_New
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1403,8 +1403,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fFakeLove
-			_char.font2 = fFem
+			_char.font1 = fFakeLove_New
+			_char.font2 = fFem_New
 			
 			// Face
 			_char.imgFace = sprRosna
@@ -1448,8 +1448,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fTransmit
-			_char.font2 = fHUD
+			_char.font1 = fTransmit_New
+			_char.font2 = fHUD_New
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1493,8 +1493,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fBrave
-			_char.font2 = fTransmit
+			_char.font1 = fBrave_New
+			_char.font2 = fTransmit_New
 			
 			// Face
 			_char.imgFace = sprSylasOlder
@@ -1537,8 +1537,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fNeu
-			_char.font2 = fNeuB
+			_char.font1 = fNeu_New
+			_char.font2 = fNeuB_New
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1582,8 +1582,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fNeu
-			_char.font2 = fNeuB
+			_char.font1 = fNeu_New
+			_char.font2 = fNeuB_New
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1627,8 +1627,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fNeu
-			_char.font2 = fNeuB
+			_char.font1 = fNeu_New
+			_char.font2 = fNeuB_New
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1671,8 +1671,8 @@ function db_act() {
 		#region Assets
 			
 			// Fonts
-			_char.font1 = fFakeLove
-			_char.font2 = fInfect
+			_char.font1 = fFakeLove_New
+			_char.font2 = fInfect_New
 			
 			// Face
 			_char.imgFace = sprNA
@@ -1798,8 +1798,8 @@ function db_act_rnd(scni,close) {
 			#endregion
 			
 			// Fonts
-			_char.font1 = fFem
-			_char.font2 = fEmoteFemale
+			_char.font1 = fFem_New
+			_char.font2 = fEmoteFemale_New
 			
 			// Colors
 			_char.col[1] = c.wht
@@ -1919,8 +1919,8 @@ function db_act_rnd(scni,close) {
 			#endregion
 			
 			// Fonts
-			_char.font1 = fMal
-			_char.font2 = fEmoteMale
+			_char.font1 = fMal_New
+			_char.font2 = fEmoteMale_New
 			
 			// Colors
 			_char.col[1] = c.wht
@@ -2047,8 +2047,8 @@ function db_act_rnd_slum(scni,close) {
 			#endregion
 			
 			// Fonts
-			_char.font1 = fFem
-			_char.font2 = fEmoteFemale
+			_char.font1 = fFem_New
+			_char.font2 = fEmoteFemale_New
 			
 			// Colors
 			_char.col[1] = c.wht
@@ -2168,8 +2168,8 @@ function db_act_rnd_slum(scni,close) {
 			#endregion
 			
 			// Fonts
-			_char.font1 = fMal
-			_char.font2 = fEmoteMale
+			_char.font1 = fMal_New
+			_char.font2 = fEmoteMale_New
 			
 			// Colors
 			_char.col[1] = c.wht
@@ -2296,8 +2296,8 @@ function db_act_rnd_broth(scni,close) {
 			#endregion
 			
 			// Fonts
-			_char.font1 = fFem
-			_char.font2 = fEmoteFemale
+			_char.font1 = fFem_New
+			_char.font2 = fEmoteFemale_New
 			
 			// Colors
 			_char.col[1] = c.wht
@@ -2417,8 +2417,8 @@ function db_act_rnd_broth(scni,close) {
 			#endregion
 			
 			// Fonts
-			_char.font1 = fMal
-			_char.font2 = fEmoteMale
+			_char.font1 = fMal_New
+			_char.font2 = fEmoteMale_New
 			
 			// Colors
 			_char.col[1] = c.wht
